@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{7147ca72-e18f-4125-979c-92ed5cfd60bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Math">
+      <UniqueIdentifier>{b4154ee6-4b19-45be-bf95-85754f8a8631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{ff5487e5-ecb5-45eb-9f6b-f20f0ff34cfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="High Level Interface">
+      <UniqueIdentifier>{16300282-9fe6-4783-91b1-447ff751be6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Entity">
+      <UniqueIdentifier>{4f50f731-41c8-46c3-848d-1d3100899a86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{53075aad-7f72-44c4-acf8-3f637af401fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Time">
+      <UniqueIdentifier>{2cefdafa-df06-4179-b150-db80b977e095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{638050be-c7e2-4e39-af23-36c1739da042}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{dfa63d41-54b7-4120-b09a-fd416e329a3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component">
+      <UniqueIdentifier>{832115bd-cb40-424f-8547-3c4a14873d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Script">
+      <UniqueIdentifier>{9f7656fe-c1bd-42b2-a7bb-1e3e10c5960d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{f0a3da02-3349-4f46-91a8-13c4bcc1f509}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Layer">
+      <UniqueIdentifier>{68799a28-bdf9-448f-bdea-366cb139180f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\2. Base">
+      <UniqueIdentifier>{b3b88e4d-47f1-48ce-aae0-93a550256c8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\1. Manager">
+      <UniqueIdentifier>{69dfd397-107f-43fe-b952-3fe501d74a04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\1. MeshRenderer">
+      <UniqueIdentifier>{5dc20f89-2946-4415-ba2e-becd0fcfa3cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\2. Transform">
+      <UniqueIdentifier>{228c666c-a29a-43a4-b2b1-14a84dd2ec06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{13d0c5d5-c28e-4123-a13c-8041c747e389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{a5842ff3-a5eb-4eae-a86b-e78d25f54597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Base Resources">
+      <UniqueIdentifier>{62ccc597-e793-4dc8-bb94-8bebe3a31dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Script\User_Script">
+      <UniqueIdentifier>{e4865293-667a-4386-9685-442c403dfe19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\3. Camera">
+      <UniqueIdentifier>{79e649f9-39cc-483a-827e-d22992039b6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\ConstantBuffer">
+      <UniqueIdentifier>{4750e933-7601-4cc0-877a-4a146d86b880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\GraphicDevice">
+      <UniqueIdentifier>{3f83d7e8-44e2-43db-ae23-c457f7e56213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Renderer">
+      <UniqueIdentifier>{bedb7024-4aa8-4d0b-8089-96368dd66ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Mesh">
+      <UniqueIdentifier>{b6a9cdf4-8c91-4945-9e5f-6d4a32eee3ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader">
+      <UniqueIdentifier>{64a0db14-dd3f-4eb5-a9d5-9b7fb37fef15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Object">
+      <UniqueIdentifier>{4819bac6-8d16-4512-ad5b-c56ad9664e62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Enum">
+      <UniqueIdentifier>{1835b94b-39cf-4b73-b9e3-fa67eb9223a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Input">
+      <UniqueIdentifier>{a53b44ab-5f5c-4939-9942-a3b7dc5d9d51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Animation">
+      <UniqueIdentifier>{0c9530b6-2ae3-43ff-8fbc-a0df2a0cd23e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\5. Animator">
+      <UniqueIdentifier>{0ec66036-add5-4c37-8e65-c56e0f8d1fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\5. Collider">
+      <UniqueIdentifier>{ac7e98c6-a133-4a24-98af-3995d6be8a0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\5. Collider\1%29 2D">
+      <UniqueIdentifier>{902719a2-dea7-495c-bcf0-1d569ae959b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\4. Rigidbody2D">
+      <UniqueIdentifier>{ef472c67-13b5-4c6b-bb9c-ec9d20c8f281}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssApplication.cpp">
+      <Filter>High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssCamera.cpp">
+      <Filter>GameObject\Component\3. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssCollider2D.cpp">
+      <Filter>GameObject\Component\5. Collider\1%29 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssCollisionManager.cpp">
+      <Filter>GameObject\Component\5. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssComponent.cpp">
+      <Filter>GameObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssEntity.cpp">
+      <Filter>Common\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssConstantBuffer.cpp">
+      <Filter>Graphics\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssGraphicDevice_Dx11.cpp">
+      <Filter>Graphics\GraphicDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssInput.cpp">
+      <Filter>Common\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssLayer.cpp">
+      <Filter>Scene\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssMath.cpp">
+      <Filter>Common\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssMesh.cpp">
+      <Filter>Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssMeshRenderer.cpp">
+      <Filter>GameObject\Component\1. MeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssTime.cpp">
+      <Filter>Common\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssRenderer.cpp">
+      <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssResource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssScene.cpp">
+      <Filter>Scene\2. Base</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssSceneManager.cpp">
+      <Filter>Scene\1. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssScript.cpp">
+      <Filter>GameObject\Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssShader.cpp">
+      <Filter>Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssTransform.cpp">
+      <Filter>GameObject\Component\2. Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssResources.cpp">
+      <Filter>Resource\Base Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssAnimator.cpp">
+      <Filter>GameObject\Component\5. Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssAnimation.cpp">
+      <Filter>Resource\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssRigidbody2D.cpp">
+      <Filter>GameObject\Component\4. Rigidbody2D</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssApplication.h">
+      <Filter>High Level Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssCamera.h">
+      <Filter>GameObject\Component\3. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssCollider2D.h">
+      <Filter>GameObject\Component\5. Collider\1%29 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssCollisionManager.h">
+      <Filter>GameObject\Component\5. Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssComponent.h">
+      <Filter>GameObject\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssEntity.h">
+      <Filter>Common\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssConstantBuffer.h">
+      <Filter>Graphics\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssGraphicDevice_Dx11.h">
+      <Filter>Graphics\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssGraphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SesangEngine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssEnums.h">
+      <Filter>Common\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssInput.h">
+      <Filter>Common\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssLayer.h">
+      <Filter>Scene\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssMath.h">
+      <Filter>Common\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssMesh.h">
+      <Filter>Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssMeshRenderer.h">
+      <Filter>GameObject\Component\1. MeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssObject.h">
+      <Filter>Common\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssTime.h">
+      <Filter>Common\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssRenderer.h">
+      <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssResource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssScene.h">
+      <Filter>Scene\2. Base</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssSceneManager.h">
+      <Filter>Scene\1. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssScript.h">
+      <Filter>GameObject\Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssShader.h">
+      <Filter>Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssTransform.h">
+      <Filter>GameObject\Component\2. Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssResources.h">
+      <Filter>Resource\Base Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssAnimator.h">
+      <Filter>GameObject\Component\5. Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssAnimation.h">
+      <Filter>Resource\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssRigidbody2D.h">
+      <Filter>GameObject\Component\4. Rigidbody2D</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)ssMath.inl">
+      <Filter>Common\Math</Filter>
+    </None>
+  </ItemGroup>
+</Project>

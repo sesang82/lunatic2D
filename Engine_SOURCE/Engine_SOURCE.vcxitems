@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{ef382c18-c456-428f-9c15-458a51343df7}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssAnimation.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssAnimator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssCollisionManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssConstantBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssGameObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssGraphicDevice_Dx11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssMaterial.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssMesh.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssMeshRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssResource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssRigidbody2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssScene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssSceneManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssScript.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssTime.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssTransform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SesangEngine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssAnimation.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssAnimator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssCollisionManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssConstantBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssEnums.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssGameObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssGraphicDevice_Dx11.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssGraphics.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssMaterial.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssMesh.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssResource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssRigidbody2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssScene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssSceneManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssScript.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssTime.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssTransform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)ssMath.inl" />
+  </ItemGroup>
+</Project>

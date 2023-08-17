@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="ssGridScript.cpp">
+      <Filter>Contents\Script\UI\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="ssBaseScene.cpp">
+      <Filter>Contents\Load\Scene\00. Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ssBoss1Scene.cpp">
+      <Filter>Contents\Load\Scene\Boss\1. %255colf</Filter>
+    </ClCompile>
+    <ClCompile Include="ssBoss2Scene.cpp">
+      <Filter>Contents\Load\Scene\Boss\2. Godness</Filter>
+    </ClCompile>
+    <ClCompile Include="ssBoss3Scene.cpp">
+      <Filter>Contents\Load\Scene\Boss\3.</Filter>
+    </ClCompile>
+    <ClCompile Include="ssBoss4Scene.cpp">
+      <Filter>Contents\Load\Scene\Boss\4.</Filter>
+    </ClCompile>
+    <ClCompile Include="ssCharacter.cpp">
+      <Filter>Contents\GameObj\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="ssEntryScene.cpp">
+      <Filter>Contents\Load\Scene\Stage 1</Filter>
+    </ClCompile>
+    <ClCompile Include="ssEntranceScene.cpp">
+      <Filter>Contents\Load\Scene\Library\Entrance</Filter>
+    </ClCompile>
+    <ClCompile Include="ssIntroScene.cpp">
+      <Filter>Contents\Load\Scene\Prologue\Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="ssLibraryScene.cpp">
+      <Filter>Contents\Load\Scene\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="ssTitleScene.cpp">
+      <Filter>Contents\Load\Scene\01. Title</Filter>
+    </ClCompile>
+    <ClCompile Include="ssUI.cpp">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SesangEngine.cpp" />
+    <ClCompile Include="ssProgressbar.cpp">
+      <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="ssBackground.cpp">
+      <Filter>Contents\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="ssPlayerScript.cpp">
+      <Filter>Contents\Script\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ssPlatform.cpp">
+      <Filter>Contents\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="ssGroundScript.cpp">
+      <Filter>Contents\Script\Platform\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="ssCameraScript.cpp">
+      <Filter>Contents\Script\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="ssCharacterState.cpp">
+      <Filter>Contents\Script\Character\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ssGameState.cpp">
+      <Filter>Contents\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="ssFSM.cpp">
+      <Filter>Contents\Script\Component\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="ssState.cpp">
+      <Filter>Contents\Script\Component\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="ssIdleState.cpp">
+      <Filter>Contents\Script\Component\FSM\MonsterState\IdleState</Filter>
+    </ClCompile>
+    <ClCompile Include="ssAttackState.cpp">
+      <Filter>Contents\Script\Component\FSM\MonsterState\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="ssDeadState.cpp">
+      <Filter>Contents\Script\Component\FSM\MonsterState\DeadState</Filter>
+    </ClCompile>
+    <ClCompile Include="ssTraceState.cpp">
+      <Filter>Contents\Script\Component\FSM\MonsterState\TraceState</Filter>
+    </ClCompile>
+    <ClCompile Include="ssMonster.cpp">
+      <Filter>Contents\GameObj\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ssPlayer.cpp">
+      <Filter>Contents\GameObj\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ssMonsterScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ssStoneEyeScript.cpp">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClCompile>
+    <ClCompile Include="ssSkeletonArcherScript.cpp">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClCompile>
+    <ClCompile Include="ssSkeletonLizardScript.cpp">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClCompile>
+    <ClCompile Include="ssWoodGolemScript.cpp">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClCompile>
+    <ClCompile Include="ssWolfScript.cpp">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClCompile>
+    <ClCompile Include="ssZombieScript.cpp">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClCompile>
+    <ClCompile Include="ssQueenWolfScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ssGoddessScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ssStage1Scene.cpp">
+      <Filter>Contents\Load\Scene\Stage 1</Filter>
+    </ClCompile>
+    <ClCompile Include="ssStoneEye.cpp">
+      <Filter>Contents\GameObj\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ssAttackCollider.cpp">
+      <Filter>Contents\GameObj\etc\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="ssPlayerAttackColScript.cpp">
+      <Filter>Contents\Script\Character\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="ssMonsterAttackColScript.cpp">
+      <Filter>Contents\Script\Character\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterBar.cpp">
+      <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{c5fc215d-c10e-4681-b37e-cea3876d6cfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load">
+      <UniqueIdentifier>{0ac77a99-55a6-4fef-ac0f-1432ab91b5ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script">
+      <UniqueIdentifier>{2d637978-4827-4270-966e-22155666736f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene">
+      <UniqueIdentifier>{43c4f78e-646d-47f6-a528-f3e39acf77f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\01. Title">
+      <UniqueIdentifier>{1d3a8d40-c9bd-4f83-8872-8385477253ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\Boss">
+      <UniqueIdentifier>{9ecea653-ecd1-4442-848d-cf2e828ae568}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\Boss\1. %255colf">
+      <UniqueIdentifier>{f4d1a18c-54dc-4c36-b78f-11efaf5bd0db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\Boss\2. Godness">
+      <UniqueIdentifier>{380be234-e883-4fad-803a-cdcb50af047b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\Boss\3.">
+      <UniqueIdentifier>{44d20ab3-8bb1-45a6-a624-f6c287d620c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\Boss\4.">
+      <UniqueIdentifier>{1c0db486-460b-4348-91de-a248f3702540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\Library">
+      <UniqueIdentifier>{3ce78bcd-753a-415f-bd56-0b867df0fdb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\Library\Entrance">
+      <UniqueIdentifier>{4fbd3706-3330-4f28-aa5b-12affebb4935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\Prologue">
+      <UniqueIdentifier>{4bb23342-ce00-4a47-bdc0-05acc4d53a12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\Prologue\Intro">
+      <UniqueIdentifier>{9bd1db17-442f-4e4a-a9c4-6975d0e14d5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\00. Base">
+      <UniqueIdentifier>{15f88d8c-d27f-47c7-a199-d2fc50bd4f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj">
+      <UniqueIdentifier>{80f61750-c740-490d-9393-58487dd6e900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\Stage 1">
+      <UniqueIdentifier>{7a36ed89-a867-4c38-957a-537de63b8b9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\UI">
+      <UniqueIdentifier>{c411d712-6650-44a8-a6cc-ab91d3873373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\UI\01. ProgressBar">
+      <UniqueIdentifier>{3fc34276-615e-422d-bef9-fd6d6c5c800e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\Character">
+      <UniqueIdentifier>{a15bcb47-3563-40ab-ac9c-ca97541b1935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Load\Scene\00. Base\1%29 For Class">
+      <UniqueIdentifier>{941d7140-1fc2-4661-b6fa-dd802a8c16db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\etc">
+      <UniqueIdentifier>{3002db1f-86dd-47fc-a2a4-fa1e6442f40a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Platform">
+      <UniqueIdentifier>{e3caef46-9f79-4e30-a212-594aa6053ade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\UI">
+      <UniqueIdentifier>{0a38b36d-ad3b-4491-86cf-da763ff97bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\UI\Progress">
+      <UniqueIdentifier>{8391e36b-9bb2-4d60-8db0-b39745745ed4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Platform\Ground">
+      <UniqueIdentifier>{62a3b5e8-76e9-4487-9048-7fbed7104e32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character">
+      <UniqueIdentifier>{f78d0315-5358-4a03-8027-9d0fff472d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Player">
+      <UniqueIdentifier>{0dd12685-041d-4e1b-82f9-7e97032a3b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster">
+      <UniqueIdentifier>{72492ebe-3fdb-463f-9b67-82965e5a3ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\UI\Grid">
+      <UniqueIdentifier>{ae134f87-402a-44f0-b006-6c9fb8f159ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Component">
+      <UniqueIdentifier>{4fbed331-ba16-45ea-a328-01f7dd37be5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Component\Camera">
+      <UniqueIdentifier>{b3086021-e195-4746-a04e-68a919016265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Base">
+      <UniqueIdentifier>{a2d2e0bb-148d-4562-8a55-e374550dc831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\etc">
+      <UniqueIdentifier>{03100f1c-075b-4496-b618-6d7afde85259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Component\FSM">
+      <UniqueIdentifier>{04014004-6198-41da-af6e-69197eb0555a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Component\FSM\MonsterState">
+      <UniqueIdentifier>{1d0020b6-1713-4770-9153-1720194db30e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Component\FSM\MonsterState\AttackState">
+      <UniqueIdentifier>{4b1c575a-88b2-40ed-82cf-6bca20efb56f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Component\FSM\MonsterState\TraceState">
+      <UniqueIdentifier>{96ef7f52-ee64-4e4b-aa45-d623d954069a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Component\FSM\MonsterState\IdleState">
+      <UniqueIdentifier>{1783b72b-c1d5-4f0e-b6e0-c944c548df76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Component\FSM\MonsterState\DeadState">
+      <UniqueIdentifier>{b5567ade-8e6b-4de9-9fa5-17daa425b8a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\Character\Player">
+      <UniqueIdentifier>{98cec205-439d-4fda-8df9-e2a7e66b2495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\Character\Monster">
+      <UniqueIdentifier>{51b96000-2674-4431-8eb3-4382b39b5420}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\General">
+      <UniqueIdentifier>{6762a6b0-ba38-44e5-9c6c-a5ff10d3985a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Boss">
+      <UniqueIdentifier>{ee2b594b-f254-4cc7-b054-71a2a0eabfaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base">
+      <UniqueIdentifier>{4032b9d3-beff-43f0-99c5-e6df0cc90d33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\etc\Collider">
+      <UniqueIdentifier>{73f1f5d9-0861-4546-a61f-59ab7f67d74d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Collider">
+      <UniqueIdentifier>{aa1e82ee-1010-47a3-8045-dc441db219dc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LoadScenes.h">
+      <Filter>Contents\Load</Filter>
+    </ClInclude>
+    <ClInclude Include="ssGridScript.h">
+      <Filter>Contents\Script\UI\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="ssBaseScene.h">
+      <Filter>Contents\Load\Scene\00. Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ssBoss1Scene.h">
+      <Filter>Contents\Load\Scene\Boss\1. %255colf</Filter>
+    </ClInclude>
+    <ClInclude Include="ssBoss2Scene.h">
+      <Filter>Contents\Load\Scene\Boss\2. Godness</Filter>
+    </ClInclude>
+    <ClInclude Include="ssBoss3Scene.h">
+      <Filter>Contents\Load\Scene\Boss\3.</Filter>
+    </ClInclude>
+    <ClInclude Include="ssBoss4Scene.h">
+      <Filter>Contents\Load\Scene\Boss\4.</Filter>
+    </ClInclude>
+    <ClInclude Include="ssCharacter.h">
+      <Filter>Contents\GameObj\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="ssEntryScene.h">
+      <Filter>Contents\Load\Scene\Stage 1</Filter>
+    </ClInclude>
+    <ClInclude Include="ssEntranceScene.h">
+      <Filter>Contents\Load\Scene\Library\Entrance</Filter>
+    </ClInclude>
+    <ClInclude Include="ssIntroScene.h">
+      <Filter>Contents\Load\Scene\Prologue\Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="ssLibraryScene.h">
+      <Filter>Contents\Load\Scene\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="ssTitleScene.h">
+      <Filter>Contents\Load\Scene\01. Title</Filter>
+    </ClInclude>
+    <ClInclude Include="ssUI.h">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ssProgressbar.h">
+      <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="ssBackground.h">
+      <Filter>Contents\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPlayerScript.h">
+      <Filter>Contents\Script\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPlatform.h">
+      <Filter>Contents\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="ssGroundScript.h">
+      <Filter>Contents\Script\Platform\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="ssCameraScript.h">
+      <Filter>Contents\Script\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ssCharacterState.h">
+      <Filter>Contents\Script\Character\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ssGameState.h">
+      <Filter>Contents\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="ssFSM.h">
+      <Filter>Contents\Script\Component\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="ssState.h">
+      <Filter>Contents\Script\Component\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="ssIdleState.h">
+      <Filter>Contents\Script\Component\FSM\MonsterState\IdleState</Filter>
+    </ClInclude>
+    <ClInclude Include="ssAttackState.h">
+      <Filter>Contents\Script\Component\FSM\MonsterState\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="ssDeadState.h">
+      <Filter>Contents\Script\Component\FSM\MonsterState\DeadState</Filter>
+    </ClInclude>
+    <ClInclude Include="ssTraceState.h">
+      <Filter>Contents\Script\Component\FSM\MonsterState\TraceState</Filter>
+    </ClInclude>
+    <ClInclude Include="ssMonster.h">
+      <Filter>Contents\GameObj\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="ssMonsterScript.h">
+      <Filter>Contents\Script\Character\Monster\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ssStoneEyeScript.h">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClInclude>
+    <ClInclude Include="ssSkeletonArcherScript.h">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClInclude>
+    <ClInclude Include="ssSkeletonLizardScript.h">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClInclude>
+    <ClInclude Include="ssWoodGolemScript.h">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClInclude>
+    <ClInclude Include="ssWolfScript.h">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClInclude>
+    <ClInclude Include="ssZombieScript.h">
+      <Filter>Contents\Script\Character\Monster\General</Filter>
+    </ClInclude>
+    <ClInclude Include="ssQueenWolfScript.h">
+      <Filter>Contents\Script\Character\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ssGoddessScript.h">
+      <Filter>Contents\Script\Character\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ssStage1Scene.h">
+      <Filter>Contents\Load\Scene\Stage 1</Filter>
+    </ClInclude>
+    <ClInclude Include="ssStoneEye.h">
+      <Filter>Contents\GameObj\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPlayer.h">
+      <Filter>Contents\GameObj\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ssAttackCollider.h">
+      <Filter>Contents\GameObj\etc\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPlayerAttackColScript.h">
+      <Filter>Contents\Script\Character\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ssMonsterAttackColScript.h">
+      <Filter>Contents\Script\Character\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterBar.h">
+      <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

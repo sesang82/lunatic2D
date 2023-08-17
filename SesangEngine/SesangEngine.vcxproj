@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{161f807b-cd77-4f9a-8375-ed3bc4bcf580}</ProjectGuid>
+    <RootNamespace>SesangEngine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\Engine_SOURCE\Engine_SOURCE.vcxitems" Label="Shared" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <MinFilesInUnityFile>10</MinFilesInUnityFile>
+      <MaxFilesInUnityFile>10</MaxFilesInUnityFile>
+      <MinUnityFiles>20</MinUnityFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <MinFilesInUnityFile>10</MinFilesInUnityFile>
+      <MaxFilesInUnityFile>10</MaxFilesInUnityFile>
+      <MinUnityFiles>20</MinUnityFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinFilesInUnityFile>10</MinFilesInUnityFile>
+      <MaxFilesInUnityFile>10</MaxFilesInUnityFile>
+      <MinUnityFiles>20</MinUnityFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinFilesInUnityFile>10</MinFilesInUnityFile>
+      <MaxFilesInUnityFile>10</MaxFilesInUnityFile>
+      <MinUnityFiles>20</MinUnityFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="MonsterBar.cpp" />
+    <ClCompile Include="SesangEngine.cpp" />
+    <ClCompile Include="ssAttackCollider.cpp" />
+    <ClCompile Include="ssAttackState.cpp" />
+    <ClCompile Include="ssDeadState.cpp" />
+    <ClCompile Include="ssFSM.cpp" />
+    <ClCompile Include="ssBackground.cpp" />
+    <ClCompile Include="ssBaseScene.cpp" />
+    <ClCompile Include="ssBoss1Scene.cpp" />
+    <ClCompile Include="ssBoss2Scene.cpp" />
+    <ClCompile Include="ssBoss3Scene.cpp" />
+    <ClCompile Include="ssBoss4Scene.cpp" />
+    <ClCompile Include="ssCameraScript.cpp" />
+    <ClCompile Include="ssCharacter.cpp" />
+    <ClCompile Include="ssGameState.cpp" />
+    <ClCompile Include="ssCharacterState.cpp" />
+    <ClCompile Include="ssEntranceScene.cpp" />
+    <ClCompile Include="ssEntryScene.cpp" />
+    <ClCompile Include="ssGoddessScript.cpp" />
+    <ClCompile Include="ssGridScript.cpp" />
+    <ClCompile Include="ssGroundScript.cpp" />
+    <ClCompile Include="ssIdleState.cpp" />
+    <ClCompile Include="ssIntroScene.cpp" />
+    <ClCompile Include="ssLibraryScene.cpp" />
+    <ClCompile Include="ssMonster.cpp" />
+    <ClCompile Include="ssMonsterAttackColScript.cpp" />
+    <ClCompile Include="ssMonsterScript.cpp" />
+    <ClCompile Include="ssPlatform.cpp" />
+    <ClCompile Include="ssPlayer.cpp" />
+    <ClCompile Include="ssPlayerAttackColScript.cpp" />
+    <ClCompile Include="ssPlayerScript.cpp" />
+    <ClCompile Include="ssProgressbar.cpp" />
+    <ClCompile Include="ssQueenWolfScript.cpp" />
+    <ClCompile Include="ssSkeletonArcherScript.cpp" />
+    <ClCompile Include="ssSkeletonLizardScript.cpp" />
+    <ClCompile Include="ssStage1Scene.cpp" />
+    <ClCompile Include="ssState.cpp" />
+    <ClCompile Include="ssStoneEye.cpp" />
+    <ClCompile Include="ssStoneEyeScript.cpp" />
+    <ClCompile Include="ssTitleScene.cpp" />
+    <ClCompile Include="ssUI.cpp" />
+    <ClCompile Include="ssTraceState.cpp" />
+    <ClCompile Include="ssWolfScript.cpp" />
+    <ClCompile Include="ssWoodGolemScript.cpp" />
+    <ClCompile Include="ssZombieScript.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LoadScenes.h" />
+    <ClInclude Include="MonsterBar.h" />
+    <ClInclude Include="ssAttackCollider.h" />
+    <ClInclude Include="ssAttackState.h" />
+    <ClInclude Include="ssDeadState.h" />
+    <ClInclude Include="ssFSM.h" />
+    <ClInclude Include="ssBackground.h" />
+    <ClInclude Include="ssBaseScene.h" />
+    <ClInclude Include="ssBoss1Scene.h" />
+    <ClInclude Include="ssBoss2Scene.h" />
+    <ClInclude Include="ssBoss3Scene.h" />
+    <ClInclude Include="ssBoss4Scene.h" />
+    <ClInclude Include="ssCameraScript.h" />
+    <ClInclude Include="ssCharacter.h" />
+    <ClInclude Include="ssGameState.h" />
+    <ClInclude Include="ssCharacterState.h" />
+    <ClInclude Include="ssEntranceScene.h" />
+    <ClInclude Include="ssEntryScene.h" />
+    <ClInclude Include="ssGoddessScript.h" />
+    <ClInclude Include="ssGridScript.h" />
+    <ClInclude Include="ssGroundScript.h" />
+    <ClInclude Include="ssIdleState.h" />
+    <ClInclude Include="ssIntroScene.h" />
+    <ClInclude Include="ssLibraryScene.h" />
+    <ClInclude Include="ssMonster.h" />
+    <ClInclude Include="ssMonsterAttackColScript.h" />
+    <ClInclude Include="ssMonsterScript.h" />
+    <ClInclude Include="ssPlatform.h" />
+    <ClInclude Include="ssPlayer.h" />
+    <ClInclude Include="ssPlayerAttackColScript.h" />
+    <ClInclude Include="ssPlayerScript.h" />
+    <ClInclude Include="ssProgressbar.h" />
+    <ClInclude Include="ssQueenWolfScript.h" />
+    <ClInclude Include="ssSkeletonArcherScript.h" />
+    <ClInclude Include="ssSkeletonLizardScript.h" />
+    <ClInclude Include="ssStage1Scene.h" />
+    <ClInclude Include="ssState.h" />
+    <ClInclude Include="ssStoneEye.h" />
+    <ClInclude Include="ssStoneEyeScript.h" />
+    <ClInclude Include="ssTitleScene.h" />
+    <ClInclude Include="ssUI.h" />
+    <ClInclude Include="ssTraceState.h" />
+    <ClInclude Include="ssWolfScript.h" />
+    <ClInclude Include="ssWoodGolemScript.h" />
+    <ClInclude Include="ssZombieScript.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
