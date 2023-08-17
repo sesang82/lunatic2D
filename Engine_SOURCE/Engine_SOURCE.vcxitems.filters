@@ -106,6 +106,12 @@
     <Filter Include="GameObject\Component\4. Rigidbody2D">
       <UniqueIdentifier>{ef472c67-13b5-4c6b-bb9c-ec9d20c8f281}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\8. Sound">
+      <UniqueIdentifier>{8b44ce3e-fe70-423c-ac87-e9b34c89c1e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Sound">
+      <UniqueIdentifier>{f71fdb90-77cd-4889-980e-b8dc4c680e5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)ssApplication.cpp">
@@ -191,6 +197,18 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ssRigidbody2D.cpp">
       <Filter>GameObject\Component\4. Rigidbody2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssAudioSource.cpp">
+      <Filter>GameObject\Component\8. Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssAudioListener.cpp">
+      <Filter>GameObject\Component\8. Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssAudioClip.cpp">
+      <Filter>Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssFmod.cpp">
+      <Filter>Resource\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +310,18 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ssRigidbody2D.h">
       <Filter>GameObject\Component\4. Rigidbody2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssAudioListener.h">
+      <Filter>GameObject\Component\8. Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssAudioSource.h">
+      <Filter>GameObject\Component\8. Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssAudioClip.h">
+      <Filter>Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssFmod.h">
+      <Filter>Resource\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

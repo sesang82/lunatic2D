@@ -5,6 +5,7 @@
 #include "ssSceneManager.h"
 #include "ssCollisionManager.h"
 #include "../SesangEngine/ssGameState.h"
+#include "ssFmod.h"
 
 
 namespace ss
@@ -35,6 +36,7 @@ namespace ss
 	{
 		Time::Initiailize();
 		Input::Initialize();
+		Fmod::Initialize();
 
 		renderer::Initialize();
 

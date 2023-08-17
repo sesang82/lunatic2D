@@ -17,12 +17,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ssAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssAudioClip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssAudioListener.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssAudioSource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssFmod.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssGraphicDevice_Dx11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssInput.cpp" />
@@ -49,6 +53,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ssAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssAudioClip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssAudioListener.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssAudioSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssCollisionManager.h" />
@@ -56,6 +63,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ssConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssEnums.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssFmod.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssGraphicDevice_Dx11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssGraphics.h" />

@@ -6,6 +6,7 @@
 
 #include "..\Engine_SOURCE\ssApplication.h"
 #include "..\Engine_SOURCE\ssRenderer.h"
+#include "..\Engine_SOURCE\ssFmod.h"
 
 #include "LoadScenes.h"
 #include "guiEditor.h"
@@ -88,6 +89,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 렌더링 관련 메모리 해제 해줌
     renderer::Release();
     ss::SceneManager::Release();
+    ss::Fmod::Release();
   //  ss::GameState::DestroyInst();
     gui::Editor::Release();
 

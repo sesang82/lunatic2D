@@ -137,20 +137,6 @@ namespace ss
 		//// //=== 캐릭터용 피격 충돌체 
 		//AttackCollider* playerAttackCol = object::Instantiate<AttackCollider>(eLayerType::Collision, L"PlayerAttackCollider");
 
-
-
-		player->AddComponent<PlayerScript>();
-
-	
-	
-
-
-	
-
-
-
-
-
 		// 몬스터
 		StoneEye* Stone = object::Instantiate<StoneEye>(eLayerType::Monster, L"StoneEye");
 		Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함

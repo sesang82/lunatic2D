@@ -134,6 +134,9 @@
     <ClCompile Include="MonsterBar.cpp">
       <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
     </ClCompile>
+    <ClCompile Include="ssPlayScene.cpp">
+      <Filter>Contents\Load\Scene\for class</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -277,6 +280,9 @@
     <Filter Include="Contents\Script\Character\Collider">
       <UniqueIdentifier>{aa1e82ee-1010-47a3-8045-dc441db219dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Load\Scene\for class">
+      <UniqueIdentifier>{5b8c3370-1fc8-4645-a1da-893c9f582200}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h">
@@ -413,6 +419,9 @@
     </ClInclude>
     <ClInclude Include="MonsterBar.h">
       <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPlayScene.h">
+      <Filter>Contents\Load\Scene\for class</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
