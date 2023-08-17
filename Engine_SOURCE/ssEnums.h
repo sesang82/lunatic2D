@@ -16,6 +16,8 @@ namespace ss::enums
 		Animator,
 		Script,
 		Camera,
+		AudioListener,
+		AudioSource,
 		End,
 	};
 
@@ -44,6 +46,8 @@ namespace ss::enums
 		Material,
 		Mesh,
 		Animation,
+		ComputeShader,
+		AudioClip,
 		End,
 	};
 

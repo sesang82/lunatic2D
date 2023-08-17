@@ -41,8 +41,8 @@ namespace ss
 			mr->SetMaterial(Resources::Find<Material>(L"LibraryMtrl"));
 
 			Library->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.f, 900.f));
-			mr->Initialize(); // 트랜스폼 정보까지 합해져야하므로 transform 설정 한 후 해주기 
-			//Library->GetComponent<Transform>()->SetScale(Vector3(1600.f, 900.f, 1.0f));
+			
+			Library->GetComponent<Transform>()->SetScale(Vector3(1600.f, 900.f, 1.0f));
 	
 		}
 
@@ -109,12 +109,6 @@ namespace ss
 		Transform* tr = player->GetComponent<Transform>();
 		tr->SetPosition(Vector3(50.f, 100.f, 550.f));
 //		
-//				// 몬스터
-		StoneEye* Stone = object::Instantiate<StoneEye>(eLayerType::Monster, L"StoneEye");
-		Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-		Transform* eyetr = Stone->GetComponent<Transform>();
-		//eyetr->SetPosition(Vector3(-235.f, -350.f, 500.f));
-		 eyetr->SetPosition(Vector3(-235.f, 70.f, 500.f));
 	
 //
 //

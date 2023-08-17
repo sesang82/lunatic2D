@@ -76,7 +76,7 @@ float4 main(VSOut In) : SV_TARGET
     
     // bar 이미지의 uv x 좌표를 HP 비율에 맞게 조절한다.
     // 오른쪽-> 왼쪽
-        if (In.UV.x > BarRatio)
+        if (In.UV.x < 1.0 - BarRatio)
         {
             discard;
         }

@@ -203,7 +203,7 @@ namespace ss
 		CharacterState* statue = AddComponent<CharacterState>();
 
 
-		//AddComponent<PlayerScript>();
+		AddComponent<PlayerScript>();
 
 
 

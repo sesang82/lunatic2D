@@ -49,18 +49,12 @@ namespace ss
 		tr->SetPosition(Vector3(-588.f, 0.f, 500.f));
 
 
-		//				// 몬스터
-		Monster* StoneEye = object::Instantiate<Monster>(eLayerType::Monster, L"StoneEye");
-		StoneEye->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-		Transform* eyetr = StoneEye->GetComponent<Transform>();
-		eyetr->SetPosition(Vector3(-235.f, 180.f, 0.8f));
-		StoneEye->AddComponent<StoneEyeScript>();
+
 
 		// 충돌체 (왼쪽 바닥)
 		{
 			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_Floor");
 			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-			col_Floor->AddComponent<GroundScript>();
 
 			Transform* tr = col_Floor->GetComponent<Transform>();
 			tr->SetScale(Vector3(416.f, 200.f, 1.f));
@@ -72,7 +66,7 @@ namespace ss
 		{
 			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_Floor");
 			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-			col_Floor->AddComponent<GroundScript>();
+	
 
 			Transform* tr = col_Floor->GetComponent<Transform>();
 			tr->SetScale(Vector3(1000.f, 200.f, 1.f));
