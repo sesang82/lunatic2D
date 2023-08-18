@@ -15,6 +15,7 @@ namespace ss
     public:
         virtual void Initialize() override;
         virtual void Update() override;
+        virtual void LateUpdate() override;
 
         virtual void OnCollisionEnter(Collider2D* other) override;
         virtual void OnCollisionStay(Collider2D* other) override;
@@ -33,6 +34,11 @@ namespace ss
         class MeshRenderer* mMeshRenderer;
 
         class Player* mPlayer;
+
+
+        class AttackCollider* mAttackColliderObj;
+        class Transform* mAttackColTr;
+        class Collider2D* mAttackCol;
 
         Vector3					mPrevDir;
         Vector3					mCurDir;

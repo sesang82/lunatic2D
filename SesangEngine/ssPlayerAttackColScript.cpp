@@ -25,13 +25,13 @@ namespace ss
 		mPlayer = scene->FindGameObjectByName(L"Player");
 
 
-		mTransform->SetScale(Vector3(10.f, 10.f, 1.f));
+		mTransform->SetScale(Vector3(1.f, 1.f, 1.f)); // 어차피 충돌체 쓸거라 최소만 해두면 됨 
 
 
 	}
 	void PlayerAttackColScript::Update()
 	{
-		Vector2 test = mCollider->GetSize();
+	
 
 		Script::Update();
 	}
@@ -39,8 +39,6 @@ namespace ss
 	void PlayerAttackColScript::OnCollisionEnter(Collider2D* other)
 	{
 
-
-		Vector2 test = mCollider->GetSize();
 
 		if (L"StoneEye" == other->GetOwner()->GetName())
 		{

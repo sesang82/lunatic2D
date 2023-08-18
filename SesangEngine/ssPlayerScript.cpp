@@ -79,7 +79,6 @@ namespace ss
 		mAttackColliderObj->Initialize();
 		mAttackColliderObj->AddComponent<PlayerAttackColScript>();
 
-		mAttackCol = mAttackColliderObj->GetComponent<Collider2D>();
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
 	
 
@@ -879,11 +878,14 @@ namespace ss
 				{
 					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 					{
-
+						mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 						mAttackCol->SetSize(Vector2(10.f, 0.8f));
 						
+					
 
 					}
+
+			
 
 					if (mAttackCount == 1)
 					{
@@ -1027,8 +1029,10 @@ namespace ss
 	void PlayerScript::S_AttackEnd()
 	{
 
-		mCollider->SetSize(Vector2(0.2f, 0.8f));
-		mCollider->SetCenter(Vector2(-3.5f, 2.f));
+		//mCollider->SetSize(Vector2(0.2f, 0.8f));
+		//mCollider->SetCenter(Vector2(-3.5f, 2.f));
+
+		mAttackColliderObj->RemoveComponent<Collider2D>();
 
 
 

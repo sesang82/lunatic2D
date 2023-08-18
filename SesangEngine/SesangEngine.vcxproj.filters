@@ -128,14 +128,17 @@
     <ClCompile Include="ssPlayerAttackColScript.cpp">
       <Filter>Contents\Script\Character\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="ssMonsterAttackColScript.cpp">
-      <Filter>Contents\Script\Character\Collider</Filter>
-    </ClCompile>
     <ClCompile Include="MonsterBar.cpp">
       <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
     </ClCompile>
     <ClCompile Include="ssPlayScene.cpp">
       <Filter>Contents\Load\Scene\for class</Filter>
+    </ClCompile>
+    <ClCompile Include="ssMonsterAttackColScript.cpp">
+      <Filter>Contents\Script\Character\Collider\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ssStoneEyeColScript.cpp">
+      <Filter>Contents\Script\Character\Collider\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +286,9 @@
     <Filter Include="Contents\Load\Scene\for class">
       <UniqueIdentifier>{5b8c3370-1fc8-4645-a1da-893c9f582200}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Script\Character\Collider\Monster">
+      <UniqueIdentifier>{cde91193-b8a0-4780-8391-6c6f9be5a9d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h">
@@ -414,14 +420,17 @@
     <ClInclude Include="ssPlayerAttackColScript.h">
       <Filter>Contents\Script\Character\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="ssMonsterAttackColScript.h">
-      <Filter>Contents\Script\Character\Collider</Filter>
-    </ClInclude>
     <ClInclude Include="MonsterBar.h">
       <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
     </ClInclude>
     <ClInclude Include="ssPlayScene.h">
       <Filter>Contents\Load\Scene\for class</Filter>
+    </ClInclude>
+    <ClInclude Include="ssMonsterAttackColScript.h">
+      <Filter>Contents\Script\Character\Collider\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="ssStoneEyeColScript.h">
+      <Filter>Contents\Script\Character\Collider\Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

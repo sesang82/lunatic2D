@@ -24,12 +24,8 @@ namespace ss
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"DebugMaterial"));
 
-		Collider2D* col = AddComponent<Collider2D>();
-		col->SetName(L"AttackCollider");
-		col->SetType(eColliderType::Rect);
-		col->SetCenter(Vector2(0.2f, 0.1f));
 
-		tr->SetScale(Vector3(1.f, 1.f, 1.f));
+		tr->SetScale(Vector3(0.5f, 0.5f, 1.f));
 
 
 
@@ -39,16 +35,25 @@ namespace ss
 	void AttackCollider::Update()
 	{
 
-		GameObject::Update();
+		if (!nullptr)
+		{
+			GameObject::Update();
+		}
 	}
 	void AttackCollider::LateUpdate()
 	{
 		
-
-		GameObject::LateUpdate();
+		if (!nullptr)
+		{
+			GameObject::LateUpdate();
+		}
 	}
 	void AttackCollider::Render()
 	{
-		GameObject::Render();
+
+		if (!nullptr)
+		{
+			GameObject::Render();
+		}
 	}
 }

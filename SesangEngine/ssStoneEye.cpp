@@ -12,6 +12,7 @@
 #include "ssCharacterState.h"
 #include "ssGameState.h"
 #include "ssStoneEyeScript.h"
+#include "ssStoneEyeColScript.h"
 
 
 namespace ss
@@ -84,7 +85,10 @@ namespace ss
 		col->SetSize(Vector2(0.1f, 0.43f));
 		col->SetCenter(Vector2(-35.f, 0.2f));
 
+
+
 		AddComponent<StoneEyeScript>();
+		AddComponent<CharacterState>();
 
 
 

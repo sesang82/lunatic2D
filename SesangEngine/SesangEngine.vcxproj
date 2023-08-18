@@ -209,6 +209,7 @@
     <ClCompile Include="ssStage1Scene.cpp" />
     <ClCompile Include="ssState.cpp" />
     <ClCompile Include="ssStoneEye.cpp" />
+    <ClCompile Include="ssStoneEyeColScript.cpp" />
     <ClCompile Include="ssStoneEyeScript.cpp" />
     <ClCompile Include="ssTitleScene.cpp" />
     <ClCompile Include="ssUI.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="ssStage1Scene.h" />
     <ClInclude Include="ssState.h" />
     <ClInclude Include="ssStoneEye.h" />
+    <ClInclude Include="ssStoneEyeColScript.h" />
     <ClInclude Include="ssStoneEyeScript.h" />
     <ClInclude Include="ssTitleScene.h" />
     <ClInclude Include="ssUI.h" />

@@ -11,6 +11,9 @@
 #include "ssPlayer.h"
 #include "ssPlayerScript.h"
 #include "ssMeshRenderer.h"
+#include "ssObject.h"
+#include "ssAttackCollider.h"
+#include "ssStoneEyeColScript.h"
 
 
 
@@ -53,13 +56,17 @@ namespace ss
 		// 애니메이션 방향에 관한 기준	을 잡아준다.
 		mCurDir = mTransform->Right();
 
-		mAnimator->PlayAnimation(L"StoneEye_HitR", true);
+		mAnimator->PlayAnimation(L"StoneEye_NearAttackR", false);
 
 
+	/*	mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"StoneEyeAttackCollider");
+		mAttackColliderObj->Initialize();
+		mAttackColliderObj->AddComponent<StoneEyeColScript>();
 
-		Monster* pMon = (Monster*)(GetOwner());
-		assert(pMon);
-
+		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
+		mAttackCol = mAttackColliderObj->GetComponent<Collider2D>();
+	
+		mAttackCol->SetSize(Vector2(20.f, 20.f));*/
 
 
 
@@ -129,6 +136,13 @@ namespace ss
 
 		MonsterScript::Update();
 
+	}
+	void StoneEyeScript::LateUpdate()
+	{
+		//mAttackColTr->SetPosition(mTransform->GetPosition());
+
+
+		MonsterScript::LateUpdate();
 	}
 	void StoneEyeScript::OnCollisionEnter(Collider2D* other)
 	{
@@ -408,6 +422,11 @@ namespace ss
 					mAnimator->PlayAnimation(L"StoneEye_NearAttackR", false);
 					mCollider->SetSize(Vector2(0.37f, 0.39f));
 					mCollider->SetCenter(Vector2(-33.f, 0.f));
+
+
+					// === Attack용 
+				
+
 				}
 
 

@@ -19,7 +19,7 @@ namespace ss
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
   
-    private:
+    protected:
         class Animator* mAnimator;
         class Transform* mTransform;
         class Collider2D* mCollider;

@@ -14,10 +14,10 @@ namespace ss
 	}
 	void MonsterAttackColScript::Initialize()
 	{
-		mState = GetOwner()->GetComponent<CharacterState>(); // 보스용으로 쓰기 
-		mAnimator = GetOwner()->GetComponent<Animator>();
-		mTransform = GetOwner()->GetComponent<Transform>();
-		mCollider = GetOwner()->GetComponent<Collider2D>();
+
+
+
+
 
 	}
 	void MonsterAttackColScript::Update()

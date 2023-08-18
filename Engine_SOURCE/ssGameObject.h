@@ -180,6 +180,45 @@ namespace ss
 			return comp;
 		}
 
+		template <typename T>
+		void RemoveComponent()
+		{
+			// 컴포넌트 타입을 찾습니다.
+			for (auto it = mComponents.begin(); it != mComponents.end();)
+			{
+				T* comp = dynamic_cast<T*>(*it);
+				if (comp)
+				{
+					// 컴포넌트를 컨테이너에서 제거합니다.
+					it = mComponents.erase(it);
+
+					// 메모리를 해제합니다.
+					delete comp;
+				}
+				else
+				{
+					++it;
+				}
+			}
+
+			// 스크립트와 같은 특별한 컴포넌트는 별도의 컨테이너에서 관리할 수 있으므로, 그것도 확인해야 할 수 있습니다.
+			for (auto it = mScripts.begin(); it != mScripts.end();)
+			{
+				T* script = dynamic_cast<T*>(*it);
+				if (script)
+				{
+					// 스크립트를 컨테이너에서 제거합니다.
+					it = mScripts.erase(it);
+
+					// 메모리를 해제합니다.
+					delete script;
+				}
+				else
+				{
+					++it;
+				}
+			}
+		}
 	
 
 	};
