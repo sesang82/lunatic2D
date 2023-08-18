@@ -35,16 +35,23 @@ namespace ss
 
         class Player* mPlayer;
 
-
-        class AttackCollider* mAttackColliderObj;
-        class Transform* mAttackColTr;
-        class Collider2D* mAttackCol;
-
         Vector3					mPrevDir;
         Vector3					mCurDir;
 
         eMonsterState			 mCurState;
         eMonsterState			 mPrevState;
+
+
+
+        // === 공격용 충돌체 
+        class AttackCollider* mAttackColliderObj;
+        class Transform* mAttackColTr;
+        class Collider2D* mAttackCol;
+
+        // === 일반 몬스터용 hp바
+        class MonsterBar* mMonsterHpBarObj;
+        class Transform* mMonsterHpBarTr;
+
 
 
 
@@ -69,6 +76,9 @@ namespace ss
         void Dead();
 
         void Animation();
+
+
+        void NearAttackEnd();
 
 
     };

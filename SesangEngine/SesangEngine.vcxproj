@@ -170,7 +170,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MonsterBar.cpp" />
+    <ClCompile Include="ssMonsterBar.cpp" />
     <ClCompile Include="SesangEngine.cpp" />
     <ClCompile Include="ssAttackCollider.cpp" />
     <ClCompile Include="ssAttackState.cpp" />
@@ -220,7 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h" />
-    <ClInclude Include="MonsterBar.h" />
+    <ClInclude Include="ssMonsterBar.h" />
     <ClInclude Include="ssAttackCollider.h" />
     <ClInclude Include="ssAttackState.h" />
     <ClInclude Include="ssDeadState.h" />

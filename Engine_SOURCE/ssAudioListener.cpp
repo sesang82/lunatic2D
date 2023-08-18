@@ -30,7 +30,7 @@ namespace ss
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
-		Vector3 foward = tr->Foward();
+		Vector3 foward = tr->Forward();
 		Vector3 up = tr->Up();
 
 		Vector3 vel = { 0.0f, 0.0f, 0.0f };

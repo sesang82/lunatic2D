@@ -143,6 +143,9 @@ namespace ss
 		Transform* eyetr = Stone->GetComponent<Transform>();
 		eyetr->SetPosition(Vector3(-235.f, -50.f, 500.f));
 
+
+
+
 		//AttackCollider* StoneAttackCol = object::Instantiate<AttackCollider>(eLayerType::Collision, L"StoneAttackCollider");
 		//StoneAttackCol->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 		//Transform* StoneAttacktr = StoneAttackCol->GetComponent<Transform>();

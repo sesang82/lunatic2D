@@ -128,7 +128,7 @@
     <ClCompile Include="ssPlayerAttackColScript.cpp">
       <Filter>Contents\Script\Character\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterBar.cpp">
+    <ClCompile Include="ssMonsterBar.cpp">
       <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
     </ClCompile>
     <ClCompile Include="ssPlayScene.cpp">
@@ -420,7 +420,7 @@
     <ClInclude Include="ssPlayerAttackColScript.h">
       <Filter>Contents\Script\Character\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterBar.h">
+    <ClInclude Include="ssMonsterBar.h">
       <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
     </ClInclude>
     <ClInclude Include="ssPlayScene.h">

@@ -14,6 +14,7 @@
 #include "ssObject.h"
 #include "ssAttackCollider.h"
 #include "ssStoneEyeColScript.h"
+#include "ssMonsterBar.h"
 
 
 
@@ -56,21 +57,34 @@ namespace ss
 		// 애니메이션 방향에 관한 기준	을 잡아준다.
 		mCurDir = mTransform->Right();
 
-		mAnimator->PlayAnimation(L"StoneEye_NearAttackR", false);
+		mAnimator->PlayAnimation(L"StoneEye_NearAttackL", true);
 
+		mAnimator->EndEvent(L"StoneEye_NearAttackR") = std::bind(&StoneEyeScript::NearAttackEnd, this);
+		mAnimator->EndEvent(L"StoneEye_NearAttackL") = std::bind(&StoneEyeScript::NearAttackEnd, this);
 
-	/*	mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"StoneEyeAttackCollider");
+		//=========
+
+		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"StoneEyeAttackCollider");
 		mAttackColliderObj->Initialize();
 		mAttackColliderObj->AddComponent<StoneEyeColScript>();
 
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
-		mAttackCol = mAttackColliderObj->GetComponent<Collider2D>();
-	
-		mAttackCol->SetSize(Vector2(20.f, 20.f));*/
 
 
+		//// ===== (이건 테스트용)
+
+
+
+		//=====
+		mMonsterHpBarObj = object::Instantiate<MonsterBar>(eLayerType::Grid, L"StoneEyeBar"); // ui로 하면 안뜸 
+		mMonsterHpBarObj->Initialize();
+
+		mMonsterHpBarTr = mMonsterHpBarObj->GetComponent<Transform>();
+		//mMonsterHpBarTr = 
 
 	}
+
+
 	void StoneEyeScript::Update()
 	{
 	
@@ -139,7 +153,10 @@ namespace ss
 	}
 	void StoneEyeScript::LateUpdate()
 	{
-		//mAttackColTr->SetPosition(mTransform->GetPosition());
+		mAttackColTr->SetPosition(mTransform->GetPosition());
+
+		// 렌더링 순서 흠 
+		mMonsterHpBarTr->SetPosition(mTransform->GetPosition() +Vector3(-30.f, 35.f, 1.f)); 
 
 
 		MonsterScript::LateUpdate();
@@ -416,22 +433,70 @@ namespace ss
 
 			case ss::eMonsterState::NEARATTACK:
 			{
-				
+		
+
+
 				if (mPrevDir.x > 0)
 				{
+					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
+					{
+						mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+						mAttackCol->SetSize(Vector2(45.f, 38.f));
+						mAttackCol->SetCenter(Vector2(24.f, -8.f));
+					}
+
+					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+					{
+						mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+						mAttackCol->SetSize(Vector2(45.f, 38.f));
+						mAttackCol->SetCenter(Vector2(24.f, -8.f));
+					}
+
+					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+					{
+						mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+						mAttackCol->SetSize(Vector2(45.f, 38.f));
+						mAttackCol->SetCenter(Vector2(24.f, -8.f));
+					}
+
 					mAnimator->PlayAnimation(L"StoneEye_NearAttackR", false);
 					mCollider->SetSize(Vector2(0.37f, 0.39f));
 					mCollider->SetCenter(Vector2(-33.f, 0.f));
 
 
 					// === Attack용 
-				
-
 				}
 
 
-					else
+				else
+				{
+					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
+					{
+						mAttackCol->SetSize(Vector2(45.f, 38.f));
+						mAttackCol->SetCenter(Vector2(-90.f, -8.f));
+					}
+
+					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+					{
+						mAttackCol->SetSize(Vector2(45.f, 38.f));
+						mAttackCol->SetCenter(Vector2(-90.f, -8.f));
+					}
+
+					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+					{
+						mAttackCol->SetSize(Vector2(45.f, 38.f));
+						mAttackCol->SetCenter(Vector2(-90.f, -8.f));
+					}
+
 					mAnimator->PlayAnimation(L"StoneEye_NearAttackL", false);
+
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();		
+				
+				}
+					
 			}
 			break;
 
@@ -464,5 +529,9 @@ namespace ss
 			}
 
 		}
+	}
+	void StoneEyeScript::NearAttackEnd()
+	{
+		mAttackColliderObj->RemoveComponent<Collider2D>();
 	}
 }

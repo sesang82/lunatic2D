@@ -1,4 +1,4 @@
-#include "MonsterBar.h"
+#include "ssMonsterBar.h"
 #include "ssMeshRenderer.h"
 #include "ssCharacterState.h"
 #include "ssResources.h"
@@ -15,10 +15,15 @@ namespace ss
 	}
 	void MonsterBar::Initialize()
 	{
-		mMeshRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"MonsterFrameeMtrl")); // 	
-
+		mTransform = GetComponent<Transform>();
 		mTransform->SetScale(Vector3(20.f, 5.f, 1.f));
+
+
+		mMeshRenderer = AddComponent<MeshRenderer>();
+		mMeshRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"MonsterFrameMtrl")); // 	
+
+	
 
 		GameObject::Initialize();
 	}

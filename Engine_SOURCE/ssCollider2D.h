@@ -38,6 +38,8 @@ namespace ss
 
 		eColliderType GetType() { return mType; }
 		Vector3 GetPosition() { return mPosition; }
+
+		Quaternion GetRotation() { return mRotation; }
 		Vector2 GetSize() { return mSize; }
 		Vector2 GetCenter() { return mCenter; }
 		Vector3 GetScale() { return mScale; }
@@ -63,6 +65,7 @@ namespace ss
 		// 충돌체의 최종 위치를 따로 저장해두는 멤버 만들어둠 
 		Vector3 mPosition;
 		Vector2 mSize; // scale
+		Quaternion mRotation;
 		Vector2 mCenter;
 
 		Matrix FinalMatrix;

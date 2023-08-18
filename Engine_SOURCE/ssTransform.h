@@ -90,7 +90,7 @@ namespace ss
 
 
 		// === πÊ«‚ ∫§≈Õ 
-		const Vector3& Foward() { return mRelativeForward; }
+		const Vector3& Forward() { return mRelativeForward; }
 		const Vector3& Right() { return mRelativeRight; }
 		const Vector3& Up() { return mRelativeUp; }
 		const Vector3& WorldForward() { return mWorldForward; }

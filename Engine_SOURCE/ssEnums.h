@@ -34,6 +34,7 @@ namespace ss::enums
 		Collision, // trigger 용도???
 		Ground,
 		Wall,
+		Etc, // 원래 UI로 빼야하는데 스크립트에 붙이다보니 안나오는 것들은 이거 쓰기
 		Camera, // 카메라 순서 gpt한테 한번 물어보기 
 		UI,
 		End = 16

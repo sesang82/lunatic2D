@@ -25,7 +25,7 @@ namespace ss
 		mr->SetMaterial(Resources::Find<Material>(L"DebugMaterial"));
 
 
-		tr->SetScale(Vector3(0.5f, 0.5f, 1.f));
+		tr->SetScale(Vector3(1.f, 1.f, 1.f));
 
 
 
