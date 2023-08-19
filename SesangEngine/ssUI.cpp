@@ -23,9 +23,9 @@ namespace ss
 	{
 	//mAnimator = AddComponent<CharacterState>();
 
-	mTransform = GetComponent<Transform>();
+	/*mTransform = GetComponent<Transform>();
 	mMeshRenderer = AddComponent<MeshRenderer>();
-	mCharacterState = AddComponent<CharacterState>();
+	mCharacterState = AddComponent<CharacterState>();*/
 
 
 	GameObject::Initialize();

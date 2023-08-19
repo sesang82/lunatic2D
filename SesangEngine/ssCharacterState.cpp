@@ -8,7 +8,7 @@ namespace ss
 {
 	CharacterState::CharacterState()
 	{
-		mBarType.Type = 0;
+		mStateType.Type = 0;
 	}
 	CharacterState::~CharacterState()
 	{
@@ -19,6 +19,7 @@ namespace ss
 	}
 	void CharacterState::Update()
 	{
+		BindConstantBuffer();
 		// map에 저장했던 이름 쓰면 됨 
 		BindConstantBuffer(L"Player");
 
@@ -44,7 +45,6 @@ namespace ss
 		pr.p_MaxHP = GetMaxHP();
 		pr.p_MaxSP = GetMaxSP();
 		pr.p_ProgressType = GetBarType();
-		pr.p_TexType = (UINT)GetTexType();
 
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Progressbar];
@@ -61,7 +61,7 @@ namespace ss
 		pr.p_MaxHP = state->GetMaxHP();
 		pr.p_MaxSP = state->GetMaxSP();
 		pr.p_ProgressType = state->GetBarType();
-		pr.p_TexType = (UINT)state->GetTexType();
+
 
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Progressbar];

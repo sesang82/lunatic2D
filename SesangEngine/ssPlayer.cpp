@@ -11,6 +11,8 @@
 #include "ssRigidbody2D.h"
 #include "ssCharacterState.h"
 #include "ssGameState.h"
+#include "ssSceneManager.h"
+#include "ssScene.h"
 
 namespace ss
 {
@@ -202,10 +204,9 @@ namespace ss
 
 		CharacterState* statue = AddComponent<CharacterState>();
 
-
 		AddComponent<PlayerScript>();
 
-
+		
 
 
 		Character::Initialize();

@@ -100,4 +100,5 @@ namespace ss::object
 	{
 		gameObj->SetState(ss::GameObject::eState::Dead);
 	}
+
 }

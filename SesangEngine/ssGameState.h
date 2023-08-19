@@ -40,7 +40,7 @@ namespace ss
 
 	public:
 
-		// 보스 2처럼 2페이즈 있는 보스들은 아래 활용하면 될듯 
+	
 		// appllication에서 추가해주면 됨 
 		void AddState(const std::wstring& Name, int hp, int sp)
 		{

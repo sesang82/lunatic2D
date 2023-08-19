@@ -108,4 +108,14 @@ namespace ss
 			}
 		}
 	}
+	GameObject* Layer::FindGameObjectByName(const std::wstring& name)
+	{
+		for (GameObject* obj : mGameObjects) {
+			if (obj->GetName() == name) {
+				return obj;
+			}
+		}
+		return nullptr; // 이름이 일치하는 객체가 없으면 nullptr 반환
+
+	}
 }

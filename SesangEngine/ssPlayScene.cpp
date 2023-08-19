@@ -34,6 +34,18 @@ namespace ss
 		paintShader->SetTarget(paintTexture);
 		paintShader->OnExcute();*/
 
+		GameObject* bg = new GameObject();
+		bg->SetName(L"StoneHP");
+		AddGameObject(eLayerType::Player, bg);
+		// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+		MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl"));
+
+		bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 1.f));
+		//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+		bg->GetComponent<Transform>()->SetScale(Vector3(10.f, 10.f, 1.f));
+
 		{
 
 			GameObject* player
@@ -107,6 +119,7 @@ namespace ss
 			camera->AddComponent<CameraScript>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
+			cameraComp->SetSize(100.f);
 
 			camera->AddComponent<AudioListener>();
 		}

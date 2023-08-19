@@ -7,7 +7,6 @@
 namespace ss
 {
 	MonsterBar::MonsterBar()
-	: UI(eUIType::Progressbar)
 	{
 	}
 	MonsterBar::~MonsterBar()
@@ -25,19 +24,19 @@ namespace ss
 
 	
 
-		GameObject::Initialize();
+		Progressbar::Initialize();
 	}
 	void MonsterBar::Update()
 	{
-		GameObject::Update();
+		Progressbar::Update();
 	}
 	void MonsterBar::LateUpdate()
 	{
-		GameObject::LateUpdate();
+		Progressbar::LateUpdate();
 	}
 	void MonsterBar::Render()
 	{
 
-		GameObject::Render();
+		Progressbar::Render();
 	}
 }

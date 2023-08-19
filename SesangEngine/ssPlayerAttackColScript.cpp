@@ -5,6 +5,7 @@
 #include "ssScene.h"
 #include "ssSceneManager.h"
 #include "ssGameState.h"
+#include "ssStoneEye.h"
 
 namespace ss
 {
@@ -22,7 +23,8 @@ namespace ss
 		mCollider = GetOwner()->GetComponent<Collider2D>();
 
 		Scene* scene = SceneManager::GetActiveScene();
-		mPlayer = scene->FindGameObjectByName(L"Player");
+		mStoneEye = scene->FindObjInActiveLayer<StoneEye>();
+
 
 
 		mTransform->SetScale(Vector3(1.f, 1.f, 1.f)); // 어차피 충돌체 쓸거라 최소만 해두면 됨 
@@ -43,10 +45,13 @@ namespace ss
 		if (L"StoneEye" == other->GetOwner()->GetName())
 		{
 			// 프로그래스바 시험용 (작동됨) 
+			/*CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+			stone->SetTexType(eTextureType::MONSTER);*/
+
+
 			mState = GameState::GetInst().GetState(L"Player");
 			mState->SetCurrentHP(mState->GetCurrentHP() - 10);
-			mState->SetTexType(eTextureType::PLYAERHP);
-
 		}
 
 

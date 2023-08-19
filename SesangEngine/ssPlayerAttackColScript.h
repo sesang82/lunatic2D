@@ -25,8 +25,8 @@ namespace ss
         class Collider2D* mCollider;
         class CharacterState* mState;
 
-        class GameObject* mPlayer;
-        class Monster* mMonster;
+        class Player* mPlayer;
+        class StoneEye* mStoneEye;
 
     };
 

@@ -15,6 +15,7 @@
 #include "ssAttackCollider.h"
 #include "ssStoneEyeColScript.h"
 #include "ssMonsterBar.h"
+#include "ssCharacterState.h"
 
 
 
@@ -47,6 +48,9 @@ namespace ss
 	
 
 			mCharacterState = GetOwner()->GetComponent<CharacterState>();
+			//mCharacterState->SetMaxHP(150.f);
+		//	mCharacterState->SetCurrentHP(150.f);
+
 
 		//mFSM->AddState(L"Stone_Idle", new IdleState());
 		//mFSM->ChangeState(L"Stone_Idle"); // 초기 상태 설정
@@ -69,6 +73,8 @@ namespace ss
 		mAttackColliderObj->AddComponent<StoneEyeColScript>();
 
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
+
+
 
 
 		//// ===== (이건 테스트용)

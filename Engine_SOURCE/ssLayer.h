@@ -22,6 +22,8 @@ namespace ss
 		}
 
 		void DeleteGameObject(GameObject* gameObj);
+
+		GameObject* FindGameObjectByName(const std::wstring& name);
 		
 	private:
 		// 추가된 게임 오브젝트들은 여기있음

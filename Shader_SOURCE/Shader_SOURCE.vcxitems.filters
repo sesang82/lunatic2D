@@ -54,8 +54,17 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteAnimationPS.hlsl">
       <Filter>Sprite\2. PS</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)ProgressPS.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\this game%28thisthis%29\DX_Lunatic\Shader_SOURCE\ProgressPS.hlsl">
       <Filter>Sprite\2. PS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)spProgressPS.hlsl">
+      <Filter>Sprite\2. PS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\this game%28thisthis%29\DX_Lunatic\Shader_SOURCE\ProgressVS.hlsl">
+      <Filter>Sprite\1. VS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)spProgressVS.hlsl">
+      <Filter>Sprite\1. VS</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

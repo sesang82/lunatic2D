@@ -73,22 +73,16 @@ namespace ss
 
 
 
-		GameObject* FindGameObjectByName(const std::wstring& name)
+		GameObject* FindGameObjectByName(const std::wstring& name) 
 		{
-			for (Layer& layer : mLayers)
+			for (Layer& layer : mLayers) 
 			{
-				// 각 레이어에 담긴 게임오브젝트들을 반복문 돌린다.
-				const auto& gameObjs = layer.GetGameObjects();
-
-				// 반복문 돌리는 게임오브젝트 중에서 해당 이름에 해당하는 오브젝트를 찾는다.
-				for (GameObject* obj : gameObjs)
-				{
-					if (obj->GetName() == name)
-						return obj;
+				GameObject* obj = layer.FindGameObjectByName(name);
+				if (obj) {
+					return obj; // 이름이 일치하는 객체를 찾았다면 반환
 				}
 			}
-
-			return nullptr; // 이름에 해당하는 객체를 찾지 못한 경우 nullptr 반환
+			return nullptr; // 이름이 일치하는 객체가 없으면 nullptr 반환
 		}
 
 

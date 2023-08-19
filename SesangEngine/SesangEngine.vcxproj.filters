@@ -140,6 +140,12 @@
     <ClCompile Include="ssStoneEyeColScript.cpp">
       <Filter>Contents\Script\Character\Collider\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="ssPlayerSP.cpp">
+      <Filter>Contents\GameObj\UI\01. ProgressBar\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ssPlayerHP.cpp">
+      <Filter>Contents\GameObj\UI\01. ProgressBar\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -289,6 +295,9 @@
     <Filter Include="Contents\Script\Character\Collider\Monster">
       <UniqueIdentifier>{cde91193-b8a0-4780-8391-6c6f9be5a9d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObj\UI\01. ProgressBar\Player">
+      <UniqueIdentifier>{b5f55183-45a0-4c19-913e-89029cee100f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h">
@@ -431,6 +440,12 @@
     </ClInclude>
     <ClInclude Include="ssStoneEyeColScript.h">
       <Filter>Contents\Script\Character\Collider\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPlayerSP.h">
+      <Filter>Contents\GameObj\UI\01. ProgressBar\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPlayerHP.h">
+      <Filter>Contents\GameObj\UI\01. ProgressBar\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

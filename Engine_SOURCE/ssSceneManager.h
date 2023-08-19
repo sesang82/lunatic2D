@@ -4,7 +4,7 @@
 namespace ss
 {
 
-
+	
 	// 기존에는 씬 매니저를 통해서 씬을 생성해줬지만, 이제는 세상 엔진에서 생성하는 걸로 바꿈
 	class SceneManager
 	{
@@ -36,9 +36,13 @@ namespace ss
 		static Scene* LoadScene(std::wstring name);
 		static Scene* GetActiveScene() { return mActiveScene; }
 
+
 	private:
 		static Scene* mActiveScene;
 		// 여러 씬들을 관리하기 편하게 map으로 저장해둠
 		static std::map<std::wstring, Scene*> mScenes;
+
+		static class Player* mPlayer;
+		//static Boss* mBoss;
 	};
 }

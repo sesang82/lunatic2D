@@ -7,17 +7,14 @@ namespace ss
 	class CharacterState :
 		public Script
 	{
-        struct tBarType
+        struct tState
         {
             float mCurrentHP;
             float mMaxHP;
             float mCurrentSP;
             float mMaxSP;
-
-            int   mDamage;
-            int   mHeal;
             UINT   Type; // 0 = 감소하는 형태, 1 = 증가하는 형태
-            eTextureType mTexType; // eType 일반 몬스터들은 쓰는 hp바 이미지는 똑같은데 정보가 달라서 이걸로 구분해줌 
+            std::wstring Name;
         };
 
 
@@ -45,80 +42,89 @@ namespace ss
 
 
     protected:
-        tBarType mBarType;
+        tState mStateType;
+
+        std::vector<tState> mStateList;
 
     public:
+        void AddState(float _MaxHP, float _curHP, float _MaxSP, float _curSP, std::wstring _Name, UINT _Type = 0)
+        {
+            tState state;
+           state.mCurrentHP = _curHP;
+           state.mMaxHP = _MaxHP;
+           state.mCurrentSP =  _curSP;
+           state.mMaxSP = _MaxSP;
+           state.Type = _Type;
+           state.Name = _Name;
+
+           mStateList.push_back(state);
+        }
+
         // 0이면 감소, 1이면 증가
         virtual void SetBarType(UINT _type)
         {
 
-            mBarType.Type = _type;
+            mStateType.Type = _type;
         }
 
         virtual void SetCurrentHP(float _currentHP)
         {
 
-            mBarType.mCurrentHP = _currentHP;
+            mStateType.mCurrentHP = _currentHP;
         }
 
         virtual void SetMaxHP(float _maxHP)
         {
-            mBarType.mMaxHP = _maxHP;
+            mStateType.mMaxHP = _maxHP;
         }
 
         virtual void SetCurrentSP(float _currentSP)
         {
 
-            mBarType.mCurrentSP = _currentSP;
+            mStateType.mCurrentSP = _currentSP;
         }
 
         virtual void SetMaxSP(float _maxSP)
         {
-            mBarType.mMaxSP = _maxSP;
+            mStateType.mMaxSP = _maxSP;
         }
 
         virtual void SetDamage(float _damage, bool _IsDash = false)
         {
             // 데미지 무력화 
-            if (mBarType.mCurrentHP <= 0 || _IsDash == true)
+            if (mStateType.mCurrentHP <= 0 || _IsDash == true)
                 return;
 
-            mBarType.mCurrentHP -= _damage;
+            mStateType.mCurrentHP -= _damage;
         }
 
         virtual void SetHeal(float _heal)
         {
-            if (mBarType.mCurrentHP >= mBarType.mMaxHP)
+            if (mStateType.mCurrentHP >= mStateType.mMaxHP)
                 return;
 
-            mBarType.mCurrentHP += _heal;
+            mStateType.mCurrentHP += _heal;
 
         }
 
         // 쉐이더에 switch case로 구분 지어 주기 
         // enum 파일 참고 eType 
-        virtual void SetTexType(eTextureType _type)
-        {
-			mBarType.mTexType = _type;
-		}
+        // 이걸 한다고 해당 이미지에 해당하는게 바뀌는게 아니었음...
+  //      virtual void SetTexType(eTextureType _type)
+  //      {
+  //          mStateType.mTexType = _type;
+		//}
 
 
 
     public:
-        float GetCurrentHP() { return mBarType.mCurrentHP; }
-        float GetMaxHP() { return mBarType.mMaxHP; }
+        float GetCurrentHP() { return mStateType.mCurrentHP; }
+        float GetMaxHP() { return mStateType.mMaxHP; }
 
-        float GetCurrentSP() { return mBarType.mCurrentSP; }
-        float GetMaxSP() { return mBarType.mMaxSP; }
+        float GetCurrentSP() { return mStateType.mCurrentSP; }
+        float GetMaxSP() { return mStateType.mMaxSP; }
 
-        float GetDamage() { return mBarType.mDamage; }
-        float GetHeal() { return mBarType.mHeal; }
-
-        int   GetBarType() { return mBarType.Type; }
-
-
-        // enum 파일 참고 eTextureType 
-        eTextureType GetTexType() { return mBarType.mTexType; }
+        int   GetBarType() { return mStateType.Type; }
 
 
 	};

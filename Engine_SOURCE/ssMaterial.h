@@ -24,12 +24,12 @@ namespace ss::graphics
 		void SetShader(std::shared_ptr<Shader> shader) { mShader = shader; }
 		void SetTexture(std::shared_ptr<Texture> texture) { mTexture = texture; }
 
-		void SetTexture(std::shared_ptr<Texture> texture, UINT slotNum)
-		{ 
-			mTexture = texture;
-			Binds(slotNum);
-		
-		}
+		//void SetTexture(std::shared_ptr<Texture> texture, UINT slotNum)
+		//{ 
+		//	mTexture = texture;
+		//	Binds(slotNum);
+		//
+		//}
 		std::shared_ptr<Texture> GetTexture() { return mTexture; }
 		
 		// == ·»´õ¸µ °ü·Ã

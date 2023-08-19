@@ -187,7 +187,12 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
-		shader = ss::Resources::Find<Shader>(L"ProgressbarShader");
+		shader = ss::Resources::Find<Shader>(L"ProgressHPbarShader");
+		ss::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = ss::Resources::Find<Shader>(L"ProgressSPbarShader");
 		ss::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
@@ -362,9 +367,16 @@ namespace renderer
 		ss::Resources::Insert(L"DebugShader", debugShader);
 
 		std::shared_ptr<Shader> progressShader = std::make_shared<Shader>();
-		progressShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		progressShader->Create(eShaderStage::VS, L"ProgressVS.hlsl", "main");
 		progressShader->Create(eShaderStage::PS, L"ProgressPS.hlsl", "main");
-		ss::Resources::Insert(L"ProgressbarShader", progressShader);
+		ss::Resources::Insert(L"ProgressHPbarShader", progressShader);
+
+
+		std::shared_ptr<Shader> progressShader2 = std::make_shared<Shader>();
+		progressShader2->Create(eShaderStage::VS, L"spProgressVS.hlsl", "main");
+		progressShader2->Create(eShaderStage::PS, L"spProgressPS.hlsl", "main");
+		ss::Resources::Insert(L"ProgressSPbarShader", progressShader2);
+	
 
 
 
@@ -383,7 +395,10 @@ namespace renderer
 			= Resources::Find<Shader>(L"SpriteShader");
 
 		std::shared_ptr<Shader> progressShader
-			= Resources::Find<Shader>(L"ProgressbarShader");
+			= Resources::Find<Shader>(L"ProgressHPbarShader");
+
+		std::shared_ptr<Shader> progressShader2
+			= Resources::Find<Shader>(L"ProgressSPbarShader");
 
 		std::shared_ptr<Texture> texture
 			= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
@@ -1424,7 +1439,7 @@ namespace renderer
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(progressShader);
-			spriteMateiral->SetTexture(texture, 3);
+			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			Resources::Insert(L"BossHPBarMtrl", spriteMateiral);
@@ -1438,7 +1453,7 @@ namespace renderer
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(progressShader);
-			spriteMateiral->SetTexture(texture, 2);
+			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			Resources::Insert(L"MonsterHPBarMtrl", spriteMateiral);
@@ -1465,8 +1480,8 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(progressShader);
-			spriteMateiral->SetTexture(texture, 1);
+			spriteMateiral->SetShader(progressShader2);
+			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			Resources::Insert(L"PlayerSPBarMtrl", spriteMateiral);

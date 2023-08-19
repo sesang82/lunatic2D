@@ -16,6 +16,7 @@ namespace ss
 	}
 	void Progressbar::Initialize()
 	{
+		UI::Initialize();
 	}
 	void Progressbar::Update()
 	{
@@ -41,14 +42,19 @@ namespace ss
 		}
 
 
+		UI::Update();
+
 	}
 
 
 	void Progressbar::LateUpdate()
 	{
+
+		UI::LateUpdate();
 	}
 	void Progressbar::Render()
 	{
+		UI::Render();
 	}
 	void Progressbar::BindConstantBuffer()
 	{

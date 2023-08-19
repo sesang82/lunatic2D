@@ -131,27 +131,43 @@ namespace ss
 		Player* player = object::Instantiate<Player>(eLayerType::Player, L"Player");
 		player->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
-		
-
 		Transform* Playertr = player->GetComponent<Transform>();
 		Playertr->SetPosition(Vector3(-300.f, -529.6f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
 
+
+
 		//// //=== 캐릭터용 피격 충돌체 
 		//AttackCollider* playerAttackCol = object::Instantiate<AttackCollider>(eLayerType::Collision, L"PlayerAttackCollider");
+
+
 
 		// 몬스터
 		StoneEye* Stone = object::Instantiate<StoneEye>(eLayerType::Monster, L"StoneEye");
 		Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 		Transform* eyetr = Stone->GetComponent<Transform>();
-		eyetr->SetPosition(Vector3(-235.f, -529.f, 500.f));
+		eyetr->SetPosition(Vector3(-231.f, -528.f, 500.f));
 
-		
-		MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"StoneEyeBar"); // ui로 하면 안뜸 
+		// 몬스터 체력바 틀
+		MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"StoneEyeBar");
 		mosnterbar->Initialize();
 
 		Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
 		mosnterbar->SetParent(Stone);
-		monsterbartr->SetPosition(Vector3(-30.f, 50.f, 1.f));
+		monsterbartr->SetPosition(Vector3(-36.f, 38.f, 500.f));
+
+
+		// 몬스터 HP
+		GameObject* monterHP = new GameObject();
+		AddGameObject(eLayerType::UI, monterHP);
+		// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+		MeshRenderer* mr = monterHP->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl"));
+
+		monterHP->SetParent(Stone);
+		monterHP->GetComponent<Transform>()->SetPosition(Vector3(-36.f, 38.f, 500.f));
+		//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+		monterHP->GetComponent<Transform>()->SetScale(Vector3(18.f, 3.f, 1.f));
 
 
 
@@ -333,6 +349,21 @@ namespace ss
 			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
 		}
 
+		//플레이어 SP바
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"PlayerSPBarMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(103.f, -205.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
+		}
+
+
 
 
 		// === 카메라
@@ -386,7 +417,7 @@ namespace ss
 	void Stage1Scene::OnEnter()
 	{
 		renderer::mainCamera = mCamera;
-		mCamera->SetSize(2.5f);
+		mCamera->SetSize(1.5f);
 	}
 	void Stage1Scene::OnExit()
 	{

@@ -44,12 +44,12 @@ float4 main(VSOut In) : SV_TARGET
     // 각각의 정보는 스크립트 형태기 때문에 알아서 각자 들어갈 것이므로 걱정안해도 됨 
     
      // 현재 HP 비율을 계산한다.  
-    float BarRatio = p_currentHP / p_MaxHP;
+    float BarRatio = p_CurrentSP / p_MaxSP;
     
     
     
     // 감소 형태 (오른쪽에서 왼쪽으로 감소)
-    if(p_ProgressType == 0)
+    if (p_ProgressType == 0)
     {
     
     // bar 이미지의 uv x 좌표를 HP 비율에 맞게 조절한다.
