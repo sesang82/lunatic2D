@@ -146,6 +146,15 @@
     <ClCompile Include="ssPlayerHP.cpp">
       <Filter>Contents\GameObj\UI\01. ProgressBar\Player</Filter>
     </ClCompile>
+    <ClCompile Include="ssStoneEyeProjectile.cpp">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="ssBullet.cpp">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="ssProjectileScript.cpp">
+      <Filter>Contents\Script\etc\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -298,6 +307,15 @@
     <Filter Include="Contents\GameObj\UI\01. ProgressBar\Player">
       <UniqueIdentifier>{b5f55183-45a0-4c19-913e-89029cee100f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObj\etc\Bullet">
+      <UniqueIdentifier>{d62889b3-ebae-4923-bfb2-dbd43e286bba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\etc">
+      <UniqueIdentifier>{e2c72265-6176-481b-a77e-26f96a70986c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\etc\Bullet">
+      <UniqueIdentifier>{fa4b107b-d6c4-4d29-a2c0-edf64665f81d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h">
@@ -446,6 +464,15 @@
     </ClInclude>
     <ClInclude Include="ssPlayerHP.h">
       <Filter>Contents\GameObj\UI\01. ProgressBar\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ssStoneEyeProjectile.h">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ssBullet.h">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ssProjectileScript.h">
+      <Filter>Contents\Script\etc\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

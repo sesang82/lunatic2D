@@ -44,14 +44,16 @@ namespace ss
 
 		if (L"StoneEye" == other->GetOwner()->GetName())
 		{
-			// 프로그래스바 시험용 (작동됨) 
-			/*CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			 //프로그래스바 시험용 (작동됨) 
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
 			stone->SetCurrentHP(stone->GetCurrentHP() - 10);
-			stone->SetTexType(eTextureType::MONSTER);*/
+
+			float test = stone->GetCurrentHP();
 
 
-			mState = GameState::GetInst().GetState(L"Player");
-			mState->SetCurrentHP(mState->GetCurrentHP() - 10);
+			// === game state 테스트용 (작동 됨) 
+			//mState = GameState::GetInst().GetState(L"Player");
+			//mState->SetCurrentHP(mState->GetCurrentHP() - 10);
 		}
 
 

@@ -170,6 +170,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ssBullet.cpp" />
     <ClCompile Include="ssMonsterBar.cpp" />
     <ClCompile Include="SesangEngine.cpp" />
     <ClCompile Include="ssAttackCollider.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="ssPlayerScript.cpp" />
     <ClCompile Include="ssPlayScene.cpp" />
     <ClCompile Include="ssProgressbar.cpp" />
+    <ClCompile Include="ssProjectileScript.cpp" />
     <ClCompile Include="ssQueenWolfScript.cpp" />
     <ClCompile Include="ssSkeletonArcherScript.cpp" />
     <ClCompile Include="ssSkeletonLizardScript.cpp" />
@@ -212,6 +214,7 @@
     <ClCompile Include="ssState.cpp" />
     <ClCompile Include="ssStoneEye.cpp" />
     <ClCompile Include="ssStoneEyeColScript.cpp" />
+    <ClCompile Include="ssStoneEyeProjectile.cpp" />
     <ClCompile Include="ssStoneEyeScript.cpp" />
     <ClCompile Include="ssTitleScene.cpp" />
     <ClCompile Include="ssUI.cpp" />
@@ -222,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h" />
+    <ClInclude Include="ssBullet.h" />
     <ClInclude Include="ssMonsterBar.h" />
     <ClInclude Include="ssAttackCollider.h" />
     <ClInclude Include="ssAttackState.h" />
@@ -255,6 +259,7 @@
     <ClInclude Include="ssPlayerScript.h" />
     <ClInclude Include="ssPlayScene.h" />
     <ClInclude Include="ssProgressbar.h" />
+    <ClInclude Include="ssProjectileScript.h" />
     <ClInclude Include="ssQueenWolfScript.h" />
     <ClInclude Include="ssSkeletonArcherScript.h" />
     <ClInclude Include="ssSkeletonLizardScript.h" />
@@ -263,6 +268,7 @@
     <ClInclude Include="ssState.h" />
     <ClInclude Include="ssStoneEye.h" />
     <ClInclude Include="ssStoneEyeColScript.h" />
+    <ClInclude Include="ssStoneEyeProjectile.h" />
     <ClInclude Include="ssStoneEyeScript.h" />
     <ClInclude Include="ssTitleScene.h" />
     <ClInclude Include="ssUI.h" />

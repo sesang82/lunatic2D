@@ -19,7 +19,7 @@ namespace ss
 	}
 	void CharacterState::Update()
 	{
-		BindConstantBuffer();
+		// 여기엔 그냥 GameState로 bind하는 거만 넣기. 
 		// map에 저장했던 이름 쓰면 됨 
 		BindConstantBuffer(L"Player");
 

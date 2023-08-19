@@ -1005,7 +1005,7 @@ namespace renderer
 
 			 // === Material »ý¼º
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetShader(spriteShader);
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 

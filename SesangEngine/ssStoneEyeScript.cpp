@@ -48,8 +48,9 @@ namespace ss
 	
 
 			mCharacterState = GetOwner()->GetComponent<CharacterState>();
-			//mCharacterState->SetMaxHP(150.f);
-		//	mCharacterState->SetCurrentHP(150.f);
+			
+			mCharacterState->SetMaxHP(100.f);
+			mCharacterState->SetCurrentHP(100.f);
 
 
 		//mFSM->AddState(L"Stone_Idle", new IdleState());
@@ -61,7 +62,7 @@ namespace ss
 		// 애니메이션 방향에 관한 기준	을 잡아준다.
 		mCurDir = mTransform->Right();
 
-		mAnimator->PlayAnimation(L"StoneEye_NearAttackL", true);
+		mAnimator->PlayAnimation(L"StoneEye_FarAttackL", true);
 
 		mAnimator->EndEvent(L"StoneEye_NearAttackR") = std::bind(&StoneEyeScript::NearAttackEnd, this);
 		mAnimator->EndEvent(L"StoneEye_NearAttackL") = std::bind(&StoneEyeScript::NearAttackEnd, this);
