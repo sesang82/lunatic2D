@@ -33,6 +33,7 @@ namespace ss
 		void AddForce(Vector2 force);
 		void SetGround(bool ground) { mbGround = ground; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
+		void SetGravity(Vector2 gravity) { mGravity = gravity; }
 
 		Vector2 GetVelocity() { return mVelocity; }
 		Vector2 GetGravity() { return mGravity; }

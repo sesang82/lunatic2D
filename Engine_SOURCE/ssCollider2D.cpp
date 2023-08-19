@@ -52,8 +52,8 @@ namespace ss
 		if (nullptr != Parent)
 		{
 			Transform* parentTr = Parent->GetComponent<Transform>();
-			rotation += parentTr->GetRotation();
-			pos += parentTr->GetPosition();
+			rotation += parentTr->GetWorldRotation();
+			pos += parentTr->GetWorldPosition();
 			//mScale *= parentTr->GetScale();
 	
 		}

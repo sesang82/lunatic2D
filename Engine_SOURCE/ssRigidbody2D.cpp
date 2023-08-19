@@ -14,7 +14,7 @@ namespace ss
 		mLimitedVelocity.x = 200.0f;
 		mLimitedVelocity.y = 800.0f;
 		mbGround = false;
-		mGravity = Vector2(0.0f, 1300.0f); // 1500
+		mGravity = Vector2(0.0f, 0.f); // 1500
 		mFriction = 50.0f; // 83 ±¦ÂúÀ½
 	}
 

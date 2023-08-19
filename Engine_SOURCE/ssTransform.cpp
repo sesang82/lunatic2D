@@ -108,11 +108,11 @@ namespace ss
 		if (mParent)
 		{
 
-			mParentMat = mWorld * mParent->mWorld;
-			//Matrix parentScale = Matrix::CreateScale(mParent->mWorldScale);
-			//Matrix in = parentScale.Invert();
-			//Matrix out = in * mParent->mWorld;
-			//mWorld *= out;
+			//mParentMat = mWorld * mParent->mWorld;
+			Matrix parentScale = Matrix::CreateScale(mParent->mWorldScale);
+			Matrix in = parentScale.Invert();
+			Matrix out = in * mParent->mWorld;
+			mWorld *= out;
 
 		}
 

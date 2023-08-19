@@ -75,11 +75,11 @@ namespace ss
 
 
 
-		//=====
-		mMonsterHpBarObj = object::Instantiate<MonsterBar>(eLayerType::Grid, L"StoneEyeBar"); // ui·Î ÇÏ¸é ¾È¶ä 
-		mMonsterHpBarObj->Initialize();
+		////=====
+		//mMonsterHpBarObj = object::Instantiate<MonsterBar>(eLayerType::Grid, L"StoneEyeBar"); // ui·Î ÇÏ¸é ¾È¶ä 
+		//mMonsterHpBarObj->Initialize();
 
-		mMonsterHpBarTr = mMonsterHpBarObj->GetComponent<Transform>();
+		//mMonsterHpBarTr = mMonsterHpBarObj->GetComponent<Transform>();
 		//mMonsterHpBarTr = 
 
 	}
@@ -156,7 +156,7 @@ namespace ss
 		mAttackColTr->SetPosition(mTransform->GetPosition());
 
 		// ·»´õ¸µ ¼ø¼­ Èì 
-		mMonsterHpBarTr->SetPosition(mTransform->GetPosition() +Vector3(-30.f, 35.f, 1.f)); 
+		//mMonsterHpBarTr->SetPosition(mTransform->GetPosition() +Vector3(-30.f, 35.f, 1.f)); 
 
 
 		MonsterScript::LateUpdate();

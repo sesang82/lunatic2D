@@ -309,6 +309,8 @@ namespace ss
 		// 제자리에서 점프  (맨 앞에 둬야됨) 
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
+			mRigidbody->SetGravity(Vector2(0.f, 1500.f));
+
 			mVelocity = mRigidbody->GetVelocity();
 			mVelocity.y = -500.f;
 			mRigidbody->SetVelocity(mVelocity);
@@ -441,6 +443,8 @@ namespace ss
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
+			mRigidbody->SetGravity(Vector2(0.f, 1500.f));
+
 				mVelocity = mRigidbody->GetVelocity();
 
 				// 애니메이션 땜에 아래처럼 조건문을 달음 

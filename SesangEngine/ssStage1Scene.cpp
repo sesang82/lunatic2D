@@ -23,6 +23,7 @@
 #include "ssStoneEyeScript.h"
 #include "ssAttackCollider.h"
 #include "ssPlayerAttackColScript.h"
+#include "ssMonsterBar.h"
 
 namespace ss
 {
@@ -129,10 +130,11 @@ namespace ss
 		 //캐릭터
 		Player* player = object::Instantiate<Player>(eLayerType::Player, L"Player");
 		player->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
 		
 
 		Transform* Playertr = player->GetComponent<Transform>();
-		Playertr->SetPosition(Vector3(-300.f, -200.f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
+		Playertr->SetPosition(Vector3(-300.f, -529.6f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
 
 		//// //=== 캐릭터용 피격 충돌체 
 		//AttackCollider* playerAttackCol = object::Instantiate<AttackCollider>(eLayerType::Collision, L"PlayerAttackCollider");
@@ -141,7 +143,15 @@ namespace ss
 		StoneEye* Stone = object::Instantiate<StoneEye>(eLayerType::Monster, L"StoneEye");
 		Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 		Transform* eyetr = Stone->GetComponent<Transform>();
-		eyetr->SetPosition(Vector3(-235.f, -50.f, 500.f));
+		eyetr->SetPosition(Vector3(-235.f, -529.f, 500.f));
+
+		
+		MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"StoneEyeBar"); // ui로 하면 안뜸 
+		mosnterbar->Initialize();
+
+		Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
+		mosnterbar->SetParent(Stone);
+		monsterbartr->SetPosition(Vector3(-30.f, 50.f, 1.f));
 
 
 
