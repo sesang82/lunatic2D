@@ -7,6 +7,7 @@ namespace ss
 	class CharacterState :
 		public Script
 	{
+        // 여기 안에 보스용 변수 넣어서 따로 집어넣기. (프로그래스바 전체적으로 오류 있어서 어쩔 수 없음) 
         struct tState
         {
             float mCurrentHP;

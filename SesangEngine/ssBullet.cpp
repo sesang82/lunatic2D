@@ -14,7 +14,6 @@ namespace ss
 	void Bullet::Initialize()
 	{
 		tr = GetComponent<Transform>();
-		mr = AddComponent<MeshRenderer>();
 
 		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 

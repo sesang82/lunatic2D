@@ -46,6 +46,8 @@ namespace ss
 		// === 오브젝트간 부모 자식 관계 설정을 위함
 		Transform* mParent; // 부모로 설정된 오브젝트의 트랜스폼을 갖고 있게 함 
 
+		Vector3 mStoreOwnerPos; // 스토어 오너의 위치를 저장하기 위함
+
 	public:
 		void SetFlip() { mFlip = !mFlip; }
 		bool GetFlip() { return mFlip; }
@@ -98,6 +100,9 @@ namespace ss
 		const Vector3& WorldUp() { return mWorldUp; }
 
 	
+	public:
+		void StoreOwnerPos(Vector3 _StorePos) { mStoreOwnerPos = _StorePos;  }
+		Vector3 GetStoreOwnerPos() { return mStoreOwnerPos;  }
 
 
 

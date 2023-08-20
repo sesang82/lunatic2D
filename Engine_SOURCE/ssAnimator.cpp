@@ -124,18 +124,14 @@ namespace ss
 
 	void Animator::PlayAnimation(const std::wstring& name, bool loop)
 	{
-
+		Animation* prevAnimation = nullptr;
 		// 활성화된 애니메이션을 이전 애니메이션 값으로 저장
-		Animation* prevAnimation = mActiveAnimation;
-
-		// 이전 애니메이션과 재생하려는 애니메이션이 같다면 재생안되도록
-		if (nullptr != prevAnimation)
+		
+		if (mActiveAnimation != nullptr)
 		{
-			if (name == prevAnimation->GetKey())
+			prevAnimation = mActiveAnimation;
+			if (mActiveAnimation->GetKey() == name)
 				return;
-
-			//mActiveAnimation->SetDirection(direction);
-
 		}
 
 

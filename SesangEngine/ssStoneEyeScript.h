@@ -35,8 +35,10 @@ namespace ss
 
         class Player* mPlayer;
 
-        Vector3					mPrevDir;
+        Vector3					mDir; // 어슬렁거리는 move상태일때만 사용할 거 
         Vector3					mCurDir;
+
+        Vector3                 mFirstPos; 
 
         eMonsterState			 mCurState;
         eMonsterState			 mPrevState;
@@ -48,10 +50,11 @@ namespace ss
         class Transform* mAttackColTr;
         class Collider2D* mAttackCol;
 
-        // === 일반 몬스터용 hp바
-        class MonsterBar* mMonsterHpBarObj;
-        class Transform* mMonsterHpBarTr;
-
+        // === Far 공격용 충돌체 
+        class StoneEyeProjectile* mArrowObj;
+        class ProjectileScript* mArrowScript;
+        class Transform* mArrowTr;
+        class Collider2D* mArrowCol;
 
 
 
@@ -79,6 +82,11 @@ namespace ss
 
 
         void NearAttackEnd();
+
+    public:
+        void SetFirstPos(Vector3 pos) { mFirstPos = pos; }
+        void SetMoveDir(Vector3 dir) { mDir = dir; }
+
 
 
     };

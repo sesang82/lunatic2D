@@ -270,20 +270,6 @@ namespace ss
 	void PlayerScript::OnCollisionEnter(Collider2D* in, Collider2D* other)
 	{
 
-		if (L"colHit_player" == in->GetOwner()->GetName() && L"StoneEye" == other->GetOwner()->GetName())
-		{
-
-			int a = 0;
-
-			if (mCurState == ePlayerState::ATTACK && mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
-			{
-				// 프로그래스바 시험용 (작동됨) 
-				mState = GameState::GetInst().GetState(L"Player");
-				mState->SetCurrentHP(mState->GetCurrentHP() - 10);
-			}
-
-
-		}
 
 	}
 

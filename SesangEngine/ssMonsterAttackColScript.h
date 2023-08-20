@@ -4,6 +4,8 @@
 
 namespace ss
 {
+
+    // 몬스터들 공격용 충돌체 스크립트 (상속용) 
     class MonsterAttackColScript :
         public Script
     {
@@ -19,6 +21,7 @@ namespace ss
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
   
+       
     protected:
         class Animator* mAnimator;
         class Transform* mTransform;

@@ -16,6 +16,8 @@
 #include "ssStoneEyeColScript.h"
 #include "ssMonsterBar.h"
 #include "ssCharacterState.h"
+#include "ssStoneEyeProjectile.h"
+#include "ssProjectileScript.h"
 
 
 
@@ -23,7 +25,7 @@ namespace ss
 {
 	StoneEyeScript::StoneEyeScript()
 	{
-		m_tMonsterInfo.m_fSpeed = 50.f;
+		m_tMonsterInfo.m_fSpeed = 100.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
 		m_tMonsterInfo.m_fDetectRange = 300.f;
 	}
@@ -32,6 +34,10 @@ namespace ss
 	}
 	void StoneEyeScript::Initialize()
 	{
+		Scene* pCurScene = SceneManager::GetActiveScene();
+			mPlayer = pCurScene->FindObjInActiveLayer<Player>();
+
+
 			mTransform = GetOwner()->GetComponent<Transform>();
 
 			mAnimator = GetOwner()->GetComponent<Animator>();
@@ -53,6 +59,8 @@ namespace ss
 			mCharacterState->SetCurrentHP(100.f);
 
 
+			mFirstPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+
 		//mFSM->AddState(L"Stone_Idle", new IdleState());
 		//mFSM->ChangeState(L"Stone_Idle"); // 초기 상태 설정
 
@@ -60,7 +68,9 @@ namespace ss
 
 
 		// 애니메이션 방향에 관한 기준	을 잡아준다.
+		mDir = mTransform->Right();
 		mCurDir = mTransform->Right();
+	
 
 		mAnimator->PlayAnimation(L"StoneEye_FarAttackL", true);
 
@@ -68,7 +78,7 @@ namespace ss
 		mAnimator->EndEvent(L"StoneEye_NearAttackL") = std::bind(&StoneEyeScript::NearAttackEnd, this);
 
 		//=========
-
+		// 근접 공격용 충돌체는 여기서 바로 넣지 말고 해당 인덱스 때 넣었다가 빼는 식으로 하기 
 		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"StoneEyeAttackCollider");
 		mAttackColliderObj->Initialize();
 		mAttackColliderObj->AddComponent<StoneEyeColScript>();
@@ -77,35 +87,46 @@ namespace ss
 
 
 
-
-		//// ===== (이건 테스트용)
-
-
-
-		////=====
-		//mMonsterHpBarObj = object::Instantiate<MonsterBar>(eLayerType::Grid, L"StoneEyeBar"); // ui로 하면 안뜸 
-		//mMonsterHpBarObj->Initialize();
-
-		//mMonsterHpBarTr = mMonsterHpBarObj->GetComponent<Transform>();
-		//mMonsterHpBarTr = 
-
 	}
 
 
 	void StoneEyeScript::Update()
 	{
-	
+		// === far 공격용 화살 
+		//mArrowObj = object::Instantiate<StoneEyeProjectile>(eLayerType::Collision, L"StoneEyeFarCollider");
+		//mArrowObj->Initialize();
+
+
+		//mArrowTr = mArrowObj->GetComponent<Transform>();
+
+		//mArrowScript = mArrowObj->GetComponent<ProjectileScript>();
+
+		//mArrowScript->StoreMonsterPos(mTransform->GetPosition());
 
 
 
 
 		// 이동->상태변환->애니메이션
 
+		Transform* playerTr = mPlayer->GetComponent<Transform>();
+		Vector3 playerPos = playerTr->GetPosition();
+
+
+		// 방향의 기준을 잡아준다. (몬스터의 위치 값보다 X값이 크면 오른쪽이므로  1, 왼쪽에 있으면 -1)
+		if (playerPos.x >= mTransform->GetPosition().x)
+		{
+			mCurDir.x = 1.0f;
+		}
+		else
+		{
+			mCurDir.x = -1.0f;
+		}
 
 
 		switch (mCurState)
 		{
 		case ss::eMonsterState::MOVE:
+			
 			Move();
 			break;
 
@@ -139,7 +160,7 @@ namespace ss
 
 		case ss::eMonsterState::NEARATTACK:
 			NearAttack();
-
+			break;
 		case ss::eMonsterState::FARATTACK:
 			FarAttack();
 			break;
@@ -149,7 +170,6 @@ namespace ss
 			break;
 		}
 
-		//Animation();
 
 		mPrevState = mCurState;
 		mPrevDir = mCurDir;
@@ -161,10 +181,7 @@ namespace ss
 	void StoneEyeScript::LateUpdate()
 	{
 		mAttackColTr->SetPosition(mTransform->GetPosition());
-
-		// 렌더링 순서 흠 
-		//mMonsterHpBarTr->SetPosition(mTransform->GetPosition() +Vector3(-30.f, 35.f, 1.f)); 
-
+		//mArrowTr->SetPosition(mTransform->GetPosition() + Vector3(-46.f, -3.f, 1.f));
 
 		MonsterScript::LateUpdate();
 	}
@@ -200,34 +217,37 @@ namespace ss
 				mRigidbody->SetVelocity(Vector2(0.0f, 0.0f)); // 만약에 몬스터가 떨어지다가 멈추면 이거 코드 주석걸었다가 다시 원복시켜보기 
 
 
-				ChangeState(eMonsterState::MOVE);
+				//ChangeState(eMonsterState::MOVE);
 
 		
 
 
 		}
 
-		if (L"col_BoundaryL" == other->GetOwner()->GetName())
-		{
-			mCurDir.x = 1;
+		//if (L"col_BoundaryL" == other->GetOwner()->GetName())
+		//{
+		//	mCurDir.x = 1;
 
-			L_Boundary = other->GetOwner()->GetComponent<Transform>()->GetPosition().x;
+		//	L_Boundary = other->GetOwner()->GetComponent<Transform>()->GetPosition().x;
 	
 
-		
+		//
 
-		
-		}
+		//
+		//}
 
-		if (L"col_BoundaryR" == other->GetOwner()->GetName())
+		//if (L"col_BoundaryR" == other->GetOwner()->GetName())
+		//{
+		//	mCurDir.x = -1;
+
+		//	R_Boundary = other->GetOwner()->GetComponent<Transform>()->GetPosition().x;
+		//}
+
+
+		if (L"Player" == other->GetOwner()->GetName())
 		{
-			mCurDir.x = -1;
-
-			R_Boundary = other->GetOwner()->GetComponent<Transform>()->GetPosition().x;
+		
 		}
-
-
-
 
 
 
@@ -241,37 +261,100 @@ namespace ss
 
 	void StoneEyeScript::Move()
 	{
+
+		// 방향대로 애니메이션을 재생한다. 
+		if (mDir.x > 0)
+			mAnimator->PlayAnimation(L"StoneEye_IdleR", true);
+
+		else
+			mAnimator->PlayAnimation(L"StoneEye_IdleL", true);
+
+
+
+		float minX = mFirstPos.x - 40.f;
+		float maxX = mFirstPos.x + 40.f;
+
 		Vector3 MonsterPos = mTransform->GetPosition();
 
-		if (mCurDir.x == 1)
-		{
-			mCollider->SetSize(Vector2(0.16f, 0.43f));
-			mCollider->SetCenter(Vector2(-35.f, 0.2f));
+		MonsterPos.x += mDir.x * m_tMonsterInfo.m_fSpeed* Time::DeltaTime();
 
-			MonsterPos.x += m_tMonsterInfo.m_fSpeed * Time::DeltaTime();
+		if (MonsterPos.x < minX)
+		{
+			MonsterPos.x = minX;
+			mDir = mTransform->Right();
 		}
 
-		else if (mCurDir.x == -1)
+		else if (MonsterPos.x > maxX)
 		{
-			mCollider->SetSize(Vector2(0.16f, 0.43f));
-			mCollider->SetCenter(Vector2(-35.f, 0.2f));
-			MonsterPos.x -= m_tMonsterInfo.m_fSpeed * Time::DeltaTime();
+			MonsterPos.x = maxX;
+			mDir = -mTransform->Right();
 		}
 
 		mTransform->SetPosition(MonsterPos);
 
 
-		//// 플레이어가 범위 안에 들어오면 추적 상태로 변환
-		//Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
 
-		//if (PlayerPos.x > L_Boundary && PlayerPos.x < R_Boundary)
+		float fDetectRange = 50.f; // 탐지 범위를 정한다. 
+
+		// 몬스터와 플레이어 간의 거리를 구함 
+		Vector3 vDir = MonsterPos - PlayerPos;
+		vDir.z = 0;
+
+		// PLAYER가 탐지 범위 이내에 들어오면 추적 상태로 전환 
+		if (vDir.Length() < fDetectRange)
+		{
+		//	ChangeState(eMonsterState::TRACER);
+		}
+	
+
+
+
+		//// 플레이어와 몬스터 간의 거리 값을 구한다. 
+		//float length = (PlayerPos - MonsterPos).Length();
+
+
+		//// 플레이어가 범위 밖에 있다면 몬스터는 왔다 갔다 한다. 
+		//if (length > 50.0f)
+		//{
+
+		//}
+
+		////// 플레이어가 범위 안에 들어오면 추적 상태로 변환
+		//else if (length >= 50.0f && length <= 100.0f) // length가 50~100일 때 몬스터가 player 방향대로 움직인다 (숫자가 높을수록 해당 상태 유지가 높아짐) 
 		//{
 		//	Vector3 Dir = PlayerPos - MonsterPos;
 		//	Dir.z = 0;
 		//	Dir.Normalize();
-		//
-		//	ChangeState(eMonsterState::TRACER);
+
+		//	MonsterPos.x += Dir.x * m_tMonsterInfo.m_fSpeed * Time::DeltaTime();
+		//	mTransform->SetPosition(MonsterPos);
+		//}
+		//else if (length < 50.0f) // length가 50보다 작으면 nearattack 상태로 변환 (
+		//{
+		//	mCurState = eMonsterState::NEARATTACK;
+		//}
+		//else if (length > 100.0f && length <= 150.0f) // length가 100~150 이되면 farattack
+		//{
+		//	mCurState = eMonsterState::FARATTACK;
+		//}
+		//else if (length > 150.0f)
+		//{
+		//	float range = 100.0f;
+		//	float distance = (mFirstPos - MonsterPos).Length();
+		//	Vector3 dir = mFirstPos - MonsterPos;
+
+		//	dir.Normalize();
+
+		//	if (distance >= range)
+		//	{
+		//		dir.x *= -1;
+		//	}
+
+		//	MonsterPos.x += dir.x * m_tMonsterInfo.m_fSpeed * Time::DeltaTime();
+
+		//	mTransform->SetPosition(MonsterPos);
 		//}
 
 	}
@@ -301,7 +384,7 @@ namespace ss
 		//	{
 		//		ChangeState(eMonsterState::FARATTACK);
 		//	}
-		
+		//
 	}
 
 	void StoneEyeScript::Jump()
@@ -330,6 +413,23 @@ namespace ss
 
 	void StoneEyeScript::NearAttack()
 	{
+
+		if (mPrevDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"StoneEye_NearAttackR", true);
+			mCollider->SetSize(Vector2(0.40f, 0.33f));
+			mCollider->SetCenter(Vector2(-32.f, 0.f));
+
+		}
+
+		else
+		{
+			mAnimator->PlayAnimation(L"StoneEye_NearAttackL", true);
+			mCollider->SetSize(Vector2(0.40f, 0.33f));
+			mCollider->SetCenter(Vector2(32.f, 0.f));
+		}
+
+
 		// near attack 애니메이션이 끝나면 
 		if(mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
@@ -338,7 +438,7 @@ namespace ss
 				Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 				float distance = (PlayerPos - MonsterPos).Length();
 
-				if (distance < 15.f) // 추적 범위 값 
+				if (distance < 200.f) // 추적 범위 값 
 				{
 					ChangeState(eMonsterState::TRACER);
 				}
@@ -352,23 +452,26 @@ namespace ss
 
 	void StoneEyeScript::FarAttack()
 	{
-		// near attack 애니메이션이 끝나면 
-		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		if (mPrevDir.x > 0)
 		{
+			mAnimator->PlayAnimation(L"StoneEye_FarAttackR", false);
+			mCollider->SetSize(Vector2(0.40f, 0.33f));
+			mCollider->SetCenter(Vector2(-32.f, 0.f));
 
-			Vector3 MonsterPos = mTransform->GetPosition();
-			Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
-			float distance = (PlayerPos - MonsterPos).Length();
+		}
 
-			if (distance < 2.f) // 추적 범위 값 
-			{
-				ChangeState(eMonsterState::TRACER);
-			}
-			else
-			{
-				ChangeState(eMonsterState::MOVE);
-			}
+		else
+		{
+			mAnimator->PlayAnimation(L"StoneEye_FarAttackL", false);
+			mCollider->SetSize(Vector2(0.40f, 0.33f));
+			mCollider->SetCenter(Vector2(32.f, 0.f));
+		}
 
+		// near attack 애니메이션이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())/* && (mAnimator->GetCurActiveAnim() == L"StoneEye_FarAttackR" || mAnimator->GetCurActiveAnim() == L"StoneEye_FarAttackL")*/
+		{
+			mCurState = eMonsterState::MOVE;
+			
 		}
 	}
 
@@ -384,9 +487,8 @@ namespace ss
 	// (Update에 적었기 때문에 이전 상태로 비교해주지 않으면 1초마다 계속 play되므로 멈춰있는것처럼 보임)
 
 
-
-		if (mCurState != mPrevState || mCurDir != mPrevDir)
-		{
+	//	if (mCurState != mPrevState || mCurDir != mPrevDir)
+		//{
 			switch (mCurState)
 			{
 				case ss::eMonsterState::MOVE:
@@ -396,8 +498,7 @@ namespace ss
 
 					else
 						mAnimator->PlayAnimation(L"StoneEye_IdleL", true);
-				}
-			
+				}			
 				break;
 
 			case ss::eMonsterState::TRACER:
@@ -532,10 +633,7 @@ namespace ss
 							mAnimator->PlayAnimation(L"StoneEye_DieL", false);
 				break;
 
-			
-			}
-
-		}
+			}	
 	}
 	void StoneEyeScript::NearAttackEnd()
 	{

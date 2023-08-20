@@ -16,6 +16,8 @@ namespace ss
         virtual void Render() override;
 
 
+    public:
+
     };
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "ssMonsterAttackColScript.h"
 
+// 스톤 아이 근접 공격용 충돌체 
 namespace ss
 {
 	class StoneEyeColScript :

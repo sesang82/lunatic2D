@@ -46,6 +46,7 @@ namespace ss
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Wall, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Collision, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Collision, true);
 
 		// 달 배경
 		{
@@ -146,6 +147,9 @@ namespace ss
 		Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 		Transform* eyetr = Stone->GetComponent<Transform>();
 		eyetr->SetPosition(Vector3(-231.f, -528.f, 500.f));
+
+		StoneEyeScript* stonescript = Stone->GetComponent<StoneEyeScript>();
+		stonescript->SetFirstPos(Vector3(-231.f, -528.f, 500.f));
 
 
 

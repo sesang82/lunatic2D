@@ -1,10 +1,10 @@
 #pragma once
-#include "ssScript.h"
+#include "ssMonsterAttackColScript.h"
 
 namespace ss
 {
     class ProjectileScript :
-        public Script
+        public MonsterAttackColScript
     {
     public:
         ProjectileScript();
@@ -21,6 +21,13 @@ namespace ss
     public:
         class CharacterState* mState;
 
+    private:
+        bool mReverse;
+        Vector3 mMonsterPos;
+
+    public:
+        void SetReserve(bool reserve) { mReverse = reserve; }
+        void StoreMonsterPos(Vector3 pos) { mMonsterPos = pos; }
     };
 
 
