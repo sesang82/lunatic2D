@@ -75,22 +75,22 @@ namespace ss
 		GameObject* m_pTarget;
 
 	public:
-		tMonsterInfo GetMonsterInfo() const
+		virtual tMonsterInfo GetMonsterInfo() const
 		{
 			return m_tMonsterInfo;
 		}
 
-		void SetMonsterInfo(const tMonsterInfo& _tMonsterInfo)
+		virtual void SetMonsterInfo(const tMonsterInfo& _tMonsterInfo)
 		{
 			m_tMonsterInfo = _tMonsterInfo;
 		}
 
-		void SetTarget(GameObject* _pPlayer)
+		virtual void SetTarget(GameObject* _pPlayer)
 		{
 			m_pTarget = _pPlayer;
 		}
 
-		void ChangeState(eMonsterState state) 
+		virtual void ChangeState(eMonsterState state) 
 		{ 
 			if (mCurState == state)
 				return;

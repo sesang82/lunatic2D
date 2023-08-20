@@ -146,10 +146,10 @@ namespace ss
 		StoneEye* Stone = object::Instantiate<StoneEye>(eLayerType::Monster, L"StoneEye");
 		Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 		Transform* eyetr = Stone->GetComponent<Transform>();
-		eyetr->SetPosition(Vector3(-231.f, -528.f, 500.f));
+		eyetr->SetPosition(Vector3(-170.f, -528.f, 500.f));
 
 		StoneEyeScript* stonescript = Stone->GetComponent<StoneEyeScript>();
-		stonescript->SetFirstPos(Vector3(-231.f, -528.f, 500.f));
+		stonescript->SetFirstPos(eyetr->GetPosition());
 
 
 
@@ -297,34 +297,6 @@ namespace ss
 
 		//}
 
-
-
-
-
-		// ========================================
-		// 충돌체
-		// 스톤 아이 범위 벽 왼쪽
-
-		Platform* Wall1 = object::Instantiate<Platform>(eLayerType::Wall, L"col_BoundaryL");
-		Wall1->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-
-		Transform* coltr = Wall1->GetComponent<Transform>();
-		coltr->SetPosition(Vector3(-340.f, -360.f, 500.f));
-		coltr->SetScale(Vector3(10.f, 50.f, 1.f));
-
-
-
-
-
-
-		// 스톤 아이 범위 벽 오른쪽
-
-		Platform* Wall2 = object::Instantiate<Platform>(eLayerType::Wall, L"col_BoundaryR");
-		Wall2->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-
-		Transform* coltr2 = Wall2->GetComponent<Transform>();
-		coltr2->SetPosition(Vector3(-150.f, -360.f, 500.f));
-		coltr2->SetScale(Vector3(10.f, 50.f, 1.f));
 
 
 		// ======================================
