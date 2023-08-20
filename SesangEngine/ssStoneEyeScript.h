@@ -82,6 +82,7 @@ namespace ss
 
 
         void NearAttackEnd();
+        void FarAttackEnd();
 
     public:
         void SetFirstPos(Vector3 pos) { mFirstPos = pos; }
