@@ -147,27 +147,30 @@ namespace ss
 		Transform* eyetr = Stone->GetComponent<Transform>();
 		eyetr->SetPosition(Vector3(-231.f, -528.f, 500.f));
 
-		// 몬스터 체력바 틀
-		MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"StoneEyeBar");
-		mosnterbar->Initialize();
-
-		Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
-		mosnterbar->SetParent(Stone);
-		monsterbartr->SetPosition(Vector3(-36.f, 38.f, 500.f));
 
 
-		// 몬스터 HP
-		GameObject* monterHP = new GameObject();
-		AddGameObject(eLayerType::UI, monterHP);
-		// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-		MeshRenderer* mr = monterHP->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl"));
+		// === 아래는 버그가 있어서 그냥 안하기로 함 
+		//// 몬스터 체력바 틀
+		//MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"StoneEyeBar");
+		//mosnterbar->Initialize();
 
-		monterHP->SetParent(Stone);
-		monterHP->GetComponent<Transform>()->SetPosition(Vector3(-36.f, 38.f, 500.f));
-		//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
-		monterHP->GetComponent<Transform>()->SetScale(Vector3(18.f, 3.f, 1.f));
+		//Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
+		//mosnterbar->SetParent(Stone);
+		//monsterbartr->SetPosition(Vector3(-36.f, 38.f, 500.f));
+
+
+		//// 몬스터 HP
+		//GameObject* monterHP = new GameObject();
+		//AddGameObject(eLayerType::UI, monterHP);
+		//// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+		//MeshRenderer* mr = monterHP->AddComponent<MeshRenderer>();
+		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl"));
+
+		//monterHP->SetParent(Stone);
+		//monterHP->GetComponent<Transform>()->SetPosition(Vector3(-36.f, 38.f, 500.f));
+		////bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+		//monterHP->GetComponent<Transform>()->SetScale(Vector3(18.f, 3.f, 1.f));
 
 
 
