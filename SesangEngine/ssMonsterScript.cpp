@@ -67,20 +67,7 @@ namespace ss
 	void MonsterScript::Update()
 	{
 
-		/*if (IsValid(m_pTarget))
-{
-	Vector3 vTargetPos = m_pTarget->GetPosition();
-	m_pTarget->SetName(L"Player");
-	Vector3 vPos = GetPosition();
 
-	Vec3 vDir = vTargetPos - vPos;
-	vDir.Normalize();
-
-	vPos.x += vDir.x * 100.f * DT;
-	vPos.y += vDir.y * 100.f * DT;
-
-	SetPosition(vPos);
-}*/
 	}
 
 	// 충돌체 작용 내용은 상속 되지 않음. 따로따로 적어줘야됨 

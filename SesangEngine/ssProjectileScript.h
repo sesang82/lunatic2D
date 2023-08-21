@@ -24,6 +24,7 @@ namespace ss
     private:
         bool mReverse;
        GameObject* mOriginOwner;
+       float mSpeed;
 
     public:
         void SetReserve(bool reserve) { mReverse = reserve; }

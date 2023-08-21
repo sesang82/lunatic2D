@@ -95,7 +95,7 @@ namespace ss
         void SetFirstPos(Vector3 pos) { mFirstPos = pos; }
         void SetMoveDir(Vector3 dir) { mDir = dir; }
 
-
+        Vector3 GetCurDir() { return mCurDir; }
 
     };
 }

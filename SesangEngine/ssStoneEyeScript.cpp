@@ -560,8 +560,36 @@ namespace ss
 			// coolDown 초마다 발사 
 			if (m_fTime >= m_tMonsterInfo.m_fCoolDown)
 			{
-				mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Collision, L"StoneEyeFarCollider");
-				m_fTime = 0.0f;
+
+				if (mCurDir.x == 1.f)
+				{
+					// 발사체 위치 조절 
+					pos += Vector3(8.f, -2.5f, 0.f);
+				}
+
+				else if (mCurDir.x == -1.0f)
+				{
+					// 발사체 위치 조절 
+					pos -= Vector3(75.f, 2.5f, 0.f);
+				}
+
+
+
+				mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Bullet, L"StoneEyeFarCollider");
+				mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
+			
+
+				// === guard 할 때 쓰면 될 듯 (거꾸로 충돌체 가는거) 
+				/*mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Bullet, L"StoneEyeFarCollider");
+				
+				if (mPrevDir.x > 0)
+					{
+						mArrowObj->GetComponent<ProjectileScript>()->SetReserve(true);
+					}*/
+
+					m_fTime = 0.0f;
+
+	
 			}
 
 	

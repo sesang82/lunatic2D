@@ -11,6 +11,7 @@ namespace ss
 {
 	ProjectileScript::ProjectileScript()
 		: mReverse(false)
+		, mSpeed(80.f)
 	{
 	}
 	ProjectileScript::~ProjectileScript()
@@ -31,32 +32,35 @@ namespace ss
 	void ProjectileScript::Update()
 	{
 	
-		//Transform* stoneTR = mOriginOwner->GetComponent<Transform>();
+		// 현재 위치 값 갖고 옴 
+		(StoneEye*)mOriginOwner;
 
-		//Vector3 Monsterpos = stoneTR->GetPosition();
-
+		Vector3 PlayerDir = mOriginOwner->GetComponent<StoneEyeScript>()->GetCurDir();
 
 		Vector3 ArrowPos = mTransform->GetPosition();
 		//Vector3 curpos = Vector3::Zero;
 
-		if (!mReverse) // 원점에 이미지가 머물러있는건 0,0,0인데 pos값 따로 안주면 당연히 위치 값이 계속 0 나올것임 ... 
+		if (PlayerDir.x == 1.0f) // 원점에 이미지가 머물러있는건 0,0,0인데 pos값 따로 안주면 당연히 위치 값이 계속 0 나올것임 ... 
 		{
-			ArrowPos.x += fabs(ArrowPos.x * Time::DeltaTime());
+			ArrowPos.x += mSpeed * Time::DeltaTime();
 		}
 
-		else // 왼쪽으로 나감 
+		else if (PlayerDir.x == -1.0f)
 		{
-			ArrowPos.x += -1.0f *(fabs(ArrowPos.x * Time::DeltaTime()));
+	
+			ArrowPos.x += -mSpeed * Time::DeltaTime();
 		}
 
 		mTransform->SetPosition(ArrowPos);
 	}
 	void ProjectileScript::OnCollisionEnter(Collider2D* other)
 	{
-		if (other->GetName() == L"Player")
+		if (other->GetOwner()->GetName() == L"Player")
 		{
 			mState = GameState::GetInst().GetState(L"Player");
 			mState->SetCurrentHP(mState->GetCurrentHP() - 10);
+		
+			GetOwner()->SetState(ss::GameObject::eState::Dead);
 		}
 	}
 	void ProjectileScript::OnCollisionStay(Collider2D* other)

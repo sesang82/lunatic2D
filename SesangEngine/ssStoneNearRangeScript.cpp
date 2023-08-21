@@ -37,7 +37,7 @@ namespace ss
 		if (other->GetOwner()->GetName() == L"Player")
 		{
 			StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
-			stonescript->mCurState = ss::eMonsterState::MOVE;
+			stonescript->mCurState = ss::eMonsterState::MOVE; // 이거 FarAttack으로 바꾸기 
 		}
 	}
 }

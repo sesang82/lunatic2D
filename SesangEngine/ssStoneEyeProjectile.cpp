@@ -27,6 +27,9 @@ namespace ss
 
 		tr->SetScale(Vector3(25.f, 10.f, 0.f));
 		mTime = 0.0f;
+
+		Collider2D* col = AddComponent<Collider2D>();
+		col->SetSize(Vector2(1.f, 1.f));
 		
 	
 		 // 충돌 부품은 특정 인덱스에서 add했다가 제거하는 방식으로 쓰기 
@@ -54,7 +57,7 @@ namespace ss
 		// 시간이 지나면 삭제 
 		mTime += Time::DeltaTime();
 
-		if(mTime >= 0.3f)
+		if(mTime >= 1.f)
 			SetState(eState::Dead);
 
 
