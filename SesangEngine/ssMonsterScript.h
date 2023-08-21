@@ -3,6 +3,7 @@
 
 namespace ss
 {
+
 	enum class eMonsterState
 	{
 		MOVE,
@@ -31,9 +32,15 @@ namespace ss
 		float	m_fAttackRange; // 공격 범위 
 	};
 
+
+
 	class MonsterScript :
 		public Script
 	{
+		friend class StoneNearRangeScript;
+
+	
+	
     public:
         MonsterScript();
         virtual ~MonsterScript();

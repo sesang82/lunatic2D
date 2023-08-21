@@ -4,10 +4,11 @@
 
 namespace ss
 {
-
     class StoneEyeScript :
         public MonsterScript
     {
+        friend class StoneNearRangeScript;
+
     public:
         StoneEyeScript();
         virtual ~StoneEyeScript();
@@ -40,22 +41,30 @@ namespace ss
 
         Vector3                 mFirstPos; 
 
-        eMonsterState			 mCurState;
-        eMonsterState			 mPrevState;
 
 
-
-        // === 공격용 충돌체 
+        // === 공격용 충돌체 (애니메이션의 특정 프레임에 공격할 용도로 사용)
         class AttackCollider* mAttackColliderObj;
         class Transform* mAttackColTr;
         class Collider2D* mAttackCol;
 
-        // === Far 공격용 충돌체 
+        // === Far 공격용 화살 충돌체 
         class StoneEyeProjectile* mArrowObj;
         class ProjectileScript* mArrowScript;
         class Transform* mArrowTr;
         class Collider2D* mArrowCol;
 
+        // === Near 공격 판정 충돌체 
+        class RangeCollider* mNearRangeColObj;
+        class StoneNearRangeScript* mNearRangeScript;
+        class Transform* mNearTr;
+        class Collider2D* mNearCol;
+
+
+        // === far 공격 판정 충돌체 
+        class RangeCollider* mFarRangeColObj;
+        class Transform* mFarTr;
+        class Collider2D* mFarCol;
 
 
     public:

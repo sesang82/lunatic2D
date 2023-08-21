@@ -82,7 +82,7 @@ namespace ss
 		col->SetName(L"StoneHitCol");
 		col->SetType(eColliderType::Rect);
 
-		col->SetSize(Vector2(0.1f, 0.43f));
+		col->SetSize(Vector2(0.15f, 0.43f));
 		col->SetCenter(Vector2(-35.f, 0.2f));
 
 
