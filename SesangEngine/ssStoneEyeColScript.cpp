@@ -45,6 +45,7 @@ namespace ss
 	}
 	void StoneEyeColScript::OnCollisionStay(Collider2D* other)
 	{
+	
 	}
 	void StoneEyeColScript::OnCollisionExit(Collider2D* other)
 	{

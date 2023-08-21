@@ -76,11 +76,8 @@ namespace ss
 
 		mAnimator->PlayAnimation(L"StoneEye_NearAttackL", true);
 	
-		mAnimator->EndEvent(L"StoneEye_NearAttackR") = std::bind(&StoneEyeScript::NearAttackEnd, this);
-		mAnimator->EndEvent(L"StoneEye_NearAttackL") = std::bind(&StoneEyeScript::NearAttackEnd, this);
-
-		//mAnimator->EndEvent(L"StoneEye_FarAttackR") = std::bind(&StoneEyeScript::FarAttackEnd, this);
-		//mAnimator->EndEvent(L"StoneEye_FarAttackL") = std::bind(&StoneEyeScript::FarAttackEnd, this);
+		//mAnimator->EndEvent(L"StoneEye_NearAttackR") = std::bind(&StoneEyeScript::NearAttackEnd, this);
+		//mAnimator->EndEvent(L"StoneEye_NearAttackL") = std::bind(&StoneEyeScript::NearAttackEnd, this);
 
 		//==== 근접 공격 특정 인덱스 충돌체 
 		//충돌체는 여기서 바로 넣지 말고 해당 인덱스 때 넣었다가 빼는 식으로 하기 
@@ -462,6 +459,7 @@ namespace ss
 					mAttackCol->SetCenter(Vector2(24.f, -8.f));
 				}
 
+
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
@@ -469,6 +467,7 @@ namespace ss
 					mAttackCol->SetSize(Vector2(45.f, 38.f));
 					mAttackCol->SetCenter(Vector2(24.f, -8.f));
 				}
+			
 
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
 				{
@@ -476,6 +475,13 @@ namespace ss
 
 					mAttackCol->SetSize(Vector2(45.f, 38.f));
 					mAttackCol->SetCenter(Vector2(24.f, -8.f));
+				}
+	
+
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 11)
+				{
+					mAttackColliderObj->RemoveComponent<Collider2D>();
+
 				}
 
 				mAnimator->PlayAnimation(L"StoneEye_NearAttackR", true);
@@ -507,6 +513,11 @@ namespace ss
 					mAttackCol->SetCenter(Vector2(-90.f, -8.f));
 				}
 
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 11)
+				{
+					mAttackColliderObj->RemoveComponent<Collider2D>();
+
+				}
 
 				mAnimator->PlayAnimation(L"StoneEye_NearAttackL", true);
 		
@@ -713,10 +724,7 @@ namespace ss
 			}
 		}
 	}
-	void StoneEyeScript::NearAttackEnd()
-	{
-		mAttackColliderObj->RemoveComponent<Collider2D>();
-	}
+
 
 	void StoneEyeScript::FarAttackEnd()
 	{

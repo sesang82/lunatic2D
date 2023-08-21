@@ -51,6 +51,7 @@ namespace ss
 	}
 	void ProjectileScript::OnCollisionStay(Collider2D* other)
 	{
+		// 공격용 충돌체를 여기서 없애기 
 	}
 	void ProjectileScript::OnCollisionExit(Collider2D* other)
 	{
