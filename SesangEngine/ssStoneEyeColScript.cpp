@@ -37,7 +37,7 @@ namespace ss
 
 	void StoneEyeColScript::OnCollisionEnter(Collider2D* other)
 	{
-		if (other->GetName() == L"Player")
+		if (other->GetOwner()->GetName() == L"Player")
 		{
 			mState = GameState::GetInst().GetState(L"Player");
 			mState->SetCurrentHP(mState->GetCurrentHP() - 10);

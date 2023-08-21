@@ -92,6 +92,7 @@ namespace ss
 
 
 		// Near 공격 판정용 충돌체
+		// 공격 판별 용도는 etc 레이어에 넣기 
 		mNearRangeColObj = object::Instantiate<RangeCollider>(eLayerType::Etc, L"StoneNearRangeCol");
 		mNearRangeColObj->Initialize();
 
@@ -206,7 +207,7 @@ namespace ss
 	}
 	void StoneEyeScript::LateUpdate()
 	{
-		//mAttackColTr->SetPosition(mTransform->GetPosition());
+		mAttackColTr->SetPosition(mTransform->GetPosition());
 		//mArrowTr->SetPosition(mTransform->GetPosition() + Vector3(-46.f, -3.f, 1.f));
 		mNearTr->SetPosition(mTransform->GetPosition());
 
@@ -447,16 +448,69 @@ namespace ss
 
 	void StoneEyeScript::NearAttack()
 	{
-
-		if (mCurDir.x > 0)
 		{
-			mAnimator->PlayAnimation(L"StoneEye_NearAttackR", true);
+		
 
-		}
+			if (mCurDir.x > 0)
+			{
 
-		else
-		{
-			mAnimator->PlayAnimation(L"StoneEye_NearAttackL", true);
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
+				{
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+					mAttackCol->SetSize(Vector2(45.f, 38.f));
+					mAttackCol->SetCenter(Vector2(24.f, -8.f));
+				}
+
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+				{
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+					mAttackCol->SetSize(Vector2(45.f, 38.f));
+					mAttackCol->SetCenter(Vector2(24.f, -8.f));
+				}
+
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+				{
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+					mAttackCol->SetSize(Vector2(45.f, 38.f));
+					mAttackCol->SetCenter(Vector2(24.f, -8.f));
+				}
+
+				mAnimator->PlayAnimation(L"StoneEye_NearAttackR", true);
+				
+
+			}
+
+			else
+			{
+
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
+				{
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+					mAttackCol->SetSize(Vector2(45.f, 38.f));
+					mAttackCol->SetCenter(Vector2(-90.f, -8.f));
+				}
+
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+				{
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+					mAttackCol->SetSize(Vector2(45.f, 38.f));
+					mAttackCol->SetCenter(Vector2(-90.f, -8.f));
+				}
+
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+				{
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+					mAttackCol->SetSize(Vector2(45.f, 38.f));
+					mAttackCol->SetCenter(Vector2(-90.f, -8.f));
+				}
+
+
+				mAnimator->PlayAnimation(L"StoneEye_NearAttackL", true);
+		
+			}
 		}
 
 
@@ -603,18 +657,21 @@ namespace ss
 				{
 					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 					{
+						mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 						mAttackCol->SetSize(Vector2(45.f, 38.f));
 						mAttackCol->SetCenter(Vector2(-90.f, -8.f));
 					}
 
 					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
 					{
+						mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 						mAttackCol->SetSize(Vector2(45.f, 38.f));
 						mAttackCol->SetCenter(Vector2(-90.f, -8.f));
 					}
 
 					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
 					{
+						mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 						mAttackCol->SetSize(Vector2(45.f, 38.f));
 						mAttackCol->SetCenter(Vector2(-90.f, -8.f));
 					}
