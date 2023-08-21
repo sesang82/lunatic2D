@@ -89,8 +89,6 @@ namespace ss
 
         void Animation();
 
-
-        void NearAttackEnd();
         void FarAttackEnd();
 
     public:

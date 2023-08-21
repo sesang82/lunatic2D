@@ -3,12 +3,14 @@
 #include "ssGameState.h"
 #include "ssGameObject.h"
 #include "ssTime.h"
+#include "ssStoneEye.h"
+#include "ssStoneEyeScript.h"
+
 
 namespace ss
 {
 	ProjectileScript::ProjectileScript()
 		: mReverse(false)
-		, mMonsterPos(Vector3::Zero)
 	{
 	}
 	ProjectileScript::~ProjectileScript()
@@ -17,29 +19,37 @@ namespace ss
 	}
 	void ProjectileScript::Initialize()
 	{
-		//mMonster = (StoneEye*)GetOwner();
+		//(StoneEye*)mOriginOwner;
 
 		mState = GetOwner()->GetComponent<CharacterState>();
 		mAnimator = GetOwner()->GetComponent<Animator>();
 		mTransform = GetOwner()->GetComponent<Transform>();
 		mCollider = GetOwner()->GetComponent<Collider2D>();
 
+
 	}
 	void ProjectileScript::Update()
 	{
 	
+		//Transform* stoneTR = mOriginOwner->GetComponent<Transform>();
+
+		//Vector3 Monsterpos = stoneTR->GetPosition();
 
 
-		if (!mReverse) // 오른쪽으로 나감 
+		Vector3 ArrowPos = mTransform->GetPosition();
+		//Vector3 curpos = Vector3::Zero;
+
+		if (!mReverse) // 원점에 이미지가 머물러있는건 0,0,0인데 pos값 따로 안주면 당연히 위치 값이 계속 0 나올것임 ... 
 		{
-			mMonsterPos.x += mTransform->Forward().x * 200.f * Time::DeltaTime();
+			ArrowPos.x += fabs(ArrowPos.x * Time::DeltaTime());
 		}
 
 		else // 왼쪽으로 나감 
 		{
-
+			ArrowPos.x += -1.0f *(fabs(ArrowPos.x * Time::DeltaTime()));
 		}
-		mTransform->SetPosition(mMonsterPos);
+
+		mTransform->SetPosition(ArrowPos);
 	}
 	void ProjectileScript::OnCollisionEnter(Collider2D* other)
 	{

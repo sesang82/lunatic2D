@@ -27,11 +27,11 @@ namespace ss::enums
 	{
 		Grid,  // 그리드는 맨 뒤에 출력되어야하므로 맨 앞에 둠 
 		BG,
+		Collision, // trigger 용도???
 		Monster,
 		Boss,
 		Player, // 몬스터와 보스에게 가려지면 안되서 레이어 순서 이렇게 바꿔둠
 		Bullet,
-		Collision, // trigger 용도???
 		Ground,
 		Wall,
 		Etc, // 원래 UI로 빼야하는데 스크립트에 붙이다보니 안나오는 것들은 이거 쓰기

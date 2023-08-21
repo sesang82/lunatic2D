@@ -19,6 +19,7 @@ namespace ss
 	Player::Player()
 		: Character(eType::PLAYER)		
 		, mAttackCol(nullptr)
+		, mEnableRender(true)
 	{
 	}
 	Player::~Player()
@@ -43,7 +44,15 @@ namespace ss
 
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+
+		if (mEnableRender)
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+		}
+		else
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+		}
 
 		// ================
 		std::shared_ptr<Texture> Image1= Resources::Find<Texture>(L"D_Spawn");

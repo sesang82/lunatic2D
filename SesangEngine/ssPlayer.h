@@ -27,8 +27,11 @@ namespace ss
         Collider2D* mCol;
         Transform* mTransform;
 
+        bool mEnableRender;
+
     public:
-       
+        void SetEnableRender(bool _enable) { mEnableRender = _enable; }
+	    bool GetEnableRender() { return mEnableRender; }
 
 
     };

@@ -30,6 +30,7 @@ namespace ss
 		m_tMonsterInfo.m_fSpeed = 30.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
 		m_tMonsterInfo.m_fDetectRange = 300.f;
+		m_tMonsterInfo.m_fCoolDown = 0.1f;
 	}
 	StoneEyeScript::~StoneEyeScript()
 	{
@@ -74,7 +75,7 @@ namespace ss
 		mCurState = eMonsterState::MOVE;
 	
 
-		mAnimator->PlayAnimation(L"StoneEye_NearAttackL", true);
+		mAnimator->PlayAnimation(L"StoneEye_IdleR", true);
 	
 		//mAnimator->EndEvent(L"StoneEye_NearAttackR") = std::bind(&StoneEyeScript::NearAttackEnd, this);
 		//mAnimator->EndEvent(L"StoneEye_NearAttackL") = std::bind(&StoneEyeScript::NearAttackEnd, this);
@@ -547,6 +548,26 @@ namespace ss
 
 	void StoneEyeScript::FarAttack()
 	{
+
+		Vector3 pos = mTransform->GetPosition();
+		pos.z -= 0.01;
+
+		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
+		{
+
+			m_fTime += (float)Time::DeltaTime();
+
+			// coolDown 초마다 발사 
+			if (m_fTime >= m_tMonsterInfo.m_fCoolDown)
+			{
+				mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Collision, L"StoneEyeFarCollider");
+				m_fTime = 0.0f;
+			}
+
+	
+
+		}
+
 		if (mCurDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"StoneEye_FarAttackR", true);

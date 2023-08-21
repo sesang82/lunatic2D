@@ -26,7 +26,7 @@ namespace ss
 		if(other->GetOwner()->GetName() == L"Player")
 		{
 			StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
-			stonescript->mCurState = ss::eMonsterState::NEARATTACK;
+			stonescript->mCurState = ss::eMonsterState::FARATTACK;
 		}
 	}
 	void StoneNearRangeScript::OnCollisionStay(Collider2D* other)

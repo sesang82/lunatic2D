@@ -23,6 +23,7 @@ namespace ss
 		, mPlayer(nullptr)
 		, mOringinColSize(Vector2::Zero)
 		, mOringinColCeter(Vector2::Zero)
+		, m_fTime(0.0f)
 	{
 		
 

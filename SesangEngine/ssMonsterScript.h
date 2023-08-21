@@ -23,13 +23,14 @@ namespace ss
 	// hp나 그런거는 state 스크립트 갖다붙이기
 	struct tMonsterInfo
 	{
-		float	m_fSpeed; // 움직이는 속도 
+		float	m_fSpeed = 0;// 움직이는 속도 
 
-		float	m_fAttack; // 공격력
-		float	m_fDefense; // 방어력
+		float	m_fAttack = 0; // 공격력
+		float	m_fDefense = 0; // 방어력
 
-		float	m_fDetectRange; // 감지 범위 
-		float	m_fAttackRange; // 공격 범위 
+		float	m_fDetectRange = 0; // 감지 범위 
+		float	m_fAttackRange = 0; // 공격 범위 
+		float   m_fCoolDown = 0; // 공격 쿨타임
 	};
 
 
@@ -78,6 +79,8 @@ namespace ss
 		Vector2					mOringinColSize;
 		Vector2					mOringinColCeter;
 
+		float					m_fTime; // 시간 측정용
+
 	private:
 		GameObject* m_pTarget;
 
@@ -106,15 +109,6 @@ namespace ss
 		}
 
 
-		Vector2 GetOriginColSize() const
-		{
-			return mOringinColSize;
-		}
-
-		Vector2 GetOrigniColCenter() const
-		{
-			return mOringinColCeter;
-		}
 
 
 

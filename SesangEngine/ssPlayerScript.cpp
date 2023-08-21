@@ -14,6 +14,7 @@
 #include "ssAttackCollider.h"
 #include "ssObject.h"
 #include "ssPlayerAttackColScript.h"
+#include "ssMeshRenderer.h"
 
 
 
@@ -35,6 +36,9 @@ namespace ss
 		, mbPrev(false)
 		, mPrevColSize(Vector2(0.2f, 0.8f))
 		, mPrevColCeter(Vector2(-3.5f, 2.f))
+		, isFlashing(false)
+		, flashDuration(0.5f)
+		, flashingTime(0.f)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -53,7 +57,7 @@ namespace ss
 		mTransform = GetOwner()->GetComponent<Transform>();
 		mRigidbody = GetOwner()->GetComponent<Rigidbody2D>();
 		mCollider = GetOwner()->GetComponent<Collider2D>();
-
+	
 
 		mAnimator->PlayAnimation(L"Player_D_IdleR", true);
 		//mAnimator->PlayAnimation(L"Player_D_IdleR", true);
@@ -110,6 +114,10 @@ namespace ss
 
 		case ss::ePlayerState::ATTACK:
 			Attack();
+			break;
+
+		case ss::ePlayerState::HIT:
+			Hit();
 			break;
 		}
 
@@ -282,6 +290,13 @@ namespace ss
 	}
 
 
+
+	void PlayerScript::TakeDamage()
+	{
+		isFlashing = true;
+		flashingTime = 0.0f; // µ¥¹ÌÁö¸¦ ¹ÞÀ¸¸é °æ°ú ½Ã°£ ÃÊ±âÈ­
+		ChangeState(ePlayerState::HIT);
+	}
 
 	void PlayerScript::Idle()
 	{
@@ -572,6 +587,55 @@ namespace ss
 
 	}
 
+	void PlayerScript::Hit()
+	{
+
+		if (isFlashing)
+		{
+			flashingTime = 0.f;
+			flashingTime += Time::DeltaTime(); // °æ°ú ½Ã°£ ´©Àû
+
+			bool IsRender = mPlayer->GetEnableRender();
+
+			if (flashingTime >= flashDuration)
+			{
+				
+
+				IsRender = !IsRender;
+
+				if (IsRender)
+				{
+					mPlayer->SetEnableRender(true);
+				}
+
+				else
+				{
+					mPlayer->SetEnableRender(false);
+				}
+				//// ±ôºýÀÌ´Â Áö¼Ó ½Ã°£ÀÌ Áö³µ´Ù¸é ±ôºýÀÌ±â ÁßÁö
+				//isFlashing = false;
+				//mPlayer->SetEnableRender(true); // ·»´õ¸µ È°¼ºÈ­
+				//ChangeState(ePlayerState::IDLE);
+			}
+
+			flashingTime = 0.f;
+			int CurrentCount = 0;
+			++CurrentCount;
+
+
+			int flashCount = 4; // ±ôºýÀÌ´Â È½¼ö
+
+			if (CurrentCount >= flashCount)
+			{
+				isFlashing = false; // ±ôºýÀÌ±â ÁßÁö
+				mPlayer->SetEnableRender(true); // ·»´õ¸µ È°¼ºÈ­
+				CurrentCount = 0; // ±ôºýÀÎ È½¼ö ÃÊ±âÈ­
+			}
+	
+		}
+
+	}
+
 
 
 
@@ -807,17 +871,17 @@ namespace ss
 				if (mWeaponType == eWeaponType::SWORD)
 				{
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_S_StunR", true);
+						mAnimator->PlayAnimation(L"Player_S_StunR", false);
 					else
-						mAnimator->PlayAnimation(L"Player_S_StunL", true);
+						mAnimator->PlayAnimation(L"Player_S_StunL", false);
 				}
 
 				else if (mWeaponType == eWeaponType::BOW)
 				{
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_StunR", true);
+						mAnimator->PlayAnimation(L"Player_B_StunR", false);
 					else
-						mAnimator->PlayAnimation(L"Player_B_StunL", true);
+						mAnimator->PlayAnimation(L"Player_B_StunL", false);
 				}
 				break;
 
@@ -825,18 +889,18 @@ namespace ss
 			{
 				if (mWeaponType == eWeaponType::SWORD)
 				{
-					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_S_HitR", true);
-					else
-						mAnimator->PlayAnimation(L"Player_S_HitL", true);
+					if (mPrevDir.x > 0 && mPlayer->GetEnableRender())
+						mAnimator->PlayAnimation(L"Player_S_HitR", false);
+				/*	else if ((mPrevDir.x > 0 && !mPlayer->GetEnableRender()))
+						mAnimator->PlayAnimation(L"Player_S_HitL", false);*/
 				}
 
 				else if (mWeaponType == eWeaponType::BOW)
 				{
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_HitR", true);
+						mAnimator->PlayAnimation(L"Player_B_HitR", false);
 					else
-						mAnimator->PlayAnimation(L"Player_B_HitL", true);
+						mAnimator->PlayAnimation(L"Player_B_HitL", false);
 				}
 			}
 			break;
@@ -846,17 +910,17 @@ namespace ss
 				if (mWeaponType == eWeaponType::SWORD)
 				{
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_S_GuardR", true);
+						mAnimator->PlayAnimation(L"Player_S_GuardR", false);
 					else
-						mAnimator->PlayAnimation(L"Player_S_GuardL", true);
+						mAnimator->PlayAnimation(L"Player_S_GuardL", false);
 				}
 
 				else if (mWeaponType == eWeaponType::BOW)
 				{
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_GuardR", true);
+						mAnimator->PlayAnimation(L"Player_B_GuardR", false);
 					else
-						mAnimator->PlayAnimation(L"Player_B_GuardL", true);
+						mAnimator->PlayAnimation(L"Player_B_GuardL", false);
 				}
 
 			}

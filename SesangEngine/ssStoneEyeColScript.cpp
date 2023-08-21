@@ -2,6 +2,7 @@
 #include "ssStoneEye.h"
 #include "ssGameState.h"
 #include "ssTime.h"
+#include "ssPlayerScript.h"
 
 
 
@@ -41,6 +42,8 @@ namespace ss
 		{
 			mState = GameState::GetInst().GetState(L"Player");
 			mState->SetCurrentHP(mState->GetCurrentHP() - 10);
+
+			other->GetOwner()->GetComponent<PlayerScript>()->TakeDamage();
 		}
 	}
 	void StoneEyeColScript::OnCollisionStay(Collider2D* other)

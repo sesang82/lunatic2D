@@ -87,6 +87,7 @@ namespace ss
         class AttackCollider* mAttackColliderObj;
         class Transform* mAttackColTr;
         class Collider2D* mAttackCol;
+       
   
 
 
@@ -115,6 +116,10 @@ namespace ss
         bool                    mbPrev;
 
 
+        // === 깜빡이는 용도
+        bool isFlashing;// 깜빡이는 상태인지 여부
+        float flashDuration; // 깜빡이는 지속 시간 (예: 1초)
+        float flashingTime;// 깜빡이는 상태가 시작된 이후의 경과 시간
 
 
     public:
@@ -131,6 +136,7 @@ namespace ss
         bool    GetPrev() { return mbPrev; }
 
         void  SetPrev(bool prev) { mbPrev = prev; }
+        void TakeDamage(); // 플레이어가 데미지를 받았을 때 호출 
 
 
         // 함수는 각 하나의 역할만 하게 하기 
@@ -139,6 +145,7 @@ namespace ss
         void Jump();
         void Fall();
         void Dash();
+        void Hit();
 
         void Attack();
 

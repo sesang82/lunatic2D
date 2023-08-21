@@ -23,11 +23,12 @@ namespace ss
 
     private:
         bool mReverse;
-        Vector3 mMonsterPos;
+       GameObject* mOriginOwner;
 
     public:
         void SetReserve(bool reserve) { mReverse = reserve; }
-        void StoreMonsterPos(Vector3 pos) { mMonsterPos = pos; }
+        void SetOriginOwner(GameObject* obj) { mOriginOwner = obj; }
+ 
     };
 
 
