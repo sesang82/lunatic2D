@@ -43,7 +43,7 @@ namespace ss
 			mState = GameState::GetInst().GetState(L"Player");
 			mState->SetCurrentHP(mState->GetCurrentHP() - 10);
 
-			other->GetOwner()->GetComponent<PlayerScript>()->TakeDamage();
+			other->GetOwner()->GetComponent<PlayerScript>()->ChangeState(ePlayerState::HIT);
 		}
 	}
 	void StoneEyeColScript::OnCollisionStay(Collider2D* other)

@@ -7,6 +7,15 @@ namespace ss
 	class CharacterState :
 		public Script
 	{
+        enum class eBarState
+        {
+            None,
+            Damaged,
+            Heal,
+            // 다른 상태들 추가 가능
+        };
+
+
         // 여기 안에 보스용 변수 넣어서 따로 집어넣기. (프로그래스바 전체적으로 오류 있어서 어쩔 수 없음) 
         struct tState
         {
@@ -14,10 +23,11 @@ namespace ss
             float mMaxHP;
             float mCurrentSP;
             float mMaxSP;
-            UINT   Type; // 0 = 감소하는 형태, 1 = 증가하는 형태
+            eBarState mBarState; // 0 = 감소하는 형태, 1 = 증가하는 형태
             std::wstring Name;
         };
 
+ 
 
     public:
         CharacterState();
@@ -44,50 +54,59 @@ namespace ss
 
     protected:
         tState mStateType;
+        eBarState mBarState;
 
         std::vector<tState> mStateList;
 
+        bool mChanged;
+
+
+
     public:
-        void AddState(float _MaxHP, float _curHP, float _MaxSP, float _curSP, std::wstring _Name, UINT _Type = 0)
+        void AddState(float _MaxHP, float _curHP, float _MaxSP, float _curSP, std::wstring _Name, eBarState _Type)
         {
             tState state;
            state.mCurrentHP = _curHP;
            state.mMaxHP = _MaxHP;
            state.mCurrentSP =  _curSP;
            state.mMaxSP = _MaxSP;
-           state.Type = _Type;
+           state.mBarState = _Type;
            state.Name = _Name;
 
            mStateList.push_back(state);
         }
 
         // 0이면 감소, 1이면 증가
-        virtual void SetBarType(UINT _type)
+        virtual void SetBarType(eBarState _type)
         {
 
-            mStateType.Type = _type;
+            mStateType.mBarState = _type;
+            mChanged = true;
         }
 
         virtual void SetCurrentHP(float _currentHP)
         {
 
             mStateType.mCurrentHP = _currentHP;
+            mChanged = true;
         }
 
         virtual void SetMaxHP(float _maxHP)
         {
             mStateType.mMaxHP = _maxHP;
+            mChanged = true;
         }
 
         virtual void SetCurrentSP(float _currentSP)
         {
-
             mStateType.mCurrentSP = _currentSP;
+            mChanged = true;
         }
 
         virtual void SetMaxSP(float _maxSP)
         {
             mStateType.mMaxSP = _maxSP;
+            mChanged = true;
         }
 
         virtual void SetDamage(float _damage, bool _IsDash = false)
@@ -97,6 +116,7 @@ namespace ss
                 return;
 
             mStateType.mCurrentHP -= _damage;
+            mChanged = true;
         }
 
         virtual void SetHeal(float _heal)
@@ -105,9 +125,16 @@ namespace ss
                 return;
 
             mStateType.mCurrentHP += _heal;
+            mChanged = true;
 
         }
 
+        void SetChanged(bool _b)
+        {
+            mChanged = _b;
+        }
+
+        
         // 쉐이더에 switch case로 구분 지어 주기 
         // enum 파일 참고 eType 
         // 이걸 한다고 해당 이미지에 해당하는게 바뀌는게 아니었음...
@@ -125,7 +152,8 @@ namespace ss
         float GetCurrentSP() { return mStateType.mCurrentSP; }
         float GetMaxSP() { return mStateType.mMaxSP; }
 
-        int   GetBarType() { return mStateType.Type; }
+        eBarState   GetBarType() { return mStateType.mBarState; }
+        bool Getchanged() { return mChanged; }
 
 
 	};

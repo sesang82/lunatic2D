@@ -24,19 +24,19 @@ namespace ss
 
 	
 
-		Progressbar::Initialize();
+		UI::Initialize();
 	}
 	void MonsterBar::Update()
 	{
-		Progressbar::Update();
+		UI::Update();
 	}
 	void MonsterBar::LateUpdate()
 	{
-		Progressbar::LateUpdate();
+		UI::LateUpdate();
 	}
 	void MonsterBar::Render()
 	{
 
-		Progressbar::Render();
+		UI::Render();
 	}
 }

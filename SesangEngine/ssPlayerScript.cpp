@@ -36,9 +36,7 @@ namespace ss
 		, mbPrev(false)
 		, mPrevColSize(Vector2(0.2f, 0.8f))
 		, mPrevColCeter(Vector2(-3.5f, 2.f))
-		, isFlashing(false)
-		, flashDuration(0.5f)
-		, flashingTime(0.f)
+		, mTime(0.f)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -59,7 +57,7 @@ namespace ss
 		mCollider = GetOwner()->GetComponent<Collider2D>();
 	
 
-		mAnimator->PlayAnimation(L"Player_D_IdleR", true);
+		mAnimator->PlayAnimation(L"Player_S_IdleR", true);
 		//mAnimator->PlayAnimation(L"Player_D_IdleR", true);
 		mWeaponType = eWeaponType::SWORD;
 
@@ -289,14 +287,6 @@ namespace ss
 	{
 	}
 
-
-
-	void PlayerScript::TakeDamage()
-	{
-		isFlashing = true;
-		flashingTime = 0.0f; // 데미지를 받으면 경과 시간 초기화
-		ChangeState(ePlayerState::HIT);
-	}
 
 	void PlayerScript::Idle()
 	{
@@ -589,49 +579,10 @@ namespace ss
 
 	void PlayerScript::Hit()
 	{
-
-		if (isFlashing)
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
-			flashingTime = 0.f;
-			flashingTime += Time::DeltaTime(); // 경과 시간 누적
-
-			bool IsRender = mPlayer->GetEnableRender();
-
-			if (flashingTime >= flashDuration)
-			{
-				
-
-				IsRender = !IsRender;
-
-				if (IsRender)
-				{
-					mPlayer->SetEnableRender(true);
-				}
-
-				else
-				{
-					mPlayer->SetEnableRender(false);
-				}
-				//// 깜빡이는 지속 시간이 지났다면 깜빡이기 중지
-				//isFlashing = false;
-				//mPlayer->SetEnableRender(true); // 렌더링 활성화
-				//ChangeState(ePlayerState::IDLE);
-			}
-
-			flashingTime = 0.f;
-			int CurrentCount = 0;
-			++CurrentCount;
-
-
-			int flashCount = 4; // 깜빡이는 횟수
-
-			if (CurrentCount >= flashCount)
-			{
-				isFlashing = false; // 깜빡이기 중지
-				mPlayer->SetEnableRender(true); // 렌더링 활성화
-				CurrentCount = 0; // 깜빡인 횟수 초기화
-			}
-	
+			ChangeState(ePlayerState::IDLE);
 		}
 
 	}
@@ -1063,10 +1014,6 @@ namespace ss
 
 		mJumpCount = 0;
 		mFallTime = 0.0f;
-
-		// 프로그래스바 시험용 (작동됨) 
-		mState = GameState::GetInst().GetState(L"Player");
-		mState->SetCurrentHP(mState->GetCurrentHP() - 10);
 
 
 		ChangeState(ePlayerState::IDLE);

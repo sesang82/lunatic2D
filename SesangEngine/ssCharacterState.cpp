@@ -7,8 +7,9 @@
 namespace ss
 {
 	CharacterState::CharacterState()
+		: mChanged(false)
 	{
-		mStateType.Type = 0;
+		mStateType.mBarState = eBarState::Damaged;
 	}
 	CharacterState::~CharacterState()
 	{
@@ -19,11 +20,12 @@ namespace ss
 	}
 	void CharacterState::Update()
 	{
+
 		// 여기엔 그냥 GameState로 bind하는 거만 넣기. 
 		// map에 저장했던 이름 쓰면 됨 
 		BindConstantBuffer(L"Player");
 
-
+		
 		Script::Update();
 	}
 	void CharacterState::OnCollisionEnter(Collider2D* other)
@@ -44,7 +46,7 @@ namespace ss
 		pr.p_CurrentSP = GetCurrentSP();
 		pr.p_MaxHP = GetMaxHP();
 		pr.p_MaxSP = GetMaxSP();
-		pr.p_ProgressType = GetBarType();
+		pr.p_ProgressType = (UINT)GetBarType();
 
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Progressbar];
@@ -60,7 +62,7 @@ namespace ss
 		pr.p_CurrentSP = state->GetCurrentSP();
 		pr.p_MaxHP = state->GetMaxHP();
 		pr.p_MaxSP = state->GetMaxSP();
-		pr.p_ProgressType = state->GetBarType();
+		pr.p_ProgressType = (UINT)state->GetBarType();
 
 
 

@@ -19,13 +19,9 @@ namespace ss
 	UI::~UI()
 	{
 	}
+
 	void UI::Initialize()
 	{
-	//mAnimator = AddComponent<CharacterState>();
-
-	/*mTransform = GetComponent<Transform>();
-	mMeshRenderer = AddComponent<MeshRenderer>();
-	mCharacterState = AddComponent<CharacterState>();*/
 
 
 	GameObject::Initialize();

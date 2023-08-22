@@ -33,9 +33,6 @@ namespace ss
 	Stage1Scene::~Stage1Scene()
 	{
 	}
-
-
-
 	void Stage1Scene::Initialize()
 	{
 
@@ -156,35 +153,26 @@ namespace ss
 
 
 		// === 아래는 버그가 있어서 그냥 안하기로 함 
-		//// 몬스터 체력바 틀
-		//MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"StoneEyeBar");
-		//mosnterbar->Initialize();
+		// 몬스터 체력바 틀
+		MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"StoneEyeBar");
+		mosnterbar->Initialize();
 
-		//Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
-		//mosnterbar->SetParent(Stone);
-		//monsterbartr->SetPosition(Vector3(-36.f, 38.f, 500.f));
+		Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
+		mosnterbar->SetParent(Stone);
+		monsterbartr->SetPosition(Vector3(-36.f, 38.f, 500.f));
 
 
-		//// 몬스터 HP
-		//GameObject* monterHP = new GameObject();
-		//AddGameObject(eLayerType::UI, monterHP);
-		//// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-		//MeshRenderer* mr = monterHP->AddComponent<MeshRenderer>();
-		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl"));
-
-		//monterHP->SetParent(Stone);
-		//monterHP->GetComponent<Transform>()->SetPosition(Vector3(-36.f, 38.f, 500.f));
-		////bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
-		//monterHP->GetComponent<Transform>()->SetScale(Vector3(18.f, 3.f, 1.f));
+		// 몬스터 HP
+		Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"StoneEyeHP");
+		stoneHP->SetParent(Stone);
+		Transform* stonehptr = stoneHP->GetComponent<Transform>();
+		stonehptr->SetPosition(Vector3(-50.f, 38.f, 500.f));
+		stoneHP->Initialize();
 
 
 
 
-		//AttackCollider* StoneAttackCol = object::Instantiate<AttackCollider>(eLayerType::Collision, L"StoneAttackCollider");
-		//StoneAttackCol->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-		//Transform* StoneAttacktr = StoneAttackCol->GetComponent<Transform>();
-		//StoneAttacktr->SetScale(Vector3(1.f, 1.f, 1.f));
+
 
 
 		////==================
@@ -398,7 +386,7 @@ namespace ss
 	void Stage1Scene::OnEnter()
 	{
 		renderer::mainCamera = mCamera;
-		mCamera->SetSize(1.5f);
+		mCamera->SetSize(3.5f);
 	}
 	void Stage1Scene::OnExit()
 	{

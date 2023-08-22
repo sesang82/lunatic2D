@@ -1,6 +1,9 @@
 #include "ssProgressbar.h"
 #include "ssRenderer.h"
 #include "ssConstantBuffer.h"
+#include "ssResources.h"
+#include "ssMeshRenderer.h"
+#include "ssCharacterState.h"
 
 namespace ss
 {
@@ -8,7 +11,7 @@ namespace ss
 
 	Progressbar::Progressbar()
 		: UI(eUIType::Progressbar)
-		, mMaxValue(100)
+		, mWidth(18.f)
 	{
 	}
 	Progressbar::~Progressbar()
@@ -16,30 +19,54 @@ namespace ss
 	}
 	void Progressbar::Initialize()
 	{
+
+
+		mTransform = GetComponent<Transform>();
+		//mTransform->SetScale(Vector3(18.f, 3.f, 1.f)); // backsize랑 스케일값 동일하게 주기. 
+
+
+		MeshRenderer* mr = AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl"));
+
+
+		mOwner = GetParent();
+		mState = mOwner->GetComponent<CharacterState>();
+
 		UI::Initialize();
+
 	}
 	void Progressbar::Update()
 	{
-		// 상태값을 부여해서 알아서 제어될 수 있게 하기
-		// == ↓ if(state::Normal)이라는 조건문이 코드 작성시 유효하지 않은 경우
-		/*if (State::Normal)과 같이 상태를 직접 비교하는 것은 State::Normal이
-		항상 true로 평가되기 때문에 의미가 없습니다. 실제로 if문은 조건이 참인지 거짓인지를
-		판별하기 위해 불리언(bool) 값이 필요합니다. 따라서 mState와 상태를 비교하여 동작을 처리해야 합니다.*/
+		float HPratio = mState->GetCurrentHP() / mState->GetMaxHP();
 
-		// 상태에 따른 다른 모션 처리
-		if (mBarState == eBarState::None)
+		// 체력의 비율에 따라 체력바의 너비 조절
+		float CurWidth = mWidth * HPratio;
+
+		
+
+		// 바뀔때만 연산을 하도록 설정 (Update이므로 성능에 영향 갈 수 있으므로)
+		if (mState->Getchanged())
 		{
-			// Normal 상태에 대한 모션 처리
-		}
-		else if (mBarState == eBarState::Damaged)
-		{
-			// Damaged 상태에 대한 모션 처리
+			
+			Vector3 pos = 	mTransform->GetPosition();
+			pos.x = -36.0f;
+
+			// 체력바 오른쪽에서 왼쪽으로 깎이도록 하기 
+			pos.x -= (1 - HPratio) * mWidth * 0.5f;
+
+			// 체력바의 위치 설정
+			mTransform->SetPosition(Vector3(pos));
+
+			// 체력바 스케일 설정 
+			mTransform->SetScale(Vector3(CurWidth, 3, 1.f));
+
+
+
+			mState->SetChanged(false);
+
 		}
 
-		else
-		{
-			// Heal 상태에 대한 모션 처리 
-		}
 
 
 		UI::Update();
@@ -58,15 +85,6 @@ namespace ss
 	}
 	void Progressbar::BindConstantBuffer()
 	{
-		//// 상수 버퍼에 월드, 뷰, 투영 행렬을 담아 보내준다. 
-		//renderer::AmountCB atCB = {};
-		//atCB.a_CurrentValue = mCurrentValue;
-		//atCB.a_MaxValue = mMaxValue;
-
-		//// 상수 버퍼 중에 Amount상수 버퍼를 갖고 온다. 
-		//ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Amount];
-		//cb->SetData(&atCB); // 상수 버퍼에 넣어준다.
-
-		//cb->Bind(eShaderStage::PS); // 상수 버퍼는 어느 쉐이더 단계이든 바인딩할 수 있다는게 장점이다. 
+	
 	}
 }

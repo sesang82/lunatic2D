@@ -105,6 +105,24 @@ namespace ss
 		Vector3 GetStoreOwnerPos() { return mStoreOwnerPos;  }
 
 
+	public:
+		Vector2 GetWorldCenterUp() const { return Vector2(mWorldPos.x, mWorldPos.y + mWorldScale.y * 0.5f); }
+		Vector2 GetWorldCenterBottom() const { return Vector2(mWorldPos.x, mWorldPos.y - mWorldScale.y * 0.5f); }
+		
+		Vector2 GetWorldLeftTop() const { return Vector2(mWorldPos.x - mWorldScale.x * 0.5f, mWorldPos.y + mWorldScale.y * 0.5f); }
+		Vector2 GetWorldLeftCenter() const { return Vector2(mWorldPos.x - mWorldScale.x * 0.5f, mWorldPos.y); }
+		Vector2 GetWorldLeftBottom() const { return Vector2(mWorldPos.x - mWorldScale.x * 0.5f, mWorldPos.y - mWorldScale.y * 0.5f); }
+		
+		Vector2 GetWorldRightTop() const { return Vector2(mWorldPos.x + mWorldScale.x * 0.5f, mWorldPos.y + mWorldScale.y * 0.5f); }
+		Vector2 GetWorldRightCenter() const { return Vector2(mWorldPos.x + mWorldScale.x * 0.5f, mWorldPos.y); }
+		Vector2 GetWorldRightBottom() const { return Vector2(mWorldPos.x + mWorldScale.x * 0.5f, mWorldPos.y - mWorldScale.y * 0.5f); }
+		
+		Vector4 GetWorldLTRB() const
+		{
+			return Vector4(mWorldPos.x - mWorldScale.x * 0.5f, mWorldPos.y + mWorldScale.y * 0.5f
+				, mWorldPos.x + mWorldScale.x * 0.5f, mWorldPos.y - mWorldScale.y * 0.5f);
+		}
+
 
 	};
 }
