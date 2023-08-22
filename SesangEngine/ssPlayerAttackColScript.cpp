@@ -6,6 +6,7 @@
 #include "ssSceneManager.h"
 #include "ssGameState.h"
 #include "ssStoneEye.h"
+#include "ssStoneEyeScript.h"
 
 namespace ss
 {
@@ -47,6 +48,8 @@ namespace ss
 			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
 			stone->SetCurrentHP(stone->GetCurrentHP() - 10); 
 	
+			StoneEyeScript* script = other->GetOwner()->GetComponent<StoneEyeScript>();
+			script->ChangeState(eMonsterState::HIT);
 		
 		}
 
@@ -58,17 +61,17 @@ namespace ss
 	}
 	void PlayerAttackColScript::OnCollisionStay(Collider2D* other)
 	{
-		//Vector2 test = mCollider->GetSize();
-
-		//if (L"StoneEye" == other->GetOwner()->GetName())
-		//{
-		//	// 프로그래스바 시험용 (작동됨) 
-		//	mState = GameState::GetInst().GetState(L"Player");
-		//	mState->SetCurrentHP(mState->GetCurrentHP() - 10);
-
-		//}
+	
 	}
 	void PlayerAttackColScript::OnCollisionExit(Collider2D* other)
 	{
+		if(L"StoneEye" == other->GetOwner()->GetName())
+		{
+
+
+			StoneEyeScript* script = other->GetOwner()->GetComponent<StoneEyeScript>();
+			script->ChangeState(eMonsterState::HIT);
+
+		}
 	}
 }

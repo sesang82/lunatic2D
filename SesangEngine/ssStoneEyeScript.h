@@ -8,6 +8,8 @@ namespace ss
         public MonsterScript
     {
         friend class StoneNearRangeScript;
+     
+       
 
     public:
         StoneEyeScript();
@@ -41,6 +43,8 @@ namespace ss
 
         Vector3                 mFirstPos; 
 
+        bool                    mbNearAttack;
+        bool                    mbFarAttack;    
 
 
         // === 공격용 충돌체 (애니메이션의 특정 프레임에 공격할 용도로 사용)
@@ -96,6 +100,10 @@ namespace ss
         void SetMoveDir(Vector3 dir) { mDir = dir; }
 
         Vector3 GetCurDir() { return mCurDir; }
+
+        // 각 범위 인식용 충돌체에 이 함수 활용하기 
+        void IsNearAttack(bool b) { mbNearAttack = b; }
+        void IsFarAttack(bool b) { mbFarAttack = b; }
 
     };
 }

@@ -26,6 +26,9 @@
 namespace ss
 {
 	StoneEyeScript::StoneEyeScript()
+		: mbNearAttack(false)
+		, mbFarAttack(false)
+	
 	{
 		m_tMonsterInfo.m_fSpeed = 30.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -438,6 +441,28 @@ namespace ss
 
 	void StoneEyeScript::Hit()
 	{
+		// 방향대로 애니메이션을 재생한다. 
+		if (mCurDir.x > 0)
+			mAnimator->PlayAnimation(L"StoneEye_HitR", false);
+
+		else
+			mAnimator->PlayAnimation(L"StoneEye_HitL", false);
+
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			if (mbNearAttack)
+			{
+				mCurState = eMonsterState::NEARATTACK;
+			}
+
+			else if (mbFarAttack)
+			{
+				mCurState = eMonsterState::FARATTACK;
+			}
+		}
+
 	}
 
 	void StoneEyeScript::Guard()
@@ -447,8 +472,6 @@ namespace ss
 	void StoneEyeScript::NearAttack()
 	{
 		{
-		
-
 			if (mCurDir.x > 0)
 			{
 
@@ -487,7 +510,7 @@ namespace ss
 
 				mAnimator->PlayAnimation(L"StoneEye_NearAttackR", true);
 				
-
+				
 			}
 
 			else
@@ -525,7 +548,6 @@ namespace ss
 			}
 		}
 
-
 		//// near attack 애니메이션이 끝나면 
 		//if(mAnimator->GetCurActiveAnimation()->IsComplete())
 		//{
@@ -552,65 +574,62 @@ namespace ss
 		Vector3 pos = mTransform->GetPosition();
 		pos.z -= 0.01;
 
-		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 		{
-
-			m_fTime += (float)Time::DeltaTime();
-
-			// coolDown 초마다 발사 
-			if (m_fTime >= m_tMonsterInfo.m_fCoolDown)
+			if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 			{
 
-				if (mCurDir.x == 1.f)
+				m_fTime += (float)Time::DeltaTime();
+
+				// coolDown 초마다 발사 
+				if (m_fTime >= m_tMonsterInfo.m_fCoolDown)
 				{
-					// 발사체 위치 조절 
-					pos += Vector3(8.f, -2.5f, 0.f);
-				}
 
-				else if (mCurDir.x == -1.0f)
-				{
-					// 발사체 위치 조절 
-					pos -= Vector3(75.f, 2.5f, 0.f);
-				}
-				m_fTime = 0.0f;
-
-
-				mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Bullet, L"StoneEyeFarCollider");
-				mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
-			
-
-				// === guard 할 때 쓰면 될 듯 (거꾸로 충돌체 가는거) 
-				/*mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Bullet, L"StoneEyeFarCollider");
-				
-				if (mPrevDir.x > 0)
+					if (mCurDir.x == 1.f)
 					{
-						mArrowObj->GetComponent<ProjectileScript>()->SetReserve(true);
-					}*/
+						// 발사체 위치 조절 
+						pos += Vector3(8.f, -2.5f, 0.f);
+					}
 
-				
+					else if (mCurDir.x == -1.0f)
+					{
+						// 발사체 위치 조절 
+						pos -= Vector3(75.f, 2.5f, 0.f);
+					}
+					m_fTime = 0.0f;
 
-	
+
+					mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Bullet, L"StoneEyeFarCollider");
+					mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
+
+
+					// === guard 할 때 쓰면 될 듯 (거꾸로 충돌체 가는거) 
+					/*mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Bullet, L"StoneEyeFarCollider");
+
+					if (mPrevDir.x > 0)
+						{
+							mArrowObj->GetComponent<ProjectileScript>()->SetReserve(true);
+						}*/
+
+				}
+
 			}
 
-	
+			if (mCurDir.x > 0)
+			{
+				mAnimator->PlayAnimation(L"StoneEye_FarAttackR", true);
+				mCollider->SetSize(Vector2(0.19f, 0.33f));
+				mCollider->SetCenter(Vector2(-32.f, 0.f));
+
+			}
+
+			else
+			{
+				mAnimator->PlayAnimation(L"StoneEye_FarAttackL", true);
+				mCollider->SetSize(Vector2(0.19f, 0.33f));
+				mCollider->SetCenter(Vector2(-37.f, 0.f));
+			}
 
 		}
-
-		if (mCurDir.x > 0)
-		{
-			mAnimator->PlayAnimation(L"StoneEye_FarAttackR", true);
-			mCollider->SetSize(Vector2(0.19f, 0.33f));
-			mCollider->SetCenter(Vector2(-32.f, 0.f));
-
-		}
-
-		else
-		{
-			mAnimator->PlayAnimation(L"StoneEye_FarAttackL", true);
-			mCollider->SetSize(Vector2(0.19f, 0.33f));
-			mCollider->SetCenter(Vector2(-37.f, 0.f));
-		}
-
 		//// near attack 애니메이션이 끝나면 
 		//if (mAnimator->GetCurActiveAnimation()->IsComplete())/* && (mAnimator->GetCurActiveAnim() == L"StoneEye_FarAttackR" || mAnimator->GetCurActiveAnim() == L"StoneEye_FarAttackL")*/
 		//{

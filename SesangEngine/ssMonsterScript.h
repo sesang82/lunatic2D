@@ -95,6 +95,7 @@ namespace ss
 			m_tMonsterInfo = _tMonsterInfo;
 		}
 
+
 		virtual void SetTarget(GameObject* _pPlayer)
 		{
 			m_pTarget = _pPlayer;
@@ -107,6 +108,8 @@ namespace ss
 
 			mCurState = state; 
 		}
+
+		virtual eMonsterState GetPrevState() { return mPrevState; }
 
 
 

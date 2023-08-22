@@ -27,6 +27,9 @@ namespace ss
 		{
 			StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
 			stonescript->mCurState = ss::eMonsterState::FARATTACK;
+
+			stonescript->IsFarAttack(true);
+
 		}
 	}
 	void StoneNearRangeScript::OnCollisionStay(Collider2D* other)
@@ -38,6 +41,7 @@ namespace ss
 		{
 			StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
 			stonescript->mCurState = ss::eMonsterState::MOVE; // 이거 FarAttack으로 바꾸기 
+			stonescript->IsFarAttack(false);
 		}
 	}
 }
