@@ -174,8 +174,8 @@ namespace ss
 		anim->Create(L"Player_S_StunL", Image13, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
 
 		// 맞았을 때 
-		anim->Create(L"Player_S_HitR", Image14, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 58.f), Vector2(0.f, -6.5f));
-		anim->Create(L"Player_S_HitL", Image14, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 58.f), Vector2(0.f, -6.5f), 0.1f, true);
+		anim->Create(L"Player_S_HitR", Image14, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 58.f), Vector2(0.f, -6.5f), 0.125f);
+		anim->Create(L"Player_S_HitL", Image14, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 58.f), Vector2(0.f, -6.5f), 0.125f, true);
 
 		// 가드 
 		anim->Create(L"Player_S_GuardR", Image16, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(107.f, 58.f), Vector2(0.f, -6.f));
