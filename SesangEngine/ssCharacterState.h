@@ -9,7 +9,6 @@ namespace ss
 	{
         enum class eBarState
         {
-            None,
             Damaged,
             Heal,
             // 다른 상태들 추가 가능

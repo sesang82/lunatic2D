@@ -39,20 +39,8 @@ namespace ss
 	void CharacterState::OnCollisionExit(Collider2D* other)
 	{
 	}
-	void CharacterState::BindConstantBuffer()
-	{
-		renderer::ProgressbarCB pr {};
-		pr.p_currentHP = GetCurrentHP();
-		pr.p_CurrentSP = GetCurrentSP();
-		pr.p_MaxHP = GetMaxHP();
-		pr.p_MaxSP = GetMaxSP();
-		pr.p_ProgressType = (UINT)GetBarType();
 
 
-		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Progressbar];
-		cb->SetData(&pr);
-		cb->Bind(eShaderStage::PS);
-	}
 	void CharacterState::BindConstantBuffer(const std::wstring& _name)
 	{
 		CharacterState* state = GameState::GetInst().GetState(_name);

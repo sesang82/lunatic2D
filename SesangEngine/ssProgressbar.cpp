@@ -11,7 +11,7 @@ namespace ss
 
 	Progressbar::Progressbar()
 		: UI(eUIType::Progressbar)
-		, mWidth(18.f)
+		, mWidth(18.f) // 이미지 실제 크기 값 
 	{
 	}
 	Progressbar::~Progressbar()
@@ -43,14 +43,13 @@ namespace ss
 		// 체력의 비율에 따라 체력바의 너비 조절
 		float CurWidth = mWidth * HPratio;
 
-		
-
+	
 		// 바뀔때만 연산을 하도록 설정 (Update이므로 성능에 영향 갈 수 있으므로)
 		if (mState->Getchanged())
 		{
 			
 			Vector3 pos = 	mTransform->GetPosition();
-			pos.x = -36.0f;
+			pos.x = -36.0f; // offset 크기 조정 
 
 			// 체력바 오른쪽에서 왼쪽으로 깎이도록 하기 
 			pos.x -= (1 - HPratio) * mWidth * 0.5f;

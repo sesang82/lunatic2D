@@ -158,34 +158,34 @@ namespace ss
 		anim->Create(L"Player_S_DashL", Image12, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 3, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
 
 		// ¶³¾îÁü (falling)
-		anim->Create(L"Player_S_FallR", Image9, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 6, Vector2(107.f, 46.f), Vector2(0.f, -6.f));
-		anim->Create(L"Player_S_FallL", Image9, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 6, Vector2(107.f, 46.f), Vector2(0.f, -6.f), 0.1f, true);
+		anim->Create(L"Player_S_FallR", Image9, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 6, Vector2(107.f, 58.f), Vector2(0.f, -6.f));
+		anim->Create(L"Player_S_FallL", Image9, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 6, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
 
 		// Landind (ÂøÁö) 
-		anim->Create(L"Player_S_LandingR", Image10, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(107.f, 46.f), Vector2(0.f, -6.f));
-		anim->Create(L"Player_S_LandingL", Image10, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(107.f, 46.f), Vector2(0.f, -6.f), 0.1f, true);
+		anim->Create(L"Player_S_LandingR", Image10, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(107.f, 58.f), Vector2(0.f, -6.f));
+		anim->Create(L"Player_S_LandingL", Image10, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
 
 		// ¸Å´Þ¸®±â
-		anim->Create(L"Player_S_HangR", Image11, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 46.f), Vector2(0.f, -6.f));
-		anim->Create(L"Player_S_HangL", Image11, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 46.f), Vector2(0.f, -6.f), 0.1f, true);
+		anim->Create(L"Player_S_HangR", Image11, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 58.f), Vector2(0.f, -6.f));
+		anim->Create(L"Player_S_HangL", Image11, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
 
 		// ½ºÅÏ
-		anim->Create(L"Player_S_StunR", Image13, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(107.f, 46.f), Vector2(0.f, -6.f));
-		anim->Create(L"Player_S_StunL", Image13, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(107.f, 46.f), Vector2(0.f, -6.f), 0.1f, true);
+		anim->Create(L"Player_S_StunR", Image13, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(107.f, 58.f), Vector2(0.f, -6.f));
+		anim->Create(L"Player_S_StunL", Image13, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
 
 		// ¸Â¾ÒÀ» ¶§ 
-		anim->Create(L"Player_S_HitR", Image14, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 46.f), Vector2(-2.f, -11.5f));
-		anim->Create(L"Player_S_HitL", Image14, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 46.f), Vector2(0.f, -6.f), 0.1f, true);
+		anim->Create(L"Player_S_HitR", Image14, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 58.f), Vector2(0.f, -6.5f));
+		anim->Create(L"Player_S_HitL", Image14, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 58.f), Vector2(0.f, -6.5f), 0.1f, true);
 
 		// °¡µå 
-		anim->Create(L"Player_S_GuardR", Image16, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(107.f, 46.f), Vector2(0.f, -6.f));
-		anim->Create(L"Player_S_GuardL", Image16, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(107.f, 46.f), Vector2(0.f, -6.f), 0.1f, true);
+		anim->Create(L"Player_S_GuardR", Image16, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(107.f, 58.f), Vector2(0.f, -6.f));
+		anim->Create(L"Player_S_GuardL", Image16, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
 
 
 
 		// Á×À½
-		anim->Create(L"Player_S_DieR", Image15, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 18, Vector2(107.f, 46.f), Vector2(0.f, -6.f));
-		anim->Create(L"Player_S_DieL", Image15, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 18, Vector2(107.f, 46.f), Vector2(0.f, -6.f), 0.1f, true);
+		anim->Create(L"Player_S_DieR", Image15, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 18, Vector2(107.f, 58.f), Vector2(0.f, -6.f));
+		anim->Create(L"Player_S_DieL", Image15, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 18, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
 
 
 
