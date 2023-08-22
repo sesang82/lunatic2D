@@ -572,7 +572,7 @@ namespace ss
 					// 발사체 위치 조절 
 					pos -= Vector3(75.f, 2.5f, 0.f);
 				}
-
+				m_fTime = 0.0f;
 
 
 				mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Bullet, L"StoneEyeFarCollider");
@@ -587,7 +587,7 @@ namespace ss
 						mArrowObj->GetComponent<ProjectileScript>()->SetReserve(true);
 					}*/
 
-					m_fTime = 0.0f;
+				
 
 	
 			}
@@ -599,7 +599,7 @@ namespace ss
 		if (mCurDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"StoneEye_FarAttackR", true);
-			mCollider->SetSize(Vector2(0.40f, 0.33f));
+			mCollider->SetSize(Vector2(0.19f, 0.33f));
 			mCollider->SetCenter(Vector2(-32.f, 0.f));
 
 		}
@@ -607,8 +607,8 @@ namespace ss
 		else
 		{
 			mAnimator->PlayAnimation(L"StoneEye_FarAttackL", true);
-			mCollider->SetSize(Vector2(0.40f, 0.33f));
-			mCollider->SetCenter(Vector2(32.f, 0.f));
+			mCollider->SetSize(Vector2(0.19f, 0.33f));
+			mCollider->SetCenter(Vector2(-37.f, 0.f));
 		}
 
 		//// near attack 애니메이션이 끝나면 
