@@ -44,22 +44,19 @@ namespace ss
 	}
 	void StoneEyeProjectile::Update()
 	{
-	/*	mTime += Time::DeltaTime();
+		mTime += Time::DeltaTime();
 		Transform* tr = GetComponent<Transform>();
 
 		float distance = (mFirstPos - tr->GetPosition()).Length();
 
-		if (distance >= 20.0f)
-					SetState(eState::Dead);	*/
+		if (distance <= 20.0f)
+					SetState(eState::Dead);	
 
-		//mTime += Time::DeltaTime();
 
 
 		// 시간이 지나면 삭제 
-		mTime += Time::DeltaTime();
-
-		if(mTime >= 1.f)
-			SetState(eState::Dead);
+		//if(mTime >= 1.6f)
+		//	SetState(eState::Dead);
 
 
 		Bullet::Update();

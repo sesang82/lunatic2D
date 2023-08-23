@@ -1113,7 +1113,7 @@ namespace ss
 
 	void PlayerScript::GuardEnd()
 	{
-		mGuardColObj->RemoveComponent<Collider2D>();
+		mGuardColObj->SetState(ss::GameObject::eState::Dead);
 	}
 
 	void PlayerScript::AttackEnd()
