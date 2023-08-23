@@ -32,6 +32,7 @@ namespace ss::enums
 		Boss,
 		Player, // 몬스터와 보스에게 가려지면 안되서 레이어 순서 이렇게 바꿔둠
 		Bullet,
+		Guard,
 		Ground,
 		Wall,
 		Etc, // 원래 UI로 빼야하는데 스크립트에 붙이다보니 안나오는 것들은 이거 쓰기

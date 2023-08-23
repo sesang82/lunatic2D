@@ -55,11 +55,12 @@ namespace ss
 	}
 	void ProjectileScript::OnCollisionEnter(Collider2D* other)
 	{
-		if (other->GetOwner()->GetName() == L"Player")
+		if (other->GetName() == L"colHit_player")
 		{
 			mState = GameState::GetInst().GetState(L"Player");
 			mState->SetCurrentHP(mState->GetCurrentHP() - 10);
 		
+			// 총알이 플레이어에게 부딪치면 삭제
 			GetOwner()->SetState(ss::GameObject::eState::Dead);
 		}
 	}

@@ -20,6 +20,7 @@
 #include "ssProjectileScript.h"
 #include "ssStoneNearRangeScript.h"
 #include "ssRangeCollider.h"
+#include "ssStoneFarRangeScript.h"
 
 
 
@@ -112,7 +113,20 @@ namespace ss
 
 
 		// 원거리 공격 판정용 충돌체
+		mFarRangeColObj = object::Instantiate<RangeCollider>(eLayerType::Etc, L"StoneNearRangeCol");
+		mFarRangeColObj->Initialize();
 
+		mFarTr = mFarRangeColObj->GetComponent<Transform>();
+
+		StoneFarRangeScript* farScript = mFarRangeColObj->AddComponent<StoneFarRangeScript>();
+		farScript->SetOwner(mTransform->GetOwner()); // 스톤아이 오브젝트를 저장해둔다.
+
+
+		mFarCol = mFarRangeColObj->GetComponent<Collider2D>();
+
+
+		mFarCol->SetSize(Vector2(200.f, 20.f));
+		mFarCol->SetCenter(Vector2(-35.f, 0.2f));
 
 
 
@@ -209,11 +223,15 @@ namespace ss
 	void StoneEyeScript::LateUpdate()
 	{
 		mAttackColTr->SetPosition(mTransform->GetPosition());
-		//mArrowTr->SetPosition(mTransform->GetPosition() + Vector3(-46.f, -3.f, 1.f));
+
 		mNearTr->SetPosition(mTransform->GetPosition());
+		mFarTr->SetPosition(mTransform->GetPosition());
 
 	
 	}
+
+
+
 	void StoneEyeScript::OnCollisionEnter(Collider2D* other)
 	{
 

@@ -141,6 +141,7 @@ namespace ss
         void Fall();
         void Dash();
         void Hit();
+        void Guard();
 
         void Attack();
 

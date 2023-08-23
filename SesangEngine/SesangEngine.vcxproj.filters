@@ -161,6 +161,12 @@
     <ClCompile Include="ssRangeCollider.cpp">
       <Filter>Contents\GameObj\etc\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="ssStoneFarRangeScript.cpp">
+      <Filter>Contents\Script\Character\Collider\Monster\StoneEye</Filter>
+    </ClCompile>
+    <ClCompile Include="ssPlayerGuardColScript.cpp">
+      <Filter>Contents\Script\Character\Collider\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -325,6 +331,9 @@
     <Filter Include="Contents\Script\Character\Collider\Monster\StoneEye">
       <UniqueIdentifier>{0bcb90d6-736e-4d5c-92b6-c20a562b8307}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Script\Character\Collider\Player">
+      <UniqueIdentifier>{aa360baf-6fb2-428e-a3d1-01722cbf5742}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h">
@@ -488,6 +497,12 @@
     </ClInclude>
     <ClInclude Include="ssRangeCollider.h">
       <Filter>Contents\GameObj\etc\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ssStoneFarRangeScript.h">
+      <Filter>Contents\Script\Character\Collider\Monster\StoneEye</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPlayerGuardColScript.h">
+      <Filter>Contents\Script\Character\Collider\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

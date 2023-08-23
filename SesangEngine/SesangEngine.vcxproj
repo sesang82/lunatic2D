@@ -201,6 +201,7 @@
     <ClCompile Include="ssPlatform.cpp" />
     <ClCompile Include="ssPlayer.cpp" />
     <ClCompile Include="ssPlayerAttackColScript.cpp" />
+    <ClCompile Include="ssPlayerGuardColScript.cpp" />
     <ClCompile Include="ssPlayerHP.cpp" />
     <ClCompile Include="ssPlayerScript.cpp" />
     <ClCompile Include="ssPlayScene.cpp" />
@@ -217,6 +218,7 @@
     <ClCompile Include="ssStoneEyeColScript.cpp" />
     <ClCompile Include="ssStoneEyeProjectile.cpp" />
     <ClCompile Include="ssStoneEyeScript.cpp" />
+    <ClCompile Include="ssStoneFarRangeScript.cpp" />
     <ClCompile Include="ssStoneNearRangeScript.cpp" />
     <ClCompile Include="ssTitleScene.cpp" />
     <ClCompile Include="ssUI.cpp" />
@@ -257,6 +259,7 @@
     <ClInclude Include="ssPlatform.h" />
     <ClInclude Include="ssPlayer.h" />
     <ClInclude Include="ssPlayerAttackColScript.h" />
+    <ClInclude Include="ssPlayerGuardColScript.h" />
     <ClInclude Include="ssPlayerHP.h" />
     <ClInclude Include="ssPlayerScript.h" />
     <ClInclude Include="ssPlayScene.h" />
@@ -273,6 +276,7 @@
     <ClInclude Include="ssStoneEyeColScript.h" />
     <ClInclude Include="ssStoneEyeProjectile.h" />
     <ClInclude Include="ssStoneEyeScript.h" />
+    <ClInclude Include="ssStoneFarRangeScript.h" />
     <ClInclude Include="ssStoneNearRangeScript.h" />
     <ClInclude Include="ssTitleScene.h" />
     <ClInclude Include="ssUI.h" />

@@ -76,12 +76,15 @@ namespace ss
 		//mAnimator->CompleteEvent(L"Player_D_Idle") = std::bind(&PlayerScript::Complete, this);
 
 
-
+		// 공격용 충돌체 
 		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"PlayerAttackCollider");
 		mAttackColliderObj->Initialize();
 		mAttackColliderObj->AddComponent<PlayerAttackColScript>();
 
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
+
+		// Guard용 충돌체
+
 	
 
 	}
@@ -116,6 +119,10 @@ namespace ss
 
 		case ss::ePlayerState::HIT:
 			Hit();
+			break;
+
+		case ss::ePlayerState::GUARD:
+			Guard();
 			break;
 		}
 
@@ -587,6 +594,10 @@ namespace ss
 
 	}
 
+	void PlayerScript::Guard()
+	{
+	}
+
 
 
 
@@ -635,10 +646,16 @@ namespace ss
 
 
 					if (mCurDir.x > 0)
+					{
 						mAnimator->PlayAnimation(L"Player_S_IdleR", true);
+						mCollider->SetCenter(Vector2(-3.5f, 2.f));
+					}
 
 					else
+					{
 						mAnimator->PlayAnimation(L"Player_S_IdleL", true);
+						mCollider->SetCenter(Vector2(3.5f, 2.f));
+					}
 				}
 
 				else if (mWeaponType == eWeaponType::BOW)

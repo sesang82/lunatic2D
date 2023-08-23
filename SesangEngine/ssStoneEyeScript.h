@@ -8,6 +8,7 @@ namespace ss
         public MonsterScript
     {
         friend class StoneNearRangeScript;
+        friend class StoneFarRangeScript;
      
        
 
