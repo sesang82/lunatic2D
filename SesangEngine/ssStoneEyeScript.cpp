@@ -485,6 +485,12 @@ namespace ss
 
 	void StoneEyeScript::Guard()
 	{
+
+
+
+
+
+
 	}
 
 	void StoneEyeScript::NearAttack()
@@ -616,7 +622,7 @@ namespace ss
 					m_fTime = 0.0f;
 
 
-					mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Bullet, L"StoneEyeFarCollider");
+					mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
 					mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
 
 

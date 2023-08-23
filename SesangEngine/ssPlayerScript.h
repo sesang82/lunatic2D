@@ -67,6 +67,7 @@ namespace ss
         bool  IsDash;
         float DashDuration;
         float mSpeed;
+        float mTime;
 
         float mJumpPower;
         float mJumpHeight;
@@ -83,12 +84,15 @@ namespace ss
         class CharacterState* mState;
         class Collider2D* mCollider;
 
-
+        // 공격용 충돌체 
         class AttackCollider* mAttackColliderObj;
         class Transform* mAttackColTr;
         class Collider2D* mAttackCol;
 
-        float mTime;
+        // 방어용 충돌체 
+        class AttackCollider*   mGuardColObj;
+        class Transform*        mGuardColTr;
+        class Collider2D*       mGuardCol;
        
   
 
@@ -153,8 +157,8 @@ namespace ss
         void Enter_TreeFloor();
 
         // ===== 특정 애니메이션 프레임 관련
-        void S_Attack();
-        void S_AttackEnd();
+        void GuardEnd();
+        void AttackEnd();
 
     };
 

@@ -31,7 +31,8 @@ namespace ss::enums
 		Monster,
 		Boss,
 		Player, // 몬스터와 보스에게 가려지면 안되서 레이어 순서 이렇게 바꿔둠
-		Bullet,
+		Player_Bullet,
+		Mon_Bullet,
 		Guard,
 		Ground,
 		Wall,

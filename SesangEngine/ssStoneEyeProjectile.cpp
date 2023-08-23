@@ -30,6 +30,7 @@ namespace ss
 
 		Collider2D* col = AddComponent<Collider2D>();
 		col->SetSize(Vector2(1.f, 1.f));
+		col->SetName(L"StoneEyeProjectileCol");
 		
 	
 		 // 충돌 부품은 특정 인덱스에서 add했다가 제거하는 방식으로 쓰기 

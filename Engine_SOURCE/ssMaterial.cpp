@@ -31,7 +31,7 @@ namespace ss::graphics
 			mShader->Binds();
 	}
 
-	// hp바 같은거 바인딩할 때 요거 쓰기 (쓸 슬롯은 hlsl에 작성한거 참고)
+
 	void Material::Binds(UINT slotNum)
 	{
 		if (mTexture)

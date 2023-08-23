@@ -29,6 +29,8 @@ namespace renderer
 		Matrix mProjection;
 	};
 
+
+
 	CBUFFER(GridCB, CBSLOT_GRID)
 	{
 		Vector4 CameraPosition;
@@ -65,6 +67,7 @@ namespace renderer
 		UINT p_TexType;
 		UINT p_Padding[2];
 	};
+
 
 
 

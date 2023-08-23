@@ -14,6 +14,7 @@
 #include "ssAttackCollider.h"
 #include "ssObject.h"
 #include "ssPlayerAttackColScript.h"
+#include "ssPlayerGuardColScript.h"
 #include "ssMeshRenderer.h"
 
 
@@ -65,12 +66,20 @@ namespace ss
 		mCurDir = mTransform->Right();
 
 
-		mAnimator->EndEvent(L"Player_S_Attack1R") = std::bind(&PlayerScript::S_AttackEnd, this);
-		mAnimator->EndEvent(L"Player_S_Attack1L") = std::bind(&PlayerScript::S_AttackEnd, this);
-		mAnimator->EndEvent(L"Player_S_Attack2R") = std::bind(&PlayerScript::S_AttackEnd, this);
-		mAnimator->EndEvent(L"Player_S_Attack2L") = std::bind(&PlayerScript::S_AttackEnd, this);
-		mAnimator->EndEvent(L"Player_S_Attack3R") = std::bind(&PlayerScript::S_AttackEnd, this);
-		mAnimator->EndEvent(L"Player_S_Attack3L") = std::bind(&PlayerScript::S_AttackEnd, this);
+		mAnimator->EndEvent(L"Player_S_Attack1R") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_S_Attack1L") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_S_Attack2R") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_S_Attack2L") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_S_Attack3R") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_S_Attack3L") = std::bind(&PlayerScript::AttackEnd, this);
+
+		// 가드할 때 
+		//mAnimator->EndEvent(L"Player_S_GuardR") = std::bind(&PlayerScript::GuardEnd, this);
+		mAnimator->EndEvent(L"Player_S_GuardL") = std::bind(&PlayerScript::GuardEnd, this);
+
+		// ==== 플레이어 클래스에 화살버전 guard는 안 만들었음. 추가해놓고 이거 주석 풀기 
+		//mAnimator->EndEvent(L"Player_B_GuardR") = std::bind(&PlayerScript::GuardEnd, this);
+		//mAnimator->EndEvent(L"Player_B_GuardL") = std::bind(&PlayerScript::GuardEnd, this);
 
 		// 플레이어 스크립트의 complete를 호출하면 Idle로 전환한다.
 		//mAnimator->CompleteEvent(L"Player_D_Idle") = std::bind(&PlayerScript::Complete, this);
@@ -80,11 +89,8 @@ namespace ss
 		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"PlayerAttackCollider");
 		mAttackColliderObj->Initialize();
 		mAttackColliderObj->AddComponent<PlayerAttackColScript>();
-
+			
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
-
-		// Guard용 충돌체
-
 	
 
 	}
@@ -382,7 +388,23 @@ namespace ss
 			ChangeState(ePlayerState::DASH);
 		}
 
+		// Guard
+		else if (Input::GetKeyDown(eKeyCode::LCTRL))
+		{
+			Vector3 pos = mTransform->GetPosition();
 
+			// Guard용 충돌체
+			mGuardColObj = object::Instantiate<AttackCollider>(pos,eLayerType::Guard, L"PlayerGuardObj");
+			mGuardColObj->Initialize();
+			mGuardColObj->AddComponent<PlayerGuardColScript>();
+			mGuardCol = mGuardColObj->AddComponent<Collider2D>();
+			mGuardCol->SetName(L"PlayerGuardCol");
+			mGuardCol->SetSize(Vector2(2.f, 15.f));
+			mGuardCol->SetCenter(Vector2(8.f, 3.f));
+	
+
+			ChangeState(ePlayerState::GUARD);
+		}
 
 
 	}
@@ -596,6 +618,13 @@ namespace ss
 
 	void PlayerScript::Guard()
 	{
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(ePlayerState::IDLE);
+		}
+
 	}
 
 
@@ -1037,14 +1066,12 @@ namespace ss
 
 	}
 
-	void PlayerScript::S_Attack()
+	void PlayerScript::GuardEnd()
 	{
-
-
-
+		mGuardColObj->RemoveComponent<Collider2D>();
 	}
 
-	void PlayerScript::S_AttackEnd()
+	void PlayerScript::AttackEnd()
 	{
 
 		//mCollider->SetSize(Vector2(0.2f, 0.8f));

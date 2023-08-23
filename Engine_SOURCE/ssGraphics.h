@@ -16,7 +16,7 @@
 
 // define으로 해둔 거 옆에는 slot번호이므로 hlsl에 똑같은 숫자 기재해주면 됨
 #define CBSLOT_TRANSFORM		0
-//#define CBSLOT_PARTICLE			1
+//#define CBSLOT_SPRITE			1
 #define CBSLOT_GRID				2
 #define CBSLOT_COLLISION		3
 #define CBSLOT_ANIMATION2D		4
@@ -43,7 +43,7 @@ namespace ss::graphics
 	enum class eCBType
 	{
 		Transform,
-		Material,
+		Material, // 이상 있을 시 원복 시키기 
 		Grid,
 		Collision,
 		Animator,

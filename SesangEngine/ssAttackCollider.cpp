@@ -35,25 +35,21 @@ namespace ss
 	void AttackCollider::Update()
 	{
 
-		if (!nullptr)
-		{
+
 			GameObject::Update();
-		}
+
 	}
 	void AttackCollider::LateUpdate()
 	{
 		
-		if (!nullptr)
-		{
+
 			GameObject::LateUpdate();
-		}
+		
 	}
 	void AttackCollider::Render()
 	{
 
-		if (!nullptr)
-		{
 			GameObject::Render();
-		}
+		
 	}
 }
