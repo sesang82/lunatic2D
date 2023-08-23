@@ -44,9 +44,11 @@ namespace ss
 	}
 	void StoneEyeProjectile::Update()
 	{
+		// 거리에 따른 삭제 
 		mTime += Time::DeltaTime();
 		Transform* tr = GetComponent<Transform>();
 
+		// 몬스터의 첫 위치로부터 거리를 재서 20이하면 삭제
 		float distance = (mFirstPos - tr->GetPosition()).Length();
 
 		if (distance <= 20.0f)

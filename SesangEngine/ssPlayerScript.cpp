@@ -508,6 +508,10 @@ namespace ss
 		// Guard
 		else if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
+			// move상태여도 guard 즉시 제자리에 있도록 고정시킴 
+			mRigidbody->SetVelocity(Vector2(0.f, 0.f));
+
+
 			Vector3 pos = mTransform->GetPosition();
 
 			// Guard용 충돌체
@@ -652,6 +656,9 @@ namespace ss
 
 	void PlayerScript::Hit()
 	{
+		// hit 상태 즉시 제자리에 멈춰있도록 속도 0으로 만듦
+		mRigidbody->SetVelocity(Vector2(0.f, 0.f));
+
 		// 애니메이션 재생이 끝나면 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
