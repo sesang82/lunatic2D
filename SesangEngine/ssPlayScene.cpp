@@ -91,6 +91,7 @@ namespace ss
 			AudioSource* as = player->AddComponent<AudioSource>();
 			as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\0.mp3"));
 			as->Play();
+			as->SetLoop(true);
 			//cd->SetSize(Vector2(1.2f, 1.2f));
 			//player->AddComponent<PlayerScript>();
 		}

@@ -21,17 +21,15 @@ namespace ss
 
 	}
 	void PlayerGuardColScript::OnCollisionEnter(Collider2D* other)
-	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::Mon_Bullet)
-		{
-			if (other->GetOwner()->GetName() == L"StoneEyeProjectileCol")
+	{	
+			if (other->GetName() == L"StoneEyeProjectileCol")
 			{
 				// 총알을 회전 시킨다. 
 				Transform* tr = other->GetOwner()->GetComponent<Transform>();
-				tr->SetRotation(90.f, 0.f, 1.f);
+				tr->SetRotation(180.f, 0.f, 1.f);
 
 			}
-		}
+	
 	}
 	void PlayerGuardColScript::OnCollisionStay(Collider2D* other)
 	{

@@ -41,26 +41,17 @@ namespace ss
 		Vector3 ArrowPos = mTransform->GetPosition();
 		//Vector3 curpos = Vector3::Zero;
 
-		if (PlayerDir.x == 1.0f) // 원점에 이미지가 머물러있는건 0,0,0인데 pos값 따로 안주면 당연히 위치 값이 계속 0 나올것임 ... 
+		if (mIsGuard) 
 		{
-			ArrowPos.x += mSpeed * Time::DeltaTime();
-
-			if (mIsGuard)
-			{
-				ArrowPos.x += -mSpeed * Time::DeltaTime();
-			}
+			// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
+			ArrowPos.x += (PlayerDir.x == 1.0f ? -1 : 1) * mSpeed * Time::DeltaTime();
+		}
+		else 
+		{
+			// 정상적인 움직임
+			ArrowPos.x += (PlayerDir.x == 1.0f ? 1 : -1) * mSpeed * Time::DeltaTime();
 		}
 
-		else if (PlayerDir.x == -1.0f)
-		{
-	
-			ArrowPos.x += -mSpeed * Time::DeltaTime();
-
-			if (mIsGuard)
-			{
-				ArrowPos.x += mSpeed * Time::DeltaTime();
-			}
-		}
 
 		mTransform->SetPosition(ArrowPos);
 	}
@@ -81,10 +72,19 @@ namespace ss
 			// 총알 반대로 가게 함 
 			mIsGuard = true;
 
+
+		}
+
+		if (other->GetName() == L"StoneHitCol")
+		{
 			CharacterState* StoneEyeState = mOriginOwner->GetComponent<CharacterState>();
 			StoneEyeState->SetCurrentHP(StoneEyeState->GetCurrentHP() - 10);
 
+			// 스톤아이의 상태를 stun으로 만들기
 
+
+			// 총알이 스톤아이에게 부딪치면 삭제
+			GetOwner()->SetState(ss::GameObject::eState::Dead);
 		}
 	}
 	void ProjectileScript::OnCollisionStay(Collider2D* other)
