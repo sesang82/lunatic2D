@@ -24,7 +24,7 @@ namespace ss
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"StoneEyeBorrowMtrl")); 
 
-
+		
 		tr->SetScale(Vector3(25.f, 10.f, 0.f));
 		mTime = 0.0f;
 

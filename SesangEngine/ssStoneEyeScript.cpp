@@ -612,27 +612,22 @@ namespace ss
 					{
 						// 발사체 위치 조절 
 						pos += Vector3(8.f, -2.5f, 0.f);
+						mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
+						mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
+						mArrowTr = mArrowObj->GetComponent<Transform>();
 					}
 
 					else if (mCurDir.x == -1.0f)
 					{
 						// 발사체 위치 조절 
 						pos -= Vector3(75.f, 2.5f, 0.f);
+
+						mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
+						mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
+						mArrowTr = mArrowObj->GetComponent<Transform>();
+						mArrowTr->SetScale(Vector3(- 25.f, 10.f, 0.f));
 					}
 					m_fTime = 0.0f;
-
-
-					mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
-					mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
-
-
-					// === guard 할 때 쓰면 될 듯 (거꾸로 충돌체 가는거) 
-					/*mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Bullet, L"StoneEyeFarCollider");
-
-					if (mPrevDir.x > 0)
-						{
-							mArrowObj->GetComponent<ProjectileScript>()->SetReserve(true);
-						}*/
 
 				}
 

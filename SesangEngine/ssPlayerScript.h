@@ -36,6 +36,7 @@ namespace ss
     {
 
         friend class AttackCollider;
+        friend class PlayerGuardColScript;
 
     public:
         PlayerScript();
@@ -93,6 +94,9 @@ namespace ss
         class AttackCollider*   mGuardColObj;
         class Transform*        mGuardColTr;
         class Collider2D*       mGuardCol;
+
+
+        // 몬스터 갖고 올 수 잇는 벡터 만들어서 여따가 저장시켜둔다. (스크립트에 써먹기 위함)
        
   
 

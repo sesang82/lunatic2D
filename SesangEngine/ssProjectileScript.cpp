@@ -54,6 +54,10 @@ namespace ss
 
 
 		mTransform->SetPosition(ArrowPos);
+
+
+
+
 	}
 	void ProjectileScript::OnCollisionEnter(Collider2D* other)
 	{

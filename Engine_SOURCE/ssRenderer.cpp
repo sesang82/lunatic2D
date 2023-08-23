@@ -172,6 +172,13 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+
+		shader = ss::Resources::Find<Shader>(L"NoCullingSpriteShader");
+		ss::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+
 		shader = ss::Resources::Find<Shader>(L"GridShader");
 		ss::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -215,6 +222,9 @@ namespace renderer
 		GetDevice()->CreateSamplerState(&samplerDesc, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
 		GetDevice()->BindSampler(eShaderStage::PS, 1, samplerState[(UINT)eSamplerType::Anisotropic].GetAddressOf());
 #pragma endregion
+
+
+
 #pragma region Rasterizer State
 		D3D11_RASTERIZER_DESC rasterizerDesc = {};
 		rasterizerDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
@@ -348,6 +358,13 @@ namespace renderer
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		ss::Resources::Insert(L"SpriteShader", spriteShader);
 
+		// guard로 튕겨내는 물체들은 이거 쉐이더 적용하기 
+		std::shared_ptr<Shader> NoCullingSpriteShader = std::make_shared<Shader>();
+		NoCullingSpriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		NoCullingSpriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+		NoCullingSpriteShader->SetRSState(eRSType::SolidNone); // 뒷면으로 뒤집어도 culling 되지 않도록 함 
+		ss::Resources::Insert(L"NoCullingSpriteShader", NoCullingSpriteShader);
+
 		std::shared_ptr<Shader> spriteAnimShader = std::make_shared<Shader>();
 		spriteAnimShader->Create(eShaderStage::VS, L"SpriteAnimationVS.hlsl", "main");
 		spriteAnimShader->Create(eShaderStage::PS, L"SpriteAnimationPS.hlsl", "main");
@@ -399,6 +416,11 @@ namespace renderer
 
 		std::shared_ptr<Shader> progressShader2
 			= Resources::Find<Shader>(L"ProgressSPbarShader");
+
+		
+		std::shared_ptr<Shader> noCullingSpriteShader
+			= Resources::Find<Shader>(L"NoCullingSpriteShader");
+
 
 		std::shared_ptr<Texture> texture
 			= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
@@ -1005,7 +1027,7 @@ namespace renderer
 
 			 // === Material 생성
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetShader(noCullingSpriteShader);
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 

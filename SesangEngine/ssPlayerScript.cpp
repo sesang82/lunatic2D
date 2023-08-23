@@ -74,7 +74,7 @@ namespace ss
 		mAnimator->EndEvent(L"Player_S_Attack3L") = std::bind(&PlayerScript::AttackEnd, this);
 
 		// 가드할 때 
-		//mAnimator->EndEvent(L"Player_S_GuardR") = std::bind(&PlayerScript::GuardEnd, this);
+		mAnimator->EndEvent(L"Player_S_GuardR") = std::bind(&PlayerScript::GuardEnd, this);
 		mAnimator->EndEvent(L"Player_S_GuardL") = std::bind(&PlayerScript::GuardEnd, this);
 
 		// ==== 플레이어 클래스에 화살버전 guard는 안 만들었음. 추가해놓고 이거 주석 풀기 
@@ -396,11 +396,24 @@ namespace ss
 			// Guard용 충돌체
 			mGuardColObj = object::Instantiate<AttackCollider>(pos,eLayerType::Guard, L"PlayerGuardObj");
 			mGuardColObj->Initialize();
-			mGuardColObj->AddComponent<PlayerGuardColScript>();
+			PlayerGuardColScript* guardScript = mGuardColObj->AddComponent<PlayerGuardColScript>();
 			mGuardCol = mGuardColObj->AddComponent<Collider2D>();
 			mGuardCol->SetName(L"PlayerGuardCol");
-			mGuardCol->SetSize(Vector2(2.f, 15.f));
-			mGuardCol->SetCenter(Vector2(8.f, 3.f));
+
+			if (mCurDir.x > 0)
+			{
+				mGuardCol->SetSize(Vector2(2.f, 15.f));
+				mGuardCol->SetCenter(Vector2(8.f, 3.f));
+			}
+
+			else
+			{
+				mGuardCol->SetSize(Vector2(2.f, 15.f));
+				mGuardCol->SetCenter(Vector2(-8.f, 3.f));
+			}
+
+
+			guardScript->StorePlayerScript(this);
 	
 
 			ChangeState(ePlayerState::GUARD);
@@ -491,6 +504,37 @@ namespace ss
 
 		}
 
+
+		// Guard
+		else if (Input::GetKeyDown(eKeyCode::LCTRL))
+		{
+			Vector3 pos = mTransform->GetPosition();
+
+			// Guard용 충돌체
+			mGuardColObj = object::Instantiate<AttackCollider>(pos, eLayerType::Guard, L"PlayerGuardObj");
+			mGuardColObj->Initialize();
+			PlayerGuardColScript* guardScript = mGuardColObj->AddComponent<PlayerGuardColScript>();
+			mGuardCol = mGuardColObj->AddComponent<Collider2D>();
+			mGuardCol->SetName(L"PlayerGuardCol");
+
+			if (mCurDir.x > 0)
+			{
+				mGuardCol->SetSize(Vector2(2.f, 15.f));
+				mGuardCol->SetCenter(Vector2(8.f, 3.f));
+			}
+
+			else
+			{
+				mGuardCol->SetSize(Vector2(2.f, 15.f));
+				mGuardCol->SetCenter(Vector2(-8.f, 3.f));
+			}
+
+
+			guardScript->StorePlayerScript(this);
+
+
+			ChangeState(ePlayerState::GUARD);
+		}
 
 	}
 	void PlayerScript::Jump()
@@ -886,10 +930,11 @@ namespace ss
 			{
 				if (mWeaponType == eWeaponType::SWORD)
 				{
-					if (mPrevDir.x > 0 && mPlayer->GetEnableRender())
+					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_S_HitR", false);
-				/*	else if ((mPrevDir.x > 0 && !mPlayer->GetEnableRender()))
-						mAnimator->PlayAnimation(L"Player_S_HitL", false);*/
+
+					else
+						mAnimator->PlayAnimation(L"Player_S_HitL", false);
 				}
 
 				else if (mWeaponType == eWeaponType::BOW)

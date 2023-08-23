@@ -26,7 +26,14 @@ namespace ss
         class CharacterState* mState;
 
         class Player* mPlayer;
-        class StoneEye* mStoneEye;
+    
+
+        class PlayerScript* mPlayerScript;
+
+
+    public:
+        void StorePlayerScript(PlayerScript* _script) { mPlayerScript = _script; }
+    
 
     };
 }
