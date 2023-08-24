@@ -41,7 +41,7 @@ namespace ss
 		// === 
 		// 애니메이션 나중에 플레이어 다 완성되면 
 		//  LT, 1프레임 사를 사이즈, 자를 갯수, 백사이즈, 오프셋(y값은 -값이 클수록 올라감)
-		ani->Create(L"StunEffectAnim", Stun, Vector2(0.f, 0.f), Vector2(27.f, 15.f), 5, Vector2(27.f, 15.f), Vector2(0.f, -19.f));
+		//ani->Create(L"StunEffectAnim", Stun, Vector2(0.f, 0.f), Vector2(27.f, 15.f), 5, Vector2(27.f, 15.f), Vector2(0.f, -19.f));
 
 
 		GameObject::Initialize();
@@ -49,12 +49,7 @@ namespace ss
 
 	void Effect::Update()
 	{
-		Transform* tr = GetComponent<Transform>();
-
-		tr->SetPosition(tr->GetPosition());
-
-
-		GameObject::Update();
+	
 	}	
 
 	void Effect::LateUpdate()

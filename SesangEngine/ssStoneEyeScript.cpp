@@ -458,21 +458,6 @@ namespace ss
 	{
 		// 방향대로 애니메이션을 재생한다. 
 		{
-			Vector3 pos = mTransform->GetPosition();
-
-			pos.y += 50.f;
-			mEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"StunEffectObj");
-			mEffectObj->Initialize();
-			mEffectObj->SetEffectOwner(mTransform->GetOwner());
-
-			Transform* tr = mEffectObj->GetComponent<Transform>();
-			tr->SetScale(Vector3(300.f, 300.f, 0.f));
-
-
-			Animator* anim = mEffectObj->GetComponent<Animator>();
-
-			anim->PlayAnimation(L"StunEffectAnim", false);
-
 			if (mCurDir.x > 0)
 				mAnimator->PlayAnimation(L"StoneEye_StunR", false);
 

@@ -28,6 +28,7 @@ namespace ss
 
 			StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
 
+			// stun상태일 시 공격하지 않아야하므로
 			if (stonescript->mCurState != ss::eMonsterState::STUN)
 			{
 				stonescript->mCurState = ss::eMonsterState::NEARATTACK;
