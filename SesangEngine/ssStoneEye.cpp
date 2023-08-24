@@ -59,8 +59,8 @@ namespace ss
 		ani->Create(L"StoneEye_HitR", Image2, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 1, Vector2(240.f, 123.f), Vector2(0.f, -20.f), 0.3f);
 		ani->Create(L"StoneEye_HitL", Image2, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 1, Vector2(240.f, 123.f), Vector2(70.f, -20.f), 0.3f, true);
 
-		ani->Create(L"StoneEye_StunR", Image3, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 6, Vector2(240.f, 123.f), Vector2(0.f, -19.f));
-		ani->Create(L"StoneEye_StunL", Image3, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 6, Vector2(240.f, 123.f), Vector2(70.f, -19.f), 0.1f, true);
+		ani->Create(L"StoneEye_StunR", Image3, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 5, Vector2(240.f, 123.f), Vector2(0.f, -19.f));
+		ani->Create(L"StoneEye_StunL", Image3, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 5, Vector2(240.f, 123.f), Vector2(70.f, -19.f), 0.1f, true);
 
 		ani->Create(L"StoneEye_DieR", Image4, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 10, Vector2(240.f, 123.f), Vector2(0.f, -19.f));
 		ani->Create(L"StoneEye_DieL", Image4, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 10, Vector2(240.f, 123.f), Vector2(70.f, -19.f), 0.1f, true);

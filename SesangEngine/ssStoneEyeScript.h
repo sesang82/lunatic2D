@@ -71,6 +71,9 @@ namespace ss
         class Transform* mFarTr;
         class Collider2D* mFarCol;
 
+        // ==== 이펙트
+        class Effect* mEffectObj;
+
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 
@@ -84,6 +87,7 @@ namespace ss
 
         void Stun();
         void Hit();
+       
 
         void Guard();
 
@@ -95,6 +99,8 @@ namespace ss
         void Animation();
 
         void FarAttackEnd();
+        void StunEnd();
+
 
     public:
         void SetFirstPos(Vector3 pos) { mFirstPos = pos; }
@@ -105,7 +111,6 @@ namespace ss
         // 각 범위 인식용 충돌체에 이 함수 활용하기 
         void IsNearAttack(bool b) { mbNearAttack = b; }
         void IsFarAttack(bool b) { mbFarAttack = b; }
-
     };
 }
 

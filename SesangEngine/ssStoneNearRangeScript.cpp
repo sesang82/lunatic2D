@@ -25,10 +25,15 @@ namespace ss
 		//if (other->GetName() == L"colHit_player")// 충돌체 이름 
 		if(other->GetOwner()->GetName() == L"Player")
 		{
-			StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
-			stonescript->mCurState = ss::eMonsterState::NEARATTACK;
 
-			stonescript->IsNearAttack(true);
+			StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
+
+			if (stonescript->mCurState != ss::eMonsterState::STUN)
+			{
+				stonescript->mCurState = ss::eMonsterState::NEARATTACK;
+
+				stonescript->IsNearAttack(true);
+			}
 
 		}
 	}
@@ -40,8 +45,13 @@ namespace ss
 		if (other->GetOwner()->GetName() == L"Player")
 		{
 			StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
-			stonescript->mCurState = ss::eMonsterState::FARATTACK;
-			stonescript->IsNearAttack(false);
+
+			if (stonescript->mCurState != ss::eMonsterState::STUN)
+			{
+				StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
+				stonescript->mCurState = ss::eMonsterState::FARATTACK;
+				stonescript->IsNearAttack(false);
+			}
 		}
 	}
 }

@@ -85,7 +85,8 @@ namespace ss
 			StoneEyeState->SetCurrentHP(StoneEyeState->GetCurrentHP() - 10);
 
 			// 스톤아이의 상태를 stun으로 만들기
-
+			StoneEyeScript* script = mOriginOwner->GetComponent<StoneEyeScript>();
+			script->ChangeState(eMonsterState::STUN);
 
 			// 총알이 스톤아이에게 부딪치면 삭제
 			GetOwner()->SetState(ss::GameObject::eState::Dead);

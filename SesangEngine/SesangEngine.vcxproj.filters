@@ -167,6 +167,9 @@
     <ClCompile Include="ssPlayerGuardColScript.cpp">
       <Filter>Contents\Script\Character\Collider\Player</Filter>
     </ClCompile>
+    <ClCompile Include="ssEffect.cpp">
+      <Filter>Contents\GameObj\etc\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -333,6 +336,9 @@
     </Filter>
     <Filter Include="Contents\Script\Character\Collider\Player">
       <UniqueIdentifier>{aa360baf-6fb2-428e-a3d1-01722cbf5742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\etc\Effect">
+      <UniqueIdentifier>{1c3d245c-f4bf-4c04-906f-a70a69b253fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -503,6 +509,9 @@
     </ClInclude>
     <ClInclude Include="ssPlayerGuardColScript.h">
       <Filter>Contents\Script\Character\Collider\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ssEffect.h">
+      <Filter>Contents\GameObj\etc\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

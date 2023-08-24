@@ -1511,6 +1511,25 @@ namespace renderer
 #pragma endregion 
 
 
+#pragma region Effect
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"StunEffect", L"..\\Resources\\Texture\\Monster\\Effect\\Stun\\EnemyStun.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			//spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			Resources::Insert(L"StunEffectMtrl", spriteMateiral);
+		}
+
+
+
+#pragma endregion 
+
+
 	}
 
 	

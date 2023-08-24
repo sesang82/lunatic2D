@@ -21,6 +21,7 @@
 #include "ssStoneNearRangeScript.h"
 #include "ssRangeCollider.h"
 #include "ssStoneFarRangeScript.h"
+#include "ssEffect.h"
 
 
 
@@ -148,7 +149,7 @@ namespace ss
 		//mArrowScript->StoreMonsterPos(mTransform->GetPosition());
 
 
-
+		mPrevState = mCurState;
 
 		// 이동->상태변환->애니메이션
 
@@ -216,7 +217,7 @@ namespace ss
 
 		//Animation();
 
-		mPrevState = mCurState;
+
 		mPrevDir = mCurDir;
 
 	}
@@ -455,6 +456,44 @@ namespace ss
 
 	void StoneEyeScript::Stun()
 	{
+		// 방향대로 애니메이션을 재생한다. 
+		{
+			Vector3 pos = mTransform->GetPosition();
+
+			pos.y += 50.f;
+			mEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"StunEffectObj");
+			mEffectObj->Initialize();
+			mEffectObj->SetEffectOwner(mTransform->GetOwner());
+
+			Transform* tr = mEffectObj->GetComponent<Transform>();
+			tr->SetScale(Vector3(300.f, 300.f, 0.f));
+
+
+			Animator* anim = mEffectObj->GetComponent<Animator>();
+
+			anim->PlayAnimation(L"StunEffectAnim", false);
+
+			if (mCurDir.x > 0)
+				mAnimator->PlayAnimation(L"StoneEye_StunR", false);
+
+			else
+				mAnimator->PlayAnimation(L"StoneEye_StunL", false);
+		}
+
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			if (mbNearAttack)
+			{
+				mCurState = eMonsterState::NEARATTACK;
+			}
+
+			else if (mbFarAttack)
+			{
+				mCurState = eMonsterState::FARATTACK;
+			}
+		}
 	}
 
 	void StoneEyeScript::Hit()
@@ -817,4 +856,10 @@ namespace ss
 	{
 		mCurState = eMonsterState::MOVE;
 	}
+
+	void StoneEyeScript::StunEnd()
+	{
+		mEffectObj->SetState(GameObject::eState::Dead);
+	}
+
 }

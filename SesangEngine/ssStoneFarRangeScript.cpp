@@ -26,9 +26,13 @@ namespace ss
 		if (other->GetOwner()->GetName() == L"Player")
 		{
 			StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
-			stonescript->mCurState = ss::eMonsterState::FARATTACK;
 
-			stonescript->IsFarAttack(true);
+			if (stonescript->mCurState != ss::eMonsterState::STUN)
+			{
+				stonescript->mCurState = ss::eMonsterState::FARATTACK;
+
+				stonescript->IsFarAttack(true);
+			}
 
 		}
 	}
@@ -40,8 +44,13 @@ namespace ss
 		if (other->GetOwner()->GetName() == L"Player")
 		{
 			StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
-			stonescript->mCurState = ss::eMonsterState::MOVE; 
-			stonescript->IsFarAttack(false);
+
+			if (stonescript->mCurState != ss::eMonsterState::STUN)
+			{
+				StoneEyeScript* stonescript = mOwner->GetComponent<StoneEyeScript>();
+				stonescript->mCurState = ss::eMonsterState::MOVE;
+				stonescript->IsFarAttack(false);
+			}
 		}
 	}
 }
