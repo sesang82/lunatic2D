@@ -13,12 +13,13 @@ namespace ss
 	{
 	}
 	void StoneFarRangeScript::Initialize()
-	{
-		mMonster = (StoneEye*)GetOwner();
+	{		
 
 	}
 	void StoneFarRangeScript::Update()
 	{
+
+
 	}
 	void StoneFarRangeScript::OnCollisionEnter(Collider2D* other)
 	{

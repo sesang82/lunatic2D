@@ -21,7 +21,7 @@ namespace ss
 	}
 	void ProjectileScript::Initialize()
 	{
-		//(StoneEye*)mOriginOwner;
+		(StoneEye*)mOriginOwner;
 
 		mState = GetOwner()->GetComponent<CharacterState>();
 		mAnimator = GetOwner()->GetComponent<Animator>();
@@ -33,28 +33,29 @@ namespace ss
 	void ProjectileScript::Update()
 	{
 	
-		// 현재 위치 값 갖고 옴 
-		(StoneEye*)mOriginOwner;
 
-		Vector3 PlayerDir = mOriginOwner->GetComponent<StoneEyeScript>()->GetCurDir();
 
+		StoneEyeScript* monScript = mOriginOwner->GetComponent<StoneEyeScript>();
+		CharacterState* StoneEyeState = mOriginOwner->GetComponent<CharacterState>();
+
+		if (StoneEyeState->GetCurrentHP() > 0.f)
+		{
+		Vector3 PlayerDir = monScript->GetCurDir();
 		Vector3 ArrowPos = mTransform->GetPosition();
-		//Vector3 curpos = Vector3::Zero;
 
-		if (mIsGuard) 
-		{
-			// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
-			ArrowPos.x += (PlayerDir.x == 1.0f ? -1 : 1) * mSpeed * Time::DeltaTime();
+			if (mIsGuard)
+			{
+				// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
+				ArrowPos.x += (PlayerDir.x == 1.0f ? -1 : 1) * mSpeed * Time::DeltaTime();
+			}
+			else
+			{
+				// 정상적인 움직임
+				ArrowPos.x += (PlayerDir.x == 1.0f ? 1 : -1) * mSpeed * Time::DeltaTime();
+			}
+
+			mTransform->SetPosition(ArrowPos);
 		}
-		else 
-		{
-			// 정상적인 움직임
-			ArrowPos.x += (PlayerDir.x == 1.0f ? 1 : -1) * mSpeed * Time::DeltaTime();
-		}
-
-
-		mTransform->SetPosition(ArrowPos);
-
 
 
 
@@ -82,14 +83,32 @@ namespace ss
 		if (other->GetName() == L"StoneHitCol")
 		{
 			CharacterState* StoneEyeState = mOriginOwner->GetComponent<CharacterState>();
-			StoneEyeState->SetCurrentHP(StoneEyeState->GetCurrentHP() - 10);
+			StoneEyeScript* monScript = mOriginOwner->GetComponent<StoneEyeScript>();
 
-			// 스톤아이의 상태를 stun으로 만들기
-			StoneEyeScript* script = mOriginOwner->GetComponent<StoneEyeScript>();
-			script->ChangeState(eMonsterState::STUN);
+			if (StoneEyeState->GetCurrentHP() > 0.f)
+			{
+				float test = StoneEyeState->GetCurrentHP();
 
-			// 총알이 스톤아이에게 부딪치면 삭제
-			GetOwner()->SetState(ss::GameObject::eState::Dead);
+				StoneEyeState->SetCurrentHP(StoneEyeState->GetCurrentHP() - 10);
+
+				// 스톤아이의 상태를 stun으로 만들기
+				StoneEyeScript* script = mOriginOwner->GetComponent<StoneEyeScript>();
+				script->ChangeState(eMonsterState::STUN);
+
+
+				float test2 = StoneEyeState->GetCurrentHP();
+
+				// 총알이 스톤아이에게 부딪치면 삭제
+				GetOwner()->SetState(ss::GameObject::eState::Dead);
+			}
+
+
+			else if (StoneEyeState->GetCurrentHP() <= 0.f)
+			{
+				monScript->ChangeState(eMonsterState::DEAD);
+			}
+
+
 		}
 	}
 	void ProjectileScript::OnCollisionStay(Collider2D* other)

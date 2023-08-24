@@ -68,6 +68,7 @@ namespace ss
 
 	void CollisionManager::ColliderCollision(Collider2D* left, Collider2D* right)
 	{
+
 		// 두 충돌체의 ID bool값을 확인
 		ColliderID id = {};
 		id.left = left->GetColliderID();

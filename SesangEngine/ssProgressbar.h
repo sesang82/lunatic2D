@@ -18,7 +18,7 @@ namespace ss
 		virtual void BindConstantBuffer();
 
 	public:
-		float mWidth;
+		int mWidth;
 		class CharacterState* mState;
 		class GameObject* mOwner;
 		Vector3 mCurScale;

@@ -39,6 +39,9 @@ namespace ss
 	}
 	StoneEyeScript::~StoneEyeScript()
 	{
+		// 소멸할 때 아예 같이 씬에서 제거해준다. (해당 충돌체에 충돌 중일 경우 충돌체가 씬에 남아있는 경우가 있음. 이건 어떻게 해야될까)
+		// 
+		
 	}
 	void StoneEyeScript::Initialize()
 	{
@@ -63,8 +66,10 @@ namespace ss
 
 			mCharacterState = GetOwner()->GetComponent<CharacterState>();
 			
-			mCharacterState->SetMaxHP(100.f);
-			mCharacterState->SetCurrentHP(100.f);
+			// 이유는 모르겠지만 -10씩 해줘도 첫 프레임에 -20이 깎이고 그 다음에 정상적으로 깎임.
+			// 그러니 체력을 100씩 해주는 녀석이 있다면 110으로 해주자. 
+			mCharacterState->SetMaxHP(110.f);
+			mCharacterState->SetCurrentHP(110.f);
 
 
 			mFirstPos = GetOwner()->GetComponent<Transform>()->GetPosition();
@@ -683,6 +688,32 @@ namespace ss
 
 	void StoneEyeScript::Dead()
 	{
+
+		if (mCurDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"StoneEye_DieR", false);
+			mCollider->SetSize(Vector2(0.19f, 0.33f));
+			mCollider->SetCenter(Vector2(-32.f, 0.f));
+
+		}
+
+		else
+		{
+			mAnimator->PlayAnimation(L"StoneEye_DieL", false);
+			mCollider->SetSize(Vector2(0.19f, 0.33f));
+			mCollider->SetCenter(Vector2(-37.f, 0.f));
+		}
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			mNearRangeColObj->SetState(GameObject::eState::Dead);
+			mAttackColliderObj->SetState(GameObject::eState::Dead);
+			mFarRangeColObj->SetState(GameObject::eState::Dead);
+
+			GetOwner()->SetState(GameObject::eState::Dead);
+		}
+
 	}
 	
 	void StoneEyeScript::Animation()

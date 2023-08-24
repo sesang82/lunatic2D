@@ -72,7 +72,7 @@ namespace ss
 
 
 		// 9프레임에 총알 나감 
-		ani->Create(L"StoneEye_FarAttackR", Image7, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 11, Vector2(240.f, 123.f), Vector2(0.f, -19.f));
+		ani->Create(L"StoneEye_FarAttackR", Image7, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 11, Vector2(240.f, 123.f), Vector2(0.f, -19.f), 0.1f);
 		ani->Create(L"StoneEye_FarAttackL", Image7, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 11, Vector2(240.f, 123.f), Vector2(70.f, -19.f), 0.1f, true);
 
 

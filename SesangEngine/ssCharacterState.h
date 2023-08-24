@@ -45,8 +45,7 @@ namespace ss
         virtual void OnTriggerExit(Collider2D* collider) {};
 
 
-    public:
-        void BindConstantBuffer(); // 일반 몬스터 용
+    public: 
         // GPU에 생성한 상수 버퍼에 데이터 넣어주는 용도 (game state처럼 씬 넘어가도 정보 유지되어야하는 녀석들은 이걸 써야함) 
        void BindConstantBuffer(const std::wstring& _name);  
 

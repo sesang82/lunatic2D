@@ -21,6 +21,7 @@ namespace ss
 
     private:
         GameObject* mOwner;
+ 
 
     public:
     
