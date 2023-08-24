@@ -17,7 +17,7 @@ namespace ss::graphics
 		virtual HRESULT Load(const std::wstring& path) override;
 
 		void Binds(); // 텍스처나 쉐이더가 있을 때만 Bind 해주게 함
-		void Binds(UINT slotNum);
+		//void Binds(UINT slotNum);
 
 		void Clear(); //  바인딩해줬던 Material을 해제하는 함수 
 

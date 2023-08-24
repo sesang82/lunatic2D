@@ -32,14 +32,14 @@ namespace ss::graphics
 	}
 
 
-	void Material::Binds(UINT slotNum)
-	{
-		if (mTexture)
-			mTexture->BindShader(eShaderStage::PS, slotNum);
+	//void Material::Binds(UINT slotNum)
+	//{
+	//	if (mTexture)
+	//		mTexture->BindShader(eShaderStage::PS, slotNum);
 
-		if (mShader)
-			mShader->Binds();
-	}
+	//	if (mShader)
+	//		mShader->Binds();
+	//}
 
 	void Material::Clear()
 	{
