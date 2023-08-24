@@ -46,10 +46,22 @@ namespace ss
 		if (L"StoneEye" == other->GetOwner()->GetName())
 		{			
 			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
-			stone->SetCurrentHP(stone->GetCurrentHP() - 10); 
-	
 			StoneEyeScript* script = other->GetOwner()->GetComponent<StoneEyeScript>();
-			script->ChangeState(eMonsterState::HIT);
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+
+				
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
 		
 		}
 

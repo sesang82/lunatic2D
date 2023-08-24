@@ -30,7 +30,7 @@ namespace ss
 		, mbIdleJump(false)
 		, mChangeFirst(false)
 		, mWeaponType{}
-		, IsDash(false)
+		, mbDash(false)
 		, DashDuration(0.0f)
 		, mAttackCount(0)
 		, mWeaponCount(0)
@@ -372,7 +372,7 @@ namespace ss
 		else if (Input::GetKeyDown(eKeyCode::X))
 		{
 			// 대쉬 시작
-			IsDash = true;
+			mbDash = true;
 			DashDuration = 0.5f;  // 대쉬 지속 시간 설정
 
 			// Run일 때는 속력을 주고 있지만, Idle때는 아무런 키도 누를 일이 없어서 속도가 0이라 임의로 부여해줌 
@@ -466,7 +466,7 @@ namespace ss
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
 			// 대쉬 시작
-			IsDash = true;
+			mbDash = true;
 			DashDuration = 0.5f;  // 대쉬 지속 시간 설정
 			mVelocity.x *= 100 * Time::DeltaTime();  // 속도는 나중에 맞추기 
 
@@ -625,13 +625,13 @@ namespace ss
 
 		// 대쉬 시간이 0.2초가 넘어가면 대쉬가 끝난 것으로 간주
 
-		if (IsDash)
+		if (mbDash)
 		{
 			DashDuration -= Time::DeltaTime();
 
 			if (DashDuration <= 0.f)
 			{
-				IsDash = false;
+				mbDash = false;
 				mVelocity.x /= 2;
 				mRigidbody->SetVelocity(mVelocity);
 				
@@ -981,9 +981,20 @@ namespace ss
 				{
 					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 					{
-						mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-						mAttackCol->SetSize(Vector2(10.f, 0.8f));
-						
+						if (mPrevDir.x > 0)
+						{
+
+							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+							mAttackCol->SetSize(Vector2(30.f, 40.f));
+							mAttackCol->SetCenter(Vector2(14.f, 2.f));
+						}
+
+						else if (mPrevDir.x < 0)
+						{
+							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+							mAttackCol->SetSize(Vector2(30.f, 40.f));
+							mAttackCol->SetCenter(Vector2(-14.f, 2.f));
+						}
 					
 
 					}

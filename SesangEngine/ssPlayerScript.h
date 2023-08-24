@@ -65,7 +65,7 @@ namespace ss
     private:
         bool  mbIdleJump;
         bool  mChangeFirst; // 무기 변경할 떄의 첫 애니메이션 땜에 만듦
-        bool  IsDash;
+        bool  mbDash;
         float DashDuration;
         float mSpeed;
         float mTime;
@@ -139,6 +139,8 @@ namespace ss
         bool    GetPrev() { return mbPrev; }
 
         void  SetPrev(bool prev) { mbPrev = prev; }
+
+        bool IsDash() { return mbDash; }
  
 
 
