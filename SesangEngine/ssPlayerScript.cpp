@@ -27,6 +27,7 @@ namespace ss
 		, mVelocity(1.f, 1.f)
 		, mJumpHeight(65.0f)
 		, mJumpCount(0)
+		, mbJump(false)
 		, mbIdleJump(false)
 		, mChangeFirst(false)
 		, mWeaponType{}
@@ -188,9 +189,11 @@ namespace ss
 
 		}
 
-
-
-
+		if (other->GetOwner()->GetLayerType() == eLayerType::Ground)
+		{
+			
+		}
+	
 
 
 		// ======
@@ -225,14 +228,6 @@ namespace ss
 
 	void PlayerScript::OnCollisionStay(Collider2D* other)
 	{
-		if (L"col_Floor" == other->GetOwner()->GetName())
-		{
-
-
-	
-
-		}
-
 
 
 		// ==== 일단 이미지는 화살이지만, 검 애니메이션 나오게 해보기 
@@ -262,6 +257,23 @@ namespace ss
 		if (L"col_Floor" == other->GetOwner()->GetName())
 		{
 			mRigidbody->SetGround(false);
+		
+
+			if (mCurState != ePlayerState::JUMP)
+			{
+				if (mCurDir.x > 0)
+				{
+					mRigidbody->SetVelocity(Vector2(50.f, 0.f));
+				}
+
+				else if (mCurDir.x < 0)
+				{
+					mRigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				}
+
+				ChangeState(ePlayerState::FALL);
+			}
+
 		}
 
 
@@ -273,9 +285,23 @@ namespace ss
 			//// 플레이어가 발판 위에 있을 때만 물리 작동되게 함 (발판 아래에서 점프했을 때 물리작동되는거 방지) 
 
 				mRigidbody->SetGround(false);
-
 			
-				//ChangeState(ePlayerState::FALL);
+				if (mCurState != ePlayerState::JUMP)
+				{
+					if (mCurDir.x > 0)
+					{
+						mRigidbody->SetVelocity(Vector2(50.f, 0.f));
+					}
+
+					else if (mCurDir.x < 0)
+					{
+						mRigidbody->SetVelocity(Vector2(-50.f, 0.f));
+					}
+			
+					ChangeState(ePlayerState::FALL);
+				}
+			
+
 
 
 			// 플레이어의 위치를 갖고 온다.
@@ -321,6 +347,7 @@ namespace ss
 			mRigidbody->SetGround(false);
 			++mJumpCount;
 			mbIdleJump = true;
+			mbJump = true;
 
 			ChangeState(ePlayerState::JUMP); // 이거 지우면 점프 모션으로 이미지 안바뀜
 
@@ -553,6 +580,7 @@ namespace ss
 
 		if (Input::GetKeyDown(eKeyCode::C) && mJumpCount == 1)
 		{
+		
 			mVelocity = mRigidbody->GetVelocity();
 
 			// Idle에서의 점프는 앞으로 가는게 필요없으므로 0으로 만들어줌
@@ -728,13 +756,13 @@ namespace ss
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_S_IdleR", true);
-						mCollider->SetCenter(Vector2(-3.5f, 2.f));
+						mCollider->SetCenter(Vector2(-6.f, 2.f));
 					}
 
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_S_IdleL", true);
-						mCollider->SetCenter(Vector2(3.5f, 2.f));
+						mCollider->SetCenter(Vector2(6.5f, 2.f));
 					}
 				}
 
@@ -869,9 +897,15 @@ namespace ss
 				else if (mWeaponType == eWeaponType::SWORD)
 				{
 					if (mPrevDir.x > 0)
+					{
 						mAnimator->PlayAnimation(L"Player_S_FallR", true);
+						mCollider->SetCenter(Vector2(-6.f, 2.f));
+					}
 					else
+					{
 						mAnimator->PlayAnimation(L"Player_S_FallL", true);
+						mCollider->SetCenter(Vector2(6.f, 2.f));
+					}
 				}
 
 

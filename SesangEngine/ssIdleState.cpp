@@ -23,7 +23,7 @@ namespace ss
 
 		// Player 를 알아낸다.
 		Scene* pCurScene = SceneManager::GetActiveScene();
-		Player* pPlayer = pCurScene->FindObjInActiveLayer<Player>();
+		Player* pPlayer = pCurScene->FindObjInActiveLayer<Player>(eLayerType::Player);
 
 		// 몬스터스크립트를 가진 모든 자식 스크립트들에게도 해당되도록 부모로 갖고옴
 		MonsterScript* scriptMon = pMon->GetComponent<MonsterScript>();

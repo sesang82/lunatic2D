@@ -55,9 +55,9 @@ namespace ss
 
 		// 현재 활성화된 씬에서 특정 타입의 오브젝트를 찾아서 반환해주는 함수
 		template <typename T>
-		T* FindObjInActiveLayer()
+		T* FindObjInActiveLayer(eLayerType type)
 		{
-			Layer& activeLayer = GetLayer(eLayerType::Player);
+			Layer& activeLayer = GetLayer(type);
 			auto gameObj = activeLayer.GetGameObjects();
 
 

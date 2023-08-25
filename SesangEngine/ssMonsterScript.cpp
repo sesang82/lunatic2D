@@ -44,9 +44,9 @@ namespace ss
 
 		Scene* pCurScene = SceneManager::GetActiveScene();
 
-		if (pCurScene->FindObjInActiveLayer<Player>())
+		if (pCurScene->FindObjInActiveLayer<Player>(eLayerType::Player))
 		{
-			mPlayer = pCurScene->FindObjInActiveLayer<Player>();
+			mPlayer = pCurScene->FindObjInActiveLayer<Player>(eLayerType::Player);
 			assert(mPlayer);
 		}
 

@@ -4,6 +4,7 @@
 #include "ssTime.h"
 #include "ssPlayerScript.h"
 #include "ssAnimator.h"
+#include "ssStoneEyeScript.h"
 
 
 
@@ -51,6 +52,16 @@ namespace ss
 
 				script->ChangeState(ePlayerState::HIT);
 			}
+		}
+
+		if (other->GetName() == L"PlayerGuardCol")
+		{
+
+			// 스톤아이의 상태를 stun으로 만들기 (스톤아이 근접 충돌체랑 가드 충돌체랑 넘 차이나서
+			// 근접 공격 범위 충돌체를 좀 늘리거나 해야될듯 : 나중에 
+			StoneEyeScript* script = GetOwner()->GetComponent<StoneEyeScript>();
+			script->ChangeState(eMonsterState::STUN);
+
 		}
 	}
 	void StoneEyeColScript::OnCollisionStay(Collider2D* other)

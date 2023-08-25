@@ -138,12 +138,6 @@ namespace ss
 		Playertr->SetPosition(Vector3(-300.f, -529.6f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
 
 
-
-		//// //=== 캐릭터용 피격 충돌체 
-		//AttackCollider* playerAttackCol = object::Instantiate<AttackCollider>(eLayerType::Collision, L"PlayerAttackCollider");
-
-
-
 		// 몬스터
 		StoneEye* Stone = object::Instantiate<StoneEye>(eLayerType::Monster, L"StoneEye");
 		Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
@@ -196,99 +190,99 @@ namespace ss
 		}
 
 		// 충돌체 (왼쪽 바닥)
-		//{
-		//	Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_Floor");
-		//	col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_Floor");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
-		//	Transform* tr = col_Floor->GetComponent<Transform>();
-		//	tr->SetPosition(Vector3(-80.f, -338.f, 500.f));
-		//	tr->SetScale(Vector3(95.f, 95.f, 1.f));
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-80.f, -338.f, 500.f));
+			tr->SetScale(Vector3(95.f, 95.f, 1.f));
 
 
-		//}
+		}
 
-		//// 충돌체 (맨 아래 오른쪽 바닥 )
-		//{
-		//	Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_Floor");
-		//	col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		// 충돌체 (맨 아래 오른쪽 바닥 )
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_Floor");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 	
 
-		//	Transform* tr = col_Floor->GetComponent<Transform>();
-		//	tr->SetPosition(Vector3(43.f, -396.f, 500.f));
-		//	tr->SetScale(Vector3(150.f, 150.f, 1.f));
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(43.f, -396.f, 500.f));
+			tr->SetScale(Vector3(150.f, 150.f, 1.f));
 
 
-		//}
+		}
 
 
-		//// 충돌체 (2층 통나무 바닥  )
-		//{
-		//	Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
-		//	col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		// 충돌체 (2층 통나무 바닥  )
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
 
-		//	Transform* tr = col_Floor->GetComponent<Transform>();
-		//	tr->SetPosition(Vector3(-111.f, -198.f, 500.f));
-		//	tr->SetScale(Vector3(222.f, 5.f, 1.f));
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-111.f, -198.f, 500.f));
+			tr->SetScale(Vector3(222.f, 5.f, 1.f));
 
 
-		//}
+		}
 
 
-		//// 충돌체 (3층 통나무 바닥  )
-		//{
-		//	Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
-		//	col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		// 충돌체 (3층 통나무 바닥  )
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
 
-		//	Transform* tr = col_Floor->GetComponent<Transform>();
-		//	tr->SetPosition(Vector3(-240.f, -68.f, 500.f));
-		//	tr->SetScale(Vector3(220.f, 5.f, 1.f));
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-240.f, -68.f, 500.f));
+			tr->SetScale(Vector3(220.f, 5.f, 1.f));
 
 
-		//}
+		}
 
-		//// 충돌체 (3층 통나무 옆 바닥  )
-		//{
-		//	Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_Floor");
-		//	col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-
-
-		//	Transform* tr = col_Floor->GetComponent<Transform>();
-		//	tr->SetPosition(Vector3(-384.f, -98.f, 500.f));
-		//	tr->SetScale(Vector3(62.f, 5.f, 1.f));
+		// 충돌체 (3층 통나무 옆 바닥  )
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_Floor");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
 
-		//}
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-384.f, -98.f, 500.f));
+			tr->SetScale(Vector3(62.f, 5.f, 1.f));
+
+
+		}
 
 
 
-		//// 충돌체 (4층 통나무 바닥  )
-		//{
-		//	Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
-		//	col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		// 충돌체 (4층 통나무 바닥  )
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
 
-		//	Transform* tr = col_Floor->GetComponent<Transform>();
-		//	tr->SetPosition(Vector3(-240.f, 28.f, 500.f));
-		//	tr->SetScale(Vector3(222.f, 5.f, 1.f));
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-240.f, 28.f, 500.f));
+			tr->SetScale(Vector3(222.f, 5.f, 1.f));
 
 
-		//}
+		}
 
 
-		//// 충돌체 (5층 통나무 바닥  )
-		//{
-		//	Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
-		//	col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		// 충돌체 (5층 통나무 바닥  )
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
 
-		//	Transform* tr = col_Floor->GetComponent<Transform>();
-		//	tr->SetPosition(Vector3(70.f, 158.f, 500.f));
-		//	tr->SetScale(Vector3(520.f, 5.f, 1.f));
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(70.f, 158.f, 500.f));
+			tr->SetScale(Vector3(520.f, 5.f, 1.f));
 
 
-		//}
+		}
 
 
 

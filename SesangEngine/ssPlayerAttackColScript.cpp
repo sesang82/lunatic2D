@@ -23,11 +23,6 @@ namespace ss
 		mTransform = GetOwner()->GetComponent<Transform>();
 		mCollider = GetOwner()->GetComponent<Collider2D>();
 
-		Scene* scene = SceneManager::GetActiveScene();
-		mStoneEye = scene->FindObjInActiveLayer<StoneEye>();
-
-
-
 		mTransform->SetScale(Vector3(1.f, 1.f, 1.f)); // 어차피 충돌체 쓸거라 최소만 해두면 됨 
 
 

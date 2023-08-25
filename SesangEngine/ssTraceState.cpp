@@ -26,7 +26,7 @@ namespace ss
 
 		// Player 를 알아낸다.
 		Scene* pCurScene = SceneManager::GetActiveScene();
-		Player* pPlayer = pCurScene->FindObjInActiveLayer<Player>();
+		Player* pPlayer = pCurScene->FindObjInActiveLayer<Player>(eLayerType::Player);
 
 		Transform* trPlayer = pPlayer->GetComponent<Transform>();
 

@@ -46,7 +46,7 @@ namespace ss
 	void StoneEyeScript::Initialize()
 	{
 		Scene* pCurScene = SceneManager::GetActiveScene();
-			mPlayer = pCurScene->FindObjInActiveLayer<Player>();
+			mPlayer = pCurScene->FindObjInActiveLayer<Player>(eLayerType::Player);
 
 
 			mTransform = GetOwner()->GetComponent<Transform>();
@@ -479,13 +479,13 @@ namespace ss
 				mCurState = eMonsterState::NEARATTACK;
 			}
 
-			else if (mbNearAttack)
+			else if (mbFarAttack)
 			{
 				mCurState = eMonsterState::FARATTACK;
 			}
 
 			// 둘 다 공격 중인 상태가 아니라면 플레이어가 판정 범위 밖에 있었다는 것이므로
-			else if (!mbNearAttack && !mbNearAttack)
+			else if (!mbNearAttack && !mbFarAttack)
 			{
 				mCurState = eMonsterState::MOVE;
 			}
@@ -541,7 +541,7 @@ namespace ss
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 
-					mAttackCol->SetSize(Vector2(45.f, 38.f));
+					mAttackCol->SetSize(Vector2(30.f, 38.f));
 					mAttackCol->SetCenter(Vector2(24.f, -8.f));
 
 					// 대쉬 중엔 아예 충돌 안되게 해버림 
@@ -556,7 +556,7 @@ namespace ss
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 
-					mAttackCol->SetSize(Vector2(45.f, 38.f));
+					mAttackCol->SetSize(Vector2(30.f, 38.f));
 					mAttackCol->SetCenter(Vector2(24.f, -8.f));
 
 					// 대쉬 중엔 아예 충돌 안되게 해버림 

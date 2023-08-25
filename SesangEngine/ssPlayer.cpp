@@ -39,7 +39,7 @@ namespace ss
 		mCol->SetName(L"colHit_player");
 		mCol->SetType(eColliderType::Rect);
 		mCol->SetSize(Vector2(0.2f, 0.8f));
-		mCol->SetCenter(Vector2(-3.5f, 2.f));
+		mCol->SetCenter(Vector2(-6.f, 2.f));
 
 
 		MeshRenderer* mr = AddComponent<MeshRenderer>();

@@ -126,5 +126,6 @@ namespace ss
 	}
 	void ProjectileScript::OnCollisionExit(Collider2D* other)
 	{
+		int a = 0;
 	}
 }
