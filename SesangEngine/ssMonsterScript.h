@@ -65,7 +65,7 @@ namespace ss
 		class Transform*		mTransform;
 		class Collider2D*		mCollider;
 		class MeshRenderer*		mMeshRenderer;
-		class CharacterState* mCharacterState;
+		class CharacterState*	mCharacterState;
 		
 		class Player*			mPlayer;
 		//class Monster*			mMonster;

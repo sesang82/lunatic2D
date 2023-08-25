@@ -7,6 +7,7 @@
 namespace ss
 {
 	MonsterBar::MonsterBar()
+		: mOwner(nullptr)
 	{
 	}
 	MonsterBar::~MonsterBar()
@@ -20,7 +21,7 @@ namespace ss
 
 		mMeshRenderer = AddComponent<MeshRenderer>();
 		mMeshRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"MonsterFrameMtrl")); // 	
+		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"MonsterFrameMtrl")); 
 
 	
 
@@ -28,6 +29,9 @@ namespace ss
 	}
 	void MonsterBar::Update()
 	{
+		Vector3 ArrowPos = mTransform->GetPosition();
+		mTransform->SetPosition(ArrowPos);
+
 		UI::Update();
 	}
 	void MonsterBar::LateUpdate()

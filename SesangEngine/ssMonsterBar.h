@@ -16,6 +16,13 @@ namespace ss
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
+
+
+	private:
+		GameObject* mOwner;
+
+	public:
+		void SetOwner(GameObject* owner) { mOwner = owner; }
     };
 
 }

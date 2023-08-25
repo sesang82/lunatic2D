@@ -32,7 +32,9 @@ namespace ss
 
 	void Monster::Initialize()
 	{
-
+		MeshRenderer* mr = GetComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
 	
 		Character::Initialize();
 	}

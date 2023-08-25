@@ -688,7 +688,7 @@ namespace ss
 						pos += Vector3(8.f, -2.5f, 0.f);
 						mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
 						mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
-						mArrowTr = mArrowObj->GetComponent<Transform>();
+				
 					}
 
 					else if (mCurDir.x == -1.0f)

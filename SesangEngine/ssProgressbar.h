@@ -19,6 +19,7 @@ namespace ss
 
 	public:
 		int mWidth;
+		float mOffset;
 		class CharacterState* mState;
 		class GameObject* mOwner;
 		Vector3 mCurScale;
@@ -27,6 +28,7 @@ namespace ss
 
 	public:
 		void SetOwner(GameObject* _owner) { mOwner = _owner; }
+		void SetOffset(float _offset) { mOffset = _offset; } // 1ÇÈ¼¿¾¿ Á¶ÀýÇÏ¸é µÊ
 	};
 }
 

@@ -21,6 +21,14 @@ namespace ss
         virtual void OnCollisionExit(Collider2D* other) override;
 
 
+    private:
+        Vector3                 mFirstPos;
+
+    public:
+        void SetFirstPos(Vector3 pos) { mFirstPos = pos; }
+
+
+
     };
 }
 

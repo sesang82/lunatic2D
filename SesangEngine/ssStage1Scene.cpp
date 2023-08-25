@@ -24,6 +24,7 @@
 #include "ssAttackCollider.h"
 #include "ssPlayerAttackColScript.h"
 #include "ssMonsterBar.h"
+#include "ssSkeletonArcherScript.h"
 
 namespace ss
 {
@@ -137,34 +138,66 @@ namespace ss
 		Transform* Playertr = player->GetComponent<Transform>();
 		Playertr->SetPosition(Vector3(-300.f, -529.6f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
 
+		{
+			// 스톤아이
+			StoneEye* Stone = object::Instantiate<StoneEye>(eLayerType::Monster, L"StoneEye");
+			Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+			Transform* eyetr = Stone->GetComponent<Transform>();
+			eyetr->SetPosition(Vector3(-200.f, -528.f, 500.f));
 
-		// 몬스터
-		StoneEye* Stone = object::Instantiate<StoneEye>(eLayerType::Monster, L"StoneEye");
-		Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-		Transform* eyetr = Stone->GetComponent<Transform>();
-		eyetr->SetPosition(Vector3(-200.f, -528.f, 500.f));
+			StoneEyeScript* stonescript = Stone->GetComponent<StoneEyeScript>();
+			stonescript->SetFirstPos(eyetr->GetPosition());
 
-		StoneEyeScript* stonescript = Stone->GetComponent<StoneEyeScript>();
-		stonescript->SetFirstPos(eyetr->GetPosition());
+			// 몬스터 체력바 틀
+			MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"StoneEyeBar");
+			mosnterbar->Initialize();
 
-
-
-		// === 아래는 버그가 있어서 그냥 안하기로 함 
-		// 몬스터 체력바 틀
-		MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"StoneEyeBar");
-		mosnterbar->Initialize();
-
-		Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
-		mosnterbar->SetParent(Stone);
-		monsterbartr->SetPosition(Vector3(-36.f, 38.f, 500.f));
+			Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
+			mosnterbar->SetParent(Stone);
+			monsterbartr->SetPosition(Vector3(-36.f, 38.f, 500.f));
 
 
-		// 몬스터 HP
-		Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"StoneEyeHP");
-		stoneHP->SetParent(Stone);
-		Transform* stonehptr = stoneHP->GetComponent<Transform>();
-		stonehptr->SetPosition(Vector3(-50.f, 38.f, 500.f));
-		stoneHP->Initialize();
+			// 몬스터 HP
+			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"StoneEyeHP");
+			stoneHP->SetParent(Stone);
+			Transform* stonehptr = stoneHP->GetComponent<Transform>();
+			stoneHP->SetOffset(-36.0f);
+			stonehptr->SetPosition(Vector3(-50.f, 38.f, 500.f));
+			stoneHP->Initialize();
+
+		}
+
+		{
+			// 해골 Archer (궁수)
+			Monster* Stone = object::Instantiate<Monster>(eLayerType::Monster, L"Archer");
+			Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+			Transform* eyetr = Stone->GetComponent<Transform>();
+			eyetr->SetPosition(Vector3(-111.f, -166.f, 500.f));
+
+			SkeletonArcherScript* ArcherScript = Stone->AddComponent<SkeletonArcherScript>();
+			ArcherScript->SetFirstPos(eyetr->GetPosition());
+
+			// 몬스터 체력바 틀
+			MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"ArcherBar");
+			mosnterbar->Initialize();
+
+			Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
+			mosnterbar->SetParent(Stone);
+			monsterbartr->SetPosition(Vector3(-5.f, 38.f, 500.f));
+
+
+			// 몬스터 HP
+			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"ArcherHP");
+			stoneHP->SetParent(Stone);
+			stoneHP->SetOffset(-5.f);
+
+			Transform* stonehptr = stoneHP->GetComponent<Transform>();
+			stonehptr->SetPosition(Vector3(100.f, 38.f, 500.f));
+			stoneHP->Initialize();
+
+
+
+		}
 
 
 
@@ -383,7 +416,7 @@ namespace ss
 	void Stage1Scene::OnEnter()
 	{
 		renderer::mainCamera = mCamera;
-		mCamera->SetSize(3.5f);
+		mCamera->SetSize(2.5f);
 	}
 	void Stage1Scene::OnExit()
 	{

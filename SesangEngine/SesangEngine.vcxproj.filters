@@ -93,22 +93,22 @@
       <Filter>Contents\Script\Character\Monster\Base</Filter>
     </ClCompile>
     <ClCompile Include="ssStoneEyeScript.cpp">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClCompile>
     <ClCompile Include="ssSkeletonArcherScript.cpp">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClCompile>
     <ClCompile Include="ssSkeletonLizardScript.cpp">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClCompile>
     <ClCompile Include="ssWoodGolemScript.cpp">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClCompile>
     <ClCompile Include="ssWolfScript.cpp">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClCompile>
     <ClCompile Include="ssZombieScript.cpp">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClCompile>
     <ClCompile Include="ssQueenWolfScript.cpp">
       <Filter>Contents\Script\Character\Monster\Boss</Filter>
@@ -298,9 +298,6 @@
     <Filter Include="Contents\GameObj\Character\Monster">
       <UniqueIdentifier>{51b96000-2674-4431-8eb3-4382b39b5420}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Script\Character\Monster\General">
-      <UniqueIdentifier>{6762a6b0-ba38-44e5-9c6c-a5ff10d3985a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Script\Character\Monster\Boss">
       <UniqueIdentifier>{ee2b594b-f254-4cc7-b054-71a2a0eabfaf}</UniqueIdentifier>
     </Filter>
@@ -339,6 +336,9 @@
     </Filter>
     <Filter Include="Contents\GameObj\etc\Effect">
       <UniqueIdentifier>{1c3d245c-f4bf-4c04-906f-a70a69b253fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General">
+      <UniqueIdentifier>{6762a6b0-ba38-44e5-9c6c-a5ff10d3985a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -433,22 +433,22 @@
       <Filter>Contents\Script\Character\Monster\Base</Filter>
     </ClInclude>
     <ClInclude Include="ssStoneEyeScript.h">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClInclude>
     <ClInclude Include="ssSkeletonArcherScript.h">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClInclude>
     <ClInclude Include="ssSkeletonLizardScript.h">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClInclude>
     <ClInclude Include="ssWoodGolemScript.h">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClInclude>
     <ClInclude Include="ssWolfScript.h">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClInclude>
     <ClInclude Include="ssZombieScript.h">
-      <Filter>Contents\Script\Character\Monster\General</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClInclude>
     <ClInclude Include="ssQueenWolfScript.h">
       <Filter>Contents\Script\Character\Monster\Boss</Filter>

@@ -944,7 +944,7 @@ namespace renderer
 
 
 #pragma region Monster [StoneEye]
-#pragma endregion 
+
 		// >> Idle
 		 {
 			 std::shared_ptr<Texture> texture
@@ -1050,10 +1050,121 @@ namespace renderer
 
 		 }
 
-
+#pragma endregion 
 
 
 #pragma region Monster [SkeletonArcher]
+
+		 // >> Idle
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Archer_Idle", 
+					 L"..\\Resources\\Texture\\Monster\\SkeletonArcher\\Idle\\Idle.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Archer_IdleMtrl", spriteMateiral);
+
+		 }
+
+		 // >> Run
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Archer_Run",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonArcher\\Run\\Run.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Archer_RunMtrl", spriteMateiral);
+
+		 }
+
+
+		 // >> Hit
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Archer_Hit",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonArcher\\Hit\\Hit.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Archer_HitMtrl", spriteMateiral);
+
+		 }
+
+		 // >> Die
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Archer_Die",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonArcher\\Die\\Die.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Archer_DieMtrl", spriteMateiral);
+
+		 }
+
+		 // >> Far Attack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Archer_FarAttack",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonArcher\\FarAttack\\FarAttack.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Archer_FarAttackMtrl", spriteMateiral);
+
+		 }
+
+
+		 // >> Near Attack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Archer_NearAttack",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonArcher\\NearAttack\\NearAttack.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Archer_NearAttackMtrl", spriteMateiral);
+
+		 }
+
+
+		 // >> Stun
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Archer_Stun",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonArcher\\Stun\\Stun.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Archer_StunMtrl", spriteMateiral);
+
+		 }
+
+
+
 #pragma endregion 
 
 

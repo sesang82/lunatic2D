@@ -57,6 +57,37 @@ namespace ss
 		mFSM = new FSM(this);
 
 
+		if (nullptr != GetOwner()->GetComponent<Animator>())
+		{
+			mAnimator = GetOwner()->GetComponent<Animator>();
+			assert(mAnimator);
+		}
+
+		if (nullptr != GetOwner()->GetComponent<Rigidbody2D>())
+		{
+			mRigidbody = GetOwner()->GetComponent<Rigidbody2D>();
+			assert(mRigidbody);
+		}
+
+		if (nullptr != GetOwner()->GetComponent<Transform>())
+		{
+			mTransform = GetOwner()->GetComponent<Transform>();
+			assert(mTransform);
+		}
+
+		if (nullptr != GetOwner()->GetComponent<Collider2D>())
+		{
+			mCollider = GetOwner()->GetComponent<Collider2D>();
+			assert(mCollider);
+		}
+
+		if (nullptr != GetOwner()->GetComponent<MeshRenderer>())
+		{
+			mMeshRenderer = GetOwner()->GetComponent<MeshRenderer>();
+			assert(mMeshRenderer);
+		}
+
+
 		if (nullptr != GetOwner()->GetComponent<CharacterState>())
 		{
 			mCharacterState = GetOwner()->GetComponent<CharacterState>();
