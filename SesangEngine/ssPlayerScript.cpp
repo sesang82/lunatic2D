@@ -816,11 +816,15 @@ namespace ss
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_D_JumpR", false);
+						mCollider->SetCenter(Vector2(-7.f, 2.f));
 					}
 
 
 					else
+					{
 						mAnimator->PlayAnimation(L"Player_D_JumpL", false);
+						mCollider->SetCenter(Vector2(7.f, 2.f));
+					}
 				}
 
 				else if (mWeaponType == eWeaponType::SWORD)
@@ -830,10 +834,14 @@ namespace ss
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_S_JumpR", false);
+						mCollider->SetCenter(Vector2(-7.f, 2.f));
 					}
 
 					else
+					{
 						mAnimator->PlayAnimation(L"Player_S_JumpL", false);
+						mCollider->SetCenter(Vector2(7.f, 2.f));
+					}
 				}
 
 				else if (mWeaponType == eWeaponType::BOW)

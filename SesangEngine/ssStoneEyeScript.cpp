@@ -479,9 +479,15 @@ namespace ss
 				mCurState = eMonsterState::NEARATTACK;
 			}
 
-			else if (mbFarAttack)
+			else if (mbNearAttack)
 			{
 				mCurState = eMonsterState::FARATTACK;
+			}
+
+			// 둘 다 공격 중인 상태가 아니라면 플레이어가 판정 범위 밖에 있었다는 것이므로
+			else if (!mbNearAttack && !mbNearAttack)
+			{
+				mCurState = eMonsterState::MOVE;
 			}
 		}
 	}
@@ -525,8 +531,11 @@ namespace ss
 	void StoneEyeScript::NearAttack()
 	{
 		{
+			PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
+
 			if (mCurDir.x > 0)
 			{
+				
 
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 				{
@@ -534,6 +543,12 @@ namespace ss
 
 					mAttackCol->SetSize(Vector2(45.f, 38.f));
 					mAttackCol->SetCenter(Vector2(24.f, -8.f));
+
+					// 대쉬 중엔 아예 충돌 안되게 해버림 
+					if (playerScript->IsDash())
+					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+					}
 				}
 
 
@@ -543,6 +558,12 @@ namespace ss
 
 					mAttackCol->SetSize(Vector2(45.f, 38.f));
 					mAttackCol->SetCenter(Vector2(24.f, -8.f));
+
+					// 대쉬 중엔 아예 충돌 안되게 해버림 
+					if (playerScript->IsDash())
+					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+					}
 				}
 			
 
@@ -552,6 +573,12 @@ namespace ss
 
 					mAttackCol->SetSize(Vector2(45.f, 38.f));
 					mAttackCol->SetCenter(Vector2(24.f, -8.f));
+
+					// 대쉬 중엔 아예 충돌 안되게 해버림 
+					if (playerScript->IsDash())
+					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+					}
 				}
 	
 
@@ -574,6 +601,12 @@ namespace ss
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 					mAttackCol->SetSize(Vector2(45.f, 38.f));
 					mAttackCol->SetCenter(Vector2(-90.f, -8.f));
+
+					// 대쉬 중엔 아예 충돌 안되게 해버림 
+					if (playerScript->IsDash())
+					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+					}
 				}
 
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
@@ -581,6 +614,12 @@ namespace ss
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 					mAttackCol->SetSize(Vector2(45.f, 38.f));
 					mAttackCol->SetCenter(Vector2(-90.f, -8.f));
+
+					// 대쉬 중엔 아예 충돌 안되게 해버림 
+					if (playerScript->IsDash())
+					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+					}
 				}
 
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
@@ -588,6 +627,12 @@ namespace ss
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 					mAttackCol->SetSize(Vector2(45.f, 38.f));
 					mAttackCol->SetCenter(Vector2(-90.f, -8.f));
+					
+					// 대쉬 중엔 아예 충돌 안되게 해버림 
+					if (playerScript->IsDash())
+					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+					}
 				}
 
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 11)

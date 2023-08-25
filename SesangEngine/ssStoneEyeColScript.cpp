@@ -3,6 +3,7 @@
 #include "ssGameState.h"
 #include "ssTime.h"
 #include "ssPlayerScript.h"
+#include "ssAnimator.h"
 
 
 
@@ -40,10 +41,16 @@ namespace ss
 	{
 		if (other->GetOwner()->GetName() == L"Player")
 		{
-			mState = GameState::GetInst().GetState(L"Player");
-			mState->SetCurrentHP(mState->GetCurrentHP() - 10);
+			PlayerScript* script = other->GetOwner()->GetComponent<PlayerScript>();
+			bool bDash = script->IsDash();
 
-			other->GetOwner()->GetComponent<PlayerScript>()->ChangeState(ePlayerState::HIT);
+			if (!bDash)
+			{
+				mState = GameState::GetInst().GetState(L"Player");
+				mState->SetCurrentHP(mState->GetCurrentHP() - 10);
+
+				script->ChangeState(ePlayerState::HIT);
+			}
 		}
 	}
 	void StoneEyeColScript::OnCollisionStay(Collider2D* other)
@@ -52,5 +59,16 @@ namespace ss
 	}
 	void StoneEyeColScript::OnCollisionExit(Collider2D* other)
 	{
+		if (other->GetOwner()->GetName() == L"Player")
+		{
+			//Animator* ani = other->GetOwner()->GetComponent<Animator>();
+			//PlayerScript* script = other->GetOwner()->GetComponent<PlayerScript>();
+
+			//// 애니메이션 재생이 끝나면 
+			//if (ani->GetCurActiveAnimation()->IsComplete())
+			//{
+			//	script->ChangeState(ePlayerState::IDLE);
+			//}
+		}
 	}
 }
