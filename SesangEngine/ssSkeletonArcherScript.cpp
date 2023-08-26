@@ -10,6 +10,9 @@
 #include "ssPlayer.h"
 #include "ssRigidbody2D.h"
 #include "ssTime.h"
+#include "ssObject.h"
+#include "ssRangeCollider.h"
+#include "ssArcherNearRangeScript.h"
 
 
 namespace ss
@@ -85,7 +88,7 @@ namespace ss
 		mCurState = eMonsterState::MOVE;
 
 		// ===== 기본 충돌체 Hit 받는 용도 
-		mCollider->SetName(L"colHit_player");
+		mCollider->SetName(L"Archer_HitCol");
 		mCollider->SetType(eColliderType::Rect);
 
 		mCollider->SetSize(Vector2(0.4f, 0.9f));
@@ -93,6 +96,25 @@ namespace ss
 		// === idle 오른쪽 기준 충돌체 (나중에 수치 확인해서 이걸로 고치기)
 		//mCollider->SetSize(Vector2(0.4f, 0.9f));
 		//mCollider->SetCenter(Vector2(-6.f, -0.f));
+
+
+		// =====
+		// Near 공격 판정용 충돌체
+		// 공격 판별 용도는 etc 레이어에 넣기 
+		mNearRangeColObj = object::Instantiate<RangeCollider>(eLayerType::Etc, L"ArcherNearRangeCol");
+		mNearRangeColObj->Initialize();
+
+		mNearTr = mNearRangeColObj->GetComponent<Transform>();
+
+		ArcherNearRangeScript* nearscript = mNearRangeColObj->AddComponent<ArcherNearRangeScript>();
+		nearscript->SetOwner(mTransform->GetOwner()); // 스톤아이 오브젝트를 저장해둔다.
+
+
+		mNearCol = mNearRangeColObj->GetComponent<Collider2D>();
+
+
+		mNearCol->SetSize(Vector2(130.f, 20.f));
+		mNearCol->SetCenter(Vector2(-35.f, 0.2f));
 
 
 
@@ -163,6 +185,10 @@ namespace ss
 		mPrevDir = mCurDir;
 
 
+	}
+	void SkeletonArcherScript::LateUpdate()
+	{
+		mNearTr->SetPosition(mTransform->GetPosition());
 	}
 	void SkeletonArcherScript::OnCollisionEnter(Collider2D* other)
 	{

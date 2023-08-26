@@ -5,6 +5,7 @@
 #include "ssMeshRenderer.h"
 #include "ssCharacterState.h"
 #include "ssSkeletonArcherScript.h"
+#include "ssStoneEyeScript.h"
 
 namespace ss
 {
@@ -50,13 +51,19 @@ namespace ss
 
 
 		//// 바뀔때만 연산을 하도록 설정 (Update이므로 성능에 영향 갈 수 있으므로)
-		//if (mState->Getchanged())
-		//{
+		if (mState->Getchanged())
+		{
 			float test = mState->GetCurrentHP();
 
 
 			Vector3 pos = mTransform->GetPosition();
 
+
+			if (mOwner->GetName() == L"StoneEye")
+			{
+				pos.x = -36;
+
+			}
 
 			if (mOwner->GetName() == L"Archer")
 			{
@@ -66,7 +73,6 @@ namespace ss
 				{
 					pos.x = -5; // offset 크기 조정 
 				}
-
 				else if (ArcherScript->GetCurDir() == Vector3(-1.0f, 0.f, 0.f))
 				{
 					pos.x = 5; // offset 크기 조정 
@@ -83,12 +89,8 @@ namespace ss
 			// 체력바 스케일 설정 
 			mTransform->SetScale(Vector3(CurWidth, 3, 1));
 
-
-
-			//mState->SetChanged(false);
-		
-
-		//}
+			mState->SetChanged(false);
+		}
 
 
 		UI::Update();
