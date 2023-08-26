@@ -202,7 +202,11 @@ namespace ss
 	}
 	void SkeletonArcherScript::LateUpdate()
 	{
+		mAttackColTr->SetPosition(mTransform->GetPosition());
 		mNearTr->SetPosition(mTransform->GetPosition());
+
+
+
 	}
 	void SkeletonArcherScript::OnCollisionEnter(Collider2D* other)
 	{
@@ -326,8 +330,8 @@ namespace ss
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 
-					mAttackCol->SetSize(Vector2(0.4f, 0.9f));
-					mAttackCol->SetCenter(Vector2(6.f, -0.f));
+					mAttackCol->SetSize(Vector2(23.f, 30.f));
+					mAttackCol->SetCenter(Vector2(20.f, -5.f));
 
 					// 대쉬 중엔 아예 충돌 안되게 해버림 
 					if (playerScript->IsDash())
@@ -354,8 +358,8 @@ namespace ss
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-					mAttackCol->SetSize(Vector2(0.4f, 0.9f));
-					mAttackCol->SetCenter(Vector2(-6.f, -0.f));
+					mAttackCol->SetSize(Vector2(-23.f, 30.f));
+					mAttackCol->SetCenter(Vector2(-22.f, -5.f));
 
 					// 대쉬 중엔 아예 충돌 안되게 해버림 
 					if (playerScript->IsDash())
