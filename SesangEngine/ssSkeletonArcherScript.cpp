@@ -13,7 +13,10 @@
 #include "ssObject.h"
 #include "ssRangeCollider.h"
 #include "ssArcherNearRangeScript.h"
-
+#include "ssArcherFarRangeScript.h"
+#include "ssPlayerScript.h"
+#include "ssAttackCollider.h"
+#include "ssArcherColScript.h"
 
 namespace ss
 {
@@ -98,6 +101,17 @@ namespace ss
 		//mCollider->SetCenter(Vector2(-6.f, -0.f));
 
 
+
+		//==== 근접 공격 특정 인덱스 충돌체 
+		//충돌체는 여기서 바로 넣지 말고 해당 인덱스 때 넣었다가 빼는 식으로 하기 
+		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"ArcherAttackCollider");
+		mAttackColliderObj->Initialize();
+		mAttackColliderObj->AddComponent<ArcherColScript>();
+
+		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
+
+
+
 		// =====
 		// Near 공격 판정용 충돌체
 		// 공격 판별 용도는 etc 레이어에 넣기 
@@ -114,7 +128,7 @@ namespace ss
 
 
 		mNearCol->SetSize(Vector2(130.f, 20.f));
-		mNearCol->SetCenter(Vector2(-35.f, 0.2f));
+		mNearCol->SetCenter(Vector2(-1.f, 0.2f));
 
 
 
@@ -302,6 +316,66 @@ namespace ss
 	}
 	void SkeletonArcherScript::NearAttack()
 	{
+		{
+			PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
+
+			if (mCurDir.x > 0)
+			{
+
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+				{
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+					mAttackCol->SetSize(Vector2(0.4f, 0.9f));
+					mAttackCol->SetCenter(Vector2(6.f, -0.f));
+
+					// 대쉬 중엔 아예 충돌 안되게 해버림 
+					if (playerScript->IsDash())
+					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+					}
+				}
+
+
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+				{
+					mAttackColliderObj->RemoveComponent<Collider2D>();
+
+				}
+
+				mAnimator->PlayAnimation(L"Archer_NearAttackR", true);
+
+
+			}
+
+			else
+			{
+
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+				{
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+					mAttackCol->SetSize(Vector2(0.4f, 0.9f));
+					mAttackCol->SetCenter(Vector2(-6.f, -0.f));
+
+					// 대쉬 중엔 아예 충돌 안되게 해버림 
+					if (playerScript->IsDash())
+					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+					}
+				}
+
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+				{
+					mAttackColliderObj->RemoveComponent<Collider2D>();
+
+				}
+
+				mAnimator->PlayAnimation(L"Archer_NearAttackL", true);
+
+			}
+		}
+
+
 	}
 	void SkeletonArcherScript::FarAttack()
 	{

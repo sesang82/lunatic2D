@@ -40,6 +40,7 @@ namespace ss
 		public Script
 	{
 		friend class StoneNearRangeScript;
+		friend class ArcherNearRangeScript;
 
 	
 	

@@ -50,15 +50,14 @@ namespace ss
 		float CurWidth = mWidth * HPratio;
 
 
-		//// 바뀔때만 연산을 하도록 설정 (Update이므로 성능에 영향 갈 수 있으므로)
-		if (mState->Getchanged())
-		{
 			float test = mState->GetCurrentHP();
 
 
 			Vector3 pos = mTransform->GetPosition();
 
 
+
+			// update를 돌 동안 값이 바뀔때만 하게 하려했으나, 오프셋 문제로 지움 
 			if (mOwner->GetName() == L"StoneEye")
 			{
 				pos.x = -36;
@@ -89,8 +88,6 @@ namespace ss
 			// 체력바 스케일 설정 
 			mTransform->SetScale(Vector3(CurWidth, 3, 1));
 
-			mState->SetChanged(false);
-		}
 
 
 		UI::Update();

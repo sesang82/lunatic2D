@@ -1,4 +1,8 @@
 #include "ssArcherNearRangeScript.h"
+#include "ssMonster.h"
+#include "ssGameState.h"
+#include "ssTime.h"
+#include "ssSkeletonArcherScript.h"
 
 
 namespace ss
@@ -17,11 +21,37 @@ namespace ss
 	}
 	void ArcherNearRangeScript::OnCollisionEnter(Collider2D* other)
 	{
+		if (other->GetOwner()->GetName() == L"Player")
+		{
+
+			SkeletonArcherScript* Archerscript = mOwner->GetComponent<SkeletonArcherScript>();
+
+			// stun상태일 시 공격하지 않아야하므로 
+			if (Archerscript->mCurState != ss::eMonsterState::STUN)
+			{
+				Archerscript->mCurState = ss::eMonsterState::NEARATTACK;
+
+				Archerscript->IsNearAttack(true);
+			}
+
+		}
 	}
 	void ArcherNearRangeScript::OnCollisionStay(Collider2D* other)
 	{
 	}
 	void ArcherNearRangeScript::OnCollisionExit(Collider2D* other)
 	{
+		if (other->GetOwner()->GetName() == L"Player")
+		{
+			SkeletonArcherScript* Archerscript = mOwner->GetComponent<SkeletonArcherScript>();
+
+			if (Archerscript->mCurState != ss::eMonsterState::STUN)
+			{
+				SkeletonArcherScript* Archerscript = mOwner->GetComponent<SkeletonArcherScript>();
+				Archerscript->mCurState = ss::eMonsterState::FARATTACK;
+				Archerscript->IsNearAttack(false);
+			}
+		}
+
 	}
 }

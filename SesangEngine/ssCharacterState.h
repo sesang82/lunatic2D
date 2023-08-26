@@ -56,7 +56,6 @@ namespace ss
 
         std::vector<tState> mStateList;
 
-        bool mChanged;
 
 
 
@@ -79,32 +78,32 @@ namespace ss
         {
 
             mStateType.mBarState = _type;
-            mChanged = true;
+        
         }
 
         virtual void SetCurrentHP(float _currentHP)
         {
 
             mStateType.mCurrentHP = _currentHP;
-            mChanged = true;
+
         }
 
         virtual void SetMaxHP(float _maxHP)
         {
             mStateType.mMaxHP = _maxHP;
-            mChanged = true;
+
         }
 
         virtual void SetCurrentSP(float _currentSP)
         {
             mStateType.mCurrentSP = _currentSP;
-            mChanged = true;
+
         }
 
         virtual void SetMaxSP(float _maxSP)
         {
             mStateType.mMaxSP = _maxSP;
-            mChanged = true;
+
         }
 
         virtual void SetDamage(float _damage, bool _IsDash = false)
@@ -114,7 +113,7 @@ namespace ss
                 return;
 
             mStateType.mCurrentHP -= _damage;
-            mChanged = true;
+
         }
 
         virtual void SetHeal(float _heal)
@@ -123,14 +122,9 @@ namespace ss
                 return;
 
             mStateType.mCurrentHP += _heal;
-            mChanged = true;
 
         }
 
-        void SetChanged(bool _b)
-        {
-            mChanged = _b;
-        }
 
         
         // 쉐이더에 switch case로 구분 지어 주기 
@@ -151,7 +145,7 @@ namespace ss
         float GetMaxSP() { return mStateType.mMaxSP; }
 
         eBarState   GetBarType() { return mStateType.mBarState; }
-        bool Getchanged() { return mChanged; }
+
 
 
 	};

@@ -142,17 +142,6 @@ namespace ss
 
 	void StoneEyeScript::Update()
 	{
-		// === far 공격용 화살 
-		//mArrowObj = object::Instantiate<StoneEyeProjectile>(eLayerType::Collision, L"StoneEyeFarCollider");
-		//mArrowObj->Initialize();
-
-
-		//mArrowTr = mArrowObj->GetComponent<Transform>();
-
-		//mArrowScript = mArrowObj->GetComponent<ProjectileScript>();
-
-		//mArrowScript->StoreMonsterPos(mTransform->GetPosition());
-
 
 
 		// 이동->상태변환->애니메이션

@@ -7,7 +7,6 @@
 namespace ss
 {
 	CharacterState::CharacterState()
-		: mChanged(false)
 	{
 		mStateType.mBarState = eBarState::Damaged;
 	}
