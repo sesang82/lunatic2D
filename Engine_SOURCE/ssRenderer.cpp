@@ -1131,6 +1131,21 @@ namespace renderer
 
 		 }
 
+		 // Far Attack Arrow
+		 {
+		std::shared_ptr<Texture> texture
+			= Resources::Load<Texture>(L"Archer_Arrow",
+				L"..\\Resources\\Texture\\Monster\\SkeletonArcher\\FarAttack\\Enemy_SkeletonArcher_Object_Arrow.png");
+
+		 // === Material »ý¼º
+		 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+		 spriteMateiral->SetShader(noCullingSpriteShader);
+		 spriteMateiral->SetTexture(texture);
+
+		 Resources::Insert(L"Archer_ArrowMtrl", spriteMateiral);
+
+		 }
+
 
 		 // >> Near Attack
 		 {

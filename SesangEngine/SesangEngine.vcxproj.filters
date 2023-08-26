@@ -176,6 +176,9 @@
     <ClCompile Include="ssArcherNearRangeScript.cpp">
       <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="ssArcherColScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -532,6 +535,9 @@
       <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
     </ClInclude>
     <ClInclude Include="ssArcherNearRangeScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ssArcherColScript.h">
       <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
     </ClInclude>
   </ItemGroup>
