@@ -178,7 +178,7 @@ namespace ss
 			ArcherScript->SetFirstPos(eyetr->GetPosition());
 
 			// 몬스터 체력바 틀
-			MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::UI, L"ArcherBar");
+			MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::Etc, L"ArcherBar");
 			mosnterbar->Initialize();
 
 			Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
@@ -186,8 +186,8 @@ namespace ss
 			monsterbartr->SetPosition(Vector3(-5.f, 38.f, 500.f));
 
 
-			// 몬스터 HP
-			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"ArcherHP");
+			// 몬스터 HP (UI로 넣지말기. 그럼 UI카메라에 의해 플레이어 따라다니는 것처럼 움직임) 
+			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::Etc, L"ArcherHP");
 			stoneHP->SetParent(Stone);
 			stoneHP->SetOffset(-5.f);
 
