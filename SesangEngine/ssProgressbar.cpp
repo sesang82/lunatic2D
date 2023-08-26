@@ -5,6 +5,7 @@
 #include "ssMeshRenderer.h"
 #include "ssCharacterState.h"
 #include "ssSkeletonArcherScript.h"
+#include "ssStoneEyeScript.h"
 
 namespace ss
 {
@@ -58,6 +59,12 @@ namespace ss
 			Vector3 pos = mTransform->GetPosition();
 
 
+			if (mOwner->GetName() == L"StoneEye")
+			{
+				pos.x = -36;
+
+			}
+
 			if (mOwner->GetName() == L"Archer")
 			{
 				SkeletonArcherScript* ArcherScript = mOwner->GetComponent<SkeletonArcherScript>();
@@ -73,6 +80,8 @@ namespace ss
 				}
 
 			}
+
+
 
 			// 체력바 오른쪽에서 왼쪽으로 깎이도록 하기 
 			pos.x -= (1 - HPratio) * mWidth * 0.5;

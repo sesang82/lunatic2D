@@ -161,7 +161,7 @@ namespace ss
 			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"StoneEyeHP");
 			stoneHP->SetParent(Stone);
 			Transform* stonehptr = stoneHP->GetComponent<Transform>();
-			//stoneHP->SetOffset(-36.0f);
+			stoneHP->SetOffset(-36.0f);
 			stonehptr->SetPosition(Vector3(-36.f, 38.f, 500.f));
 			stoneHP->Initialize();
 
