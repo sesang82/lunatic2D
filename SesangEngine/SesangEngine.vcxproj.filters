@@ -141,7 +141,7 @@
       <Filter>Contents\GameObj\etc\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="ssProjectileScript.cpp">
-      <Filter>Contents\Script\etc\Bullet</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General\StoneEye\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="ssRangeCollider.cpp">
       <Filter>Contents\GameObj\etc\Collider</Filter>
@@ -178,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="ssArcherColScript.cpp">
       <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="ssArcherArrow.cpp">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="ssArcherArrowScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\Archer\Arrow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -325,12 +331,6 @@
     <Filter Include="Contents\GameObj\etc\Bullet">
       <UniqueIdentifier>{d62889b3-ebae-4923-bfb2-dbd43e286bba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Script\etc">
-      <UniqueIdentifier>{e2c72265-6176-481b-a77e-26f96a70986c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Script\etc\Bullet">
-      <UniqueIdentifier>{fa4b107b-d6c4-4d29-a2c0-edf64665f81d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObj\etc\Effect">
       <UniqueIdentifier>{1c3d245c-f4bf-4c04-906f-a70a69b253fa}</UniqueIdentifier>
     </Filter>
@@ -357,6 +357,12 @@
     </Filter>
     <Filter Include="Contents\Script\Character\Monster\Base\General\Archer\Collider">
       <UniqueIdentifier>{f1c9a765-9349-46b8-b82c-6b0cc63b4342}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General\Archer\Arrow">
+      <UniqueIdentifier>{9c1d3a1f-1d26-4538-bfac-ad5f170f1f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General\StoneEye\Bullet">
+      <UniqueIdentifier>{fa4b107b-d6c4-4d29-a2c0-edf64665f81d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -502,7 +508,7 @@
       <Filter>Contents\GameObj\etc\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="ssProjectileScript.h">
-      <Filter>Contents\Script\etc\Bullet</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\General\StoneEye\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="ssRangeCollider.h">
       <Filter>Contents\GameObj\etc\Collider</Filter>
@@ -539,6 +545,12 @@
     </ClInclude>
     <ClInclude Include="ssArcherColScript.h">
       <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ssArcherArrow.h">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ssArcherArrowScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\Archer\Arrow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

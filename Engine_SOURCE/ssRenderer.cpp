@@ -1141,6 +1141,7 @@ namespace renderer
 		 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 		 spriteMateiral->SetShader(noCullingSpriteShader);
 		 spriteMateiral->SetTexture(texture);
+		 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 		 Resources::Insert(L"Archer_ArrowMtrl", spriteMateiral);
 

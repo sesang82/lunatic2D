@@ -23,7 +23,8 @@ namespace ss
 	}
 	void PlayerGuardColScript::OnCollisionEnter(Collider2D* other)
 	{	
-			if (other->GetName() == L"StoneEyeProjectileCol")
+			if (other->GetName() == L"StoneEyeProjectileCol" ||
+				other->GetName() == L"ArcherArrowCol")
 			{
 				Transform* tr = other->GetOwner()->GetComponent<Transform>();
 				Vector3 BulletCurScale = tr->GetScale();

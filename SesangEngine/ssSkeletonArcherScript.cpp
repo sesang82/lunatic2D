@@ -17,6 +17,9 @@
 #include "ssPlayerScript.h"
 #include "ssAttackCollider.h"
 #include "ssArcherColScript.h"
+#include "ssArcherArrowScript.h"
+#include "ssArcherArrow.h"
+#include "ssArcherFarRangeScript.h"
 
 namespace ss
 {
@@ -70,8 +73,8 @@ namespace ss
 		mAnimator->Create(L"Archer_HitR", Image3, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 1, Vector2(73.f, 61.f));
 		mAnimator->Create(L"Archer_HitL", Image3, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 1, Vector2(73.f, 61.f), Vector2(0.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Archer_NearAttackR", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 13, Vector2(73.f, 61.f));
-		mAnimator->Create(L"Archer_NearAttackL", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 13, Vector2(73.f, 61.f), Vector2(0.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Archer_NearAttackR", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f));
+		mAnimator->Create(L"Archer_NearAttackL", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2(0.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Archer_FarAttackR", Image5, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f));
 		mAnimator->Create(L"Archer_FarAttackL", Image5, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2(0.f, 0.f), 0.1f, true);
@@ -132,6 +135,21 @@ namespace ss
 
 
 
+		// 원거리 공격 판정용 충돌체
+		mFarRangeColObj = object::Instantiate<RangeCollider>(eLayerType::Etc, L"ArcherFarRangeCol");
+		mFarRangeColObj->Initialize();
+
+		mFarTr = mFarRangeColObj->GetComponent<Transform>();
+
+		ArcherFarRangeScript* farScript = mFarRangeColObj->AddComponent<ArcherFarRangeScript>();
+		farScript->SetOwner(mTransform->GetOwner()); // 스톤아이 오브젝트를 저장해둔다.
+
+
+		mFarCol = mFarRangeColObj->GetComponent<Collider2D>();
+
+
+		mFarCol->SetSize(Vector2(200.f, 20.f));
+		mFarCol->SetCenter(Vector2(0.f, 0.2f));
 
 
 
@@ -146,6 +164,18 @@ namespace ss
 
 		Transform* playerTr = mPlayer->GetComponent<Transform>();
 		Vector3 playerPos = playerTr->GetPosition();
+
+
+		// 방향의 기준을 잡아준다. (몬스터의 위치 값보다 X값이 크면 오른쪽이므로  1, 왼쪽에 있으면 -1)
+		if (playerPos.x >= mTransform->GetPosition().x)
+		{
+			mCurDir.x = 1.0f;
+		}
+		else
+		{
+			mCurDir.x = -1.0f;
+		}
+
 
 		switch (mCurState)
 		{
@@ -204,7 +234,7 @@ namespace ss
 	{
 		mAttackColTr->SetPosition(mTransform->GetPosition());
 		mNearTr->SetPosition(mTransform->GetPosition());
-
+		mFarTr->SetPosition(mTransform->GetPosition());
 
 
 	}
@@ -259,42 +289,45 @@ namespace ss
 	void SkeletonArcherScript::Move()
 	{
 
-		float minX = mFirstPos.x - 40.f;
-		float maxX = mFirstPos.x + 40.f;
-
-		Vector3 MonsterPos = mTransform->GetPosition();
-
-		MonsterPos.x += mCurDir.x * m_tMonsterInfo.m_fSpeed * Time::DeltaTime();
-
-		if (MonsterPos.x < minX)
-		{
-			MonsterPos.x = minX;
-			mCurDir = mTransform->Right();
-		}
-
-		else if (MonsterPos.x > maxX)
-		{
-			MonsterPos.x = maxX;
-			mCurDir = -mTransform->Right(); // 왼쪽 값 부여 
-		}
-
-		mTransform->SetPosition(MonsterPos);
-
-
 		// 방향대로 애니메이션을 재생한다. 
-		if (mCurDir.x > 0)
+		if (mDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Archer_RunR", true);
 			mCollider->SetSize(Vector2(0.4f, 0.9f));
 			mCollider->SetCenter(Vector2(-6.f, -0.f));
 		}
 
-		else if (mCurDir.x < 0)
+		else if (mDir.x < 0)
 		{
 			mAnimator->PlayAnimation(L"Archer_RunL", true);
 			mCollider->SetSize(Vector2(0.4f, 0.9f));
 			mCollider->SetCenter(Vector2(6.f, -0.f));
 		}
+
+
+		float minX = mFirstPos.x - 40.f;
+		float maxX = mFirstPos.x + 40.f;
+
+		Vector3 MonsterPos = mTransform->GetPosition();
+
+		MonsterPos.x += mDir.x * m_tMonsterInfo.m_fSpeed * Time::DeltaTime();
+
+		if (MonsterPos.x < minX)
+		{
+			MonsterPos.x = minX;
+			mDir = mTransform->Right();
+		}
+
+		else if (MonsterPos.x > maxX)
+		{
+			MonsterPos.x = maxX;
+			mDir = -mTransform->Right(); // 왼쪽 값 부여 
+		}
+
+		mTransform->SetPosition(MonsterPos);
+
+
+	
 
 	}
 	void SkeletonArcherScript::Tracer()
@@ -311,9 +344,60 @@ namespace ss
 	}
 	void SkeletonArcherScript::Stun()
 	{
+		// 방향대로 애니메이션을 재생한다. 
+		{
+			if (mCurDir.x > 0)
+				mAnimator->PlayAnimation(L"Archer_StunR", false);
+
+			else
+				mAnimator->PlayAnimation(L"Archer_StunL", false);
+		}
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			if (mbNearAttack)
+			{
+				mCurState = eMonsterState::NEARATTACK;
+			}
+
+			else if (mbFarAttack)
+			{
+				mCurState = eMonsterState::FARATTACK;
+			}
+
+			// 둘 다 공격 중인 상태가 아니라면 플레이어가 판정 범위 밖에 있었다는 것이므로
+			else if (!mbNearAttack && !mbFarAttack)
+			{
+				mCurState = eMonsterState::MOVE;
+			}
+		}
+
+
 	}
 	void SkeletonArcherScript::Hit()
 	{
+		// 방향대로 애니메이션을 재생한다. 
+		if (mCurDir.x > 0)
+			mAnimator->PlayAnimation(L"Archer_HitR", false);
+
+		else
+			mAnimator->PlayAnimation(L"Archer_HitL", false);
+
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			if (mbNearAttack)
+			{
+				mCurState = eMonsterState::NEARATTACK;
+			}
+
+			else if (mbFarAttack)
+			{
+				mCurState = eMonsterState::FARATTACK;
+			}
+		}
 	}
 	void SkeletonArcherScript::Guard()
 	{
@@ -352,7 +436,7 @@ namespace ss
 
 			}
 
-			else
+			else if (mCurDir.x < 0)
 			{
 
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
@@ -383,9 +467,87 @@ namespace ss
 	}
 	void SkeletonArcherScript::FarAttack()
 	{
+		Vector3 pos = mTransform->GetPosition();
+		pos.z -= 0.01;
+
+		{
+			if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
+			{
+
+				m_fTime += (float)Time::DeltaTime();
+
+				// coolDown 초마다 발사 
+				if (m_fTime >= m_tMonsterInfo.m_fCoolDown)
+				{
+
+					if (mCurDir.x == 1.0f)
+					{
+						// 발사체 위치 조절 
+						pos += Vector3(35.f, -2.5f, 0.f);
+						mArrowObj = object::Instantiate<ArcherArrow>(pos, eLayerType::Mon_Bullet, L"ArcherArrowObj_R");
+						mArrowObj->GetComponent<ArcherArrowScript>()->SetOriginOwner(mTransform->GetOwner());
+
+					}
+
+					else if (mCurDir.x == -1.0f)
+					{
+						// 발사체 위치 조절 
+						pos -= Vector3(35.f, 2.5f, 0.f);
+
+						mArrowObj = object::Instantiate<ArcherArrow>(pos, eLayerType::Mon_Bullet, L"ArcherArrowObj_L");
+						mArrowObj->GetComponent<ArcherArrowScript>()->SetOriginOwner(mTransform->GetOwner());
+						mArrowTr = mArrowObj->GetComponent<Transform>();
+						mArrowTr->SetScale(Vector3(-25.f, 8.f, 0.f));
+					}
+					m_fTime = 0.0f;
+
+				}
+
+			}
+
+			if (mCurDir.x > 0)
+			{
+				mAnimator->PlayAnimation(L"Archer_FarAttackR", true);
+				mCollider->SetSize(Vector2(0.4f, 0.9f));
+				mCollider->SetCenter(Vector2(6.f, -0.f));
+
+			}
+
+			else
+			{
+				mAnimator->PlayAnimation(L"Archer_FarAttackL", true);
+				mCollider->SetSize(Vector2(0.4f, 0.9f));
+				mCollider->SetCenter(Vector2(6.f, -0.f));
+			}
+
+		}
 	}
 	void SkeletonArcherScript::Dead()
 	{
+		if (mCurDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"Archer_DieR", false);
+			mCollider->SetSize(Vector2(0.19f, 0.33f));
+			mCollider->SetCenter(Vector2(-32.f, 0.f));
+
+		}
+
+		else
+		{
+			mAnimator->PlayAnimation(L"Archer_DieL", false);
+			mCollider->SetSize(Vector2(0.19f, 0.33f));
+			mCollider->SetCenter(Vector2(-37.f, 0.f));
+		}
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			mNearRangeColObj->SetState(GameObject::eState::Dead);
+			mAttackColliderObj->SetState(GameObject::eState::Dead);
+			mFarRangeColObj->SetState(GameObject::eState::Dead);
+
+			GetOwner()->SetState(GameObject::eState::Dead);
+		}
 	}
 	void SkeletonArcherScript::Animation()
 	{

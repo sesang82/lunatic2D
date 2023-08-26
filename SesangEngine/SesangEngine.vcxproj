@@ -170,6 +170,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ssArcherArrow.cpp" />
+    <ClCompile Include="ssArcherArrowScript.cpp" />
     <ClCompile Include="ssArcherColScript.cpp" />
     <ClCompile Include="ssArcherFarRangeScript.cpp" />
     <ClCompile Include="ssArcherNearRangeScript.cpp" />
@@ -233,6 +235,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h" />
+    <ClInclude Include="ssArcherArrow.h" />
+    <ClInclude Include="ssArcherArrowScript.h" />
     <ClInclude Include="ssArcherColScript.h" />
     <ClInclude Include="ssArcherFarRangeScript.h" />
     <ClInclude Include="ssArcherNearRangeScript.h" />

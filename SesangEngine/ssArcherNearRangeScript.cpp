@@ -45,12 +45,12 @@ namespace ss
 		{
 			SkeletonArcherScript* Archerscript = mOwner->GetComponent<SkeletonArcherScript>();
 
-		/*	if (Archerscript->mCurState != ss::eMonsterState::STUN)
+			if (Archerscript->mCurState != ss::eMonsterState::STUN)
 			{
 				SkeletonArcherScript* Archerscript = mOwner->GetComponent<SkeletonArcherScript>();
 				Archerscript->mCurState = ss::eMonsterState::FARATTACK;
 				Archerscript->IsNearAttack(false);
-			}*/
+			}
 		}
 
 	}

@@ -56,8 +56,8 @@ namespace ss
 
 
         // === Far 공격용 화살 충돌체 
-        class StoneEyeProjectile* mArrowObj;
-        class ProjectileScript* mArrowScript;
+        class ArcherArrow* mArrowObj;
+        class ArcherArrowScript* mArrowScript;
         class Transform* mArrowTr;
         class Collider2D* mArrowCol;
 
