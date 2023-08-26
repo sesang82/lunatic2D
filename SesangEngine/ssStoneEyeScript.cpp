@@ -154,7 +154,6 @@ namespace ss
 		//mArrowScript->StoreMonsterPos(mTransform->GetPosition());
 
 
-		mPrevState = mCurState;
 
 		// 이동->상태변환->애니메이션
 
@@ -220,9 +219,8 @@ namespace ss
 			break;
 		}
 
-		//Animation();
 
-
+		mPrevState = mCurState;
 		mPrevDir = mCurDir;
 
 	}

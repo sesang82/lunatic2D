@@ -6,6 +6,7 @@ namespace ss
 
 	enum class eMonsterState
 	{
+		IDLE,
 		MOVE,
 		TRACER,
 		JUMP,

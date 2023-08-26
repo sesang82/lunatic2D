@@ -170,6 +170,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ssArcherFarRangeScript.cpp" />
+    <ClCompile Include="ssArcherNearRangeScript.cpp" />
     <ClCompile Include="ssBullet.cpp" />
     <ClCompile Include="ssEffect.cpp" />
     <ClCompile Include="ssMonsterBar.cpp" />
@@ -230,6 +232,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h" />
+    <ClInclude Include="ssArcherFarRangeScript.h" />
+    <ClInclude Include="ssArcherNearRangeScript.h" />
     <ClInclude Include="ssBullet.h" />
     <ClInclude Include="ssEffect.h" />
     <ClInclude Include="ssMonsterBar.h" />

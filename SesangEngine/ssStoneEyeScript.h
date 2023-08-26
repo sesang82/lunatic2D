@@ -29,9 +29,7 @@ namespace ss
  
 
     private:
-        float L_Boundary;
-        float R_Boundary;
-
+    
         class Animator* mAnimator;
         class Rigidbody2D* mRigidbody;
         class Transform* mTransform;
@@ -54,12 +52,6 @@ namespace ss
         class Transform* mAttackColTr;
         class Collider2D* mAttackCol;
 
-        // === Far 공격용 화살 충돌체 
-        class StoneEyeProjectile* mArrowObj;
-        class ProjectileScript* mArrowScript;
-        class Transform* mArrowTr;
-        class Collider2D* mArrowCol;
-
         // === Near 공격 판정 충돌체 
         class RangeCollider* mNearRangeColObj;
         class StoneNearRangeScript* mNearRangeScript;
@@ -71,6 +63,13 @@ namespace ss
         class RangeCollider* mFarRangeColObj;
         class Transform* mFarTr;
         class Collider2D* mFarCol;
+
+
+        // === Far 공격용 화살 충돌체 
+        class StoneEyeProjectile* mArrowObj;
+        class ProjectileScript* mArrowScript;
+        class Transform* mArrowTr;
+        class Collider2D* mArrowCol;
 
         // ==== 이펙트
         class Effect* mEffectObj;

@@ -92,12 +92,6 @@
     <ClCompile Include="ssMonsterScript.cpp">
       <Filter>Contents\Script\Character\Monster\Base</Filter>
     </ClCompile>
-    <ClCompile Include="ssStoneEyeScript.cpp">
-      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
-    </ClCompile>
-    <ClCompile Include="ssSkeletonArcherScript.cpp">
-      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
-    </ClCompile>
     <ClCompile Include="ssSkeletonLizardScript.cpp">
       <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClCompile>
@@ -125,9 +119,6 @@
     <ClCompile Include="ssAttackCollider.cpp">
       <Filter>Contents\GameObj\etc\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="ssPlayerAttackColScript.cpp">
-      <Filter>Contents\Script\Character\Collider</Filter>
-    </ClCompile>
     <ClCompile Include="ssMonsterBar.cpp">
       <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
     </ClCompile>
@@ -135,7 +126,7 @@
       <Filter>Contents\Load\Scene\for class</Filter>
     </ClCompile>
     <ClCompile Include="ssMonsterAttackColScript.cpp">
-      <Filter>Contents\Script\Character\Collider\Monster</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\Collider\Monster</Filter>
     </ClCompile>
     <ClCompile Include="ssPlayerSP.cpp">
       <Filter>Contents\GameObj\UI\01. ProgressBar\Player</Filter>
@@ -152,23 +143,38 @@
     <ClCompile Include="ssProjectileScript.cpp">
       <Filter>Contents\Script\etc\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="ssStoneEyeColScript.cpp">
-      <Filter>Contents\Script\Character\Collider\Monster\StoneEye</Filter>
-    </ClCompile>
-    <ClCompile Include="ssStoneNearRangeScript.cpp">
-      <Filter>Contents\Script\Character\Collider\Monster\StoneEye</Filter>
-    </ClCompile>
     <ClCompile Include="ssRangeCollider.cpp">
       <Filter>Contents\GameObj\etc\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="ssStoneFarRangeScript.cpp">
-      <Filter>Contents\Script\Character\Collider\Monster\StoneEye</Filter>
-    </ClCompile>
     <ClCompile Include="ssPlayerGuardColScript.cpp">
-      <Filter>Contents\Script\Character\Collider\Player</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\Collider\Player</Filter>
     </ClCompile>
     <ClCompile Include="ssEffect.cpp">
       <Filter>Contents\GameObj\etc\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="ssStoneEyeScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\StoneEye</Filter>
+    </ClCompile>
+    <ClCompile Include="ssPlayerAttackColScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\Collider\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ssStoneEyeColScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\StoneEye\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="ssStoneFarRangeScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\StoneEye\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="ssStoneNearRangeScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\StoneEye\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="ssSkeletonArcherScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\Archer</Filter>
+    </ClCompile>
+    <ClCompile Include="ssArcherFarRangeScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="ssArcherNearRangeScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -307,14 +313,8 @@
     <Filter Include="Contents\GameObj\etc\Collider">
       <UniqueIdentifier>{73f1f5d9-0861-4546-a61f-59ab7f67d74d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Script\Character\Collider">
-      <UniqueIdentifier>{aa1e82ee-1010-47a3-8045-dc441db219dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Load\Scene\for class">
       <UniqueIdentifier>{5b8c3370-1fc8-4645-a1da-893c9f582200}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Script\Character\Collider\Monster">
-      <UniqueIdentifier>{cde91193-b8a0-4780-8391-6c6f9be5a9d8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\GameObj\UI\01. ProgressBar\Player">
       <UniqueIdentifier>{b5f55183-45a0-4c19-913e-89029cee100f}</UniqueIdentifier>
@@ -328,17 +328,32 @@
     <Filter Include="Contents\Script\etc\Bullet">
       <UniqueIdentifier>{fa4b107b-d6c4-4d29-a2c0-edf64665f81d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Script\Character\Collider\Monster\StoneEye">
-      <UniqueIdentifier>{0bcb90d6-736e-4d5c-92b6-c20a562b8307}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Script\Character\Collider\Player">
-      <UniqueIdentifier>{aa360baf-6fb2-428e-a3d1-01722cbf5742}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObj\etc\Effect">
       <UniqueIdentifier>{1c3d245c-f4bf-4c04-906f-a70a69b253fa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\Script\Character\Monster\Base\General">
       <UniqueIdentifier>{6762a6b0-ba38-44e5-9c6c-a5ff10d3985a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General\Archer">
+      <UniqueIdentifier>{3b582da6-bc38-433a-9865-8e09fb0d6ec8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General\StoneEye">
+      <UniqueIdentifier>{7c3834a6-0734-4295-8ed8-d5200bc2b18c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\Collider">
+      <UniqueIdentifier>{aa1e82ee-1010-47a3-8045-dc441db219dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\Collider\Monster">
+      <UniqueIdentifier>{cde91193-b8a0-4780-8391-6c6f9be5a9d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\Collider\Player">
+      <UniqueIdentifier>{aa360baf-6fb2-428e-a3d1-01722cbf5742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General\StoneEye\Collider">
+      <UniqueIdentifier>{f1407123-6d63-4a0d-a7c1-952191ce7af5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General\Archer\Collider">
+      <UniqueIdentifier>{f1c9a765-9349-46b8-b82c-6b0cc63b4342}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -432,12 +447,6 @@
     <ClInclude Include="ssMonsterScript.h">
       <Filter>Contents\Script\Character\Monster\Base</Filter>
     </ClInclude>
-    <ClInclude Include="ssStoneEyeScript.h">
-      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
-    </ClInclude>
-    <ClInclude Include="ssSkeletonArcherScript.h">
-      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
-    </ClInclude>
     <ClInclude Include="ssSkeletonLizardScript.h">
       <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClInclude>
@@ -468,9 +477,6 @@
     <ClInclude Include="ssAttackCollider.h">
       <Filter>Contents\GameObj\etc\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="ssPlayerAttackColScript.h">
-      <Filter>Contents\Script\Character\Collider</Filter>
-    </ClInclude>
     <ClInclude Include="ssMonsterBar.h">
       <Filter>Contents\GameObj\UI\01. ProgressBar</Filter>
     </ClInclude>
@@ -478,7 +484,7 @@
       <Filter>Contents\Load\Scene\for class</Filter>
     </ClInclude>
     <ClInclude Include="ssMonsterAttackColScript.h">
-      <Filter>Contents\Script\Character\Collider\Monster</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\Collider\Monster</Filter>
     </ClInclude>
     <ClInclude Include="ssPlayerSP.h">
       <Filter>Contents\GameObj\UI\01. ProgressBar\Player</Filter>
@@ -495,23 +501,38 @@
     <ClInclude Include="ssProjectileScript.h">
       <Filter>Contents\Script\etc\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="ssStoneEyeColScript.h">
-      <Filter>Contents\Script\Character\Collider\Monster\StoneEye</Filter>
-    </ClInclude>
-    <ClInclude Include="ssStoneNearRangeScript.h">
-      <Filter>Contents\Script\Character\Collider\Monster\StoneEye</Filter>
-    </ClInclude>
     <ClInclude Include="ssRangeCollider.h">
       <Filter>Contents\GameObj\etc\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="ssStoneFarRangeScript.h">
-      <Filter>Contents\Script\Character\Collider\Monster\StoneEye</Filter>
-    </ClInclude>
     <ClInclude Include="ssPlayerGuardColScript.h">
-      <Filter>Contents\Script\Character\Collider\Player</Filter>
+      <Filter>Contents\Script\Character\Monster\Base\Collider\Player</Filter>
     </ClInclude>
     <ClInclude Include="ssEffect.h">
       <Filter>Contents\GameObj\etc\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ssStoneEyeScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\StoneEye</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPlayerAttackColScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\Collider\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ssStoneEyeColScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\StoneEye\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ssStoneFarRangeScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\StoneEye\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ssStoneNearRangeScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\StoneEye\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ssSkeletonArcherScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\Archer</Filter>
+    </ClInclude>
+    <ClInclude Include="ssArcherFarRangeScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ssArcherNearRangeScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\Archer\Collider</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
