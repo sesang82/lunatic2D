@@ -4,6 +4,7 @@
 #include "ssResources.h"
 #include "ssMeshRenderer.h"
 #include "ssCharacterState.h"
+#include "ssSkeletonArcherScript.h"
 
 namespace ss
 {
@@ -49,13 +50,29 @@ namespace ss
 
 
 		//// 바뀔때만 연산을 하도록 설정 (Update이므로 성능에 영향 갈 수 있으므로)
-		if (mState->Getchanged())
-		{
+		//if (mState->Getchanged())
+		//{
 			float test = mState->GetCurrentHP();
 
 
 			Vector3 pos = mTransform->GetPosition();
-			pos.x = mOffset; // offset 크기 조정 
+
+
+			if (mOwner->GetName() == L"Archer")
+			{
+				SkeletonArcherScript* ArcherScript = mOwner->GetComponent<SkeletonArcherScript>();
+
+				if (ArcherScript->GetCurDir() == Vector3(1.0f, 0.f, 0.f))
+				{
+					pos.x = -5; // offset 크기 조정 
+				}
+
+				else if (ArcherScript->GetCurDir() == Vector3(-1.0f, 0.f, 0.f))
+				{
+					pos.x = 5; // offset 크기 조정 
+				}
+
+			}
 
 			// 체력바 오른쪽에서 왼쪽으로 깎이도록 하기 
 			pos.x -= (1 - HPratio) * mWidth * 0.5;
@@ -68,10 +85,10 @@ namespace ss
 
 
 
-			mState->SetChanged(false);
+			//mState->SetChanged(false);
 		
 
-		}
+		//}
 
 
 		UI::Update();

@@ -33,12 +33,6 @@ namespace ss
 
 		mTransform->SetScale(Vector3(73.f, 61.f, 1.f)); // backsize랑 스케일값 동일하게 주기. 
 
-		mCollider->SetName(L"colHit_player");
-		mCollider->SetType(eColliderType::Rect);
-		mCollider->SetSize(Vector2(0.4f, 0.9f));
-		mCollider->SetCenter(Vector2(-6.f, -0.f));
-
-
 
 		//
 		mCharacterState->SetCurrentHP(110.f);
@@ -84,12 +78,21 @@ namespace ss
 
 		// 일단 Idle 상태는 나중으로 만들기 
 	
-
 		// ======
 			// 애니메이션 방향에 관한 기준	을 잡아준다.
 		mDir = mTransform->Right();
 		mCurDir = mTransform->Right();
 		mCurState = eMonsterState::MOVE;
+
+		// ===== 기본 충돌체 Hit 받는 용도 
+		mCollider->SetName(L"colHit_player");
+		mCollider->SetType(eColliderType::Rect);
+
+		mCollider->SetSize(Vector2(0.4f, 0.9f));
+		mCollider->SetCenter(Vector2(-6.f, -0.f));
+		// === idle 오른쪽 기준 충돌체 (나중에 수치 확인해서 이걸로 고치기)
+		//mCollider->SetSize(Vector2(0.4f, 0.9f));
+		//mCollider->SetCenter(Vector2(-6.f, -0.f));
 
 
 
@@ -217,36 +220,36 @@ namespace ss
 
 		Vector3 MonsterPos = mTransform->GetPosition();
 
-		MonsterPos.x += mDir.x * m_tMonsterInfo.m_fSpeed * Time::DeltaTime();
+		MonsterPos.x += mCurDir.x * m_tMonsterInfo.m_fSpeed * Time::DeltaTime();
 
 		if (MonsterPos.x < minX)
 		{
 			MonsterPos.x = minX;
-			mDir = mTransform->Right();
+			mCurDir = mTransform->Right();
 		}
 
 		else if (MonsterPos.x > maxX)
 		{
 			MonsterPos.x = maxX;
-			mDir = -mTransform->Right(); // 왼쪽 값 부여 
+			mCurDir = -mTransform->Right(); // 왼쪽 값 부여 
 		}
 
 		mTransform->SetPosition(MonsterPos);
 
 
 		// 방향대로 애니메이션을 재생한다. 
-		if (mDir.x > 0)
+		if (mCurDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Archer_RunR", true);
-			mCollider->SetSize(Vector2(0.15f, 0.43f));
-			mCollider->SetCenter(Vector2(-35.f, 0.2f));
+			mCollider->SetSize(Vector2(0.4f, 0.9f));
+			mCollider->SetCenter(Vector2(-6.f, -0.f));
 		}
 
-		else
+		else if (mCurDir.x < 0)
 		{
 			mAnimator->PlayAnimation(L"Archer_RunL", true);
-			mCollider->SetSize(Vector2(0.15f, 0.43f));
-			mCollider->SetCenter(Vector2(-35.f, 0.2f));
+			mCollider->SetSize(Vector2(0.4f, 0.9f));
+			mCollider->SetCenter(Vector2(6.f, -0.f));
 		}
 
 	}

@@ -161,8 +161,8 @@ namespace ss
 			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"StoneEyeHP");
 			stoneHP->SetParent(Stone);
 			Transform* stonehptr = stoneHP->GetComponent<Transform>();
-			stoneHP->SetOffset(-36.0f);
-			stonehptr->SetPosition(Vector3(-50.f, 38.f, 500.f));
+			//stoneHP->SetOffset(-36.0f);
+			stonehptr->SetPosition(Vector3(-36.f, 38.f, 500.f));
 			stoneHP->Initialize();
 
 		}
@@ -177,23 +177,19 @@ namespace ss
 			SkeletonArcherScript* ArcherScript = Stone->AddComponent<SkeletonArcherScript>();
 			ArcherScript->SetFirstPos(eyetr->GetPosition());
 
-			// 몬스터 체력바 틀
-			MonsterBar* mosnterbar = object::Instantiate<MonsterBar>(eLayerType::Etc, L"ArcherBar");
-			mosnterbar->Initialize();
 
-			Transform* monsterbartr = mosnterbar->GetComponent<Transform>();
-			mosnterbar->SetParent(Stone);
-			monsterbartr->SetPosition(Vector3(-5.f, 38.f, 500.f));
-
-
+			// ===== hp틀 그냥 넣지 말기 
 			// 몬스터 HP (UI로 넣지말기. 그럼 UI카메라에 의해 플레이어 따라다니는 것처럼 움직임) 
 			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::Etc, L"ArcherHP");
 			stoneHP->SetParent(Stone);
-			stoneHP->SetOffset(-5.f);
 
+		
 			Transform* stonehptr = stoneHP->GetComponent<Transform>();
 			stonehptr->SetPosition(Vector3(100.f, 38.f, 500.f));
+
 			stoneHP->Initialize();
+
+
 
 
 
