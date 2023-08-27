@@ -1185,6 +1185,98 @@ namespace renderer
 
 
 #pragma region Monster [SkeletonLizard]
+		 // >> Idle
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Lizard_Idle",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonLizard\\Idle\\Idle.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Lizard_IdleMtrl", spriteMateiral);
+
+		 }
+
+		 // >> Run
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Lizard_Run",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonLizard\\Run\\Run.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Lizard_RunMtrl", spriteMateiral);
+
+		 }
+
+
+		 // >> NearAttack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Lizard_NearAttack",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonLizard\\NearAttack\\NearAttack.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Lizard_NearAttackMtrl", spriteMateiral);
+
+		 }
+
+		 // >> Hit
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Lizard_Hit",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonLizard\\Hit\\Hit.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Lizard_HitMtrl", spriteMateiral);
+
+		 }
+
+		 // >> Stun
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Lizard_Stun",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonLizard\\Stun\\Stun.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Lizard_StunMtrl", spriteMateiral);
+
+		 }
+
+		 // >> Die
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Lizard_Die",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonLizard\\Die\\Die.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Lizard_DieMtrl", spriteMateiral);
+
+		 }
+
+
 #pragma endregion 
 
 

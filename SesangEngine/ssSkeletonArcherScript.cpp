@@ -26,6 +26,7 @@ namespace ss
 	SkeletonArcherScript::SkeletonArcherScript()
 		: mbNearAttack(false)
 		, mbFarAttack(false)
+		, mbAttacking(false)
 
 	{
 		m_tMonsterInfo.m_fSpeed = 30.f;
@@ -162,20 +163,24 @@ namespace ss
 	{
 		// 이동->상태변환->애니메이션
 
-		Transform* playerTr = mPlayer->GetComponent<Transform>();
-		Vector3 playerPos = playerTr->GetPosition();
 
 
-		// 방향의 기준을 잡아준다. (몬스터의 위치 값보다 X값이 크면 오른쪽이므로  1, 왼쪽에 있으면 -1)
-		if (playerPos.x >= mTransform->GetPosition().x)
+		// 공격 중일 때는 위치 고정시키기 위해서 (몬스터가 플레이어의 위치가 변경되면 애니메이션이 리셋되는 현상 방지)
+		if (!mbAttacking)
 		{
-			mCurDir.x = 1.0f;
-		}
-		else
-		{
-			mCurDir.x = -1.0f;
-		}
+			Transform* playerTr = mPlayer->GetComponent<Transform>();
+			Vector3 playerPos = playerTr->GetPosition();
 
+			// 방향의 기준을 잡아준다. (몬스터의 위치 값보다 X값이 크면 오른쪽이므로  1, 왼쪽에 있으면 -1)
+			if (playerPos.x >= mTransform->GetPosition().x)
+			{
+				mCurDir.x = 1.0f;
+			}
+			else
+			{
+				mCurDir.x = -1.0f;
+			}
+		}
 
 		switch (mCurState)
 		{
@@ -430,6 +435,7 @@ namespace ss
 					mAttackColliderObj->RemoveComponent<Collider2D>();
 
 				}
+
 
 				mAnimator->PlayAnimation(L"Archer_NearAttackR", true);
 

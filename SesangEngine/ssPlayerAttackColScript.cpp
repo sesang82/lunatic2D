@@ -7,6 +7,8 @@
 #include "ssGameState.h"
 #include "ssStoneEye.h"
 #include "ssStoneEyeScript.h"
+#include "ssSkeletonArcherScript.h"
+#include "ssSkeletonLizardScript.h"
 
 namespace ss
 {
@@ -58,6 +60,51 @@ namespace ss
 			}
 
 		
+		}
+
+		if (L"Archer" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			SkeletonArcherScript* script = other->GetOwner()->GetComponent<SkeletonArcherScript>();
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+		}
+	
+
+		if (L"Lizard" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			SkeletonLizardScript* script = other->GetOwner()->GetComponent<SkeletonLizardScript>();
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
 		}
 
 

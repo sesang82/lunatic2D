@@ -29,8 +29,10 @@ namespace ss
 		float	m_fAttack = 0; // 공격력
 		float	m_fDefense = 0; // 방어력
 
-		float	m_fDetectRange = 0; // 감지 범위 
-		float	m_fAttackRange = 0; // 공격 범위 
+		float	m_fDetectRange = 0; // 감지 범위(추적 범위) 
+		float	m_fNearAttackRange = 0; // 근접 공격 범위
+		float	m_fFarAttackRange = 0; // 원거리 공격 범위
+
 		float   m_fCoolDown = 0; // 공격 쿨타임
 	};
 
