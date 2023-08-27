@@ -211,7 +211,7 @@ namespace ss
 
 
 			Transform* stonehptr = stoneHP->GetComponent<Transform>();
-			stonehptr->SetPosition(Vector3(70.f, 25.f, 500.f));
+			stonehptr->SetPosition(Vector3(50.f, 25.f, 500.f));
 
 			stoneHP->Initialize();
 

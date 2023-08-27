@@ -67,8 +67,8 @@ namespace ss
 		mAnimator->Create(L"Lizard_RunR", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f));
 		mAnimator->Create(L"Lizard_RunL", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Lizard_HitR", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f));
-		mAnimator->Create(L"Lizard_HitL", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Lizard_HitR", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.2f);
+		mAnimator->Create(L"Lizard_HitL", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.2f, true);
 
 		mAnimator->Create(L"Lizard_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f));
 		mAnimator->Create(L"Lizard_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.1f, true);
@@ -147,6 +147,10 @@ namespace ss
 		case ss::eMonsterState::HIT:
 			Hit();
 			break;
+
+		case ss::eMonsterState::HIT_AFTER:
+			HitAfter();
+			break;
 			
 		case ss::eMonsterState::NEARATTACK:
 			NearAttack();
@@ -214,14 +218,14 @@ namespace ss
 			{
 				mAnimator->PlayAnimation(L"Lizard_RunR", true);
 				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(-8.f, -0.f));
+				mCollider->SetCenter(Vector2(-8.f, 0.f));
 			}
 
 			else
 			{
 				mAnimator->PlayAnimation(L"Lizard_RunL", true);
 				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(8.f, -0.f));
+				mCollider->SetCenter(Vector2(-8.f, 0.f));
 			}
 
 
@@ -258,7 +262,7 @@ namespace ss
 			{
 				mAnimator->PlayAnimation(L"Lizard_RunL", true);
 				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(8.f, -0.f));
+				mCollider->SetCenter(Vector2(-8.f, -0.f));
 			}
 
 
@@ -352,14 +356,27 @@ namespace ss
 
 
 		// 애니메이션 재생이 끝나면 
+
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			if (mbNearAttack)
 			{
+
 				mbNearAttack = false;
+				mbAttacking = false;
 				mCurState = eMonsterState::NEARATTACK;
 			}
 		}
+
+	}
+
+	void SkeletonLizardScript::HitAfter()
+	{
+
+
+
+
+
 	}
 
 
@@ -380,13 +397,14 @@ namespace ss
 					mbAttacking = true; 
 					mbNearAttack = true;
 
+
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Lizard_NearAttackR", false);
 					
 
-						mCollider->SetSize(Vector2(0.40f, 0.33f));
-						mCollider->SetCenter(Vector2(-32.f, 0.f));
+						mCollider->SetSize(Vector2(0.2f, 0.7f));
+						mCollider->SetCenter(Vector2(-8.f, -0.f));
 
 					}
 
@@ -394,8 +412,8 @@ namespace ss
 					{
 						mAnimator->PlayAnimation(L"Lizard_NearAttackL", false);
 
-						mCollider->SetSize(Vector2(0.40f, 0.33f));
-						mCollider->SetCenter(Vector2(32.f, 0.f));
+						mCollider->SetSize(Vector2(0.2f, 0.7f));
+						mCollider->SetCenter(Vector2(8.f, -0.f));
 					}
 
 
@@ -405,13 +423,12 @@ namespace ss
 				if (mAnimator->GetCurActiveAnimation()->IsComplete())
 				{
 					mbAttacking = false;	
-					
+				
 					mAnimator->SetAgainAttack(false);
-		
 
+		
 					mCurState = eMonsterState::NEARATTACK_AFTER;
 			
-
 				}
 
 		

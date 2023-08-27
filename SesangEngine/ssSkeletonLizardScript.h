@@ -58,6 +58,7 @@ namespace ss
 
         void Stun();
         void Hit();
+        void HitAfter();
 
         void NearAttackStart();
         void NearAttack();
@@ -76,6 +77,7 @@ namespace ss
         void SetFirstPos(Vector3 pos) { mFirstPos = pos; }
         void SetMoveDir(Vector3 dir) { mDir = dir; }
 
+        Vector3 GetDir() { return mDir; }
         Vector3 GetCurDir() { return mCurDir; }
         eMonsterState GetCurState() { return mCurState; }
 

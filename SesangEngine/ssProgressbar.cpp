@@ -61,6 +61,8 @@ namespace ss
 			// update를 돌 동안 값이 바뀔때만 하게 하려했으나, 오프셋 문제로 지움 
 			if (mOwner->GetName() == L"StoneEye")
 			{
+				// 스톤아이처럼 오프셋을 하나로만 쓰려면, 애니메이션에다가 충돌체를 맞추지말고
+				// 충돌체에다가 애니메이션을 맞춰야함. 
 				pos.x = -36;
 
 			}
@@ -69,11 +71,11 @@ namespace ss
 			{
 				SkeletonArcherScript* ArcherScript = mOwner->GetComponent<SkeletonArcherScript>();
 
-				if (ArcherScript->GetCurDir() == Vector3(1.0f, 0.f, 0.f))
+				if (ArcherScript->GetDir() == Vector3(1.0f, 0.f, 0.f))
 				{
 					pos.x = -5; // offset 크기 조정 
 				}
-				else if (ArcherScript->GetCurDir() == Vector3(-1.0f, 0.f, 0.f))
+				else if (ArcherScript->GetDir() == Vector3(-1.0f, 0.f, 0.f))
 				{
 					pos.x = 5; // offset 크기 조정 
 				}
@@ -83,8 +85,30 @@ namespace ss
 			if (mOwner->GetName() == L"Lizard")
 			{
 				SkeletonLizardScript* LizardScript = mOwner->GetComponent<SkeletonLizardScript>();
+				pos.x = -5;
 
-					pos.x = 8; // offset 크기 조정 
+				//if (LizardScript->GetDir() == Vector3(1.0f, 0.f, 0.f))
+				//{
+				//	pos.x = -5; // offset 크기 조정 
+				//}
+
+				//else if (LizardScript->GetCurDir() == Vector3(1.0f, 0.f, 0.f))
+				//{
+				//	pos.x = -5; // offset 크기 조정 
+				//}
+
+
+				//else if (LizardScript->GetDir() == Vector3(-1.0f, 0.f, 0.f))
+				//{
+				//	pos.x = 5; // offset 크기 조정 
+				//}
+
+
+				//else if (LizardScript->GetCurDir() == Vector3(-1.0f, 0.f, 0.f))
+				//{
+				//	pos.x = 5; // offset 크기 조정 
+				//}
+				//
 				
 			}
 

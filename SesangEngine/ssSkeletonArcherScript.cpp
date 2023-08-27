@@ -23,6 +23,13 @@
 
 namespace ss
 {
+
+	// 몬스터 옮길 때 유의할 점 
+	// 1. HIT용 콜라이더 크기를 하나로 고정한다. (좌우 포함)
+	// 2. 애니메이션을 해당 콜라이더에 맞게 오프셋을 조절해서 맞춘다.
+	// 3. 그렇게 안하면 프로그래스바 오프셋을 여러가지 ㅆ야함
+	// 4. 몬스터 Hit처럼 1개뿐인 것은 IsComplete 함수에 걸리지 않는다. 때문에 그때는 재생 시간을 기본 값이 아니라 좀 늘려야함 
+
 	SkeletonArcherScript::SkeletonArcherScript()
 		: mbNearAttack(false)
 		, mbFarAttack(false)

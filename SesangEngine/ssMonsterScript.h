@@ -14,6 +14,7 @@ namespace ss
 		LADING,
 		STUN,
 		HIT,
+		HIT_AFTER,	
 		GUARD,
 		NEARATTACK,
 		NEARATTACK_AFTER,

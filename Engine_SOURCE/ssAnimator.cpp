@@ -13,6 +13,7 @@ namespace ss
 		, mEndIdx(0)
 		, mAnimCount(0)
 		, mAgainAttack(false)
+		, mHit(false)
 	{
 	}
 	Animator::~Animator()
@@ -132,7 +133,7 @@ namespace ss
 		{
 			prevAnimation = mActiveAnimation;
 
-			// 활성화된 애니메이션과 이름이 같고, 같은 공격 중인게 아니라면 리턴 
+			// 활성화된 애니메이션과 이름이 같고, 같은 공격 중인게 아니면서 hit상태도 아니라면 리턴 
 			if (mActiveAnimation->GetKey() == name && !mAgainAttack)
 				return;
 		}

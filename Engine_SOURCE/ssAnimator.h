@@ -49,6 +49,7 @@ namespace ss
         bool mbLoop;
         bool mInRange;
         bool mAgainAttack; // 같은 애니메이션인 어택을 다시 할 때 return 되는거 막는 함수 
+        bool mHit; 
 
         UINT mStartIdx;
         UINT mEndIdx;
@@ -69,6 +70,7 @@ namespace ss
 
         class PlayerScript* mPlayerScript;
         class MonsterScript* mMonsterScript;
+
 
     public:
         // backsize값은 이미지마다 다르므로 적절한 값 찾기. (쌤 코드는 그냥 200/200으로 고정해서 나눠주고 있었음) 
@@ -94,6 +96,9 @@ namespace ss
 
          void SetAgainAttack(bool _again) { mAgainAttack = _again; }
          bool IsAgainAttack() { return mAgainAttack; }
+
+         void SetHitCheck(bool _hit) { mHit = _hit; }
+         bool IsHit() { return mHit; }
 
 
         //== 애니메이션 관련 함수 포인터
