@@ -195,29 +195,25 @@ namespace ss
 
 		{
 			// 해골 Lizard (근접 공격만 하는 애)
-			Monster* Stone = object::Instantiate<Monster>(eLayerType::Monster, L"Lizard");
-			Stone->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-			Transform* eyetr = Stone->GetComponent<Transform>();
+			Monster* Liazrd = object::Instantiate<Monster>(eLayerType::Monster, L"Lizard");
+			Liazrd->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+			Transform* eyetr = Liazrd->GetComponent<Transform>();
 			eyetr->SetPosition(Vector3(40.f, 185.f, 500.f));
 
-			SkeletonLizardScript* ArcherScript = Stone->AddComponent<SkeletonLizardScript>();
+			SkeletonLizardScript* ArcherScript = Liazrd->AddComponent<SkeletonLizardScript>();
 			ArcherScript->SetFirstPos(eyetr->GetPosition());
 
 
 			// ===== hp틀 그냥 넣지 말기 
 			// 몬스터 HP (UI로 넣지말기. 그럼 UI카메라에 의해 플레이어 따라다니는 것처럼 움직임) 
 			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::Etc, L"LizardHP");
-			stoneHP->SetParent(Stone);
+			stoneHP->SetParent(Liazrd);
 
 
 			Transform* stonehptr = stoneHP->GetComponent<Transform>();
-			stonehptr->SetPosition(Vector3(70.f, 158.f, 500.f));
+			stonehptr->SetPosition(Vector3(70.f, 25.f, 500.f));
 
 			stoneHP->Initialize();
-
-
-
-
 
 		}
 

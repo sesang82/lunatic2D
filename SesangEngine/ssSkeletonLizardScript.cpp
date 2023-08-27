@@ -22,6 +22,7 @@ namespace ss
 {
 	SkeletonLizardScript::SkeletonLizardScript()
 		: mbAttacking(false)
+		, mbNearAttack(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 100.f;
 		m_tMonsterInfo.m_fNearAttackRange = 15.f;
@@ -60,7 +61,8 @@ namespace ss
 		// 플레이어 애니메이션은 좀 특수하므로, 무기 별로 오프셋 값 다르게 주되 백사이즈는	 동일하게 주기. (사이즈 값은 틀려도 됨) 
 		// 애니메이션 나중에 플레이어 다 완성되면 
 		//  LT, 1프레임 사를 사이즈, 자를 갯수(1부터 시작해서 세기), 백사이즈, 오프셋
-		mAnimator->Create(L"Lizard_Idle", Image1, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(96.f, 48.f));
+		mAnimator->Create(L"Lizard_IdleR", Image1, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(96.f, 48.f));
+		mAnimator->Create(L"Lizard_IdleL", Image1, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Lizard_RunR", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f));
 		mAnimator->Create(L"Lizard_RunL", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.1f, true);
@@ -145,10 +147,15 @@ namespace ss
 		case ss::eMonsterState::HIT:
 			Hit();
 			break;
-
+			
 		case ss::eMonsterState::NEARATTACK:
 			NearAttack();
 			break;
+
+		case ss::eMonsterState::NEARATTACK_AFTER:
+			NearAttackAfter();
+			break;
+
 
 		case ss::eMonsterState::DEAD:
 			Dead();
@@ -226,7 +233,7 @@ namespace ss
 			vMonToPlayer.z = 0;
 			vMonToPlayer.Normalize();
 
-			float fSpeed = m_tMonsterInfo.m_fSpeed;
+			float fSpeed = m_tMonsterInfo.m_fSpeed + 200.f; // 추적 중일 땐 더 빠르게 추적하게 함 
 
 			// 몬스터의 위치를 플레이어 방향으로 이동시킨다.
 			MonsterPos.x += vMonToPlayer.x * fSpeed * Time::DeltaTime();
@@ -349,6 +356,7 @@ namespace ss
 		{
 			if (mbNearAttack)
 			{
+				mbNearAttack = false;
 				mCurState = eMonsterState::NEARATTACK;
 			}
 		}
@@ -370,6 +378,7 @@ namespace ss
 				if (!mbAttacking && distance <= m_tMonsterInfo.m_fNearAttackRange)
 				{
 					mbAttacking = true; 
+					mbNearAttack = true;
 
 					if (mCurDir.x > 0)
 					{
@@ -392,32 +401,40 @@ namespace ss
 
 				}
 
+
 				if (mAnimator->GetCurActiveAnimation()->IsComplete())
 				{
-					mbAttacking = false;
+					mbAttacking = false;	
+					
+					mAnimator->SetAgainAttack(false);
+		
 
-					if(distance <= m_tMonsterInfo.m_fNearAttackRange)
-					{
-						mCurState = eMonsterState::NEARATTACK;
-					}
-
-					else if(distance <= m_tMonsterInfo.m_fDetectRange)
-					{
-						// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
-							ChangeState(eMonsterState::MOVE);
-					}
+					mCurState = eMonsterState::NEARATTACK_AFTER;
+			
 
 				}
 
-			//else if (distance <= m_tMonsterInfo.m_fDetectRange)
-			//{
-			//	// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
-			//		if(!mbAttacking)
-			//	ChangeState(eMonsterState::MOVE);
-			//}
-
 		
 
+	}
+
+	void SkeletonLizardScript::NearAttackAfter()
+	{
+		Vector3 MonsterPos = mTransform->GetPosition();
+		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+		float distance = (PlayerPos - MonsterPos).Length();
+
+		if (distance <= m_tMonsterInfo.m_fNearAttackRange)
+		{
+			mAnimator->SetAgainAttack(true);
+			mCurState = eMonsterState::NEARATTACK;
+		}
+
+		else if (distance <= m_tMonsterInfo.m_fDetectRange)
+		{
+			// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
+			ChangeState(eMonsterState::MOVE);
+		}
 	}
 
 	void SkeletonLizardScript::NearAttackStart()

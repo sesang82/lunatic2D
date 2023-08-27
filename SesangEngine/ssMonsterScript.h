@@ -16,6 +16,7 @@ namespace ss
 		HIT,
 		GUARD,
 		NEARATTACK,
+		NEARATTACK_AFTER,
 		FARATTACK,
 		DEAD,
 		END

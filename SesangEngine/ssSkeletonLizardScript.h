@@ -61,6 +61,7 @@ namespace ss
 
         void NearAttackStart();
         void NearAttack();
+        void NearAttackAfter();
         void NearAttackEnd();
 
         void Dead();

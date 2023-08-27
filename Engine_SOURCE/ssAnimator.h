@@ -48,6 +48,7 @@ namespace ss
     private:
         bool mbLoop;
         bool mInRange;
+        bool mAgainAttack; // 같은 애니메이션인 어택을 다시 할 때 return 되는거 막는 함수 
 
         UINT mStartIdx;
         UINT mEndIdx;
@@ -90,6 +91,9 @@ namespace ss
         void Binds(); // 애니메이션을 바인딩
 
          void SetIndex(int _index) { mEventIndex = _index;}
+
+         void SetAgainAttack(bool _again) { mAgainAttack = _again; }
+         bool IsAgainAttack() { return mAgainAttack; }
 
 
         //== 애니메이션 관련 함수 포인터

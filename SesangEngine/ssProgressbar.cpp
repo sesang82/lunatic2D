@@ -6,6 +6,7 @@
 #include "ssCharacterState.h"
 #include "ssSkeletonArcherScript.h"
 #include "ssStoneEyeScript.h"
+#include "ssSkeletonLizardScript.h"
 
 namespace ss
 {
@@ -76,7 +77,15 @@ namespace ss
 				{
 					pos.x = 5; // offset 크기 조정 
 				}
+	
+			}
 
+			if (mOwner->GetName() == L"Lizard")
+			{
+				SkeletonLizardScript* LizardScript = mOwner->GetComponent<SkeletonLizardScript>();
+
+					pos.x = 8; // offset 크기 조정 
+				
 			}
 
 			// 체력바 오른쪽에서 왼쪽으로 깎이도록 하기 
