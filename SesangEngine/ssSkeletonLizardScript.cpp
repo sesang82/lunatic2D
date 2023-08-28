@@ -67,11 +67,11 @@ namespace ss
 		mAnimator->Create(L"Lizard_RunR", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f));
 		mAnimator->Create(L"Lizard_RunL", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Lizard_HitR", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.2f);
-		mAnimator->Create(L"Lizard_HitL", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.2f, true);
+		mAnimator->Create(L"Lizard_HitR", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 1.5f);
+		mAnimator->Create(L"Lizard_HitL", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 1.5f, true);
 
-		mAnimator->Create(L"Lizard_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f));
-		mAnimator->Create(L"Lizard_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Lizard_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.08f);
+		mAnimator->Create(L"Lizard_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.08f, true);
 
 		mAnimator->Create(L"Lizard_StunR", Image5, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(96.f, 48.f));
 		mAnimator->Create(L"Lizard_StunL", Image5, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.1f, true);
@@ -84,8 +84,6 @@ namespace ss
 		mAnimator->StartEvent(L"Lizard_NearAttackR") = std::bind(&SkeletonLizardScript::NearAttackStart, this);
 		mAnimator->StartEvent(L"Lizard_NearAttackL") = std::bind(&SkeletonLizardScript::NearAttackStart, this);
 
-	//	mAnimator->EndEvent(L"Lizard_NearAttackR") = std::bind(&SkeletonLizardScript::NearAttackEnd, this);
-	//	mAnimator->EndEvent(L"Lizard_NearAttackL") = std::bind(&SkeletonLizardScript::NearAttackEnd, this);
 
 		// 일단 Idle 상태는 나중으로 만들기 
 		// ======
@@ -347,6 +345,17 @@ namespace ss
 
 	void SkeletonLizardScript::Hit()
 	{
+
+
+		if (mAnimator->GetCurActiveAnimation()->IsComplete() ||
+			mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
+		{
+
+			mCurState = eMonsterState::HIT_AFTER;
+
+		}
+
+
 		// 방향대로 애니메이션을 재생한다. 
 		if (mCurDir.x > 0)
 			mAnimator->PlayAnimation(L"Lizard_HitR", false);
@@ -357,24 +366,20 @@ namespace ss
 
 		// 애니메이션 재생이 끝나면 
 
-		if (mAnimator->GetCurActiveAnimation()->IsComplete())
-		{
-			if (mbNearAttack)
-			{
 
-				mbNearAttack = false;
-				mbAttacking = false;
-				mCurState = eMonsterState::NEARATTACK;
-			}
-		}
 
 	}
 
 	void SkeletonLizardScript::HitAfter()
 	{
 
+		if (mbNearAttack)
+		{
 
-
+			mbNearAttack = false;
+			mbAttacking = false;
+			mCurState = eMonsterState::NEARATTACK;
+		}
 
 
 	}
