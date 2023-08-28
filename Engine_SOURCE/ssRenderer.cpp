@@ -1281,6 +1281,117 @@ namespace renderer
 
 
 #pragma region Monster [WoodGolem]
+
+		 // >> Idle
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wood_Idle",
+					 L"..\\Resources\\Texture\\Monster\\Wood\\Idle.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wood_Idle", spriteMateiral);
+
+		 }
+
+		 // >> Run
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wood_Run",
+					 L"..\\Resources\\Texture\\Monster\\Wood\\Run.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wood_RunMtrl", spriteMateiral);
+
+		 }
+
+		 // >> NearAttack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wood_NearAttack",
+					 L"..\\Resources\\Texture\\Monster\\Wood\\NearAttack.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wood_NearAttackMtrl", spriteMateiral);
+
+		 }
+
+		 // >> FarAttack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wood_FarAttack",
+					 L"..\\Resources\\Texture\\Monster\\Wood\\FarAttack.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wood_FarAttackMtrl", spriteMateiral);
+
+		 }
+
+
+		 // >> Hit
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wood_Hit",
+					 L"..\\Resources\\Texture\\Monster\\Wood\\Hit.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wood_HitMtrl", spriteMateiral);
+
+		 }
+
+
+		 // >> Stun
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wood_Stun",
+					 L"..\\Resources\\Texture\\Monster\\Wood\\Stun.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wood_StunMtrl", spriteMateiral);
+
+		 }
+
+		 // >> Die
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wood_Die",
+					 L"..\\Resources\\Texture\\Monster\\Wood\\Die.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wood_DieMtrl", spriteMateiral);
+
+		 }
+
+
+
+
 #pragma endregion 
 
 

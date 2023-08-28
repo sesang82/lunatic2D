@@ -29,7 +29,7 @@ namespace ss
 	{
 		MonsterScript::Initialize();
 
-		mTransform->SetScale(Vector3(96.f, 48.f, 1.f)); // backsize랑 스케일값 동일하게 주기. 
+		mTransform->SetScale(Vector3(111.f, 83.f, 1.f)); // backsize랑 스케일값 동일하게 주기. 
 
 
 		//
