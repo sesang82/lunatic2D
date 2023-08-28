@@ -1293,7 +1293,7 @@ namespace renderer
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
 
-			 Resources::Insert(L"Wood_Idle", spriteMateiral);
+			 Resources::Insert(L"Wood_IdleMtrl", spriteMateiral);
 
 		 }
 

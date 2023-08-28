@@ -86,30 +86,15 @@ namespace ss
 			{
 				SkeletonLizardScript* LizardScript = mOwner->GetComponent<SkeletonLizardScript>();
 				pos.x = -5;
-
-				//if (LizardScript->GetDir() == Vector3(1.0f, 0.f, 0.f))
-				//{
-				//	pos.x = -5; // offset 크기 조정 
-				//}
-
-				//else if (LizardScript->GetCurDir() == Vector3(1.0f, 0.f, 0.f))
-				//{
-				//	pos.x = -5; // offset 크기 조정 
-				//}
-
-
-				//else if (LizardScript->GetDir() == Vector3(-1.0f, 0.f, 0.f))
-				//{
-				//	pos.x = 5; // offset 크기 조정 
-				//}
-
-
-				//else if (LizardScript->GetCurDir() == Vector3(-1.0f, 0.f, 0.f))
-				//{
-				//	pos.x = 5; // offset 크기 조정 
-				//}
-				//
 				
+			}
+
+
+			if (mOwner->GetName() == L"WoodGolemObj")
+			{
+				SkeletonLizardScript* LizardScript = mOwner->GetComponent<SkeletonLizardScript>();
+				pos.x = -13;
+
 			}
 
 			// 체력바 오른쪽에서 왼쪽으로 깎이도록 하기 

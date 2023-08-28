@@ -26,6 +26,7 @@
 #include "ssMonsterBar.h"
 #include "ssSkeletonArcherScript.h"
 #include "ssSkeletonLizardScript.h"
+#include "ssWoodGolemScript.h"
 
 namespace ss
 {
@@ -217,6 +218,31 @@ namespace ss
 
 		}
 
+
+		{
+			// Wood Golem 몬스터 
+			Monster* Golem = object::Instantiate<Monster>(eLayerType::Monster, L"WoodGolemObj");
+			Golem->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+			Transform* eyetr = Golem->GetComponent<Transform>();
+			eyetr->SetPosition(Vector3(-240.f, 70.f, 500.f));
+
+			WoodGolemScript* ArcherScript = Golem->AddComponent<WoodGolemScript>();
+			ArcherScript->SetFirstPos(eyetr->GetPosition());
+
+
+			// ===== hp틀 그냥 넣지 말기 
+			// 몬스터 HP (UI로 넣지말기. 그럼 UI카메라에 의해 플레이어 따라다니는 것처럼 움직임) 
+			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::Etc, L"WoodHP");
+			stoneHP->SetParent(Golem);
+			stoneHP->SetOffset(100.f);
+
+
+			Transform* stonehptr = stoneHP->GetComponent<Transform>();
+			stonehptr->SetPosition(Vector3(50.f, 40.f, 500.f));
+
+			stoneHP->Initialize();
+
+		}
 
 
 
