@@ -188,6 +188,9 @@
     <ClCompile Include="ssWoodGolemScript.cpp">
       <Filter>Contents\Script\Character\Monster\Base\General\Golem</Filter>
     </ClCompile>
+    <ClCompile Include="ssHitGroundScript.cpp">
+      <Filter>Contents\Script\UI\hitGround</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -379,6 +382,9 @@
     <Filter Include="Contents\Script\Character\Monster\Base\General\Golem\col">
       <UniqueIdentifier>{7824740d-e5ab-40c3-9199-6761e97143e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Script\UI\hitGround">
+      <UniqueIdentifier>{d9f04092-0f15-42e7-abb5-67d9a1c9f85e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h">
@@ -569,6 +575,9 @@
     </ClInclude>
     <ClInclude Include="ssWoodGolemScript.h">
       <Filter>Contents\Script\Character\Monster\Base\General\Golem</Filter>
+    </ClInclude>
+    <ClInclude Include="ssHitGroundScript.h">
+      <Filter>Contents\Script\UI\hitGround</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

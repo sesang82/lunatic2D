@@ -11,18 +11,24 @@
 #include "ssRangeCollider.h"
 #include "ssPlayerScript.h"
 #include "ssAttackCollider.h"
+#include "ssEffect.h"
+#include "ssMeshRenderer.h"
+#include "ssHitGroundScript.h"
+#include "ssMonster.h"
 
 
 namespace ss
 {
 	WoodGolemScript::WoodGolemScript()
-		: mbAttacking(false)
+		: mbNearAttacking(false)
+		, mbFarAttacking(false)
 		, mbHit(false)
+		, mbPaunched(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 50.f;
-		m_tMonsterInfo.m_fNearAttackRange = 50.f;
-		m_tMonsterInfo.m_fDetectRange = 180.f;
-		m_tMonsterInfo.m_fCoolDown = 0.2f;
+		m_tMonsterInfo.m_fNearAttackRange = 110.f;
+		m_tMonsterInfo.m_fFarAttackRange = 150.f;
+		m_tMonsterInfo.m_fCoolDown = 0.5f;
 	}
 	WoodGolemScript::~WoodGolemScript()
 	{
@@ -63,8 +69,8 @@ namespace ss
 		mAnimator->Create(L"Wood_RunR", Image2, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 10, Vector2(111.f, 83.f));
 		mAnimator->Create(L"Wood_RunL", Image2, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 10, Vector2(111.f, 83.f), Vector2(23.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Wood_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f));
-		mAnimator->Create(L"Wood_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f), Vector2(23.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Wood_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f), Vector2::Zero, 0.08f);
+		mAnimator->Create(L"Wood_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f), Vector2(23.f, 0.f), 0.08f, true);
 
 		mAnimator->Create(L"Wood_FarAttackR", Image4, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f));
 		mAnimator->Create(L"Wood_FarAttackL", Image4, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f), Vector2(23.f, 0.f), 0.1f, true);
@@ -164,10 +170,9 @@ namespace ss
 			NearAttack();
 			break;
 
-		case ss::eMonsterState::NEARATTACK_AFTER:
-			NearAttackAfter();
+		case ss::eMonsterState::FARATTACK:
+			FarAttack();
 			break;
-
 
 		case ss::eMonsterState::DEAD:
 			Dead();
@@ -190,7 +195,8 @@ namespace ss
 
 	void WoodGolemScript::Idle()
 	{
-		mbAttacking = false; 
+		mbNearAttacking = false;
+		mbFarAttacking = false;
 		mbHit = false;
 
 		if (mCurDir.x > 0)
@@ -227,6 +233,12 @@ namespace ss
 		}
 
 
+		// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환
+		else if (distance < m_tMonsterInfo.m_fFarAttackRange)
+		{
+			ChangeState(eMonsterState::FARATTACK);
+		}
+
 	}
 
 	// 골렘은 추적 상태 없음 
@@ -250,7 +262,15 @@ namespace ss
 		if (distance < m_tMonsterInfo.m_fNearAttackRange)
 		{
 			ChangeState(eMonsterState::NEARATTACK);
-			return; // 이 함수에서 추가적인 처리를 중지합니다.
+			return; // 밑에 run관련 작동 안되도록 
+		}
+
+
+		// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환
+		else if (distance < m_tMonsterInfo.m_fFarAttackRange)
+		{
+			ChangeState(eMonsterState::FARATTACK);
+			return;
 		}
 
 
@@ -325,7 +345,7 @@ namespace ss
 
 		if (mbHit && mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
-			ChangeState(eMonsterState::MOVE);
+			ChangeState(eMonsterState::IDLE);
 		}
 
 	}
@@ -343,21 +363,13 @@ namespace ss
 
 		m_fTime += Time::DeltaTime();
 
-
-		//if (distance <= m_tMonsterInfo.m_fDetectRange)
-		//	{
-		//		// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
-		//		ChangeState(eMonsterState::MOVE);
-		//	}
-
-
 		
 		// 연이어 공격 애니메이션 재생하지 않고, 쿨타임 시간만큼 기다렸다가 공격 
 
 
-		if (m_fTime >= m_tMonsterInfo.m_fCoolDown && !mbAttacking)
+		if (m_fTime >= m_tMonsterInfo.m_fCoolDown && !mbNearAttacking)
 		{
-			mbAttacking = true;
+			mbNearAttacking = true;
 
 
 				if (mCurDir.x > 0)
@@ -376,36 +388,94 @@ namespace ss
 		}
 
 
-		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
-		{
-
-			PlayerPos.z += 0.1f;
-			//Effect_ProjectileDest* epd = object::Instantiate<Effect_ProjectileDest>(PlayerPos, eLayerType::Effect, SceneManager::GetActiveScene());
-			//Bullet_Apple* app = object::Instantiate<Bullet_Apple>(mOwner, eLayerType::Monster_Bullet, SceneManager::GetActiveScene());
-		
-		}
-
-
 		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 12)
 		{
-			mbAttacking = false;
+			mbNearAttacking = false;
 		}
 
 
-		if (!mbAttacking && mAnimator->GetCurActiveAnimation()->IsComplete())
+		if (!mbNearAttacking && mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			ChangeState(eMonsterState::IDLE);
 		}
 
 
 	}
-	void WoodGolemScript::NearAttackAfter()
-	{
-	}
+
 	void WoodGolemScript::NearAttackEnd()
 	{
 
-	//	mbAttacking = false;
+
+	}
+	void WoodGolemScript::FarAttack()
+	{
+
+		Vector3 MonsterPos = mTransform->GetPosition();
+		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+		float distance = (PlayerPos - MonsterPos).Length();
+
+		m_fTime += Time::DeltaTime();
+
+
+		// 연이어 공격 애니메이션 재생하지 않고, 쿨타임 시간만큼 기다렸다가 공격 
+
+
+		if (m_fTime >= m_tMonsterInfo.m_fCoolDown && !mbFarAttacking)
+		{
+			mbFarAttacking = true; // 애니메이션 재생이 캐릭터가 방향을 바꿔도 끝까지 유지되어야해서 넣어준 변수 
+
+
+			if (mCurDir.x > 0)
+			{
+				mAnimator->PlayAnimation(L"Wood_FarAttackR", false);
+
+			}
+
+			else
+			{
+				mAnimator->PlayAnimation(L"Wood_FarAttackL", false);
+			}
+
+
+			m_fTime = 0.0f;
+		}
+
+
+		bool isGround = mPlayer->GetComponent<Rigidbody2D>()->IsGround();
+
+		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1 && !mbPaunched && isGround)
+		{
+
+			mHitGround = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"WoodHitGroundObj");
+
+			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
+			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
+
+			mbPaunched = true;
+		}
+
+
+
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 6)
+		{
+
+			// 공격용 충돌체가 나간다. 플레이어 포즈에. 3 인덱스에서 띄워준 playerpos값 담아서 쓰기 
+
+
+
+		}
+
+
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 12) // end event 호출 안되서 대신 씀 
+		{
+			mbFarAttacking = false;
+		}
+
+
+		if (!mbFarAttacking && mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eMonsterState::IDLE);
+		}
 
 	}
 	void WoodGolemScript::Dead()

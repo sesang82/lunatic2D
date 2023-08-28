@@ -31,6 +31,10 @@ namespace ss
         class Transform* mNearTr;
         class Collider2D* mNearCol;
 
+
+        // ==== 이펙트
+        class Effect* mHitGround;
+
         Vector3                 mFirstPos;
 
         Vector3					mDir; // 어슬렁거리는 move상태일때만 사용할 거 
@@ -40,8 +44,10 @@ namespace ss
         bool                    mbNearAttack;
         bool                    mbFarAttack;
 
-        bool                    mbAttacking;
+        bool                    mbNearAttacking;
+        bool                    mbFarAttacking;
         bool                    mbHit;
+        bool                    mbPaunched; // Paunched 이미지 계속 업데이트 도는거 막기 위한 용도 
 
 
 
@@ -63,8 +69,9 @@ namespace ss
 
         void NearAttackStart();
         void NearAttack();
-        void NearAttackAfter();
         void NearAttackEnd();
+
+        void FarAttack();
 
         void Dead();
 
@@ -85,6 +92,9 @@ namespace ss
         // 각 범위 인식용 충돌체에 이 함수 활용하기 
         void IsNearAttack(bool b) { mbNearAttack = b; }
         void IsFarAttack(bool b) { mbFarAttack = b; }
+        
+        void SetPaunched(bool _b) { mbPaunched = _b; } 
+        bool IsPaunched() { return mbPaunched; }
 
 
     };

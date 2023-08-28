@@ -177,6 +177,7 @@
     <ClCompile Include="ssArcherNearRangeScript.cpp" />
     <ClCompile Include="ssBullet.cpp" />
     <ClCompile Include="ssEffect.cpp" />
+    <ClCompile Include="ssHitGroundScript.cpp" />
     <ClCompile Include="ssLizardColScript.cpp" />
     <ClCompile Include="ssMonsterBar.cpp" />
     <ClCompile Include="SesangEngine.cpp" />
@@ -243,6 +244,7 @@
     <ClInclude Include="ssArcherNearRangeScript.h" />
     <ClInclude Include="ssBullet.h" />
     <ClInclude Include="ssEffect.h" />
+    <ClInclude Include="ssHitGroundScript.h" />
     <ClInclude Include="ssLizardColScript.h" />
     <ClInclude Include="ssMonsterBar.h" />
     <ClInclude Include="ssAttackCollider.h" />

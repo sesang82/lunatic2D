@@ -10,8 +10,7 @@ namespace ss
 
 	Effect::Effect()
 	{
-		AddComponent<MeshRenderer>();
-		AddComponent<Animator>();
+		Effect::Initialize(); // 생성자에서 안해주면 렌더링 가려짐 
 	}
 
 	Effect::~Effect()
@@ -22,14 +21,14 @@ namespace ss
 	{
 		Transform* tr = GetComponent<Transform>();
 		tr->SetScale(1.f, 1.f, 1.f);
+		tr->SetPosition(0.f, 0.f, 350.f);
 
-		MeshRenderer* mr = GetComponent<MeshRenderer>();
+		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
 
-		Animator* ani = GetComponent<Animator>();
+		Animator* ani = AddComponent<Animator>();
 
-		std::shared_ptr<graphics::Texture> Stun = Resources::Find<graphics::Texture>(L"StunEffect");
 
 		// === 
 		// 		// 각 충돌체 크기는 달라지는게 있다면 fsm에서 각각 조정해주기 
@@ -50,6 +49,7 @@ namespace ss
 	void Effect::Update()
 	{
 	
+		GameObject::Update();
 	}	
 
 	void Effect::LateUpdate()

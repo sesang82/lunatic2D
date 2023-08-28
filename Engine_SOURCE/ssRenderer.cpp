@@ -1856,6 +1856,22 @@ namespace renderer
 		}
 
 
+		// UI 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"hitGround", L"..\\Resources\\Texture\\UI\\Etc\\hitGround.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"hitGroundMtrl", spriteMateiral);
+		}
+
+
+
 
 #pragma endregion 
 
