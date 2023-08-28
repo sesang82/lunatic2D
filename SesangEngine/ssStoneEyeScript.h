@@ -42,9 +42,12 @@ namespace ss
         Vector3					mCurDir;
 
         Vector3                 mFirstPos; 
+        Vector3                 mCurPos;
 
         bool                    mbNearAttack;
         bool                    mbFarAttack;    
+
+        bool					mbAttacking;    
 
 
         // === 공격용 충돌체 (애니메이션의 특정 프레임에 공격할 용도로 사용)

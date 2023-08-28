@@ -30,6 +30,8 @@ namespace ss
 	StoneEyeScript::StoneEyeScript()
 		: mbNearAttack(false)
 		, mbFarAttack(false)
+		, mCurPos(Vector2::Zero)
+		, mbAttacking(false)
 	
 	{
 		m_tMonsterInfo.m_fSpeed = 30.f;
@@ -656,12 +658,13 @@ namespace ss
 	void StoneEyeScript::FarAttack()
 	{
 
-		Vector3 pos = mTransform->GetPosition();
-		pos.z -= 0.01;
+			mCurPos = mTransform->GetPosition();
+			mCurPos.z -= 0.01;
 
 		{
 			if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 			{
+				mbAttacking = true;
 
 				m_fTime += (float)Time::DeltaTime();
 
@@ -672,18 +675,19 @@ namespace ss
 					if (mCurDir.x == 1.f)
 					{
 						// 발사체 위치 조절 
-						pos += Vector3(8.f, -2.5f, 0.f);
-						mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
+						mCurPos += Vector3(8.f, -2.5f, 0.f);
+						mArrowObj = object::Instantiate<StoneEyeProjectile>(mCurPos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
 						mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
+				
 				
 					}
 
 					else if (mCurDir.x == -1.0f)
 					{
 						// 발사체 위치 조절 
-						pos -= Vector3(75.f, 2.5f, 0.f);
+						mCurPos -= Vector3(75.f, 2.5f, 0.f);
 
-						mArrowObj = object::Instantiate<StoneEyeProjectile>(pos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
+						mArrowObj = object::Instantiate<StoneEyeProjectile>(mCurPos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
 						mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
 						mArrowTr = mArrowObj->GetComponent<Transform>();
 						mArrowTr->SetScale(Vector3(- 25.f, 10.f, 0.f));
@@ -710,12 +714,8 @@ namespace ss
 			}
 
 		}
-		//// near attack 애니메이션이 끝나면 
-		//if (mAnimator->GetCurActiveAnimation()->IsComplete())/* && (mAnimator->GetCurActiveAnim() == L"StoneEye_FarAttackR" || mAnimator->GetCurActiveAnim() == L"StoneEye_FarAttackL")*/
-		//{
-		//	mCurState = eMonsterState::MOVE;
-		//	
-		//}
+		
+		
 	}
 
 	void StoneEyeScript::Dead()

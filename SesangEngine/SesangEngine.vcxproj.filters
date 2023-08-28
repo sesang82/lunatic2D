@@ -92,12 +92,6 @@
     <ClCompile Include="ssMonsterScript.cpp">
       <Filter>Contents\Script\Character\Monster\Base</Filter>
     </ClCompile>
-    <ClCompile Include="ssSkeletonLizardScript.cpp">
-      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
-    </ClCompile>
-    <ClCompile Include="ssWoodGolemScript.cpp">
-      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
-    </ClCompile>
     <ClCompile Include="ssWolfScript.cpp">
       <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClCompile>
@@ -184,6 +178,15 @@
     </ClCompile>
     <ClCompile Include="ssArcherArrowScript.cpp">
       <Filter>Contents\Script\Character\Monster\Base\General\Archer\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="ssSkeletonLizardScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\Lizard</Filter>
+    </ClCompile>
+    <ClCompile Include="ssLizardColScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\Lizard\Col</Filter>
+    </ClCompile>
+    <ClCompile Include="ssWoodGolemScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Base\General\Golem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -364,6 +367,18 @@
     <Filter Include="Contents\Script\Character\Monster\Base\General\StoneEye\Bullet">
       <UniqueIdentifier>{fa4b107b-d6c4-4d29-a2c0-edf64665f81d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General\Lizard">
+      <UniqueIdentifier>{74b98343-ba95-4153-8f55-ee5bac0449ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General\Lizard\Col">
+      <UniqueIdentifier>{70213d5b-c9b9-4301-b37e-dc62a29cf7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General\Golem">
+      <UniqueIdentifier>{e7fcebfd-c5f3-400f-9d20-5c770a428f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Base\General\Golem\col">
+      <UniqueIdentifier>{7824740d-e5ab-40c3-9199-6761e97143e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h">
@@ -456,12 +471,6 @@
     <ClInclude Include="ssMonsterScript.h">
       <Filter>Contents\Script\Character\Monster\Base</Filter>
     </ClInclude>
-    <ClInclude Include="ssSkeletonLizardScript.h">
-      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
-    </ClInclude>
-    <ClInclude Include="ssWoodGolemScript.h">
-      <Filter>Contents\Script\Character\Monster\Base\General</Filter>
-    </ClInclude>
     <ClInclude Include="ssWolfScript.h">
       <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClInclude>
@@ -551,6 +560,15 @@
     </ClInclude>
     <ClInclude Include="ssArcherArrowScript.h">
       <Filter>Contents\Script\Character\Monster\Base\General\Archer\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="ssSkeletonLizardScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\Lizard</Filter>
+    </ClInclude>
+    <ClInclude Include="ssLizardColScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\Lizard\Col</Filter>
+    </ClInclude>
+    <ClInclude Include="ssWoodGolemScript.h">
+      <Filter>Contents\Script\Character\Monster\Base\General\Golem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

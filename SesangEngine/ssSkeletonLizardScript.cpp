@@ -17,6 +17,7 @@
 #include "ssArcherArrowScript.h"
 #include "ssArcherArrow.h"
 #include "ssArcherFarRangeScript.h"
+#include "ssLizardColScript.h"
 
 namespace ss
 {
@@ -25,7 +26,7 @@ namespace ss
 		, mbNearAttack(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 100.f;
-		m_tMonsterInfo.m_fNearAttackRange = 15.f;
+		m_tMonsterInfo.m_fNearAttackRange = 25.f;
 		m_tMonsterInfo.m_fDetectRange = 180.f;
 		m_tMonsterInfo.m_fCoolDown = 0.1f;
 	}
@@ -84,6 +85,10 @@ namespace ss
 		mAnimator->StartEvent(L"Lizard_NearAttackR") = std::bind(&SkeletonLizardScript::NearAttackStart, this);
 		mAnimator->StartEvent(L"Lizard_NearAttackL") = std::bind(&SkeletonLizardScript::NearAttackStart, this);
 
+		mAnimator->EndEvent(L"Lizard_NearAttackR") = std::bind(&SkeletonLizardScript::NearAttackEnd, this);
+		mAnimator->EndEvent(L"Lizard_NearAttackL") = std::bind(&SkeletonLizardScript::NearAttackEnd, this);
+
+
 
 		// 일단 Idle 상태는 나중으로 만들기 
 		// ======
@@ -98,6 +103,15 @@ namespace ss
 		
 		mCollider->SetSize(Vector2(0.2f, 0.7f));
 		mCollider->SetCenter(Vector2(-8.f, -0.f));
+
+
+		//==== 근접 공격 특정 인덱스 충돌체 
+		//충돌체는 여기서 바로 넣지 말고 해당 인덱스 때 넣었다가 빼는 식으로 하기 
+		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"LizardAttackColObj");
+		mAttackColliderObj->Initialize();
+		mAttackColliderObj->AddComponent<LizardColScript>();
+
+		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
 	}
 	void SkeletonLizardScript::Update()
 	{
@@ -167,6 +181,10 @@ namespace ss
 
 		mPrevState = mCurState;
 		mPrevDir = mCurDir;
+	}
+	void SkeletonLizardScript::LateUpdate()
+	{
+		mAttackColTr->SetPosition(mTransform->GetPosition());
 	}
 	void SkeletonLizardScript::OnCollisionEnter(Collider2D* other)
 	{
@@ -396,15 +414,65 @@ namespace ss
 			Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 			float distance = (PlayerPos - MonsterPos).Length();
 
+			PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
+
+			if (mCurDir.x > 0)
+			{
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 7)
+				{
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+					mAttackCol->SetSize(Vector2(23.f, 30.f));
+					mAttackCol->SetCenter(Vector2(20.f, -5.f));
+
+					// 대쉬 중엔 아예 충돌 안되게 해버림 
+					if (playerScript->IsDash())
+					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+					}
+				}
+			}
+
+
+			else if (mCurDir.x < 0)
+			{
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 7)
+				{
+					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+					mAttackCol->SetSize(Vector2(23.f, 30.f));
+					mAttackCol->SetCenter(Vector2(20.f, -5.f));
+
+					// 대쉬 중엔 아예 충돌 안되게 해버림 
+					if (playerScript->IsDash())
+					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+					}
+				}
+			}
+
 
 				if (!mbAttacking && distance <= m_tMonsterInfo.m_fNearAttackRange)
 				{
 					mbAttacking = true; 
 					mbNearAttack = true;
 
+		
 
 					if (mCurDir.x > 0)
 					{
+
+
+						
+
+
+					/*	if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10zzz)
+						{
+							mAttackColliderObj->RemoveComponent<Collider2D>();
+
+						}*/
+
+
 						mAnimator->PlayAnimation(L"Lizard_NearAttackR", false);
 					
 
@@ -418,7 +486,7 @@ namespace ss
 						mAnimator->PlayAnimation(L"Lizard_NearAttackL", false);
 
 						mCollider->SetSize(Vector2(0.2f, 0.7f));
-						mCollider->SetCenter(Vector2(8.f, -0.f));
+						mCollider->SetCenter(Vector2(-8.f, -0.f));
 					}
 
 
@@ -466,11 +534,34 @@ namespace ss
 
 	void SkeletonLizardScript::NearAttackEnd()
 	{
-		mbAttacking = false;
+		mAttackColliderObj->RemoveComponent<Collider2D>();
 	}
 
 	void SkeletonLizardScript::Dead()
 	{
+		if (mCurDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"Lizard_DieR", false);
+			mCollider->SetSize(Vector2(0.19f, 0.33f));
+			mCollider->SetCenter(Vector2(-32.f, 0.f));
+
+		}
+
+		else
+		{
+			mAnimator->PlayAnimation(L"Lizard_DieL", false);
+			mCollider->SetSize(Vector2(0.19f, 0.33f));
+			mCollider->SetCenter(Vector2(-37.f, 0.f));
+		}
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			mAttackColliderObj->SetState(GameObject::eState::Dead);
+		
+
+			GetOwner()->SetState(GameObject::eState::Dead);
+		}
 	}
 	void SkeletonLizardScript::Animation()
 	{
