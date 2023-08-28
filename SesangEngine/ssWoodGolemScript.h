@@ -39,13 +39,16 @@ namespace ss
 
         bool                    mbNearAttack;
         bool                    mbFarAttack;
+
         bool                    mbAttacking;
+        bool                    mbHit;
 
 
 
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 
+        void Idle();
         void Move();
         void Tracer();
 
