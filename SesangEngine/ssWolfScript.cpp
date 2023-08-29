@@ -23,13 +23,16 @@ namespace ss
 		: mbNearAttacking(false)
 		, mbFarAttacking(false)
 		, mbHit(false)
-		, mbPaunched(false)
+		, mbJumped(false)
+		, mLandingPos(Vector3::Zero)
+		, mJumpDir(Vector2::Zero)
+		, mVelocity(Vector2::Zero)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fDetectRange = 300.f;
 
-		m_tMonsterInfo.m_fNearAttackRange = 110.f;
-		m_tMonsterInfo.m_fFarAttackRange = 150.f;
+		m_tMonsterInfo.m_fNearAttackRange = 80.f;
+		m_tMonsterInfo.m_fFarAttackRange = 100.f;
 
 		m_tMonsterInfo.m_fCoolDown = 0.5f;
 	}
@@ -66,26 +69,26 @@ namespace ss
 		// 플레이어 애니메이션은 좀 특수하므로, 무기 별로 오프셋 값 다르게 주되 백사이즈는	 동일하게 주기. (사이즈 값은 틀려도 됨) 
 		// 애니메이션 나중에 플레이어 다 완성되면 
 		//  LT, 1프레임 사를 사이즈, 자를 갯수(1부터 시작해서 세기), 백사이즈, 오프셋
-		mAnimator->Create(L"Wolf_IdleR", Image1, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 5, Vector2(102.f, 47.f));
-		mAnimator->Create(L"Wolf_IdleL", Image1, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 5, Vector2(102.f, 47.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Wolf_IdleR", Image1, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 6, Vector2(102.f, 47.f));
+		mAnimator->Create(L"Wolf_IdleL", Image1, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 6, Vector2(102.f, 47.f), Vector2(-16.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Wolf_RunR", Image2, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 10, Vector2(102.f, 47.f));
-		mAnimator->Create(L"Wolf_RunL", Image2, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 10, Vector2(102.f, 47.f), Vector2(12.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Wolf_RunR", Image2, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 6, Vector2(102.f, 47.f));
+		mAnimator->Create(L"Wolf_RunL", Image2, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 6, Vector2(102.f, 47.f), Vector2(-12.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Wolf_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 13, Vector2(102.f, 47.f), Vector2::Zero, 0.08f);
-		mAnimator->Create(L"Wolf_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 13, Vector2(102.f, 47.f), Vector2(12.f, 0.f), 0.08f, true);
+		mAnimator->Create(L"Wolf_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 11, Vector2(102.f, 47.f), Vector2::Zero, 0.08f);
+		mAnimator->Create(L"Wolf_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 11, Vector2(102.f, 47.f), Vector2(-12.f, 0.f), 0.08f, true);
 
-		mAnimator->Create(L"Wolf_FarAttackR", Image4, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 13, Vector2(102.f, 47.f));
-		mAnimator->Create(L"Wolf_FarAttackL", Image4, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 13, Vector2(102.f, 47.f), Vector2(12.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Wolf_FarAttackR", Image4, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 15, Vector2(102.f, 47.f));
+		mAnimator->Create(L"Wolf_FarAttackL", Image4, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 15, Vector2(102.f, 47.f), Vector2(-12.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Wolf_HitR", Image5, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 2, Vector2(102.f, 47.f));
-		mAnimator->Create(L"Wolf_HitL", Image5, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 2, Vector2(102.f, 47.f), Vector2(12.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Wolf_HitR", Image5, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 1, Vector2(102.f, 47.f), Vector2::Zero, 0.3f);
+		mAnimator->Create(L"Wolf_HitL", Image5, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 1, Vector2(102.f, 47.f), Vector2(-12.f, 0.f), 0.3f, true);
 
-		mAnimator->Create(L"Wolf_StunR", Image6, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 4, Vector2(102.f, 47.f));
-		mAnimator->Create(L"Wolf_StunL", Image6, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 4, Vector2(102.f, 47.f), Vector2(12.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Wolf_StunR", Image6, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 6, Vector2(102.f, 47.f));
+		mAnimator->Create(L"Wolf_StunL", Image6, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 6, Vector2(102.f, 47.f), Vector2(-12.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Wolf_DieR", Image7, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 9, Vector2(102.f, 47.f));
-		mAnimator->Create(L"Wolf_DieL", Image7, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 9, Vector2(102.f, 47.f), Vector2(12.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Wolf_DieR", Image7, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 14, Vector2(102.f, 47.f));
+		mAnimator->Create(L"Wolf_DieL", Image7, Vector2(0.f, 0.f), Vector2(77.f, 47.f), 14, Vector2(102.f, 47.f), Vector2(-12.f, 0.f), 0.1f, true);
 
 
 
@@ -102,10 +105,13 @@ namespace ss
 		mCollider->SetSize(Vector2(0.3f, 0.8f));
 		mCollider->SetCenter(Vector2(8.f, -5.f));
 
+		// ===== 리지드바디
+
+
 
 		//==== 근접 공격 특정 인덱스 충돌체 
 		//충돌체는 여기서 바로 넣지 말고 해당 인덱스 때 넣었다가 빼는 식으로 하기 
-		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"WoodAttackColObj");
+		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"WolfAttackColObj");
 		mAttackColliderObj->Initialize();
 		//mAttackColliderObj->AddComponent<LizardColScript>();
 
@@ -145,10 +151,6 @@ namespace ss
 
 		case ss::eMonsterState::MOVE:
 			Move();
-			break;
-
-		case ss::eMonsterState::TRACER:
-			Tracer();
 			break;
 
 		case ss::eMonsterState::JUMP:
@@ -191,6 +193,17 @@ namespace ss
 	}
 	void WolfScript::OnCollisionEnter(Collider2D* other)
 	{
+		if (L"col_SpecialFloor" == other->GetOwner()->GetName())
+		{
+			mRigidbody->SetGround(true);
+
+			// 플레이어의 위치를 갖고 온다.
+			// 해당 충돌체의 위치를 갖고 온다. (충돌체이기 전에 게임오브젝트) 
+			mRigidbody->SetVelocity(Vector2(0.0f, 0.0f)); // 점프를 마치면  속도 0으로 해두기 
+		}
+
+
+
 	}
 	void WolfScript::OnCollisionStay(Collider2D* other)
 	{
@@ -222,13 +235,13 @@ namespace ss
 
 
 
-		//Vector3 MonsterPos = mTransform->GetPosition();
-		//Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+		Vector3 MonsterPos = mTransform->GetPosition();
+		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
-		//// 몬스터와 플레이어 간의 거리를 구함 
-		//Vector3 vDir = MonsterPos - PlayerPos;
-		//vDir.z = 0;
-		//float distance = vDir.Length();
+		// 몬스터와 플레이어 간의 거리를 구함 
+		Vector3 vDir = MonsterPos - PlayerPos;
+		vDir.z = 0;
+		float distance = vDir.Length();
 
 		//if (distance <= m_tMonsterInfo.m_fDetectRange)
 		//{
@@ -244,7 +257,7 @@ namespace ss
 		//}
 
 
-		//// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환
+		//// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환 
 		//else if (distance < m_tMonsterInfo.m_fFarAttackRange)
 		//{
 		//	ChangeState(eMonsterState::FARATTACK);
@@ -367,9 +380,7 @@ namespace ss
 
 
 	}
-	void WolfScript::Tracer()
-	{
-	}
+
 	void WolfScript::Jump()
 	{
 	}
@@ -387,9 +398,165 @@ namespace ss
 	}
 	void WolfScript::NearAttack()
 	{
+		Vector3 MonsterPos = mTransform->GetPosition();
+		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+		float distance = (PlayerPos - MonsterPos).Length();
+
+		m_fTime += Time::DeltaTime();
+
+
+		// 연이어 공격 애니메이션 재생하지 않고, 쿨타임 시간만큼 기다렸다가 공격 
+
+
+		if (m_fTime >= m_tMonsterInfo.m_fCoolDown && !mbNearAttacking)
+		{
+			mbNearAttacking = true;
+
+
+			if (mCurDir.x > 0)
+			{
+				mAnimator->PlayAnimation(L"Wolf_NearAttackR", false);
+
+			}
+
+			else
+			{
+				mAnimator->PlayAnimation(L"Wolf_NearAttackL", false);
+			}
+
+
+			m_fTime = 0.0f;
+		}
+
+
+		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+		{
+			mbNearAttacking = false;
+		}
+
+
+		if (!mbNearAttacking && mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eMonsterState::IDLE);
+		}
+
 	}
 	void WolfScript::FarAttack()
 	{
+
+		Vector3 MonsterPos = mTransform->GetPosition();
+		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+		float distance = (PlayerPos - MonsterPos).Length();
+
+		m_fTime += Time::DeltaTime();
+
+
+		// 연이어 공격 애니메이션 재생하지 않고, 쿨타임 시간만큼 기다렸다가 공격 
+
+
+		if (m_fTime >= m_tMonsterInfo.m_fCoolDown && !mbFarAttacking)
+		{
+			mbFarAttacking = true; // 애니메이션 재생이 캐릭터가 방향을 바꿔도 끝까지 유지되어야해서 넣어준 변수 
+
+
+			if (mCurDir.x > 0)
+			{
+				mAnimator->PlayAnimation(L"Wolf_FarAttackR", false);
+
+			}
+
+			else
+			{
+				mAnimator->PlayAnimation(L"Wolf_FarAttackL", false);
+			}
+
+
+			m_fTime = 0.0f;
+		}
+
+
+		bool isGround = mPlayer->GetComponent<Rigidbody2D>()->IsGround();
+
+
+		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2 && !mbJumped && isGround)
+		{
+
+			mHitGround = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"WolfHitGroundObj");
+			mLandingPos = PlayerPos; // 착지할 위치가 다음 프레임에서도 동일해야하므로 담아둠 
+			
+			Vector3 jumpdir = (PlayerPos - MonsterPos); 
+			jumpdir.Normalize();
+			mJumpDir = Vector2(jumpdir.x, jumpdir.y); // 노말라이즈해서 나온 점프 방향 값도 담아둠 (플레이어에게 향할 방법) 
+
+			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
+			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
+
+			mbJumped = true;
+		}
+
+		// 플레이어 위치로 점프 시작 
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+		{
+			mRigidbody->SetGravity(Vector2(0.f, 1300.f));
+
+			float JumpPower = sqrt(2 * abs(mRigidbody->GetGravity().y) * 10.f); // * 점프 높이
+
+			mRigidbody->SetVelocity(Vector2(50.0f, -JumpPower));
+
+			// velocity값은 방향에 따라 다르게 주기 
+			mVelocity = mRigidbody->GetVelocity();
+
+
+			// 점프 방향 정해주기 (플레이어 방향이 양수면
+			if (mJumpDir.x >= 0.f)
+				mVelocity.x = 300.f;
+
+			else if (mJumpDir.x < 0.f)
+				mVelocity.x = -300.f;
+
+
+			mRigidbody->SetVelocity(mVelocity);
+
+			mRigidbody->SetGround(false);
+
+		
+
+			//mLandingPos.y = PlayerPos.y; // y값은 플레이어 y값으로 고정
+		}
+
+
+
+		// 10때 공격용 충돌체 달아주기 
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+		{
+
+			// 공격용 충돌체가 나간다. 플레이어 포즈에. 2 인덱스에서 띄워준 playerpos값 담아서 쓰기 
+
+
+
+		}
+
+		// 13 인덱스 때 충돌체 빼기 및 착지
+	
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 13)
+		{
+			mRigidbody->SetGround(true);
+			mRigidbody->SetVelocity(Vector2::Zero);
+			mTransform->SetPosition(mLandingPos); // 착지할 위치로 이동
+		}
+
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 14) // end event 호출 안되서 대신 씀 
+		{
+			mbFarAttacking = false;
+		}
+
+
+		if (!mbFarAttacking && mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eMonsterState::IDLE);
+		}
+
+
 	}
 	void WolfScript::Dead()
 	{

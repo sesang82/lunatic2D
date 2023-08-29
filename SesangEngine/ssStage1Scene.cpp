@@ -259,7 +259,7 @@ namespace ss
 			
 			
 			Transform* eyetr = Wolf->GetComponent<Transform>();
-			eyetr->SetPosition(Vector3(10.f, 184.f, 500.f));
+			eyetr->SetPosition(Vector3(-180.f, -300.f, 500.f));
 
 			WolfScript* wolfScript = Wolf->AddComponent<WolfScript>();
 			wolfScript->SetFirstPos(eyetr->GetPosition());

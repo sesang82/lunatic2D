@@ -6,6 +6,7 @@
 #include "ssMonster.h"
 #include "ssSceneManager.h"
 #include "ssWoodGolemScript.h"
+#include "ssWolfScript.h"
 
 namespace ss
 {
@@ -20,7 +21,9 @@ namespace ss
 		MeshRenderer* mr = GetOwner()->GetComponent<MeshRenderer>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
-		if (GetOwner()->GetName() == L"WoodHitGroundObj")
+		// 일단 이렇게 한 이유는 hit ground의 크기가 다를 수도 있어서 일단 이렇게 해놨는데 나중에 그럴 필요없으면 리팩토링 하기
+		if (GetOwner()->GetName() == L"WoodHitGroundObj"
+			|| GetOwner()->GetName() == L"WolfHitGroundObj")
 		{
 			mr->SetMaterial(Resources::Find<Material>(L"hitGroundMtrl"));			
 			tr->SetScale(Vector3(34.f, 39.f, 0.f));
@@ -46,8 +49,19 @@ namespace ss
 				GetOwner()->SetState(GameObject::eState::Dead);
 			}
 
+		}
+
+		else if (GetOwner()->GetName() == L"WolfHitGroundObj")
+		{
+			WolfScript* script = mMonster->GetComponent<WolfScript>();
+			bool jumped = script->IsJumped();
 
 
+			if (jumped && anim->GetCurActiveAnimation()->GetIndex() == 13)
+			{
+				script->SetJumped(false);
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
 
 		}
 
