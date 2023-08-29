@@ -105,6 +105,7 @@ namespace ss
 		anim->Create(L"Player_D_JumpR", Image4, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 14, Vector2(107.f, 46.f), Vector2(0.f, -15.f), 0.07f);
 		anim->Create(L"Player_D_JumpL", Image4, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 14, Vector2(107.f, 46.f), Vector2(0.f, -15.f), 0.07f, true);
 
+		
 
 		// fall 애니메이션 
 		anim->Create(L"Player_D_FallR", Image19, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 4, Vector2(107.f, 46.f), Vector2(0.f, -15.f));

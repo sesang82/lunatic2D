@@ -22,8 +22,7 @@
 namespace ss
 {
 	SkeletonLizardScript::SkeletonLizardScript()
-		: mbAttacking(false)
-		, mbNearAttack(false)
+		: mbNearAttack(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 100.f;
 		m_tMonsterInfo.m_fNearAttackRange = 25.f;
@@ -68,8 +67,8 @@ namespace ss
 		mAnimator->Create(L"Lizard_RunR", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f));
 		mAnimator->Create(L"Lizard_RunL", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Lizard_HitR", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 1.5f);
-		mAnimator->Create(L"Lizard_HitL", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 1.5f, true);
+		mAnimator->Create(L"Lizard_HitR", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.2f);
+		mAnimator->Create(L"Lizard_HitL", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.2f, true);
 
 		mAnimator->Create(L"Lizard_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.08f);
 		mAnimator->Create(L"Lizard_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(0.f, 0.f), 0.08f, true);
@@ -136,6 +135,10 @@ namespace ss
 
 		switch (mCurState)
 		{
+		case ss::eMonsterState::IDLE:
+			Idle();
+			break;
+
 		case ss::eMonsterState::MOVE:
 			Move();
 			break;
@@ -200,6 +203,44 @@ namespace ss
 	}
 	void SkeletonLizardScript::StunEnd()
 	{
+	}
+	void SkeletonLizardScript::Idle()
+	{
+		mbNearAttacking = false;
+	
+		mbHit = false;
+
+		if (mCurDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"Lizard_IdleR", true);
+		}
+
+		else
+		{
+			mAnimator->PlayAnimation(L"Lizard_IdleL", true);
+		}
+
+
+
+		Vector3 MonsterPos = mTransform->GetPosition();
+		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+
+		// 몬스터와 플레이어 간의 거리를 구함 
+		Vector3 vDir = MonsterPos - PlayerPos;
+		vDir.z = 0;
+		float distance = vDir.Length();
+
+		if (distance <= m_tMonsterInfo.m_fDetectRange)
+		{
+			// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
+			ChangeState(eMonsterState::MOVE);
+		}
+
+		// 근접 공격 범위 내에 플레이어가 있으면 NearAttack 상태로 전환
+		else if (distance < m_tMonsterInfo.m_fNearAttackRange)
+		{
+			ChangeState(eMonsterState::NEARATTACK);
+		}
 	}
 	void SkeletonLizardScript::Move()
 	{
@@ -312,41 +353,7 @@ namespace ss
 	}
 	void SkeletonLizardScript::Tracer()
 	{
-		//// 방향대로 애니메이션을 재생한다. 
-		//if (mCurDir.x > 0)
-		//	mAnimator->PlayAnimation(L"Lizard_RunR", true);
-
-		//else
-		//	mAnimator->PlayAnimation(L"Lizard_RunL", true);
-
-
-
-
-
-		//Vector3 MonsterPos = mTransform->GetPosition();
-		//Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
-
-		//Vector3 Dir = PlayerPos - MonsterPos;
-		//float Distance = Dir.Length(); // 먼저 거리를 계산
-
-		//Dir.z = 0;
-		//Dir.Normalize(); // 정규화 (거리 계산하기전에 정규화하면 계속 1이라는 값만 들어가게 됨) 
-		//MonsterPos.x += Dir.x * m_tMonsterInfo.m_fSpeed * Time::DeltaTime();
-
-		//mTransform->SetPosition(MonsterPos);
-
-		//float closeRangeDistance = 25.f;
-
-
-		//	if (Distance <= closeRangeDistance)
-		//	{
-		//		ChangeState(eMonsterState::NEARATTACK);
-		//	}
-		//	else
-		//	{
-		//		ChangeState(eMonsterState::FARATTACK);
-		//	}
-		
+	
 	}
 	void SkeletonLizardScript::Jump()
 	{
@@ -363,26 +370,44 @@ namespace ss
 
 	void SkeletonLizardScript::Hit()
 	{
-
-
-		if (mAnimator->GetCurActiveAnimation()->IsComplete() ||
-			mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
+		if (!mbHit)
 		{
+			mbHit = true;
 
-			mCurState = eMonsterState::HIT_AFTER;
+			if (mCurDir.x > 0)
+			{
+				mAnimator->PlayAnimation(L"Lizard_HitR", false);
+			}
 
+			else
+			{
+				mAnimator->PlayAnimation(L"Lizard_HitL", false);
+			}
 		}
 
+		if (mbHit && mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eMonsterState::IDLE);
+		}
 
-		// 방향대로 애니메이션을 재생한다. 
-		if (mCurDir.x > 0)
-			mAnimator->PlayAnimation(L"Lizard_HitR", false);
+		//if (mAnimator->GetCurActiveAnimation()->IsComplete() ||
+		//	mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
+		//{
 
-		else
-			mAnimator->PlayAnimation(L"Lizard_HitL", false);
+		//	mCurState = eMonsterState::HIT_AFTER;
+
+		//}
 
 
-		// 애니메이션 재생이 끝나면 
+		//// 방향대로 애니메이션을 재생한다. 
+		//if (mCurDir.x > 0)
+		//	mAnimator->PlayAnimation(L"Lizard_HitR", false);
+
+		//else
+		//	mAnimator->PlayAnimation(L"Lizard_HitL", false);
+
+
+		//// 애니메이션 재생이 끝나면 
 
 
 
@@ -391,13 +416,13 @@ namespace ss
 	void SkeletonLizardScript::HitAfter()
 	{
 
-		if (mbNearAttack)
+	/*	if (mbNearAttack)
 		{
 
 			mbNearAttack = false;
 			mbAttacking = false;
 			mCurState = eMonsterState::NEARATTACK;
-		}
+		}*/
 
 
 	}
@@ -416,6 +441,10 @@ namespace ss
 
 			PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
 
+
+
+
+
 			if (mCurDir.x > 0)
 			{
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 7)
@@ -424,6 +453,8 @@ namespace ss
 
 					mAttackCol->SetSize(Vector2(23.f, 30.f));
 					mAttackCol->SetCenter(Vector2(20.f, -5.f));
+
+					mbNearAttacking = false;
 
 					// 대쉬 중엔 아예 충돌 안되게 해버림 
 					if (playerScript->IsDash())
@@ -443,6 +474,8 @@ namespace ss
 					mAttackCol->SetSize(Vector2(23.f, 30.f));
 					mAttackCol->SetCenter(Vector2(20.f, -5.f));
 
+					mbNearAttacking = false;
+
 					// 대쉬 중엔 아예 충돌 안되게 해버림 
 					if (playerScript->IsDash())
 					{
@@ -451,58 +484,39 @@ namespace ss
 				}
 			}
 
+			m_fTime += Time::DeltaTime();
 
-				if (!mbAttacking && distance <= m_tMonsterInfo.m_fNearAttackRange)
+			if (m_fTime >= m_tMonsterInfo.m_fCoolDown && !mbNearAttacking)
+			{
+				mbNearAttacking = true;
+
+
+				if (mCurDir.x > 0)
 				{
-					mbAttacking = true; 
-					mbNearAttack = true;
-
-		
-
-					if (mCurDir.x > 0)
-					{
-
-
-						
-
-
-					/*	if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10zzz)
-						{
-							mAttackColliderObj->RemoveComponent<Collider2D>();
-
-						}*/
-
-
-						mAnimator->PlayAnimation(L"Lizard_NearAttackR", false);
-					
-
-						mCollider->SetSize(Vector2(0.2f, 0.7f));
-						mCollider->SetCenter(Vector2(-8.f, -0.f));
-
-					}
-
-					else
-					{
-						mAnimator->PlayAnimation(L"Lizard_NearAttackL", false);
-
-						mCollider->SetSize(Vector2(0.2f, 0.7f));
-						mCollider->SetCenter(Vector2(-8.f, -0.f));
-					}
-
+					mAnimator->PlayAnimation(L"Lizard_NearAttackR", false);
+					mCollider->SetSize(Vector2(0.2f, 0.7f));
+					mCollider->SetCenter(Vector2(-8.f, 0.f));
 
 				}
 
-
-				if (mAnimator->GetCurActiveAnimation()->IsComplete())
+				else
 				{
-					mbAttacking = false;	
-				
-					mAnimator->SetAgainAttack(false);
-
-		
-					mCurState = eMonsterState::NEARATTACK_AFTER;
-			
+					mAnimator->PlayAnimation(L"Lizard_NearAttackL", false);
+					mCollider->SetSize(Vector2(0.2f, 0.7f));
+					mCollider->SetCenter(Vector2(-8.f, 0.f));
 				}
+
+
+				m_fTime = 0.0f;
+			}
+
+
+
+			if (!mbNearAttacking && mAnimator->GetCurActiveAnimation()->IsComplete())
+			{
+				ChangeState(eMonsterState::IDLE);
+			}
+
 
 		
 
@@ -510,31 +524,31 @@ namespace ss
 
 	void SkeletonLizardScript::NearAttackAfter()
 	{
-		Vector3 MonsterPos = mTransform->GetPosition();
-		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
-		float distance = (PlayerPos - MonsterPos).Length();
+		//Vector3 MonsterPos = mTransform->GetPosition();
+		//Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+		//float distance = (PlayerPos - MonsterPos).Length();
 
-		if (distance <= m_tMonsterInfo.m_fNearAttackRange)
-		{
-			mAnimator->SetAgainAttack(true);
-			mCurState = eMonsterState::NEARATTACK;
-		}
+		//if (distance <= m_tMonsterInfo.m_fNearAttackRange)
+		//{
+		//	mAnimator->SetAgainAttack(true);
+		//	mCurState = eMonsterState::NEARATTACK;
+		//}
 
-		else if (distance <= m_tMonsterInfo.m_fDetectRange)
-		{
-			// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
-			ChangeState(eMonsterState::MOVE);
-		}
+		//else if (distance <= m_tMonsterInfo.m_fDetectRange)
+		//{
+		//	// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
+		//	ChangeState(eMonsterState::MOVE);
+		//}
 	}
 
 	void SkeletonLizardScript::NearAttackStart()
 	{
-		mbAttacking = true;
+		//mbAttacking = true;
 	}
 
 	void SkeletonLizardScript::NearAttackEnd()
 	{
-		mAttackColliderObj->RemoveComponent<Collider2D>();
+	
 	}
 
 	void SkeletonLizardScript::Dead()

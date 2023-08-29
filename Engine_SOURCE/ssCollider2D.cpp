@@ -75,6 +75,7 @@ namespace ss
 		Matrix worldMatrix = scaleMatrix * rotationMatrix * positionMatrix;
 
 
+		// ==== 아래 코드 갖고 가서 거리 기반 탐지용 디버그 메쉬 만들기 
 
 		graphics::DebugMesh mesh = {};
 		mesh.position = mPosition;

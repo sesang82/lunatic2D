@@ -65,12 +65,8 @@ namespace ss
 
         void Stun();
         void Hit();
-        void HitAfter();
-
-        void NearAttackStart();
+    
         void NearAttack();
-        void NearAttackEnd();
-
         void FarAttack();
 
         void Dead();

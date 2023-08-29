@@ -61,7 +61,7 @@ namespace ss
 
 		mAnimator->PlayAnimation(L"Player_S_IdleR", true);
 		//mAnimator->PlayAnimation(L"Player_D_IdleR", true);
-		mWeaponType = eWeaponType::NONE;
+		mWeaponType = eWeaponType::SWORD;
 
 		// 애니메이션 방향에 관한 기준	을 잡아준다.
 		mCurDir = mTransform->Right();

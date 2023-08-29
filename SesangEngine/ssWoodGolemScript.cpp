@@ -106,10 +106,6 @@ namespace ss
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
 
 
-
-		mAnimator->EndEvent(L"Wood_NearAttackR") = std::bind(&WoodGolemScript::NearAttackEnd, this);
-		mAnimator->EndEvent(L"Wood_NearAttackL") = std::bind(&WoodGolemScript::NearAttackEnd, this);
-
 	}
 	void WoodGolemScript::Update()
 	{
@@ -160,10 +156,6 @@ namespace ss
 
 		case ss::eMonsterState::HIT:
 			Hit();
-			break;
-
-		case ss::eMonsterState::HIT_AFTER:
-			HitAfter();
 			break;
 
 		case ss::eMonsterState::NEARATTACK:
@@ -349,12 +341,7 @@ namespace ss
 		}
 
 	}
-	void WoodGolemScript::HitAfter()
-	{
-	}
-	void WoodGolemScript::NearAttackStart()
-	{
-	}
+
 	void WoodGolemScript::NearAttack()
 	{
 		Vector3 MonsterPos = mTransform->GetPosition();
@@ -402,11 +389,7 @@ namespace ss
 
 	}
 
-	void WoodGolemScript::NearAttackEnd()
-	{
 
-
-	}
 	void WoodGolemScript::FarAttack()
 	{
 
