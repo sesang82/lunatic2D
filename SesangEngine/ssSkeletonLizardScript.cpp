@@ -101,7 +101,7 @@ namespace ss
 			// 애니메이션 방향에 관한 기준	을 잡아준다.
 		mDir = mTransform->Right();
 		mCurDir = mTransform->Right();
-		mCurState = eMonsterState::MOVE;
+		mCurState = eMonsterState::IDLE;
 
 		// ===== 기본 충돌체 Hit 받는 용도 
 		mCollider->SetName(L"lizard_HitCol");

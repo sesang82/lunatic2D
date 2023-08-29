@@ -92,8 +92,13 @@ namespace ss
 
 			if (mOwner->GetName() == L"WoodGolemObj")
 			{
-				SkeletonLizardScript* LizardScript = mOwner->GetComponent<SkeletonLizardScript>();
 				pos.x = -13;
+
+			}
+
+			if (mOwner->GetName() == L"WolfObj")
+			{
+				pos.x = 8;
 
 			}
 
