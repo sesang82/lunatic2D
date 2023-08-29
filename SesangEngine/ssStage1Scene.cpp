@@ -138,7 +138,7 @@ namespace ss
 		player->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
 		Transform* Playertr = player->GetComponent<Transform>();
-		Playertr->SetPosition(Vector3(-300.f, -529.6f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
+		Playertr->SetPosition(Vector3(-400.f, -366.0f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
 
 		{
 			// 스톤아이

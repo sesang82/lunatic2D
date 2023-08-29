@@ -61,7 +61,7 @@ namespace ss
 
 		mAnimator->PlayAnimation(L"Player_S_IdleR", true);
 		//mAnimator->PlayAnimation(L"Player_D_IdleR", true);
-		mWeaponType = eWeaponType::SWORD;
+		mWeaponType = eWeaponType::NONE;
 
 		// 애니메이션 방향에 관한 기준	을 잡아준다.
 		mCurDir = mTransform->Right();
@@ -159,25 +159,6 @@ namespace ss
 	{
 		if (L"col_Floor" == other->GetOwner()->GetName())
 		{
-	
-
-			Vector3 pos = mCollider->GetPosition();
-			Vector3 groundpos = other->GetOwner()->GetComponent<Collider2D>()->GetPosition();
-
-
-			float fLen = fabs(pos.y - groundpos.y);
-			float fValue = (mCollider->GetScale().y / 2.f) 
-				+ (other->GetOwner()->GetComponent<Collider2D>()->GetScale().y / 2.f);
-
-	
-			if (fLen < fValue)
-			{
-				Vector3 pos = mTransform->GetPosition();
-				Vector3 groundpos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
-
-				pos.y += (fValue - fLen) - 1.f;
-				mTransform->SetPosition(pos);
-			}
 
 			mJumpCount = 0;
 			mFallTime = 0.0f;
@@ -218,7 +199,7 @@ namespace ss
 	
 		else if (L"L_col_Door" == other->GetOwner()->GetName())
 		{
-			SceneManager::LoadScene(L"EntranceScene");
+			SceneManager::LoadScene(L"Stage1Scene");
 		}
 
 
@@ -430,13 +411,13 @@ namespace ss
 			if (mCurDir.x > 0)
 			{
 				mGuardCol->SetSize(Vector2(2.f, 15.f));
-				mGuardCol->SetCenter(Vector2(8.f, 3.f));
+				mGuardCol->SetCenter(Vector2(13.f, 3.f));
 			}
 
 			else
 			{
 				mGuardCol->SetSize(Vector2(2.f, 15.f));
-				mGuardCol->SetCenter(Vector2(-8.f, 3.f));
+				mGuardCol->SetCenter(Vector2(-13.5f, 3.f));
 			}
 
 
@@ -731,10 +712,16 @@ namespace ss
 				{
 
 					if (mCurDir.x > 0)
+					{
 						mAnimator->PlayAnimation(L"Player_D_IdleR", true);
+						mCollider->SetCenter(Vector2(-6.f, 2.f));
+					}
 
 					else
+					{
 						mAnimator->PlayAnimation(L"Player_D_IdleL", true);
+						mCollider->SetCenter(Vector2(6.5f, 2.f));
+					}
 
 				}
 
@@ -745,10 +732,16 @@ namespace ss
 						mChangeFirst = false;
 
 						if (mPrevDir.x > 0)
+						{
 							mAnimator->PlayAnimation(L"Player_S_IdleR", true);
+							mCollider->SetCenter(Vector2(-6.f, 2.f));
+						}
 
 						else
+						{
 							mAnimator->PlayAnimation(L"Player_S_IdleL", true);
+							mCollider->SetCenter(Vector2(6.5f, 2.f));
+						}
 
 					}
 

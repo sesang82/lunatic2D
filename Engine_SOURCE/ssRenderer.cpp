@@ -496,7 +496,6 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"D_SpawnMtrl", spriteMateiral);
 
@@ -512,7 +511,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
 
 			Resources::Insert(L"D_IdleMtrl", spriteMateiral);
 
@@ -527,7 +526,6 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"D_RunMtrl", spriteMateiral);
 
@@ -543,7 +541,6 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"D_JumpMtrl", spriteMateiral);
 
@@ -558,7 +555,6 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"D_JumpMtrl", spriteMateiral);
 
@@ -574,7 +570,6 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"D_LandingMtrl", spriteMateiral);
 
@@ -589,7 +584,6 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"D_FallMtrl", spriteMateiral);
 		}
@@ -611,7 +605,6 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"S_PlayerIdleMtrl", spriteMateiral);
 
@@ -1451,6 +1444,8 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			
 
 			Resources::Insert(L"LibraryMtrl", spriteMateiral);
 

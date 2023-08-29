@@ -38,21 +38,15 @@ namespace ss
 		mCol = AddComponent<Collider2D>();
 		mCol->SetName(L"colHit_player");
 		mCol->SetType(eColliderType::Rect);
-		mCol->SetSize(Vector2(0.2f, 0.8f));
+		mCol->SetSize(Vector2(0.3f, 0.8f));
 		mCol->SetCenter(Vector2(-6.f, 2.f));
 
 
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
 
-		if (mEnableRender)
-		{
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-		}
-		else
-		{
-			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
-		}
+	
 
 		// ================
 		std::shared_ptr<Texture> Image1= Resources::Find<Texture>(L"D_Spawn");
@@ -100,7 +94,7 @@ namespace ss
 			// 플레이어 애니메이션은 좀 특수하므로, 무기 별로 오프셋 값 다르게 주되 백사이즈는	 동일하게 주기. (사이즈 값은 틀려도 됨) 
 			// 애니메이션 나중에 플레이어 다 완성되면 
 			//  LT, 1프레임 사를 사이즈, 자를 갯수, 백사이즈, 오프셋
-			anim->Create(L"Player_D_Spawn", Image1, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 12, Vector2(107.f, 46.f));
+		anim->Create(L"Player_D_Spawn", Image1, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 12, Vector2(107.f, 46.f));
 
 		anim->Create(L"Player_D_IdleR", Image2, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 6, Vector2(107.f, 46.f), Vector2(0.f, -15.f));
 		anim->Create(L"Player_D_IdleL", Image2, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 6, Vector2(107.f, 46.f), Vector2(0.f, -15.f), 0.1f, true);

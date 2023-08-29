@@ -34,14 +34,16 @@ namespace ss
 
 		// 도서관
 		{
-			Background* Library = object::Instantiate<Background>(eLayerType::BG, L"libraryMap");
-			Library->Initialize();
-			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-			MeshRenderer* mr = Library->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"LibraryMtrl"));
 
-			Library->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.f, 900.f));
-			
+
+			GameObject* Library = new GameObject();
+			AddGameObject(eLayerType::BG, Library);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = Library->AddComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"LibraryMtrl"));
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+
+			Library->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.f, 850.f));			
 			Library->GetComponent<Transform>()->SetScale(Vector3(1600.f, 900.f, 1.0f));
 	
 		}
@@ -107,7 +109,7 @@ namespace ss
 		Player* player = object::Instantiate<Player>(eLayerType::Player, L"Player");
 		player->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 		Transform* tr = player->GetComponent<Transform>();
-		tr->SetPosition(Vector3(50.f, 100.f, 550.f));
+		tr->SetPosition(Vector3(50.f, -236.f, 550.f));
 //		
 	
 //
