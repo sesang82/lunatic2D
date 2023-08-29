@@ -21,6 +21,13 @@
 
 namespace ss
 {
+
+	// ====== 2023. 08 30 
+	// 1. 근접 공격 충돌체 지우기
+	// 2. 충돌체 크기 정하고 애니메이션 오프셋 위치 조정하기
+
+
+
 	SkeletonLizardScript::SkeletonLizardScript()
 		: mbNearAttack(false)
 	{

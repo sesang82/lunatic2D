@@ -1389,10 +1389,118 @@ namespace renderer
 
 
 #pragma region Monster [Wolf]
+		 // >> Idle
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wolf_Idle",
+					 L"..\\Resources\\Texture\\Monster\\Wolf\\Idle.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wolf_IdleMtrl", spriteMateiral);
+		 }
+
+
+		 // >> Run
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wolf_Run",
+					 L"..\\Resources\\Texture\\Monster\\Wolf\\Run.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wolf_RunMtrl", spriteMateiral);
+		 }
+
+
+		 // >> Hit
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wolf_Hit",
+					 L"..\\Resources\\Texture\\Monster\\Wolf\\Hit.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wolf_HitMtrl", spriteMateiral);
+		 }
+
+
+		 // >> NearAttack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wolf_NearAttack",
+					 L"..\\Resources\\Texture\\Monster\\Wolf\\NearAttack.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wolf_NearAttackMtrl", spriteMateiral);
+		 }
+
+		 // >> FarAttack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wolf_FarAttack",
+					 L"..\\Resources\\Texture\\Monster\\Wolf\\FarAttack.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wolf_FarAttackMtrl", spriteMateiral);
+		 }
+
+
+		 // >> Stun
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wolf_Stun",
+					 L"..\\Resources\\Texture\\Monster\\Wolf\\Stun.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wolf_StunMtrl", spriteMateiral);
+		 }
+
+		 // >> Die
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Wolf_Die",
+					 L"..\\Resources\\Texture\\Monster\\Wolf\\Die.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Wolf_DieMtrl", spriteMateiral);
+		 }
+
 #pragma endregion 
 
 
 #pragma region Monster [Zombie]
+
+
+
+
+
+
 #pragma endregion 
 
 
