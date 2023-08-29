@@ -201,6 +201,8 @@ namespace ss
 			Liazrd->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 			Transform* eyetr = Liazrd->GetComponent<Transform>();
 			eyetr->SetPosition(Vector3(40.f, 185.f, 500.f));
+		
+
 
 			SkeletonLizardScript* ArcherScript = Liazrd->AddComponent<SkeletonLizardScript>();
 			ArcherScript->SetFirstPos(eyetr->GetPosition());
@@ -259,7 +261,7 @@ namespace ss
 			
 			
 			Transform* eyetr = Wolf->GetComponent<Transform>();
-			eyetr->SetPosition(Vector3(-180.f, -300.f, 500.f));
+			eyetr->SetPosition(Vector3(10.f, 185.f, 500.f));
 
 			WolfScript* wolfScript = Wolf->AddComponent<WolfScript>();
 			wolfScript->SetFirstPos(eyetr->GetPosition());
@@ -285,6 +287,9 @@ namespace ss
 
 		}
 
+
+			// =====
+		// 테스트용으로 좋은 위치 			eyetr->SetPosition(Vector3(-350.f, -340.f, 500.f));
 
 
 		////==================
@@ -400,6 +405,8 @@ namespace ss
 		}
 
 
+
+	
 
 		// ======================================
 

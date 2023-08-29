@@ -243,25 +243,25 @@ namespace ss
 		vDir.z = 0;
 		float distance = vDir.Length();
 
-		//if (distance <= m_tMonsterInfo.m_fDetectRange)
-		//{
-		//	// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
-		//	ChangeState(eMonsterState::MOVE);
-		//}
+		if (distance <= m_tMonsterInfo.m_fDetectRange)
+		{
+			// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
+			ChangeState(eMonsterState::MOVE);
+		}
 
 
-		//// 근접 공격 범위 내에 플레이어가 있으면 NearAttack 상태로 전환
-		//else if (distance < m_tMonsterInfo.m_fNearAttackRange)
-		//{
-		//	ChangeState(eMonsterState::NEARATTACK);
-		//}
+		// 근접 공격 범위 내에 플레이어가 있으면 NearAttack 상태로 전환
+		else if (distance < m_tMonsterInfo.m_fNearAttackRange)
+		{
+			ChangeState(eMonsterState::NEARATTACK);
+		}
 
 
-		//// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환 
-		//else if (distance < m_tMonsterInfo.m_fFarAttackRange)
-		//{
-		//	ChangeState(eMonsterState::FARATTACK);
-		//}
+		// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환 
+		else if (distance < m_tMonsterInfo.m_fFarAttackRange)
+		{
+			ChangeState(eMonsterState::FARATTACK);
+		}
 	}
 	void WolfScript::Move()
 	{
