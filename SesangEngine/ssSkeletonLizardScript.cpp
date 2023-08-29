@@ -24,7 +24,7 @@ namespace ss
 
 	// ====== 2023. 08 30 
 	// 1. 근접 공격 충돌체 지우기
-	// 2. 충돌체 크기 정하고 애니메이션 오프셋 위치 조정하기
+	// 2. 근접 공격 충돌체 왼쪽 위치 만들어주기 
 
 
 
@@ -159,19 +159,10 @@ namespace ss
 		case ss::eMonsterState::HIT:
 			Hit();
 			break;
-
-		case ss::eMonsterState::HIT_AFTER:
-			HitAfter();
-			break;
 			
 		case ss::eMonsterState::NEARATTACK:
 			NearAttack();
 			break;
-
-		case ss::eMonsterState::NEARATTACK_AFTER:
-			NearAttackAfter();
-			break;
-
 
 		case ss::eMonsterState::DEAD:
 			Dead();
@@ -271,15 +262,12 @@ namespace ss
 			if (mCurDir.x > 0)
 			{
 				mAnimator->PlayAnimation(L"Lizard_RunR", true);
-				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(-8.f, 0.f));
 			}
 
 			else
 			{
 				mAnimator->PlayAnimation(L"Lizard_RunL", true);
-				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(-8.f, 0.f));
+
 			}
 
 
@@ -308,15 +296,11 @@ namespace ss
 			if (mDir.x > 0)
 			{
 				mAnimator->PlayAnimation(L"Lizard_RunR", true);
-				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(-8.f, -0.f));
 			}
 
 			else
 			{
 				mAnimator->PlayAnimation(L"Lizard_RunL", true);
-				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(-8.f, -0.f));
 			}
 
 
@@ -453,16 +437,12 @@ namespace ss
 				if (mCurDir.x > 0)
 				{
 					mAnimator->PlayAnimation(L"Lizard_NearAttackR", false);
-					mCollider->SetSize(Vector2(0.2f, 0.7f));
-					mCollider->SetCenter(Vector2(-8.f, 0.f));
 
 				}
 
 				else
 				{
 					mAnimator->PlayAnimation(L"Lizard_NearAttackL", false);
-					mCollider->SetSize(Vector2(0.2f, 0.7f));
-					mCollider->SetCenter(Vector2(-8.f, 0.f));
 				}
 
 
@@ -488,16 +468,12 @@ namespace ss
 		if (mCurDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Lizard_DieR", false);
-			mCollider->SetSize(Vector2(0.19f, 0.33f));
-			mCollider->SetCenter(Vector2(-32.f, 0.f));
 
 		}
 
 		else
 		{
 			mAnimator->PlayAnimation(L"Lizard_DieL", false);
-			mCollider->SetSize(Vector2(0.19f, 0.33f));
-			mCollider->SetCenter(Vector2(-37.f, 0.f));
 		}
 
 		// 애니메이션 재생이 끝나면 

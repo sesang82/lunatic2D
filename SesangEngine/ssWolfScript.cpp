@@ -19,6 +19,7 @@
 
 namespace ss
 {
+
 	WolfScript::WolfScript()
 		: mbNearAttacking(false)
 		, mbFarAttacking(false)
@@ -29,9 +30,9 @@ namespace ss
 		, mVelocity(Vector2::Zero)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
-		m_tMonsterInfo.m_fDetectRange = 300.f;
+		m_tMonsterInfo.m_fDetectRange = 200.f;
 
-		m_tMonsterInfo.m_fNearAttackRange = 80.f;
+		m_tMonsterInfo.m_fNearAttackRange = 50.f;
 		m_tMonsterInfo.m_fFarAttackRange = 100.f;
 
 		m_tMonsterInfo.m_fCoolDown = 0.5f;
@@ -102,7 +103,7 @@ namespace ss
 		// ===== 기본 충돌체 Hit 받는 용도 
 		mCollider->SetName(L"Wolf_HitCol");
 		mCollider->SetType(eColliderType::Rect);
-		mCollider->SetSize(Vector2(0.3f, 0.8f));
+		mCollider->SetSize(Vector2(0.3f, 0.9f));
 		mCollider->SetCenter(Vector2(8.f, -5.f));
 
 		// ===== 리지드바디
@@ -210,6 +211,23 @@ namespace ss
 	}
 	void WolfScript::OnCollisionExit(Collider2D* other)
 	{
+
+		if (L"col_SpecialFloor" == other->GetOwner()->GetName())
+		{
+			mRigidbody->SetGround(false);
+			mRigidbody->SetGravity(Vector2(0.f, 1300.f));
+
+			if (mCurDir.x > 0)
+			{
+				mRigidbody->SetVelocity(Vector2(50.f, 0.f));
+			}
+
+			else if (mCurDir.x < 0)
+			{
+				mRigidbody->SetVelocity(Vector2(-50.f, 0.f));
+			}
+
+		}
 	}
 	void WolfScript::FarAttackEnd()
 	{
@@ -243,25 +261,28 @@ namespace ss
 		vDir.z = 0;
 		float distance = vDir.Length();
 
-		if (distance <= m_tMonsterInfo.m_fDetectRange)
+
+		if (distance < m_tMonsterInfo.m_fNearAttackRange)
+		{
+			ChangeState(eMonsterState::NEARATTACK);
+		}
+
+
+
+		else if (distance < m_tMonsterInfo.m_fFarAttackRange)
+		{
+			ChangeState(eMonsterState::FARATTACK);
+		}
+
+
+		// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환 
+		else if (distance <= m_tMonsterInfo.m_fDetectRange)
 		{
 			// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
 			ChangeState(eMonsterState::MOVE);
 		}
 
 
-		// 근접 공격 범위 내에 플레이어가 있으면 NearAttack 상태로 전환
-		else if (distance < m_tMonsterInfo.m_fNearAttackRange)
-		{
-			ChangeState(eMonsterState::NEARATTACK);
-		}
-
-
-		// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환 
-		else if (distance < m_tMonsterInfo.m_fFarAttackRange)
-		{
-			ChangeState(eMonsterState::FARATTACK);
-		}
 	}
 	void WolfScript::Move()
 	{
@@ -301,15 +322,11 @@ namespace ss
 			if (mCurDir.x > 0)
 			{
 				mAnimator->PlayAnimation(L"Wolf_RunR", true);
-				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(-8.f, 0.f));
 			}
 
 			else
 			{
 				mAnimator->PlayAnimation(L"Wolf_RunL", true);
-				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(-8.f, 0.f));
 			}
 
 
@@ -321,7 +338,7 @@ namespace ss
 			vMonToPlayer.z = 0;
 			vMonToPlayer.Normalize();
 
-			float fSpeed = m_tMonsterInfo.m_fSpeed + 200.f; // 추적 중일 땐 더 빠르게 추적하게 함 
+			float fSpeed = m_tMonsterInfo.m_fSpeed + 100.f; // 추적 중일 땐 더 빠르게 추적하게 함 
 
 			// 몬스터의 위치를 플레이어 방향으로 이동시킨다.
 			MonsterPos.x += vMonToPlayer.x * fSpeed * Time::DeltaTime();
@@ -338,15 +355,11 @@ namespace ss
 			if (mDir.x > 0)
 			{
 				mAnimator->PlayAnimation(L"Wolf_RunR", true);
-				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(-8.f, -0.f));
 			}
 
 			else
 			{
 				mAnimator->PlayAnimation(L"Wolf_RunL", true);
-				mCollider->SetSize(Vector2(0.2f, 0.7f));
-				mCollider->SetCenter(Vector2(-8.f, -0.f));
 			}
 
 
