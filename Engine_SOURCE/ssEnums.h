@@ -73,4 +73,16 @@ namespace ss::enums
 		BOSS,
 		END,
 	};
+
+
+
+	enum class eWeaponType
+	{
+		NONE = 1,
+		SWORD,
+		BOW,
+		PISTOL,
+		END,
+	};
+
 }

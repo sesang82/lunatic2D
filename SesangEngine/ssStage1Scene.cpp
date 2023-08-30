@@ -507,6 +507,7 @@ namespace ss
 	{
 		renderer::mainCamera = mCamera;
 		mCamera->SetSize(2.5f);
+
 	}
 	void Stage1Scene::OnExit()
 	{

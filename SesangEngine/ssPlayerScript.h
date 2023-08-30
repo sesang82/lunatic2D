@@ -22,15 +22,6 @@ namespace ss
 	};
 
 
-    enum class eWeaponType
-    {
-        NONE,
-        SWORD,
-        BOW,
-        PISTOL,
-        END,
-    };
-
     class PlayerScript :
         public Script
     {
@@ -65,6 +56,7 @@ namespace ss
     private:
         bool  mbIdleJump;
         bool  mbJump;
+        bool  mbChange;
         bool  mChangeFirst; // 무기 변경할 떄의 첫 애니메이션 땜에 만듦
         bool  mbDash;
         float DashDuration;
@@ -142,6 +134,7 @@ namespace ss
         void  SetPrev(bool prev) { mbPrev = prev; }
 
         bool IsDash() { return mbDash; }
+
  
 
 

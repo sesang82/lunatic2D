@@ -16,6 +16,7 @@
 #include "ssPlayerAttackColScript.h"
 #include "ssPlayerGuardColScript.h"
 #include "ssMeshRenderer.h"
+#include "ssSceneManager.h"
 
 
 
@@ -39,6 +40,7 @@ namespace ss
 		, mPrevColSize(Vector2(0.2f, 0.8f))
 		, mPrevColCeter(Vector2(-3.5f, 2.f))
 		, mTime(0.f)
+		, mbChange(false)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -61,7 +63,11 @@ namespace ss
 
 		mAnimator->PlayAnimation(L"Player_S_IdleR", true);
 		//mAnimator->PlayAnimation(L"Player_D_IdleR", true);
-		mWeaponType = eWeaponType::SWORD;
+
+			
+
+
+		
 
 		// 애니메이션 방향에 관한 기준	을 잡아준다.
 		mCurDir = mTransform->Right();
@@ -97,6 +103,11 @@ namespace ss
 	}
 	void PlayerScript::Update()
 	{
+
+	
+			mWeaponType = SceneManager::GetWeaponInfo();
+			mbChange = false;
+		
 
 		switch (mCurState)
 		{
@@ -222,7 +233,9 @@ namespace ss
 
 				// f키를 누르면 칼 idle 애니메이션으로 바뀌게 한다.
 				mChangeFirst = true;
-				ChangeWeapon(eWeaponType::SWORD);
+				mWeaponType = eWeaponType::SWORD;
+				SceneManager::SetWeaponInfo(mWeaponType);
+				mbChange = true;
 				
 
 			}
@@ -720,7 +733,7 @@ namespace ss
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_D_IdleL", true);
-						mCollider->SetCenter(Vector2(6.5f, 2.f));
+						mCollider->SetCenter(Vector2(6.f, 2.f));
 					}
 
 				}
@@ -787,9 +800,16 @@ namespace ss
 				if (mWeaponType == eWeaponType::NONE)
 				{
 					if (mCurDir.x > 0)
+					{
 						mAnimator->PlayAnimation(L"Player_D_RunR", true);
+						mCollider->SetCenter(Vector2(-6.f, 2.f));
+					}
+
 					else
+					{
 						mAnimator->PlayAnimation(L"Player_D_RunL", true);
+						mCollider->SetCenter(Vector2(6.f, 2.f));
+					}
 				}
 
 				else if (mWeaponType == eWeaponType::SWORD)

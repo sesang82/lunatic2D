@@ -33,6 +33,21 @@ namespace ss
 			scene->Initialize(); // Create 해둔 씬들의 Initialize를 호출해준다.
 			return true;
 		}
+
+		static std::wstring GetSceneName(Scene* scene)
+		{
+			for (const auto& pair : mScenes)
+			{
+				if (pair.second == scene)
+				{
+					return pair.first;
+				}
+			}
+
+			return L"";
+		}
+
+
 		static Scene* LoadScene(std::wstring name);
 		static Scene* GetActiveScene() { return mActiveScene; }
 
@@ -42,7 +57,11 @@ namespace ss
 		// 여러 씬들을 관리하기 편하게 map으로 저장해둠
 		static std::map<std::wstring, Scene*> mScenes;
 
-		static class Player* mPlayer;
+		static eWeaponType WeaponInfo;
 		//static Boss* mBoss;
+
+	public:
+		static void SetWeaponInfo(eWeaponType info) { WeaponInfo = info; }
+		static eWeaponType GetWeaponInfo() { return WeaponInfo; }
 	};
 }

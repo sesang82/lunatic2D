@@ -19,6 +19,9 @@
 
 namespace ss
 {
+	// ===== 해야할 거
+	// 1. Far 반경이 매우 넓었을 때 현재 Velocity값과 일치 하지 않아서 velocity값을 거리에 따라 조정하는 방법 필요
+
 
 	WolfScript::WolfScript()
 		: mbNearAttacking(false)

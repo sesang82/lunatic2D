@@ -37,6 +37,7 @@ namespace ss
 
 	private:
 		std::map<std::wstring, CharacterState*> mCharacterStates;
+	
 
 	public:
 

@@ -94,26 +94,26 @@ namespace ss
 			// 플레이어 애니메이션은 좀 특수하므로, 무기 별로 오프셋 값 다르게 주되 백사이즈는	 동일하게 주기. (사이즈 값은 틀려도 됨) 
 			// 애니메이션 나중에 플레이어 다 완성되면 
 			//  LT, 1프레임 사를 사이즈, 자를 갯수, 백사이즈, 오프셋
-		anim->Create(L"Player_D_Spawn", Image1, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 12, Vector2(107.f, 46.f));
+		anim->Create(L"Player_D_Spawn", Image1, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 12, Vector2(107.f, 58.f));
 
-		anim->Create(L"Player_D_IdleR", Image2, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 6, Vector2(107.f, 46.f), Vector2(0.f, -15.f));
-		anim->Create(L"Player_D_IdleL", Image2, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 6, Vector2(107.f, 46.f), Vector2(0.f, -15.f), 0.1f, true);
+		anim->Create(L"Player_D_IdleR", Image2, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 6, Vector2(107.f, 58.f), Vector2(0.f, -17.f));
+		anim->Create(L"Player_D_IdleL", Image2, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 6, Vector2(107.f, 58.f), Vector2(0.f, -17.f), 0.1f, true);
 
-		anim->Create(L"Player_D_RunR", Image3, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(107.f, 46.f), Vector2(0.f, -15.f));
-		anim->Create(L"Player_D_RunL", Image3, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(107.f, 46.f), Vector2(0.f, -15.f), 0.1f, true);
+		anim->Create(L"Player_D_RunR", Image3, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(107.f,58.f), Vector2(0.f, -17.f));
+		anim->Create(L"Player_D_RunL", Image3, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(107.f,58.f), Vector2(0.f, -17.f), 0.1f, true);
 
-		anim->Create(L"Player_D_JumpR", Image4, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 14, Vector2(107.f, 46.f), Vector2(0.f, -15.f), 0.07f);
-		anim->Create(L"Player_D_JumpL", Image4, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 14, Vector2(107.f, 46.f), Vector2(0.f, -15.f), 0.07f, true);
+		anim->Create(L"Player_D_JumpR", Image4, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 14, Vector2(107.f, 58.f), Vector2(0.f, -17.f), 0.07f);
+		anim->Create(L"Player_D_JumpL", Image4, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 14, Vector2(107.f, 58.f), Vector2(0.f, -17.f), 0.07f, true);
 
 		
 
 		// fall 애니메이션 
-		anim->Create(L"Player_D_FallR", Image19, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 4, Vector2(107.f, 46.f), Vector2(0.f, -15.f));
-		anim->Create(L"Player_D_FallL", Image19, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 4, Vector2(107.f, 46.f), Vector2(0.f, -15.f), 0.1f, true);
+		anim->Create(L"Player_D_FallR", Image19, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 4, Vector2(107.f,	58.f), Vector2(0.f, -17.f));
+		anim->Create(L"Player_D_FallL", Image19, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 4, Vector2(107.f,	58.f), Vector2(0.f, -17.f), 0.1f, true);
 
 
-		anim->Create(L"Player_D_LandingR", Image5, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(107.f, 46.f), Vector2(0.f, -15.f));
-		anim->Create(L"Player_D_LandingL", Image5, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(107.f, 46.f), Vector2(0.f, -15.f), 0.1f, true);
+		anim->Create(L"Player_D_LandingR", Image5, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(107.f, 58.f), Vector2(0.f, -17.f));
+		anim->Create(L"Player_D_LandingL", Image5, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(107.f, 58.f), Vector2(0.f, -17.f), 0.1f, true);
 
 
 
@@ -207,6 +207,7 @@ namespace ss
 	
 
 		CharacterState* statue = AddComponent<CharacterState>();
+
 
 		AddComponent<PlayerScript>();
 

@@ -177,6 +177,9 @@ namespace ss
 	{
 		renderer::mainCamera = mCamera;
 		mCamera->SetSize(2.f);
+
+
+
 	}
 	void EntranceScene::OnExit()
 	{
