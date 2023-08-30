@@ -1495,8 +1495,106 @@ namespace renderer
 
 
 #pragma region Monster [Zombie]
+		 // >> Idle
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Zombie_Idle",
+					 L"..\\Resources\\Texture\\Monster\\Zombie\\Idle.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Zombie_IdleMtrl", spriteMateiral);
+		 }
+
+		 // Run
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Zombie_Run",
+					 L"..\\Resources\\Texture\\Monster\\Zombie\\Run.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Zombie_RunMtrl", spriteMateiral);
+		 }
 
 
+		 // Hit
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Zombie_Hit",
+					 L"..\\Resources\\Texture\\Monster\\Zombie\\Hit.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Zombie_HitMtrl", spriteMateiral);
+		 }
+
+		 // Stun
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Zombie_Stun",
+					 L"..\\Resources\\Texture\\Monster\\Zombie\\Stun.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Zombie_StunMtrl", spriteMateiral);
+		 }
+
+		 // NearAttack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Zombie_NearAttack",
+					 L"..\\Resources\\Texture\\Monster\\Zombie\\NearAttack.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Zombie_NearAttackMtrl", spriteMateiral);
+		 }
+
+
+		 // Far Attack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Zombie_FarAttack",
+					 L"..\\Resources\\Texture\\Monster\\Zombie\\FarAttack.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Zombie_FarAttackMtrl", spriteMateiral);
+		 }
+
+
+		 // Die
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Zombie_Die",
+					 L"..\\Resources\\Texture\\Monster\\Zombie\\Die.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Zombie_DieMtrl", spriteMateiral);
+		 }
 
 
 

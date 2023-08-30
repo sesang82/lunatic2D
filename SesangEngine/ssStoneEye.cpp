@@ -15,6 +15,9 @@
 #include "ssStoneEyeColScript.h"
 
 
+// 고쳐야할 거
+//1 . 총알 가는 위치가 고정되어있지 않고 플레이어의 실시간 방향에 따라 움직이는 거
+
 namespace ss
 {
 	StoneEye::StoneEye()

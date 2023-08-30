@@ -23,7 +23,8 @@ namespace ss
 
 		// 일단 이렇게 한 이유는 hit ground의 크기가 다를 수도 있어서 일단 이렇게 해놨는데 나중에 그럴 필요없으면 리팩토링 하기
 		if (GetOwner()->GetName() == L"WoodHitGroundObj"
-			|| GetOwner()->GetName() == L"WolfHitGroundObj")
+			|| GetOwner()->GetName() == L"WolfHitGroundObj"
+			|| GetOwner()->GetName() == L"ZombieHitGroundObj")
 		{
 			mr->SetMaterial(Resources::Find<Material>(L"hitGroundMtrl"));			
 			tr->SetScale(Vector3(34.f, 39.f, 0.f));
@@ -64,6 +65,10 @@ namespace ss
 			}
 
 		}
+
+		// ZombieHitGroundObj
+
+
 
 
 	}
