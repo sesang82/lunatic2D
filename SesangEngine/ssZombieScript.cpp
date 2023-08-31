@@ -74,11 +74,11 @@ namespace ss
 		mAnimator->Create(L"Zombie_RunR", Image2, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 8, Vector2(89.f, 78.f));
 		mAnimator->Create(L"Zombie_RunL", Image2, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 8, Vector2(89.f, 78.f), Vector2(-12.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Zombie_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 13, Vector2(89.f, 78.f), Vector2::Zero, 0.08f);
-		mAnimator->Create(L"Zombie_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 13, Vector2(89.f, 78.f), Vector2(-12.f, 0.f), 0.08f, true);
+		mAnimator->Create(L"Zombie_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 11, Vector2(89.f, 78.f), Vector2::Zero, 0.1f);
+		mAnimator->Create(L"Zombie_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 11, Vector2(89.f, 78.f), Vector2(0.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Zombie_FarAttackR", Image4, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 14, Vector2(89.f, 78.f));
-		mAnimator->Create(L"Zombie_FarAttackL", Image4, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 14, Vector2(89.f, 78.f), Vector2(-12.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Zombie_FarAttackR", Image4, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 13, Vector2(89.f, 78.f));
+		mAnimator->Create(L"Zombie_FarAttackL", Image4, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 13, Vector2(89.f, 78.f), Vector2(-12.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Zombie_HitR", Image5, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 1, Vector2(89.f, 78.f), Vector2::Zero, 0.3f);
 		mAnimator->Create(L"Zombie_HitL", Image5, Vector2(0.f, 0.f), Vector2(89.f, 78.f), 1, Vector2(89.f, 78.f), Vector2(-12.f, 0.f), 0.3f, true);
@@ -211,12 +211,12 @@ namespace ss
 
 		if (mCurDir.x > 0)
 		{
-			mAnimator->PlayAnimation(L"Zombie_IdleR", true);
+			mAnimator->PlayAnimation(L"Zombie_StunR", true);
 		}
 
 		else
 		{
-			mAnimator->PlayAnimation(L"Zombie_IdleL", true);
+			mAnimator->PlayAnimation(L"Zombie_StunL", true);
 		}
 
 
@@ -230,25 +230,25 @@ namespace ss
 		float distance = vDir.Length();
 
 
-		if (distance < m_tMonsterInfo.m_fNearAttackRange)
-		{
-			ChangeState(eMonsterState::NEARATTACK);
-		}
+		//if (distance < m_tMonsterInfo.m_fNearAttackRange)
+		//{
+		//	ChangeState(eMonsterState::NEARATTACK);
+		//}
 
 
 
-		else if (distance < m_tMonsterInfo.m_fFarAttackRange)
-		{
-			ChangeState(eMonsterState::FARATTACK);
-		}
+		//else if (distance < m_tMonsterInfo.m_fFarAttackRange)
+		//{
+		//	ChangeState(eMonsterState::FARATTACK);
+		//}
 
 
-		// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환 
-		else if (distance <= m_tMonsterInfo.m_fDetectRange)
-		{
-			// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
-			ChangeState(eMonsterState::MOVE);
-		}
+		//// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환 
+		//else if (distance <= m_tMonsterInfo.m_fDetectRange)
+		//{
+		//	// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
+		//	ChangeState(eMonsterState::MOVE);
+		//}
 	}
 	void ZombieScript::Move()
 	{
@@ -404,6 +404,7 @@ namespace ss
 			m_fTime = 0.0f;
 		}
 
+		// 5인덱스에 공격용 충돌체 발동
 
 		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
 		{
@@ -451,8 +452,8 @@ namespace ss
 
 		bool isGround = mPlayer->GetComponent<Rigidbody2D>()->IsGround();
 
-
-		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2 && !mbJumped && isGround)
+		// 플레이어 위치로 점프 시작 
+		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 5 && !mbJumped && isGround)
 		{
 
 			mHitGround = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"ZombieHitGroundObj");
@@ -465,12 +466,7 @@ namespace ss
 			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
 			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
 
-			mbJumped = true;
-		}
 
-		// 플레이어 위치로 점프 시작 
-		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
-		{
 			mRigidbody->SetGravity(Vector2(0.f, 1300.f));
 
 			float JumpPower = sqrt(2 * abs(mRigidbody->GetGravity().y) * 10.f); // * 점프 높이
@@ -493,33 +489,24 @@ namespace ss
 
 			mRigidbody->SetGround(false);
 
-
-
-			//mLandingPos.y = PlayerPos.y; // y값은 플레이어 y값으로 고정
+			mbJumped = true;
 		}
 
 
 
-		// 10때 공격용 충돌체 달아주기 
-		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+		// 8때 공격용 충돌체 달아주기 
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 		{
 
 			// 공격용 충돌체가 나간다. 플레이어 포즈에. 2 인덱스에서 띄워준 playerpos값 담아서 쓰기 
-
-
-
-		}
-
-		// 13 인덱스 때 충돌체 빼기 및 착지
-
-		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 13)
-		{
 			mRigidbody->SetGround(true);
 			mRigidbody->SetVelocity(Vector2::Zero);
 			mTransform->SetPosition(mLandingPos); // 착지할 위치로 이동
+
+
 		}
 
-		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 14) // end event 호출 안되서 대신 씀 
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 12) // end event 호출 안되서 대신 씀 
 		{
 			mbFarAttacking = false;
 		}

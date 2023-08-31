@@ -28,7 +28,7 @@ namespace ss
 		m_tMonsterInfo.m_fSpeed = 50.f;
 		m_tMonsterInfo.m_fNearAttackRange = 110.f;
 		m_tMonsterInfo.m_fFarAttackRange = 150.f;
-		m_tMonsterInfo.m_fCoolDown = 1.5f;
+		m_tMonsterInfo.m_fCoolDown = 0.5f;
 	}
 	WoodGolemScript::~WoodGolemScript()
 	{

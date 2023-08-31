@@ -21,6 +21,7 @@ namespace ss
 {
 	// ===== 해야할 거
 	// 1. Far 반경이 매우 넓었을 때 현재 Velocity값과 일치 하지 않아서 velocity값을 거리에 따라 조정하는 방법 필요
+	// 2. 추적 상태에 돌입했을 때 플레이어와 위치가 겹치지 않도록 별도 처리 필요 
 
 
 	WolfScript::WolfScript()

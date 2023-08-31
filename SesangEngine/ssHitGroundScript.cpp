@@ -7,6 +7,7 @@
 #include "ssSceneManager.h"
 #include "ssWoodGolemScript.h"
 #include "ssWolfScript.h"
+#include "ssZombieScript.h"
 
 namespace ss
 {
@@ -68,6 +69,19 @@ namespace ss
 
 		// ZombieHitGroundObj
 
+		else if (GetOwner()->GetName() == L"ZombieHitGroundObj")
+		{
+			ZombieScript* script = mMonster->GetComponent<ZombieScript>();
+			bool jumped = script->IsJumped();
+
+
+			if (jumped && anim->GetCurActiveAnimation()->GetIndex() == 12)
+			{
+				script->SetJumped(false);
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+
+		}
 
 
 
