@@ -1601,6 +1601,51 @@ namespace renderer
 
 #pragma endregion 
 
+#pragma region Boss [Wolf]
+
+		 // Idle (272 * 271 . 醚 9俺)
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss_Wolf_Idle",
+					 L"..\\Resources\\Texture\\Boss\\Wolf\\Idle.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss_Wolf_IdleMtrl", spriteMateiral);
+		 }
+
+		 // Spawn
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss_Wolf_Spawn",
+					 L"..\\Resources\\Texture\\Boss\\Wolf\\Spawn.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss_Wolf_SpawnMtrl", spriteMateiral);
+		 }
+
+
+
+
+
+
+#pragma endregion 
+
+
+
+
+
+
+
+
+
 
 
 #pragma region Scene [Title]
