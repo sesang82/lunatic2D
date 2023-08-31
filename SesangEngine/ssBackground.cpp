@@ -2,6 +2,7 @@
 #include "ssResources.h"
 #include "ssMesh.h"
 #include "ssMeshRenderer.h"
+#include "ssAnimator.h"
 
 namespace ss
 {
@@ -18,6 +19,9 @@ namespace ss
 		mr = GetComponent<MeshRenderer>();
 
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+
+		AddComponent<Animator>();
 
 		GameObject::Initialize();
 	}

@@ -1911,10 +1911,10 @@ namespace renderer
 
 #pragma region scene [Boss 1 BackGround]
 		// ===== 보스늑대
-		// 보스맵
+		// 보스 늑대 맵 타일 
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Boss1", L"..\\Resources\\Texture\\Boss\\WolfMap.png");
+				= Resources::Load<Texture>(L"Boss1Tile", L"..\\Resources\\Texture\\Boss\\wolfTile.png");
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
@@ -1922,7 +1922,35 @@ namespace renderer
 			spriteMateiral->SetTexture(texture);
 			//spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			Resources::Insert(L"Boss1Mtrl", spriteMateiral);
+			Resources::Insert(L"Boss1TileMtrl", spriteMateiral);
+		}
+
+		// 보스 늑대 맵 횃불
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"wolfFire", L"..\\Resources\\Texture\\Boss\\wolfFire.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			//spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			Resources::Insert(L"wolfFireMtrl", spriteMateiral);
+		}
+
+		// 보스 늑대 맵 상
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"WolfStatue", L"..\\Resources\\Texture\\Boss\\BossStatue.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			//spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			Resources::Insert(L"WolfStatueMtrl", spriteMateiral);
 		}
 #pragma endregion 
 

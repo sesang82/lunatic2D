@@ -9,6 +9,7 @@
 #include "ssRenderer.h"
 #include "ssBackground.h"
 #include "ssObject.h"
+#include "ssAnimator.h"
 
 namespace ss
 {
@@ -21,82 +22,181 @@ namespace ss
 	void Boss1Scene::Initialize()
 	{
 
-		// 보스 맵
+
+
+
+		//// 둥근 달
+		//{
+		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss1_Moon");
+		//	bg->Initialize();
+
+		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+		//	mr->SetMaterial(Resources::Find<Material>(L"Moon2Mtrl"));
+
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 850.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 900.f, 1.0f));
+		//}
+
+		//// 나무1
+
+		//{
+		//	GameObject* bg = new GameObject();
+		//	AddGameObject(eLayerType::BG, bg);
+		//	// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+		//	MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
+
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.0f, 800.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
+		//}
+
+		//// 나무 2 
+		//{
+		//	GameObject* bg = new GameObject();
+		//	AddGameObject(eLayerType::BG, bg);
+		//	// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+		//	MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
+
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.24f, 750.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1.6f, 2.f, 1.0f));
+		//}
+
+		//// 나무 3
+		//{
+		//	GameObject* bg = new GameObject();
+		//	AddGameObject(eLayerType::BG, bg);
+		//	// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+		//	MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Tree3Mtrl"));
+
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.24f, 700.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1.6f, 2.f, 1.0f));
+		//}
+
+		//// 나무 4 
+		//{
+		//	GameObject* bg = new GameObject();
+		//	AddGameObject(eLayerType::BG, bg);
+		//	// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+		//	MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Tree4Mtrl"));
+
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.24f, 650.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1.6f, 2.f, 1.0f));
+		//}
+
+
+
+		// 왼쪽 맨 횃불
+		{
+			Background* Fire = object::Instantiate<Background>(eLayerType::BG, L"WolfFireObj");
+			Fire->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = Fire->GetComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+
+			Fire->GetComponent<Transform>()->SetPosition(Vector3(-190.f, -265.f, 650.f));
+			Fire->GetComponent<Transform>()->SetScale(Vector3(41.f, 110.f, 1.0f));
+		
+			std::shared_ptr<Texture> Image1 = Resources::Find<Texture>(L"wolfFire");
+
+			Animator* anim = Fire->GetComponent<Animator>();
+			anim->Create(L"Boss1_Fire", Image1, Vector2(0.f, 0.f), Vector2(41.f, 110.f), 8, Vector2(41.f, 110.f));
+			anim->PlayAnimation(L"Boss1_Fire", true);
+		}
+
+		// 왼쪽 두번째 횃불
+		{
+			Background* Fire = object::Instantiate<Background>(eLayerType::BG, L"WolfFireObj");
+			Fire->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = Fire->GetComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+
+			Fire->GetComponent<Transform>()->SetPosition(Vector3(-110.f, -265.f, 650.f));
+			Fire->GetComponent<Transform>()->SetScale(Vector3(41.f, 110.f, 1.0f));
+
+			std::shared_ptr<Texture> Image1 = Resources::Find<Texture>(L"wolfFire");
+
+			Animator* anim = Fire->GetComponent<Animator>();
+			anim->Create(L"Boss1_Fire", Image1, Vector2(0.f, 0.f), Vector2(41.f, 110.f), 8, Vector2(41.f, 110.f));
+			anim->PlayAnimation(L"Boss1_Fire", true);
+		}
+
+		// 오른쪽 첫번째 횃불
+		{
+			Background* Fire = object::Instantiate<Background>(eLayerType::BG, L"WolfFireObj");
+			Fire->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = Fire->GetComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+
+			Fire->GetComponent<Transform>()->SetPosition(Vector3(120.f, -265.f, 650.f));
+			Fire->GetComponent<Transform>()->SetScale(Vector3(41.f, 110.f, 1.0f));
+
+			std::shared_ptr<Texture> Image1 = Resources::Find<Texture>(L"wolfFire");
+
+			Animator* anim = Fire->GetComponent<Animator>();
+			anim->Create(L"Boss1_Fire", Image1, Vector2(0.f, 0.f), Vector2(41.f, 110.f), 8, Vector2(41.f, 110.f));
+			anim->PlayAnimation(L"Boss1_Fire", true);
+		}
+
+
+		// 오른쪽 두번째 횃불
+		{
+			Background* Fire = object::Instantiate<Background>(eLayerType::BG, L"WolfFireObj");
+			Fire->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = Fire->GetComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+
+			Fire->GetComponent<Transform>()->SetPosition(Vector3(200.f, -265.f, 650.f));
+			Fire->GetComponent<Transform>()->SetScale(Vector3(41.f, 110.f, 1.0f));
+
+			std::shared_ptr<Texture> Image1 = Resources::Find<Texture>(L"wolfFire");
+
+			Animator* anim = Fire->GetComponent<Animator>();
+			anim->Create(L"Boss1_Fire", Image1, Vector2(0.f, 0.f), Vector2(41.f, 110.f), 8, Vector2(41.f, 110.f));
+			anim->PlayAnimation(L"Boss1_Fire", true);
+		}
+
+		// 늑대 맵 상 
+		{
+			Background* Fire = object::Instantiate<Background>(eLayerType::BG, L"WolfFireObj");
+			Fire->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+			
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = Fire->GetComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"WolfStatueMtrl"));
+
+			Fire->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.1f, 650.f));
+			Fire->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 1.0f));
+		}
+
+		// 보스 타일 (이건 플레이어보다 더 앞에 있어야해서 400으로 줌) 
 		{
 			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss1_Map");
 			bg->Initialize();
 
 			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Boss1Mtrl"));
+			mr->SetMaterial(Resources::Find<Material>(L"Boss1TileMtrl"));
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 900.f));
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 400.f));
 			bg->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 1.0f));
 		}
 
-		// 둥근 달
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss1_Moon");
-			bg->Initialize();
 
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Moon2Mtrl"));
-
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 850.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 900.f, 1.0f));
-		}
-
-		// 나무1
-
-		{
-			GameObject* bg = new GameObject();
-			AddGameObject(eLayerType::BG, bg);
-			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
-
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.0f, 800.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
-		}
-
-		// 나무 2 
-		{
-			GameObject* bg = new GameObject();
-			AddGameObject(eLayerType::BG, bg);
-			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
-
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.24f, 750.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1.6f, 2.f, 1.0f));
-		}
-
-		// 나무 3
-		{
-			GameObject* bg = new GameObject();
-			AddGameObject(eLayerType::BG, bg);
-			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Tree3Mtrl"));
-
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.24f, 700.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1.6f, 2.f, 1.0f));
-		}
-
-		// 나무 4 
-		{
-			GameObject* bg = new GameObject();
-			AddGameObject(eLayerType::BG, bg);
-			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Tree4Mtrl"));
-
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.24f, 650.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1.6f, 2.f, 1.0f));
-		}
 
 
 
@@ -159,6 +259,33 @@ namespace ss
 			bg->GetComponent<Transform>()->SetScale(Vector3(262.f, 6.f, 1.f));
 		}
 
+		//플레이어 HP바
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"PlayerBarMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(-103.f, -205.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
+		}
+
+		//플레이어 SP바
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"PlayerSPBarMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(103.f, -205.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
+		}
 
 
 		// === 카메라
