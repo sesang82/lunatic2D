@@ -20,6 +20,8 @@ namespace ss
 		mCameraWidth = 0;
 		mMapSize = Vector2(800.0f, 448.f); // 전체 맵의 절반 크기 
 		someOffset = 75.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+		mbFllowMonster = false;
+		mbReturnToPlayer = false;
 	}
 
 
@@ -40,9 +42,9 @@ namespace ss
 		// 플레이어의 트랜스폼 얻어옴
 		if (mTarget)
 		{
-			Transform* Player_tr = mTarget->GetComponent<Transform>();
-			Vector3 PlayerPos = Player_tr->GetPosition();
-			Cam_tr->SetPosition(Vector3(PlayerPos.x, PlayerPos.y + 75.f, 990.f));
+			Transform* Target_tr = mTarget->GetComponent<Transform>();
+			Vector3 TargetPos = Target_tr->GetPosition();
+
 			// x에다가 +로 더해주면 처음에 시작할 때 해당 카메라가 그 위치에서 시작하긴 함 
 
 
@@ -57,6 +59,21 @@ namespace ss
 			//float clampY = std::clamp(PlayerPos.y, Center.y - ly, Center.y + ly);
 			//
 			//Cam_tr->SetPosition(Vector3(clampX, clampY + 75.f, -10.f));
+
+			// Lerp를 사용하여 부드럽게 타겟에게 접근
+
+			if (mTarget->GetName() == L"Player")
+			{
+				Vector3 PlayerPos = Vector3::Lerp(Cam_tr->GetPosition(), Vector3(TargetPos.x, TargetPos.y + 75.f, 990.f), 0.003f);
+				Cam_tr->SetPosition(PlayerPos);
+			}
+
+			else
+			{
+				Vector3 newPos = Vector3::Lerp(Cam_tr->GetPosition(), Vector3(TargetPos.x, TargetPos.y -30.f, 990.f), 0.003f);
+				Cam_tr->SetPosition(newPos);
+			}
+
 				
 		}
 	

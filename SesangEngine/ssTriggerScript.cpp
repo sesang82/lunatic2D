@@ -5,6 +5,8 @@
 #include "ssMeshRenderer.h"
 #include "ssAnimator.h"
 #include "ssPlatform.h"
+#include "ssCamera.h"
+#include "ssCameraScript.h"
 
 
 namespace ss
@@ -24,9 +26,12 @@ namespace ss
 	void TriggerScript::OnCollisionEnter(Collider2D* other)
 	{
 
-
+		// 타겟을 몬스터로 옮긴다.
 		if (other->GetName() == L"colHit_player")
 		{
+			CameraScript* script = mCamera->GetComponent<CameraScript>();
+			script->SetTarget(mMonster);
+
 			MeshRenderer* mr = mMonster->GetComponent<MeshRenderer>();
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
 
