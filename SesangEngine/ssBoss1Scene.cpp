@@ -378,6 +378,8 @@ namespace ss
 			cameraComp0->DisableLayerMasks();
 			cameraComp0->TurnLayerMask(eLayerType::UI);
 			renderer::cameras.push_back(cameraComp0);
+
+			script->SetUICamera(UIcamera); // trigger 스크립트에서 메인 카메라 갖다 쓰기 위해 갖고 옴 
 		}
 
 

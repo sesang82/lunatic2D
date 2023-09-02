@@ -2260,6 +2260,55 @@ namespace renderer
 
 #pragma region Game UI
 		// ==== UI
+		// Letter Box UP
+		{
+
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"LetterBoxUp", L"..\\Resources\\Texture\\UI\\Etc\\letterBoxUp.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			Resources::Insert(L"LetterBoxUpMtrl", spriteMateiral);
+
+		}
+
+		// Letter Box Bottom
+		{
+
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"LetterBoxBottom", L"..\\Resources\\Texture\\UI\\Etc\\letterBoxBottom.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			Resources::Insert(L"LetterBoxBottomMtrl", spriteMateiral);
+
+		}
+
+		// WOLF BOSS 이름
+		{
+
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Boss1Name", L"..\\Resources\\Texture\\UI\\Etc\\Boss1Name.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			Resources::Insert(L"Boss1NameMtrl", spriteMateiral);
+
+		}
+
+
 		// 플레이어 Frame
 		{
 

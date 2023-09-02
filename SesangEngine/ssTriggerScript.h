@@ -29,14 +29,20 @@ namespace ss
     private:
         Transform* mTransform;
         class Monster* mMonster;
-        class GameObject* mCamera;
 
+        class GameObject* mCamera;
+        class GameObject* mUICamera;
+
+        class GameObject* mLetterBoxUP;
+        class GameObject* mLetterBoxBottom;
+        class GameObject* mBossName;
 
     public:
         void SetMonster(Monster* monster) { mMonster = monster; }
 		Monster* GetMonster() { return mMonster; }
 
         void SetCamera(GameObject* camera) { mCamera = camera; }
+        void SetUICamera(GameObject* camera) { mUICamera = camera; }
     };
 
 }
