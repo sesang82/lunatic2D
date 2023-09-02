@@ -225,7 +225,7 @@ namespace ss
 
 		Transform* eyetr = mBoss1->GetComponent<Transform>();
 			//eyetr->SetPosition(Vector3(10.f, 185.f, 500.f));
-		eyetr->SetPosition(Vector3(-10.f, -183.f, 500.f)); // -10
+		eyetr->SetPosition(Vector3(10.f, -183.f, 500.f)); // -10
 
 		BigWolfScript* wolfScript = mBoss1->AddComponent<BigWolfScript>();
 		wolfScript->SetFirstPos(eyetr->GetPosition());

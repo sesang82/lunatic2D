@@ -78,6 +78,14 @@ namespace ss
 		// 
 		void SetSize(float size) { mSize = size; }
 
+		void SetTargetSize(float newSize)
+		{
+			mTargetSize = newSize;
+			mIsZooming = true;
+		}
+
+		void UpdateZoom();
+
 	private:
 		// static으로 선언한 이유는, 해당 행렬을 Transform에 가져가서
 	// 월드 행렬과 곱할 때 사용해야되기 때문이다. 
@@ -95,6 +103,12 @@ namespace ss
 		float mFar;
 		float mSize;		// 카메라의 scale값이다. 클수록 카메라가 멀어진다. OrthoGraphic일 때 사용
 
+
+		// 사이즈 관련 
+		float mCurrentSize;		// 카메라의 scale값이다. 클수록 카메라가 멀어진다. OrthoGraphic일 때 사용
+		float mTargetSize;
+		float mLerpSpeed;
+		bool mIsZooming;
 
 		// == 렌더링을 위한 레이어 관련
 

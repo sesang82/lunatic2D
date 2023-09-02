@@ -32,6 +32,9 @@ namespace ss
 			CameraScript* script = mCamera->GetComponent<CameraScript>();
 			script->SetTarget(mMonster);
 
+			Camera* camera = mCamera->GetComponent<Camera>();
+			camera->SetTargetSize(3.5f);
+
 			MeshRenderer* mr = mMonster->GetComponent<MeshRenderer>();
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
 

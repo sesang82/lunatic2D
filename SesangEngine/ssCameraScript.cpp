@@ -70,7 +70,7 @@ namespace ss
 
 			else
 			{
-				Vector3 newPos = Vector3::Lerp(Cam_tr->GetPosition(), Vector3(TargetPos.x, TargetPos.y -30.f, 990.f), 0.003f);
+				Vector3 newPos = Vector3::Lerp(Cam_tr->GetPosition(), Vector3(TargetPos.x, TargetPos.y -90.f, 990.f), 0.004f);
 				Cam_tr->SetPosition(newPos);
 			}
 

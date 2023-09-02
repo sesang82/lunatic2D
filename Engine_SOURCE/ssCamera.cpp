@@ -45,6 +45,11 @@ namespace ss
 		// 특정한 레이어만 가릴지 아니면 보일지를 결정하려면 우선
 	// 어떤 레이어가 있는지 봐야하므로 카메라가 모든 레이어를 비추게 한다.
 		EnableLayerMasks();
+
+		mCurrentSize = mSize; // 시작 시에 현재 크기를 초기화
+		mTargetSize = mSize; // 목표 크기도 초기 크기와 동일하게 설정
+		mLerpSpeed = 0.005f; // 보간 속도 설정. 이 값을 조절하여 확대/축소 속도를 변경 
+		mIsZooming = false; // 확대/축소 중인지를 나타내는 플래그
 	}
 
 	Camera::~Camera()
@@ -88,6 +93,10 @@ namespace ss
 	//		mCameraPos = ObjPos + mTargetOffset;
 	//	}
 	//}
+
+		UpdateZoom(); // 확대/축소 업데이트
+
+
 	}
 
 	void Camera::Render()
@@ -345,5 +354,21 @@ namespace ss
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
 			= renderer::depthStencilStates[(UINT)eDSType::None];
 		GetDevice()->BindDepthStencilState(dsState.Get());
+	}
+	void Camera::UpdateZoom()
+	{
+		if (mIsZooming)
+		{
+			mCurrentSize = mCurrentSize + (mTargetSize - mCurrentSize) * mLerpSpeed;
+
+			// 확대/축소가 거의 완료되었을 때
+			if (abs(mCurrentSize - mTargetSize) < 0.01f)
+			{
+				mCurrentSize = mTargetSize;
+				mIsZooming = false;
+			}
+
+			mSize = mCurrentSize; // 현재 크기를 카메라 크기에 반영
+		}
 	}
 }
