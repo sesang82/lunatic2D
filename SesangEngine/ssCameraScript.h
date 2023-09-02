@@ -27,19 +27,9 @@ namespace ss
 
 
 	public:
+		// 게임오브젝트를 상속받은 다른 녀석들을 인수로 넣을 떄 오류가 난다면 해당 클래스 헤더 파일을 인클루드 하면 된다. 
 		void SetTarget(GameObject* obj) { mTarget = obj; }
 
-		void ChangeTarget(GameObject* newTarget, bool followMonster = false)
-		{
-			mTarget = newTarget;
-			mbFllowMonster = followMonster;
-		}
-
-		void ReturnToPlayer(GameObject* player)
-		{
-			mbReturnToPlayer = true;
-			mbFllowMonster = false;  // 몬스터 추적 중지
-		}
 
 	};
 }

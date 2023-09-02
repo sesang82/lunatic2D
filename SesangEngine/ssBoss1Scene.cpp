@@ -260,6 +260,7 @@ namespace ss
 
 			TriggerScript* script = col_Spawn->AddComponent<TriggerScript>();
 			script->SetMonster(mBoss1);
+			script->SetPlayer(mPlayer);
 		
 
 	//==== UI

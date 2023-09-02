@@ -29,6 +29,7 @@ namespace ss
     private:
         Transform* mTransform;
         class Monster* mMonster;
+        class Player* mPlayer;
 
         class GameObject* mCamera;
         class GameObject* mUICamera;
@@ -43,6 +44,8 @@ namespace ss
 
         void SetCamera(GameObject* camera) { mCamera = camera; }
         void SetUICamera(GameObject* camera) { mUICamera = camera; }
+
+        void SetPlayer(Player* player) { mPlayer = player; }
     };
 
 }
