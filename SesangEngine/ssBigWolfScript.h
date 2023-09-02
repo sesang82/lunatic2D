@@ -58,6 +58,7 @@ namespace ss
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 
+        void Spawn();
         void Idle();
         void Move();
 

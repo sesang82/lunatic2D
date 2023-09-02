@@ -21,6 +21,15 @@ namespace ss
 
 	private:
 		Camera* mCamera;
+		class Monster* mBoss1;
+		class Player* mPlayer;
+
+
+
+
+
+
+
 	};
 
 

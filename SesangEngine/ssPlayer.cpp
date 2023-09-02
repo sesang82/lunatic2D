@@ -153,8 +153,8 @@ namespace ss
 		anim->Create(L"Player_S_DashL", Image12, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 3, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
 
 		// ¶³¾îÁü (falling)
-		anim->Create(L"Player_S_FallR", Image9, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 6, Vector2(107.f, 58.f), Vector2(0.f, -6.f));
-		anim->Create(L"Player_S_FallL", Image9, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 6, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
+		anim->Create(L"Player_S_FallR", Image9, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 58.f), Vector2(0.f, -6.f));
+		anim->Create(L"Player_S_FallL", Image9, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(107.f, 58.f), Vector2(0.f, -6.f), 0.1f, true);
 
 		// Landind (ÂøÁö) 
 		anim->Create(L"Player_S_LandingR", Image10, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(107.f, 58.f), Vector2(0.f, -6.f));

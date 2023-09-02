@@ -62,7 +62,7 @@ namespace ss
 	
 		else
 		{	
-			Cam_tr->SetPosition(Vector3(0.f, 0.f, -10.f));
+			Cam_tr->SetPosition(Vector3(0.f, -200.f, -10.f));
 		}
 
 

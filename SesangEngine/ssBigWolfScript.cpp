@@ -57,13 +57,13 @@ namespace ss
 
 
 		mAnimator->Create(L"Boss_Wolf_IdleR", Image1, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_IdleL", Image1, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_IdleL", Image1, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Boss_Wolf_SpawnR", Image2, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_SpawnL", Image2, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		//mAnimator->Create(L"Boss_Wolf_SpawnR", Image2, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f));
+		mAnimator->Create(L"Boss_Wolf_SpawnL", Image2, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Boss_Wolf_BreathAttackR", Image3, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 14, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_BreathAttackL", Image3, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 14, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_BreathAttackL", Image3, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 14, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 		//mAnimator->Create(L"Boss_Wolf_BreathEffectStartR", Image4, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 4, Vector2(272.f, 271.f));
 		//mAnimator->Create(L"Boss_Wolf_BreathEffectStartL", Image4, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 4, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
@@ -72,18 +72,18 @@ namespace ss
 		//mAnimator->Create(L"Boss_Wolf_BreathEffectEndL", Image5, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Boss_Wolf_DashR", Image6, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 25, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_DashL", Image6, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 25, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_DashL", Image6, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 25, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Boss_Wolf_DieR", Image7, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 18, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_DieL", Image7, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 18, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_DieL", Image7, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 18, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 
 		mAnimator->Create(L"Boss_Wolf_HitR", Image8, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 2, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_HitL", Image8, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 2, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_HitL", Image8, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 2, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
-
+		// 하울링 맨 마지막 인덱스 뭔가 이상함 
 		mAnimator->Create(L"Boss_Wolf_HowlingR", Image9, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 28, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_HowlingL", Image9, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 28, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_HowlingL", Image9, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 28, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 
 		//mAnimator->Create(L"Boss_Wolf_HowlingEffectR", Image10, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f));
@@ -93,10 +93,10 @@ namespace ss
 		//mAnimator->Create(L"Boss_Wolf_HowlingPostioinL", Image11, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
 		//
 		mAnimator->Create(L"Boss_Wolf_MoveAppearR", Image12, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_MoveAppearL", Image12, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_MoveAppearL", Image12, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 		
 		mAnimator->Create(L"Boss_Wolf_MoveDissappearR", Image13, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 10, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_MoveDissappearL", Image13, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 10, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_MoveDissappearL", Image13, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 10, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 	
 	/*	mAnimator->Create(L"Boss_Wolf_ShadowR", Image14, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f));
 		mAnimator->Create(L"Boss_Wolf_ShadowL", Image14, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
@@ -108,24 +108,25 @@ namespace ss
 		mAnimator->Create(L"Boss_Wolf_ShadowEffectL", Image16, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);*/
 
 		mAnimator->Create(L"Boss_Wolf_StormStartR", Image16, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_StormStartL", Image16, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_StormStartL", Image16, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Boss_Wolf_StormLandingR", Image17, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_StormLandingL", Image17, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_StormLandingL", Image17, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
-		mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", true);
+
 
 		// ======
 	// 애니메이션 방향에 관한 기준	을 잡아준다.
-		mDir = mTransform->Right();
-		mCurDir = mTransform->Right();
-		//mCurState = eMonsterState::IDLE;
+		mDir = -mTransform->Right();
+		mCurDir = -mTransform->Right();
+		// 몬스터의 초기 상태는 부여해주지 않는다. (보스만) 
+		
 
 		// ===== 기본 충돌체 Hit 받는 용도 
 		mCollider->SetName(L"BigWolf_HitCol");
 		mCollider->SetType(eColliderType::Rect);
-		mCollider->SetSize(Vector2(0.3f, 0.9f));
-		mCollider->SetCenter(Vector2(8.f, -5.f));
+		mCollider->SetSize(Vector2(0.6f, 0.36f));
+		mCollider->SetCenter(Vector2(-4.f, -84.f));
 
 		// ===== 리지드바디
 
@@ -138,12 +139,33 @@ namespace ss
 		//mAttackColliderObj->AddComponent<LizardColScript>();
 
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
+
+
+		// ==== 메쉬 렌덛
+		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 	}
 	void BigWolfScript::Update()
 	{
 		// 이동->상태변환->애니메이션
 
+		switch (mCurWolfBossState)
+		{
+		case ss::eWolfBossState::SPAWN:
+			Spawn();
+			break;
 
+		case ss::eWolfBossState::IDLE:
+			Idle();
+			break;
+	
+		case ss::eWolfBossState::HIT:
+			Hit();
+			break;
+
+	
+		}
+
+		Animation();
 
 
 
@@ -159,6 +181,12 @@ namespace ss
 	}
 	void BigWolfScript::OnCollisionExit(Collider2D* other)
 	{
+	}
+	void BigWolfScript::Spawn()
+	{
+
+	
+
 	}
 	void BigWolfScript::Idle()
 	{
@@ -176,15 +204,6 @@ namespace ss
 			mAnimator->PlayAnimation(L"Boss_Wolf_IdleL", true);
 		}
 
-
-
-		Vector3 MonsterPos = mTransform->GetPosition();
-		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
-
-		// 몬스터와 플레이어 간의 거리를 구함 
-		Vector3 vDir = MonsterPos - PlayerPos;
-		vDir.z = 0;
-		float distance = vDir.Length();
 	}
 	void BigWolfScript::Move()
 	{

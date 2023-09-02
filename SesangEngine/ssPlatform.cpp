@@ -19,8 +19,7 @@ namespace ss
 
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"DebugMaterial"));
-		
+		mr->SetMaterial(Resources::Find<Material>(L"DebugMaterial"));		
 
 		GameObject::Initialize();
 	}

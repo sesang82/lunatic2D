@@ -12,6 +12,12 @@
 #include "ssAnimator.h"
 #include "ssBigWolfScript.h"
 #include "ssMonster.h"
+#include "ssCameraScript.h"
+#include "ssPlayer.h"
+#include "ssPlayerScript.h"
+#include "ssRigidbody2D.h"
+#include "ssPlatform.h"
+#include "ssTriggerScript.h"
 
 namespace ss
 {
@@ -199,28 +205,66 @@ namespace ss
 		}
 
 
+
 		// =========== 캐릭터들
 
 
+		 //캐릭터
+		mPlayer = object::Instantiate<Player>(eLayerType::Player, L"Player");
+		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+		Transform* Playertr = mPlayer->GetComponent<Transform>();
+		Playertr->SetPosition(Vector3(-450.f, -298.0f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
 
 
-		{
-			// 보스
-			Monster* Boss = object::Instantiate<Monster>(eLayerType::Boss, L"B_WolfObj");
-			Boss->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		
+		// 보스
+		Monster* mBoss1 = object::Instantiate<Monster>(eLayerType::Boss, L"B_WolfObj");
+		mBoss1->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
 
-			Transform* eyetr = Boss->GetComponent<Transform>();
+		Transform* eyetr = mBoss1->GetComponent<Transform>();
 			//eyetr->SetPosition(Vector3(10.f, 185.f, 500.f));
-			eyetr->SetPosition(Vector3(-20.f, -170.f, 500.f));
+		eyetr->SetPosition(Vector3(-10.f, -183.f, 500.f));
 
-			BigWolfScript* wolfScript = Boss->AddComponent<BigWolfScript>();
-			wolfScript->SetFirstPos(eyetr->GetPosition());
+		BigWolfScript* wolfScript = mBoss1->AddComponent<BigWolfScript>();
+		wolfScript->SetFirstPos(eyetr->GetPosition());
+
+
+		
+
+
+		// ======== 충돌체
+
+		// 바닥
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Ground, L"col_Floor");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-10.f, -363.f, 500.f));
+			tr->SetScale(Vector3(929.f, 88.f, 1.f));
 
 
 		}
 
+		// 몬스터 소환하는 충돌체
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Collision, L"col_SpawnBoss1");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-400.f, -298.0f, 500.f));
+			tr->SetScale(Vector3(20.f, 20.f, 1.f));
+
+
+		
+
+			TriggerScript* script = col_Floor->AddComponent<TriggerScript>();
+			script->SetMonster(mBoss1);
+
+		}
 
 	//==== UI
 	//플레이어 UI Frame
@@ -322,8 +366,8 @@ namespace ss
 			mCamera = camera->AddComponent<Camera>();
 			mCamera->TurnLayerMask(eLayerType::UI, false);
 
-			//CameraScript* camerscript = camera->AddComponent<CameraScript>();
-			//camerscript->SetTarget(player);
+			CameraScript* camerscript = camera->AddComponent<CameraScript>();
+			camerscript->SetTarget(mPlayer);
 			
 
 		}
@@ -354,13 +398,19 @@ namespace ss
 	{
 		Scene::Render();
 	}
+
 	void Boss1Scene::OnEnter()
 	{
+		// 메인 카메라로 설정해준다. 
 		renderer::mainCamera = mCamera;
 
 
-
 	}
+
+
+
+
+
 	void Boss1Scene::OnExit()
 	{
 	}

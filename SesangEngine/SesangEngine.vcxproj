@@ -229,6 +229,7 @@
     <ClCompile Include="ssStoneFarRangeScript.cpp" />
     <ClCompile Include="ssStoneNearRangeScript.cpp" />
     <ClCompile Include="ssTitleScene.cpp" />
+    <ClCompile Include="ssTriggerScript.cpp" />
     <ClCompile Include="ssUI.cpp" />
     <ClCompile Include="ssTraceState.cpp" />
     <ClCompile Include="ssWolfScript.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="ssStoneFarRangeScript.h" />
     <ClInclude Include="ssStoneNearRangeScript.h" />
     <ClInclude Include="ssTitleScene.h" />
+    <ClInclude Include="ssTriggerScript.h" />
     <ClInclude Include="ssUI.h" />
     <ClInclude Include="ssTraceState.h" />
     <ClInclude Include="ssWolfScript.h" />

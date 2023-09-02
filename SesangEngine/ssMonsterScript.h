@@ -6,6 +6,7 @@ namespace ss
 
 	enum class eMonsterState
 	{
+		SPAWN,
 		IDLE,
 		MOVE,
 		TRACER,
@@ -22,6 +23,24 @@ namespace ss
 		DEAD,
 		END
 	};
+
+	enum class eWolfBossState
+	{
+		SPAWN,
+		IDLE,
+		APPEAR,
+		DISAPPEAR,
+		BREATH,
+		HOWLING,
+		DASH,
+		STOM_START,
+		STOM_END,
+		HIT,
+		DEAD,
+		END
+	};
+
+
 
 	// hp나 그런거는 state 스크립트 갖다붙이기
 	struct tMonsterInfo
@@ -64,6 +83,9 @@ namespace ss
 
 	protected:
 		tMonsterInfo m_tMonsterInfo;
+		eWolfBossState m_eWolfBossState;
+
+
 		class FSM*			 mFSM;
 
 		class Animator*			mAnimator;
@@ -81,6 +103,9 @@ namespace ss
 
 		eMonsterState			 mCurState;
 		eMonsterState			 mPrevState;
+
+		eWolfBossState			 mCurWolfBossState;
+		eWolfBossState			 mPrevWolfBossState;
 
 		Vector2					mOringinColSize;
 		Vector2					mOringinColCeter;
@@ -117,6 +142,16 @@ namespace ss
 
 		virtual eMonsterState GetPrevState() { return mPrevState; }
 
+	public:
+		virtual void ChangeState(eWolfBossState state)
+		{
+			if (mCurWolfBossState == state)
+				return;
+
+			mCurWolfBossState = state;
+		}
+
+		virtual eWolfBossState GetPrevWolfState() { return mPrevWolfBossState; }
 
 
 

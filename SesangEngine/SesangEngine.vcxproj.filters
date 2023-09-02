@@ -191,6 +191,9 @@
     <ClCompile Include="ssHitGroundScript.cpp">
       <Filter>Contents\Script\UI\hitGround</Filter>
     </ClCompile>
+    <ClCompile Include="ssTriggerScript.cpp">
+      <Filter>Contents\Script\Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -578,6 +581,9 @@
     </ClInclude>
     <ClInclude Include="ssHitGroundScript.h">
       <Filter>Contents\Script\UI\hitGround</Filter>
+    </ClInclude>
+    <ClInclude Include="ssTriggerScript.h">
+      <Filter>Contents\Script\Platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
