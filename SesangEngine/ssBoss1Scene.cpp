@@ -10,6 +10,8 @@
 #include "ssBackground.h"
 #include "ssObject.h"
 #include "ssAnimator.h"
+#include "ssBigWolfScript.h"
+#include "ssMonster.h"
 
 namespace ss
 {
@@ -197,6 +199,26 @@ namespace ss
 		}
 
 
+		// =========== 캐릭터들
+
+
+
+
+		{
+			// 보스
+			Monster* Boss = object::Instantiate<Monster>(eLayerType::Boss, L"B_WolfObj");
+			Boss->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+			Transform* eyetr = Boss->GetComponent<Transform>();
+			//eyetr->SetPosition(Vector3(10.f, 185.f, 500.f));
+			eyetr->SetPosition(Vector3(-20.f, -170.f, 500.f));
+
+			BigWolfScript* wolfScript = Boss->AddComponent<BigWolfScript>();
+			wolfScript->SetFirstPos(eyetr->GetPosition());
+
+
+		}
 
 
 
@@ -295,8 +317,13 @@ namespace ss
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Camera, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(-80.f, -210.f, 980.f));
-			Camera* cameraComp = camera->AddComponent<Camera>();
-			cameraComp->TurnLayerMask(eLayerType::UI, false);
+
+
+			mCamera = camera->AddComponent<Camera>();
+			mCamera->TurnLayerMask(eLayerType::UI, false);
+
+			//CameraScript* camerscript = camera->AddComponent<CameraScript>();
+			//camerscript->SetTarget(player);
 			
 
 		}
@@ -329,6 +356,10 @@ namespace ss
 	}
 	void Boss1Scene::OnEnter()
 	{
+		renderer::mainCamera = mCamera;
+
+
+
 	}
 	void Boss1Scene::OnExit()
 	{

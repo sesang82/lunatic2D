@@ -215,7 +215,7 @@
     <ClCompile Include="ssPlayScene.cpp" />
     <ClCompile Include="ssProgressbar.cpp" />
     <ClCompile Include="ssProjectileScript.cpp" />
-    <ClCompile Include="ssQueenWolfScript.cpp" />
+    <ClCompile Include="ssBigWolfScript.cpp" />
     <ClCompile Include="ssRangeCollider.cpp" />
     <ClCompile Include="ssSkeletonArcherScript.cpp" />
     <ClCompile Include="ssSkeletonLizardScript.cpp" />
@@ -281,7 +281,7 @@
     <ClInclude Include="ssPlayScene.h" />
     <ClInclude Include="ssProgressbar.h" />
     <ClInclude Include="ssProjectileScript.h" />
-    <ClInclude Include="ssQueenWolfScript.h" />
+    <ClInclude Include="ssBigWolfScript.h" />
     <ClInclude Include="ssRangeCollider.h" />
     <ClInclude Include="ssSkeletonArcherScript.h" />
     <ClInclude Include="ssSkeletonLizardScript.h" />

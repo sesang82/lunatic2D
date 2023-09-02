@@ -1844,6 +1844,50 @@ namespace renderer
 			 Resources::Insert(L"Boss_Wolf_Storm2Mtrl", spriteMateiral);
 		 }
 
+		 // ====== hit 包访
+
+		 // 馒瘤 hit
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss_Wolf_LandingHit",
+					 L"..\\Resources\\Texture\\Boss\\Wolf\\wolf_Landing_Hit.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss_Wolf_LandingHitMtrl", spriteMateiral);
+		 }
+
+		 // 器记 hit
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss_Wolf_PoistionHit",
+					 L"..\\Resources\\Texture\\Boss\\Wolf\\positionHIt.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss_Wolf_PoistionHitMtrl", spriteMateiral);
+		 }
+
+
+		 // 傈眉 甘 hit
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss_Wolf_HitFull",
+					 L"..\\Resources\\Texture\\Boss\\Wolf\\wolfHitFull.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss_Wolf_HitFullMtrl", spriteMateiral);
+		 }
 
 
 
@@ -2206,7 +2250,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			//spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"WolfStatueMtrl", spriteMateiral);
 		}

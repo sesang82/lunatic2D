@@ -98,7 +98,7 @@
     <ClCompile Include="ssZombieScript.cpp">
       <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClCompile>
-    <ClCompile Include="ssQueenWolfScript.cpp">
+    <ClCompile Include="ssBigWolfScript.cpp">
       <Filter>Contents\Script\Character\Monster\Boss</Filter>
     </ClCompile>
     <ClCompile Include="ssGoddessScript.cpp">
@@ -483,7 +483,7 @@
     <ClInclude Include="ssZombieScript.h">
       <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClInclude>
-    <ClInclude Include="ssQueenWolfScript.h">
+    <ClInclude Include="ssBigWolfScript.h">
       <Filter>Contents\Script\Character\Monster\Boss</Filter>
     </ClInclude>
     <ClInclude Include="ssGoddessScript.h">
