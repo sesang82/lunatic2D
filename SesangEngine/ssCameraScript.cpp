@@ -29,7 +29,7 @@ namespace ss
 
 		if (SceneManager::GetSceneByName(L"Boss1Scene"))
 		{
-			cameraOffset.leftOffset = 600.0f;
+			cameraOffset.leftOffset = 620.0f;
 			cameraOffset.rightOffset = 645.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
 		}
 	}
