@@ -4,6 +4,14 @@
 
 namespace ss
 {
+
+	struct CameraOffset 
+	{
+		float leftOffset;
+		float rightOffset;
+	};
+
+
 	class player;
 
 	class CameraScript : public Script
@@ -24,6 +32,8 @@ namespace ss
 
 		bool mbFllowMonster;
 		bool mbReturnToPlayer;
+
+		CameraOffset cameraOffset;
 
 
 	public:

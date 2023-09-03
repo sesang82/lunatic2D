@@ -22,6 +22,16 @@ namespace ss
 		someOffset = 75.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 		mbFllowMonster = false;
 		mbReturnToPlayer = false;
+
+		// 카메라의 트랜스폼 얻어옴
+		Camera* cameraComp = GetOwner()->GetComponent<Camera>();
+
+
+		if (SceneManager::GetSceneByName(L"Boss1Scene"))
+		{
+			cameraOffset.leftOffset = 600.0f;
+			cameraOffset.rightOffset = 645.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
+		}
 	}
 
 
@@ -91,8 +101,8 @@ namespace ss
 		float viewWidth = winRect.right - winRect.left;
 		float viewHeight = winRect.bottom - winRect.top;
 
-		float leftLimit = -viewWidth / 2.0f + someOffset;  // someOffset은 원하는 한계값에 따라 조절
-		float rightLimit = viewWidth / 2.0f - someOffset;
+		float leftLimit = -viewWidth / 2.0f + cameraOffset.leftOffset;  // someOffset은 원하는 한계값에 따라 조절
+		float rightLimit = viewWidth / 2.0f - cameraOffset.rightOffset;
 		float topLimit = viewHeight / 2.0f - someOffset;
 		float bottomLimit = -viewHeight / 2.0f + someOffset;
 

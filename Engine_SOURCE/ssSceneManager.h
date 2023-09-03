@@ -34,17 +34,16 @@ namespace ss
 			return true;
 		}
 
-		static std::wstring GetSceneName(Scene* scene)
+
+		static Scene* GetSceneByName(const std::wstring& sceneName)
 		{
-			for (const auto& pair : mScenes)
+			auto it = mScenes.find(sceneName);
+			if (it != mScenes.end())
 			{
-				if (pair.second == scene)
-				{
-					return pair.first;
-				}
+				return it->second; // 씬 포인터 반환
 			}
 
-			return L"";
+			return nullptr; // 해당 이름의 씬이 없으면 nullptr 반환
 		}
 
 
