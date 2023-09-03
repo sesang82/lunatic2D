@@ -19,18 +19,53 @@ namespace ss
 		mCameraHeight = 0;
 		mCameraWidth = 0;
 		mMapSize = Vector2(800.0f, 448.f); // 전체 맵의 절반 크기 
-		someOffset = 75.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 		mbFllowMonster = false;
 		mbReturnToPlayer = false;
 
 		// 카메라의 트랜스폼 얻어옴
 		Camera* cameraComp = GetOwner()->GetComponent<Camera>();
 
+		// else if를 하면 if문과 else if문 중 하나만 실행되기 때문에 if문으로 하기 
+		if (SceneManager::GetSceneByName(L"LibraryScene"))
+		{
+			cameraOffset.leftOffset = 785.0f;
+			cameraOffset.rightOffset = 785.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
+			someOffset = 75.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mPosOffset = 100.f;
+		}
+		
+		if (SceneManager::GetSceneByName(L"EntranceScene"))
+		{
+			cameraOffset.leftOffset = 545.0f;
+			cameraOffset.rightOffset = 584.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
+			someOffset = 660.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mPosOffset = 80.f;
+		}
+		
+
+		if (SceneManager::GetSceneByName(L"EntryScene"))
+		{
+			cameraOffset.leftOffset = 668.0f;
+			cameraOffset.rightOffset = 668.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
+			someOffset = 30.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mPosOffset = 100.f;
+		}
+
+
+		if (SceneManager::GetSceneByName(L"Stage1Scene"))
+		{
+			cameraOffset.leftOffset = 650.0f;
+			cameraOffset.rightOffset = 950.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
+			someOffset = 180.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mPosOffset = 0.f;
+		}
+
 
 		if (SceneManager::GetSceneByName(L"Boss1Scene"))
 		{
-			cameraOffset.leftOffset = 620.0f;
-			cameraOffset.rightOffset = 645.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
+			cameraOffset.leftOffset = 668.0f;
+			cameraOffset.rightOffset = 668.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
+			mPosOffset = 100.f;
 		}
 	}
 
@@ -74,7 +109,7 @@ namespace ss
 
 			if (mTarget->GetName() == L"Player")
 			{
-				Vector3 PlayerPos = Vector3::Lerp(Cam_tr->GetPosition(), Vector3(TargetPos.x, TargetPos.y + 75.f, 990.f), 0.003f);
+				Vector3 PlayerPos = Vector3::Lerp(Cam_tr->GetPosition(), Vector3(TargetPos.x, TargetPos.y + mPosOffset, 990.f), 0.003f);
 				Cam_tr->SetPosition(PlayerPos);
 			}
 

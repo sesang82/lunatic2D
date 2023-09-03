@@ -41,15 +41,11 @@ namespace ss
 			bg->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 0.9f));
 		}
 
-
-		// === 캐릭터 (컷아웃)
-			Player* player = new Player();
-			AddGameObject(eLayerType::Player, player);
-			player->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-			Transform* tr = player->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-20.f, -360.f, 500.f));
-			tr->SetScale(Vector3(57.f, 40.f, 300.f));
-			Vector3 PlayerPos = tr->GetPosition();
+		// 캐릭터
+		Player* player = object::Instantiate<Player>(eLayerType::Player, L"Player");
+		player->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		Transform* tr = player->GetComponent<Transform>();
+		tr->SetPosition(Vector3(-200.f, -362.f, 500.f));
 
 
 
@@ -89,13 +85,13 @@ namespace ss
 		{
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Camera, camera);
-			camera->GetComponent<Transform>()->SetPosition(PlayerPos + Vector3(0.f, 75.f, 980.f));
-			Camera* cameraComp = camera->AddComponent<Camera>();
-			cameraComp->TurnLayerMask(eLayerType::UI, false);
 
-			renderer::mainCamera = cameraComp; // 메인 카메라는 이렇게 꼭 담아두기! 
-			renderer::cameras.push_back(cameraComp);
+			mCamera = camera->AddComponent<Camera>();
+			mCamera->TurnLayerMask(eLayerType::UI, false);
+			mCamera->SetSize(2.3f);
 
+			CameraScript* camerscript = camera->AddComponent<CameraScript>();
+			camerscript->SetTarget(player);
 		}
 
 		//UI Camera
@@ -132,6 +128,7 @@ namespace ss
 	}
 	void EntryScene::OnEnter()
 	{
+		renderer::mainCamera = mCamera;
 	}
 	void EntryScene::OnExit()
 	{

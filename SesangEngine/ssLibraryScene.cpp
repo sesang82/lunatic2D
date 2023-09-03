@@ -274,6 +274,7 @@ namespace ss
 
 			mCamera = camera->AddComponent<Camera>();
 			mCamera->TurnLayerMask(eLayerType::UI, false);
+			mCamera->SetSize(2.3f);
 
 			CameraScript* camerscript= camera->AddComponent<CameraScript>();
 			camerscript->SetTarget(player);

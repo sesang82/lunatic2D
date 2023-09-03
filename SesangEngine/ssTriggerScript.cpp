@@ -120,7 +120,7 @@ namespace ss
 		script->SetTarget(mPlayer);
 
 		Camera* camera = mCamera->GetComponent<Camera>();
-		camera->SetTargetSize(2.5f);
+		camera->SetTargetSize(2.3f);
 		camera->TurnLayerMask(eLayerType::Grid, false); // dead처리가 되는건 맞는데 반영이 안되서 grid에 넣은다음 안비추는걸로 우회함
 
 		GetOwner()->SetState(GameObject::eState::Dead);

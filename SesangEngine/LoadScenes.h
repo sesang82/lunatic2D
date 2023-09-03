@@ -27,7 +27,7 @@ namespace ss
 		SceneManager::CreateScene<TitleScene>(L"TitleScene");
 		SceneManager::CreateScene<LibraryScene>(L"LibraryScene");
 		SceneManager::CreateScene<EntranceScene>(L"EntranceScene");
-		//SceneManager::CreateScene<EntryScene>(L"EntryScene");
+		SceneManager::CreateScene<EntryScene>(L"EntryScene");
 		SceneManager::CreateScene<Stage1Scene>(L"Stage1Scene");
 		SceneManager::CreateScene<Boss1Scene>(L"Boss1Scene");
 		SceneManager::CreateScene<PlayScene>(L"PlayScene");

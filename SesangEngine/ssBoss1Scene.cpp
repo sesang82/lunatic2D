@@ -362,7 +362,7 @@ namespace ss
 
 			mCamera = camera->AddComponent<Camera>();
 			mCamera->TurnLayerMask(eLayerType::UI, false);
-			mCamera->SetSize(2.5f); // 메인카메라만 2.5f로 설정 
+			mCamera->SetSize(2.3f); // 메인카메라만 2.5f로 설정 
 
 			CameraScript* camerscript = camera->AddComponent<CameraScript>();
 			camerscript->SetTarget(mPlayer);

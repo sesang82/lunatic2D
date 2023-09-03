@@ -43,10 +43,10 @@ namespace ss
 		}
 
 		// 캐릭터
-		Player* player = object::Instantiate<Player>(eLayerType::Player, L"player");
+		Player* player = object::Instantiate<Player>(eLayerType::Player, L"Player");
 		player->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 		Transform* tr = player->GetComponent<Transform>();
-		tr->SetPosition(Vector3(-588.f, 0.f, 500.f));
+		tr->SetPosition(Vector3(-588.f, -171.f, 500.f));
 
 
 
@@ -176,7 +176,7 @@ namespace ss
 	void EntranceScene::OnEnter()
 	{
 		renderer::mainCamera = mCamera;
-		mCamera->SetSize(2.f);
+		mCamera->SetSize(2.3f);
 
 
 
