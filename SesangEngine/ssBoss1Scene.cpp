@@ -359,10 +359,11 @@ namespace ss
 			AddGameObject(eLayerType::Camera, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(-80.f, -210.f, 980.f));
 
-
 			mCamera = camera->AddComponent<Camera>();
 			mCamera->TurnLayerMask(eLayerType::UI, false);
 			mCamera->SetSize(2.3f); // 메인카메라만 2.3f로 설정 
+
+			camera->AddComponent<CameraScript>();
 		
 			script->SetCamera(camera); // trigger 스크립트에서 메인 카메라 갖다 쓰기 위해 갖고 옴 
 			
@@ -403,7 +404,7 @@ namespace ss
 		// 메인 카메라로 설정해준다. 
 		renderer::mainCamera = mCamera;
 
-		CameraScript* camerscript = renderer::mainCamera->GetOwner()->AddComponent<CameraScript>();
+		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 		camerscript->SetTarget(mPlayer);
 
 	}

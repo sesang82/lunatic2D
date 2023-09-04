@@ -135,6 +135,8 @@ namespace ss
 			mCamera = camera->AddComponent<Camera>();
 			mCamera->TurnLayerMask(eLayerType::UI, false);
 
+			camera->AddComponent<CameraScript>();
+
 		}
 
 		//UI Camera
@@ -175,7 +177,7 @@ namespace ss
 		renderer::mainCamera = mCamera;
 		mCamera->SetSize(2.3f);
 
-		CameraScript* camerscript = renderer::mainCamera->GetOwner()->AddComponent<CameraScript>();
+		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 		camerscript->SetTarget(mPlayer);
 
 

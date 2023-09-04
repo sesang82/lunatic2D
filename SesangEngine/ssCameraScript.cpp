@@ -34,9 +34,9 @@ namespace ss
 			mPosOffset = 100.f;
 		}
 
-		else if (SceneManager::GetSceneByName(L"EntranceScene"))
+		if (SceneManager::GetSceneByName(L"EntranceScene"))
 		{
-			cameraOffset.leftOffset = 545.0f;			
+			cameraOffset.leftOffset = 540.0f;			
 			cameraOffset.rightOffset = 584.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
 			someOffset = 660.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 			mPosOffset = 80.f;
@@ -61,7 +61,7 @@ namespace ss
 		}
 
 
-		else if (SceneManager::GetSceneByName(L"Boss1Scene"))
+		if (SceneManager::GetSceneByName(L"Boss1Scene"))
 		{
 			cameraOffset.leftOffset = 668.0f;
 			cameraOffset.rightOffset = 668.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 

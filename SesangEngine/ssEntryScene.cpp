@@ -93,7 +93,7 @@ namespace ss
 			mCamera->SetSize(2.3f);
 
 			CameraScript* camerscript = camera->AddComponent<CameraScript>();
-			camerscript->SetTarget(mPlayer);
+		
 
 		}
 
@@ -133,6 +133,8 @@ namespace ss
 	{
 		renderer::mainCamera = mCamera;
 
+		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+		camerscript->SetTarget(mPlayer);
 	
 	}
 	void EntryScene::OnExit()
