@@ -303,16 +303,14 @@ namespace ss
 					ChangeState(ePlayerState::FALL);
 				}
 			
+		}
 
 
-
-			// 플레이어의 위치를 갖고 온다.
-			// 해당 충돌체의 위치를 갖고 온다. (충돌체이기 전에 게임오브젝트) 
-				else if (L"col_startBoss1StageObj" == other->GetOwner()->GetName())
-				{
-					mBossStartColObj->SetState(GameObject::eState::Dead);
-
-				}
+		// 플레이어의 위치를 갖고 온다.
+		// 해당 충돌체의 위치를 갖고 온다. (충돌체이기 전에 게임오브젝트) 
+		else if (L"col_startBoss1StageObj" == other->GetOwner()->GetName())
+		{
+			mBossStartColObj->SetState(GameObject::eState::Dead);
 
 		}
 
