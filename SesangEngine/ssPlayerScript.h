@@ -72,6 +72,7 @@ namespace ss
 
         int   mWeaponCount;
 
+        class Monster* mMonster;
         class Player* mPlayer;
         class Animator* mAnimator;
         class Rigidbody2D* mRigidbody;
@@ -87,6 +88,9 @@ namespace ss
         class AttackCollider*   mGuardColObj;
         class Transform*        mGuardColTr;
         class Collider2D*       mGuardCol;
+
+        // 보스 start 충돌체 
+        class Platform*     mBossStartColObj;
 
 
         // 몬스터 갖고 올 수 잇는 벡터 만들어서 여따가 저장시켜둔다. (스크립트에 써먹기 위함)
@@ -135,6 +139,9 @@ namespace ss
 
         bool IsDash() { return mbDash; }
 
+
+        void SetMonster(Monster* monster) { mMonster = monster; } // 몬스터 정보 가져다 쓸 때 쓸라고 만들어둠 
+        void SetBossStartColObj(Platform* obj) { mBossStartColObj = obj; }
  
 
 

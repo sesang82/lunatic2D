@@ -209,15 +209,7 @@ namespace ss
 		// =========== 캐릭터들
 
 
-		 //캐릭터
-		mPlayer = object::Instantiate<Player>(eLayerType::Player, L"Player");
-		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
-		Transform* Playertr = mPlayer->GetComponent<Transform>();
-		Playertr->SetPosition(Vector3(-450.f, -298.0f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
-
-
-		
 		// 보스
 		mBoss1 = object::Instantiate<Monster>(eLayerType::Boss, L"B_WolfObj");
 		mBoss1->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
@@ -230,6 +222,19 @@ namespace ss
 		BigWolfScript* wolfScript = mBoss1->AddComponent<BigWolfScript>();
 		wolfScript->SetFirstPos(eyetr->GetPosition());
 
+
+		//캐릭터
+		mPlayer = object::Instantiate<Player>(eLayerType::Player, L"Player");
+		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+		Transform* Playertr = mPlayer->GetComponent<Transform>();
+		//Playertr->SetPosition(Vector3(-450.f, -298.0f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
+		Playertr->SetPosition(Vector3(-450.f, -298.0f, 500.f));
+		PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
+		playerScript->SetMonster(mBoss1);
+
+
+		wolfScript->SetPlayer(mPlayer);
 
 		
 
@@ -261,6 +266,23 @@ namespace ss
 			TriggerScript* script = col_Spawn->AddComponent<TriggerScript>();
 			script->SetMonster(mBoss1);
 			script->SetPlayer(mPlayer);
+
+
+
+			// 보스 패턴 시작하는 충돌체 
+
+			Platform* col_startBoss = object::Instantiate<Platform>(eLayerType::Collision, L"col_startBoss1StageObj");
+			col_startBoss->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+			Transform* spawntr = col_startBoss->GetComponent<Transform>();
+			spawntr->SetPosition(Vector3(-200.f, -298.0f, 500.f));
+			spawntr->SetScale(Vector3(20.f, 20.f, 1.f));
+
+			playerScript->SetBossStartColObj(col_startBoss);
+
+		/*	TriggerScript* script = col_Spawn->AddComponent<TriggerScript>();
+			script->SetMonster(mBoss1);
+			script->SetPlayer(mPlayer);*/
 		
 
 	//==== UI

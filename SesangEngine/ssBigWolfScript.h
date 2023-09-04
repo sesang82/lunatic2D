@@ -39,10 +39,10 @@ namespace ss
         Vector3                 mFirstPos;
 
         Vector3					mDir; // 어슬렁거리는 move상태일때만 사용할 거 
-        Vector3					mCurDir;
+        Vector3					mCurDir; // 거리값으로 계산해낸 방향 
 
         Vector3                 mLandingPos; // 플레이어에게 점프해서 착지할 플레이어의 위치
-        Vector2                 mJumpDir; // 점프할 방향
+     
 
         Vector2                 mVelocity; // 점프할때 쓸 속도
 
@@ -56,29 +56,33 @@ namespace ss
         bool                    mbHit;
         bool                    mbJumped; // HitGround 이미지 계속 업데이트 도는거 막기 위한 용도 
 
+
+        class Player*           mPlayer;
+
     public:
         // 함수는 각 하나의 역할만 하게 하기 
         void Spawn();
         void Idle();
-        void Move();
 
-        void Jump();
-        void Fall();
-
-        void Landing();
-
-        void Stun();
         void Hit();
 
-        void NearAttack();
-        void FarAttack();
+        void Appear();
+        void Disappear();
+
+        void Breath();
+        void Howling();
+
+        void Dash();
+
+        void Stom_start();
+        void Stom_end();
+
 
         void Dead();
 
         void Animation();
 
-        void FarAttackEnd();
-        void StunEnd();
+
 
 
     public:
@@ -89,12 +93,7 @@ namespace ss
         Vector3 GetCurDir() { return mCurDir; }
         eMonsterState GetCurState() { return mCurState; }
 
-        // 각 범위 인식용 충돌체에 이 함수 활용하기 
-        void IsNearAttack(bool b) { mbNearAttack = b; }
-        void IsFarAttack(bool b) { mbFarAttack = b; }
-
-        void SetJumped(bool _b) { mbJumped = _b; }
-        bool IsJumped() { return mbJumped; }
+        void SetPlayer(Player* player) { mPlayer = player; }
 
     };
 

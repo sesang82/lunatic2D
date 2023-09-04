@@ -50,6 +50,7 @@ namespace ss
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Boss, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Collision, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Etc, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Mon_Bullet, true);

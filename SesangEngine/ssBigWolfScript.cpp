@@ -117,8 +117,12 @@ namespace ss
 
 		// ======
 	// 애니메이션 방향에 관한 기준	을 잡아준다.
+
+
 		mDir = -mTransform->Right();
-		mCurDir = -mTransform->Right();
+
+
+
 		// 몬스터의 초기 상태는 부여해주지 않는다. (보스만) 
 		
 
@@ -143,9 +147,19 @@ namespace ss
 
 		// ==== 메쉬 렌덛
 		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
 	}
 	void BigWolfScript::Update()
 	{
+
+		Vector3 MonsterPos = mTransform->GetPosition();
+		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+
+		mCurDir = (PlayerPos - MonsterPos);
+		mCurDir.Normalize();
+		mCurDir = Vector3(mCurDir.x, mCurDir.y, 0.f); 
+
+
 		// 이동->상태변환->애니메이션
 
 		switch (mCurWolfBossState)
@@ -162,10 +176,40 @@ namespace ss
 			Hit();
 			break;
 
+		case ss::eWolfBossState::APPEAR:
+			Appear();
+			break;
+
+		case ss::eWolfBossState::DISAPPEAR:
+			Disappear();
+			break;
+
+		case ss::eWolfBossState::BREATH:
+			Breath();
+			break;
+
+		case ss::eWolfBossState::HOWLING:
+			Howling();
+			break;
 	
+		case ss::eWolfBossState::DASH:
+			Dash();
+			break;
+
+		case ss::eWolfBossState::STOM_START:
+			Stom_start();
+			break;
+
+		case ss::eWolfBossState::STOM_END:
+			Stom_end();
+			break;
+
+		case ss::eWolfBossState::DEAD:
+			Dead();
+			break;
+
 		}
 
-		Animation();
 
 
 
@@ -194,7 +238,7 @@ namespace ss
 		mbFarAttacking = false;
 		mbHit = false;
 
-		if (mCurDir.x > 0)
+		if (mDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", true);
 		}
@@ -205,40 +249,46 @@ namespace ss
 		}
 
 	}
-	void BigWolfScript::Move()
-	{
-	}
-	void BigWolfScript::Jump()
-	{
-	}
-	void BigWolfScript::Fall()
-	{
-	}
-	void BigWolfScript::Landing()
-	{
-	}
-	void BigWolfScript::Stun()
-	{
-	}
+
 	void BigWolfScript::Hit()
 	{
 	}
-	void BigWolfScript::NearAttack()
+	void BigWolfScript::Appear()
 	{
 	}
-	void BigWolfScript::FarAttack()
+	void BigWolfScript::Disappear()
 	{
 	}
+	void BigWolfScript::Breath()
+	{
+	}
+	void BigWolfScript::Howling()
+	{
+	}
+	void BigWolfScript::Dash()
+	{
+	}
+	void BigWolfScript::Stom_start()
+	{
+		if (mCurDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_StormStartR", true);
+		}
+
+		else
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_StormStartL", true);
+		}
+	}
+	void BigWolfScript::Stom_end()
+	{
+	}
+
 	void BigWolfScript::Dead()
 	{
 	}
 	void BigWolfScript::Animation()
 	{
 	}
-	void BigWolfScript::FarAttackEnd()
-	{
-	}
-	void BigWolfScript::StunEnd()
-	{
-	}
+
 }

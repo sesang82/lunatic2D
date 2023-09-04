@@ -17,6 +17,8 @@
 #include "ssPlayerGuardColScript.h"
 #include "ssMeshRenderer.h"
 #include "ssSceneManager.h"
+#include "ssMonster.h"
+#include "ssBigWolfScript.h"
 
 
 
@@ -104,6 +106,7 @@ namespace ss
 	void PlayerScript::Update()
 	{
 
+		Vector3 pos = mTransform->GetPosition();
 	
 			mWeaponType = SceneManager::GetWeaponInfo();
 			mbChange = false;
@@ -213,7 +216,12 @@ namespace ss
 			SceneManager::LoadScene(L"Stage1Scene");
 		}
 
-
+		else if (L"col_startBoss1StageObj" == other->GetOwner()->GetName())
+		{
+			// storm 시작으로 상태 바꾸기 
+			mMonster->GetComponent<BigWolfScript>()->ChangeState(eWolfBossState::STOM_START);
+	
+		}
 
 
 	}
@@ -300,7 +308,11 @@ namespace ss
 
 			// 플레이어의 위치를 갖고 온다.
 			// 해당 충돌체의 위치를 갖고 온다. (충돌체이기 전에 게임오브젝트) 
+				else if (L"col_startBoss1StageObj" == other->GetOwner()->GetName())
+				{
+					mBossStartColObj->SetState(GameObject::eState::Dead);
 
+				}
 
 		}
 
