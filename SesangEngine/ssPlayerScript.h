@@ -44,10 +44,6 @@ namespace ss
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
 
-        virtual void OnCollisionEnter(Collider2D* in, Collider2D* other) override;
-        virtual void OnCollisionStay(Collider2D* in, Collider2D* other)  override;
-        virtual void OnCollisionExit(Collider2D* in, Collider2D* other)  override;
-
         //virtual void OnTriggerEnter(Collider2D* collider) {};
         //virtual void OnTriggerStay(Collider2D* collider) {};
         //virtual void OnTriggerExit(Collider2D* collider) {};

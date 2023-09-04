@@ -316,19 +316,6 @@ namespace ss
 
 	}
 
-	void PlayerScript::OnCollisionEnter(Collider2D* in, Collider2D* other)
-	{
-
-
-	}
-
-	void PlayerScript::OnCollisionStay(Collider2D* in, Collider2D* other)
-	{
-	}
-
-	void PlayerScript::OnCollisionExit(Collider2D* in, Collider2D* other)
-	{
-	}
 
 
 	void PlayerScript::Idle()

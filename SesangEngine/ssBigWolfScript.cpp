@@ -272,13 +272,42 @@ namespace ss
 	{
 		if (mCurDir.x > 0)
 		{
-			mAnimator->PlayAnimation(L"Boss_Wolf_StormStartR", true);
+			mAnimator->PlayAnimation(L"Boss_Wolf_StormStartR", false);
 		}
 
 		else
 		{
-			mAnimator->PlayAnimation(L"Boss_Wolf_StormStartL", true);
+			mAnimator->PlayAnimation(L"Boss_Wolf_StormStartL", false);
 		}
+
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			Stoming();
+		}
+
+
+	}
+	void BigWolfScript::Stoming()
+	{
+
+		// 몇 초동안 플레이어의 위치를 실시간으로 따라다니다가 착지한다. 
+		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+
+		if (nullptr == mHitGround)
+		{
+			mHitGround = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"StomingHitGroundObj");
+			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
+			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
+		}
+		else
+		{
+			// mHitGround가 null이 아니면, 객체의 위치만 업데이트
+			mHitGround->GetComponent<Transform>()->SetPosition(PlayerPos);
+		}
+
+
+
+
 	}
 	void BigWolfScript::Stom_end()
 	{

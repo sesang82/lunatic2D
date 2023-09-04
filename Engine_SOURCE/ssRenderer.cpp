@@ -1850,12 +1850,13 @@ namespace renderer
 		 {
 			 std::shared_ptr<Texture> texture
 				 = Resources::Load<Texture>(L"Boss_Wolf_LandingHit",
-					 L"..\\Resources\\Texture\\Boss\\Wolf\\wolf_Landing_Hit.png");
+					 L"..\\Resources\\Texture\\Boss\\wolf_Landing_Hit.png");
 
 			 // === Material 积己
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetShader(spriteShader);
 			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			 Resources::Insert(L"Boss_Wolf_LandingHitMtrl", spriteMateiral);
 		 }
@@ -1864,12 +1865,13 @@ namespace renderer
 		 {
 			 std::shared_ptr<Texture> texture
 				 = Resources::Load<Texture>(L"Boss_Wolf_PoistionHit",
-					 L"..\\Resources\\Texture\\Boss\\Wolf\\positionHIt.png");
+					 L"..\\Resources\\Texture\\Boss\\positionHIt.png");
 
 			 // === Material 积己
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetShader(spriteShader);
 			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			 Resources::Insert(L"Boss_Wolf_PoistionHitMtrl", spriteMateiral);
 		 }
@@ -1879,12 +1881,13 @@ namespace renderer
 		 {
 			 std::shared_ptr<Texture> texture
 				 = Resources::Load<Texture>(L"Boss_Wolf_HitFull",
-					 L"..\\Resources\\Texture\\Boss\\Wolf\\wolfHitFull.png");
+					 L"..\\Resources\\Texture\\Boss\\wolfHitFull.png");
 
 			 // === Material 积己
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetShader(spriteShader);
 			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			 Resources::Insert(L"Boss_Wolf_HitFullMtrl", spriteMateiral);
 		 }
@@ -2222,7 +2225,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			//spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			Resources::Insert(L"Boss1TileMtrl", spriteMateiral);
 		}
@@ -2234,9 +2237,8 @@ namespace renderer
 
 			// == Material 积己(困俊辑 父电 shader客 texture甫 捞侩)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
-			//spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"wolfFireMtrl", spriteMateiral);
 		}

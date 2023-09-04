@@ -33,9 +33,6 @@ namespace ss
         class Collider2D* mNearCol;
 
 
-        // ==== 이펙트
-        class Effect* mHitGround;
-
         Vector3                 mFirstPos;
 
         Vector3					mDir; // 어슬렁거리는 move상태일때만 사용할 거 
@@ -59,6 +56,9 @@ namespace ss
 
         class Player*           mPlayer;
 
+        // ==== 이펙트
+        class Effect* mHitGround;
+
     public:
         // 함수는 각 하나의 역할만 하게 하기 
         void Spawn();
@@ -75,6 +75,7 @@ namespace ss
         void Dash();
 
         void Stom_start();
+        void Stoming();
         void Stom_end();
 
 

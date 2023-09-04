@@ -31,6 +31,13 @@ namespace ss
 			tr->SetScale(Vector3(34.f, 39.f, 0.f));
 		}
 
+		else if (GetOwner()->GetName() == L"StomingHitGroundObj")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"Boss_Wolf_LandingHitMtrl"));
+			tr->SetScale(Vector3(208.f, 702.f, 0.f));
+	
+		}
+
 	}
 	void HitGroundScript::Update()
 	{
