@@ -11,6 +11,8 @@
 #include "ssRenderer.h"
 #include "ssBackground.h"
 #include "ssObject.h"
+#include "ssCameraScript.h"
+
 
 namespace ss
 {
@@ -42,9 +44,9 @@ namespace ss
 		}
 
 		// 캐릭터
-		Player* player = object::Instantiate<Player>(eLayerType::Player, L"Player");
-		player->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-		Transform* tr = player->GetComponent<Transform>();
+		mPlayer  = object::Instantiate<Player>(eLayerType::Player, L"Player");
+		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		Transform* tr = mPlayer->GetComponent<Transform>();
 		tr->SetPosition(Vector3(-200.f, -362.f, 500.f));
 
 
@@ -91,7 +93,8 @@ namespace ss
 			mCamera->SetSize(2.3f);
 
 			CameraScript* camerscript = camera->AddComponent<CameraScript>();
-			camerscript->SetTarget(player);
+			camerscript->SetTarget(mPlayer);
+
 		}
 
 		//UI Camera
@@ -129,6 +132,8 @@ namespace ss
 	void EntryScene::OnEnter()
 	{
 		renderer::mainCamera = mCamera;
+
+	
 	}
 	void EntryScene::OnExit()
 	{

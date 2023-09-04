@@ -106,9 +106,9 @@ namespace ss
 		}
 		
 		// 캐릭터
-		Player* player = object::Instantiate<Player>(eLayerType::Player, L"Player");
-		player->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-		Transform* tr = player->GetComponent<Transform>();
+		mPlayer = object::Instantiate<Player>(eLayerType::Player, L"Player");
+		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		Transform* tr = mPlayer->GetComponent<Transform>();
 		tr->SetPosition(Vector3(50.f, -236.f, 550.f));
 //		
 	
@@ -269,15 +269,15 @@ namespace ss
 
 		 // 메인 카메라 생성 (반드시 씬마다 각기 다른 메인 카메라가 하나씩 있어야함!) 
 		{
-			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Camera, camera);
+			mCameraObj = new GameObject();
+			AddGameObject(eLayerType::Camera, mCameraObj);
 
-			mCamera = camera->AddComponent<Camera>();
+			mCamera = mCameraObj->AddComponent<Camera>();
 			mCamera->TurnLayerMask(eLayerType::UI, false);
 			mCamera->SetSize(2.3f);
 
-			CameraScript* camerscript= camera->AddComponent<CameraScript>();
-			camerscript->SetTarget(player);
+			CameraScript* camerscript = mCameraObj->AddComponent<CameraScript>();
+
 		}
 
 
@@ -314,10 +314,9 @@ namespace ss
 	{
 		renderer::mainCamera = mCamera;
 
-		/*LibraryScene::Initialize();
-
+	
 		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
-		camerscript->SetTarget(this->mPlayer);*/
+		camerscript->SetTarget(mPlayer);
 	}
 	void LibraryScene::OnExit()
 	{

@@ -20,6 +20,9 @@ namespace ss
 		virtual void OnExit() override;
 
 	private:
-		Camera* mCamera;
+		Camera* mCameraComp;
+
+		Player* mPlayer;
+		GameObject* mCameraObj;
     };
 }

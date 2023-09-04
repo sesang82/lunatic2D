@@ -136,10 +136,10 @@ namespace ss
 
 
 		 //캐릭터
-		Player* player = object::Instantiate<Player>(eLayerType::Player, L"Player");
-		player->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		mPlayer = object::Instantiate<Player>(eLayerType::Player, L"Player");
+		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
-		Transform* Playertr = player->GetComponent<Transform>();
+		Transform* Playertr = mPlayer->GetComponent<Transform>();
 		Playertr->SetPosition(Vector3(-400.f, -366.0f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
 
 		{
@@ -499,7 +499,7 @@ namespace ss
 			mCamera->TurnLayerMask(eLayerType::UI, false);
 
 			CameraScript* camerscript = camera->AddComponent<CameraScript>();
-			camerscript->SetTarget(player);
+
 		}
 
 		//UI Camera
@@ -539,8 +539,10 @@ namespace ss
 	void Stage1Scene::OnEnter()
 	{
 		renderer::mainCamera = mCamera;
-		mCamera->SetSize(2.5f);
+		mCamera->SetSize(2.3f);
 
+		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+		camerscript->SetTarget(mPlayer);
 	}
 	void Stage1Scene::OnExit()
 	{

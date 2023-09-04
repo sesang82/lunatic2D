@@ -21,6 +21,7 @@ namespace ss
 
 	private:
 		Camera* mCamera;
+		Player* mPlayer;
 
     };
 }

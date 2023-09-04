@@ -33,15 +33,15 @@ namespace ss
 			someOffset = 75.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 			mPosOffset = 100.f;
 		}
-		
-		if (SceneManager::GetSceneByName(L"EntranceScene"))
+
+		else if (SceneManager::GetSceneByName(L"EntranceScene"))
 		{
-			cameraOffset.leftOffset = 545.0f;
+			cameraOffset.leftOffset = 545.0f;			
 			cameraOffset.rightOffset = 584.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
 			someOffset = 660.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 			mPosOffset = 80.f;
 		}
-		
+
 
 		if (SceneManager::GetSceneByName(L"EntryScene"))
 		{
@@ -54,19 +54,24 @@ namespace ss
 
 		if (SceneManager::GetSceneByName(L"Stage1Scene"))
 		{
-			cameraOffset.leftOffset = 650.0f;
-			cameraOffset.rightOffset = 950.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
+			cameraOffset.leftOffset = 670.0f;
+			cameraOffset.rightOffset = 840.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
 			someOffset = 180.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 			mPosOffset = 0.f;
 		}
 
 
-		if (SceneManager::GetSceneByName(L"Boss1Scene"))
+		else if (SceneManager::GetSceneByName(L"Boss1Scene"))
 		{
 			cameraOffset.leftOffset = 668.0f;
 			cameraOffset.rightOffset = 668.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
 			mPosOffset = 100.f;
 		}
+
+		 float what = cameraOffset.leftOffset;
+		 float what2 = cameraOffset.rightOffset;
+
+	
 	}
 
 
@@ -82,7 +87,7 @@ namespace ss
 
 		//mCameraWidth = mCameraHeight * 1600 / 896;
 
-
+		
 
 		// 플레이어의 트랜스폼 얻어옴
 		if (mTarget)
