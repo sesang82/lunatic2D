@@ -51,7 +51,7 @@ namespace ss
         bool                    mbFarAttacking;
 
         bool                    mbHit;
-        bool                    mbJumped; // HitGround 이미지 계속 업데이트 도는거 막기 위한 용도 
+        bool                    mbStomStart; // 애니메이션 계속 호출되는거 막기 위해서 해둠
 
 
         class Player*           mPlayer;

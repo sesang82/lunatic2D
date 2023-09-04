@@ -19,6 +19,7 @@
 namespace ss
 {
 	BigWolfScript::BigWolfScript()
+		: mbStomStart(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -234,7 +235,7 @@ namespace ss
 	}
 	void BigWolfScript::Idle()
 	{
-		mbNearAttacking = false;
+		mbStomStart = false;
 		mbFarAttacking = false;
 		mbHit = false;
 
@@ -270,25 +271,32 @@ namespace ss
 	}
 	void BigWolfScript::Stom_start()
 	{
-		if (mCurDir.x > 0)
+		if (!mbStomStart)
 		{
-			mAnimator->PlayAnimation(L"Boss_Wolf_StormStartR", false);
+			if (mCurDir.x > 0)
+			{
+				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartR", false);
+			}
+
+			else
+			{
+				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartL", false);
+			}
+
 		}
 
-		else
-		{
-			mAnimator->PlayAnimation(L"Boss_Wolf_StormStartL", false);
-		}
+			if (mAnimator->GetCurActiveAnimation()->IsComplete())
+			{
+				Stoming();
+			}
 
-		if (mAnimator->GetCurActiveAnimation()->IsComplete())
-		{
-			Stoming();
-		}
+		
 
 
 	}
 	void BigWolfScript::Stoming()
 	{
+		mbStomStart = true;
 
 		// 몇 초동안 플레이어의 위치를 실시간으로 따라다니다가 착지한다. 
 		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
