@@ -3,7 +3,7 @@
 #include "ssMesh.h"
 #include "ssMeshRenderer.h"
 #include "ssAnimator.h"
-#include "ssStoneEyeScript.h"
+#include "ssBigWolfScript.h"
 
 namespace ss
 {
@@ -49,6 +49,21 @@ namespace ss
 	void Effect::Update()
 	{
 	
+		if (mEffectOwner->GetName() == L"B_WolfObj")
+		{
+			Animator* anim = mEffectOwner->GetComponent<Animator>();
+
+
+			if (anim->GetCurActiveAnim() == L"Boss_Wolf_StormLandingR"
+				|| anim->GetCurActiveAnim() == L"Boss_Wolf_StormLandingL")
+			{
+				if(anim->GetCurActiveAnimation()->GetIndex() == 1)
+				SetState(GameObject::eState::Dead);
+			}
+
+		}
+
+
 		GameObject::Update();
 	}	
 

@@ -35,10 +35,11 @@ namespace ss
 
         Vector3                 mFirstPos;
 
+
         Vector3					mDir; // 어슬렁거리는 move상태일때만 사용할 거 
         Vector3					mCurDir; // 거리값으로 계산해낸 방향 
 
-        Vector3                 mLandingPos; // 플레이어에게 점프해서 착지할 플레이어의 위치
+        Vector3                 mLandingPos; // 플레이어에게 착지할 플레이어의 위치
      
 
         Vector2                 mVelocity; // 점프할때 쓸 속도
@@ -51,7 +52,10 @@ namespace ss
         bool                    mbFarAttacking;
 
         bool                    mbHit;
+
         bool                    mbStomStart; // 애니메이션 계속 호출되는거 막기 위해서 해둠
+        bool                    mbStomEnd;
+
 
 
         class Player*           mPlayer;

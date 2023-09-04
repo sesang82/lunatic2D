@@ -20,6 +20,8 @@ namespace ss
 {
 	BigWolfScript::BigWolfScript()
 		: mbStomStart(false)
+		, mbStomEnd(false)
+		, mLandingPos(Vector3::Zero)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -236,17 +238,21 @@ namespace ss
 	void BigWolfScript::Idle()
 	{
 		mbStomStart = false;
-		mbFarAttacking = false;
+		mbStomEnd = false;
+
+
 		mbHit = false;
 
-		if (mDir.x > 0)
+		if (mCurDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", true);
+			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
 		}
 
 		else
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_IdleL", true);
+			mDir = Vector3(-1.f, 0.f, 0.f);
 		}
 
 	}
@@ -271,19 +277,18 @@ namespace ss
 	}
 	void BigWolfScript::Stom_start()
 	{
-		if (!mbStomStart)
-		{
-			if (mCurDir.x > 0)
+
+			if (mCurDir.x > 0 && !mbStomStart)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartR", false);
 			}
 
-			else
+			else if (mCurDir.x < 0 && !mbStomStart)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartL", false);
 			}
 
-		}
+	
 
 			if (mAnimator->GetCurActiveAnimation()->IsComplete())
 			{
@@ -296,29 +301,70 @@ namespace ss
 	}
 	void BigWolfScript::Stoming()
 	{
-		mbStomStart = true;
+		mbStomStart = true; // stom 애니메이션이 방향 바뀌면 계속 재생되는거 방지 
+
 
 		// 몇 초동안 플레이어의 위치를 실시간으로 따라다니다가 착지한다. 
-		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+		Vector3 playerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
 		if (nullptr == mHitGround)
 		{
-			mHitGround = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"StomingHitGroundObj");
+			mHitGround = object::Instantiate<Effect>(playerPos, eLayerType::Effect, L"StomingHitGroundObj");
 			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
 			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
 		}
-		else
+
+		mHitGround->SetEffectOwner(mTransform->GetOwner());
+
+		// 3초가 지나면 상태를 바꾼다. 
+		m_fTime += Time::DeltaTime();
+
+		// mHitGround가 null이 아니면, 객체의 위치만 실시간 업데이트
+		if (m_fTime < 3.f)
 		{
-			// mHitGround가 null이 아니면, 객체의 위치만 업데이트
-			mHitGround->GetComponent<Transform>()->SetPosition(PlayerPos);
+			mHitGround->GetComponent<Transform>()->SetPosition(playerPos);
+			mLandingPos = playerPos; // 마지막 값만 저장해둔다. 
 		}
 
 
+		else if (m_fTime > 3.5f)
+		{
+			//mHitGround->SetState(GameObject::eState::Dead);
+			ChangeState(eWolfBossState::STOM_END);
 
+			m_fTime = 0.f; // 3초 되고나서 안에서 초기화버리면 여기 if문에 못 오므로 이렇게 해준다. 
+
+		}
 
 	}
 	void BigWolfScript::Stom_end()
 	{
+	
+		if (mCurDir.x > 0 && !mbStomEnd)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_StormLandingR", false);
+			
+		}
+
+		else if (mCurDir.x < 0 && !mbStomEnd)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_StormLandingL", false);
+		}
+
+		mbStomEnd = true;
+		mTransform->SetPosition(Vector3(mLandingPos.x, -183.f, 500.f)); // 나머지는 보스 위치 그대로 가져다 씀 
+		
+		
+
+
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eWolfBossState::IDLE);
+		}
+	
+
+
+
 	}
 
 	void BigWolfScript::Dead()

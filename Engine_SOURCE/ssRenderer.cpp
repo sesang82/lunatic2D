@@ -2272,7 +2272,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			Resources::Insert(L"LetterBoxUpMtrl", spriteMateiral);
 
@@ -2288,7 +2288,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			Resources::Insert(L"LetterBoxBottomMtrl", spriteMateiral);
 
@@ -2304,7 +2304,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			Resources::Insert(L"Boss1NameMtrl", spriteMateiral);
 
