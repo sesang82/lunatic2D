@@ -58,6 +58,8 @@ namespace ss
         bool                    mbStomEnd;
 
         bool                    mbIdle;
+        bool                    mbAppear;
+        bool                    mbDisappear;
 
 
 
