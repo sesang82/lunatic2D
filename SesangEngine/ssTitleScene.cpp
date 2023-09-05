@@ -42,7 +42,7 @@ void ss::TitleScene::Initialize()
 		AddGameObject(eLayerType::Camera, camera);
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		cameraComp->SetSize(1.f);
+		cameraComp->SetTargetSize(1.f);
 
 		CameraScript* camerscript = camera->AddComponent<CameraScript>();
 	}

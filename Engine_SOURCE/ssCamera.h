@@ -75,9 +75,10 @@ namespace ss
 		Matrix& GetViewMatrix() { return mView; }
 		Matrix& GetProjectionMatrix() { return mProjection; }
 
-		// 
+		// 한 씬에서 고정적으로 1개의 사이즈를 사용할 때만 사용
 		void SetSize(float size) { mSize = size; }
 
+		// 한 씬에서 카메라 사이즈를 확대나 축소할 때 부드러운 움직임을 위해선 아래 함수 사용할 것
 		void SetTargetSize(float newSize)
 		{
 			mTargetSize = newSize;

@@ -15,6 +15,7 @@
 #include "ssMeshRenderer.h"
 #include "ssHitGroundScript.h"
 #include "ssMonster.h"
+#include "ssRenderer.h"
 
 namespace ss
 {
@@ -304,6 +305,7 @@ namespace ss
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
+			renderer::mainCamera->SetTargetSize(1.6f);
 			ChangeState(eWolfBossState::DASH);
 		}
 
@@ -353,6 +355,37 @@ namespace ss
 			mDir = Vector3(-1.f, 0.f, 0.f);
 
 		}
+
+
+	
+
+		Vector3 BossPos = mTransform->GetPosition();
+
+		// ||·Î ¹­¾îµµ Àß È£ÃâµÊ 
+		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 7
+			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
+		{
+			float fSpeed = 2800.f; 
+
+			if (mDir.x > 0 && BossPos.x > -310) // ¿À¸¥ÂÊ ³¡¿¡ µµ´ÞÇÏ¸é ¸ØÃã
+			{
+				mRigidbody->SetVelocity(Vector2(-fSpeed, 0));
+			}
+
+			else if (mDir.x < 0 && BossPos.x < 320) // ¿ÞÂÊ ³¡¿¡ µµ´ÞÇÏ¸é ¸ØÃã)
+			{
+				mRigidbody->AddForce(Vector2(-fSpeed, 0));
+			}
+		}
+
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+		{
+			mRigidbody->SetVelocity(Vector2(0, 0));
+		}
+
+		mTransform->SetPosition(BossPos);
+
+
 
 
 	}

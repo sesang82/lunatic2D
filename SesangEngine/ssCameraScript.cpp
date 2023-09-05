@@ -141,6 +141,13 @@ namespace ss
 		float viewWidth = winRect.right - winRect.left;
 		float viewHeight = winRect.bottom - winRect.top;
 
+			if (SceneManager::GetSceneByName(L"Boss1Scene") && renderer::mainCamera->GetSize() == 1.6f)
+		{
+			cameraOffset.leftOffset = 820.0f;
+			cameraOffset.rightOffset = 780.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
+			mPosOffset = 170.f;
+		}
+
 		float leftLimit = -viewWidth / 2.0f + cameraOffset.leftOffset;  // someOffset은 원하는 한계값에 따라 조절
 		float rightLimit = viewWidth / 2.0f - cameraOffset.rightOffset;
 		float topLimit = viewHeight / 2.0f - someOffset;
