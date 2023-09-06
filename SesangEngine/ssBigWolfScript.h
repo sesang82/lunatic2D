@@ -66,6 +66,8 @@ namespace ss
         bool                    mbBreathStart;
         bool                    mbBreating;
 
+        bool                    mbStoming;
+
 
 
         class Player*           mPlayer;
@@ -113,6 +115,9 @@ namespace ss
         eMonsterState GetCurState() { return mCurState; }
 
         void SetPlayer(Player* player) { mPlayer = player; }
+
+        void SetStoming(bool stom) { mbStoming = stom; }
+        bool IsStoming() { return mbStoming; }
 
     };
 

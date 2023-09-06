@@ -8,6 +8,7 @@
 #include "ssWoodGolemScript.h"
 #include "ssWolfScript.h"
 #include "ssZombieScript.h"
+#include "ssBigWolfScript.h"
 
 namespace ss
 {
@@ -90,7 +91,21 @@ namespace ss
 
 		}
 
+		else if (GetOwner()->GetName() == L"StomingHitGroundObj")
+		{
+			BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
+			bool stoming = script->IsStoming();
 
+			eWolfBossState state = script->GetCurWolfState();
+
+
+			if (stoming && script->GetCurWolfState() == eWolfBossState::STOM_END)
+			{
+				script->SetStoming(false);
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+
+		}
 
 	}
 	void HitGroundScript::OnCollisionEnter(Collider2D* other)

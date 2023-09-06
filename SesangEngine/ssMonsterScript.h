@@ -155,6 +155,7 @@ namespace ss
 		}
 
 		virtual eWolfBossState GetPrevWolfState() { return mPrevWolfBossState; }
+		virtual eWolfBossState GetCurWolfState() { return mCurWolfBossState; }
 
 
 

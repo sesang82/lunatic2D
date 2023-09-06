@@ -29,6 +29,7 @@ namespace ss
 		, mbDash(false)
 		, mbBreathStart(false)
 		, mbBreating(false)
+		, mbStoming(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -321,6 +322,7 @@ namespace ss
 			if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f)
 			{
 				ChangeState(eWolfBossState::DISAPPEAR);
+				mPrevWolfBossState = eWolfBossState::IDLE;
 				mbIdle = false;
 				m_fTime = 0.f;
 
@@ -331,6 +333,9 @@ namespace ss
 				if (m_fTime > 1.f)
 				{
 					ChangeState(eWolfBossState::BREATH_START);
+					mPrevWolfBossState = eWolfBossState::IDLE;
+
+					mbIdle = false;
 					m_fTime = 0.f;
 				}
 			}
@@ -369,6 +374,7 @@ namespace ss
 		{
 			renderer::mainCamera->SetTargetSize(1.6f);
 			ChangeState(eWolfBossState::DASH);
+			mPrevWolfBossState = eWolfBossState::APPEAR;
 			mbAppear = false;
 		}
 
@@ -397,6 +403,7 @@ namespace ss
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			ChangeState(eWolfBossState::APPEAR); 
+			mPrevWolfBossState = eWolfBossState::DISAPPEAR;
 			mbDisappear = false;
 		}
 
@@ -426,6 +433,7 @@ namespace ss
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			ChangeState(eWolfBossState::BREATHING);
+			mPrevWolfBossState = eWolfBossState::BREATH_START;
 			mbBreathStart = false;
 		}		
 
@@ -460,6 +468,7 @@ namespace ss
 		{
 			mbBreating = false; 
 			ChangeState(eWolfBossState::BREATH_END);
+			mPrevWolfBossState = eWolfBossState::BREATHING;
 			m_fTime = 0.f;
 
 		}
@@ -484,25 +493,27 @@ namespace ss
 	void BigWolfScript::Breath_end()
 	{
 
-		//if (mDir.x > 0)
-		//{
-		//	mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackEndR", false);
-		//	mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+		if (mDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackEndL", false);
+			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
 
-		//}
+		}
 
-		//else if (mDir.x < 0)
-		//{
-		//	mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackEndL", false);
-		//	mDir = Vector3(-1.f, 0.f, 0.f);
+		else if (mDir.x < 0)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackEndR", false);
+			mDir = Vector3(-1.f, 0.f, 0.f);
 
-		//}
+		}
 
-		//if (mAnimator->GetCurActiveAnimation()->IsComplete())
-		//{
-		//	mbBreating = false;
-		//	Stom_start();
-		//}
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eWolfBossState::STOM_START);
+			mPrevWolfBossState = eWolfBossState::BREATH_END;
+			mbBreating = false;
+			
+		}
 
 
 	}
@@ -565,11 +576,12 @@ namespace ss
 
 		mTransform->SetPosition(BossPos);
 
-		mPrevWolfBossState = eWolfBossState::DASH;
+	
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			ChangeState(eWolfBossState::IDLE);
+			mPrevWolfBossState = eWolfBossState::DASH;
 			mbDash = false;
 
 		}
@@ -586,7 +598,25 @@ namespace ss
 
 	void BigWolfScript::Stom_start()
 	{
-		if (mCurDir.x > 0 && !mbStomStart)
+
+		if (mPrevWolfBossState == eWolfBossState::BREATH_END)
+		{
+			if (mDir.x > 0 && !mbStomStart)
+			{
+				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartL", false);
+				mbStomStart = true;
+			}
+
+			else if (mDir.x < 0 && !mbStomStart)
+			{
+				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartR", false);
+				mbStomStart = true;
+			}
+		}
+
+		else
+		{
+			if (mCurDir.x > 0 && !mbStomStart)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartR", false);
 				mbStomStart = true;
@@ -598,10 +628,12 @@ namespace ss
 				mbStomStart = true;
 			}
 
+		}
 
 			if (mAnimator->GetCurActiveAnimation()->IsComplete())
 			{
 				ChangeState(eWolfBossState::STOMING);
+				mPrevWolfBossState = eWolfBossState::STOM_START;
 				mbStomStart = false;
 				
 			}
@@ -614,11 +646,12 @@ namespace ss
 		// 몇 초동안 플레이어의 위치를 실시간으로 따라다니다가 착지한다. 
 		Vector3 playerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
-		if (nullptr == mHitGround)
+		if (!mbStoming)
 		{
 			mHitGround = object::Instantiate<Effect>(playerPos, eLayerType::Effect, L"StomingHitGroundObj");
 			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
 			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
+			mbStoming = true;
 		}
 
 		mHitGround->SetEffectOwner(mTransform->GetOwner());
@@ -639,6 +672,7 @@ namespace ss
 		{
 			//mHitGround->SetState(GameObject::eState::Dead);
 			ChangeState(eWolfBossState::STOM_END);
+			mPrevWolfBossState = eWolfBossState::STOMING;
 
 			m_fTime = 0.f; // 3초 되고나서 안에서 초기화버리면 여기 if문에 못 오므로 이렇게 해준다. 
 
@@ -671,6 +705,7 @@ namespace ss
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			ChangeState(eWolfBossState::IDLE);
+			mPrevWolfBossState = eWolfBossState::STOM_END;
 			mbStomEnd = false;
 		}
 	
