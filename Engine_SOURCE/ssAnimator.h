@@ -101,6 +101,10 @@ namespace ss
          bool IsHit() { return mHit; }
 
 
+         void SetLoop(bool _loop) { mbLoop = _loop; };
+         bool IsLoop() { return mbLoop; }
+
+
         //== 애니메이션 관련 함수 포인터
 
         // 애니메이션이 시작될 때 호출되는 함수

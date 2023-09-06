@@ -183,6 +183,10 @@ namespace ss
 		// 인자로 들어온 loop 여부를 저장한다.
 		mbLoop = loop;
 
+		// 몇 초후에 loop를 false로 바꿔줄지 결정한다.
+
+
+
 		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 
 

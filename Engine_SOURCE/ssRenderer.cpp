@@ -1631,19 +1631,50 @@ namespace renderer
 			 Resources::Insert(L"Boss_Wolf_SpawnMtrl", spriteMateiral);
 		 }
 
-		 // BreathAttack
+	
+		 // Breath Attack Wolf Start
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss_Wolf_BreathAttack",
-					 L"..\\Resources\\Texture\\Boss\\Wolf\\BreathAttack.png");
+				 = Resources::Load<Texture>(L"Boss_Wolf_BreathAttackStart",
+					 L"..\\Resources\\Texture\\Boss\\Wolf\\BreathAttackStart.png");
 
 			 // === Material 持失
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
 
-			 Resources::Insert(L"Boss_Wolf_BreathAttackMtrl", spriteMateiral);
+			 Resources::Insert(L"Boss_Wolf_BreathAttackStartMtrl", spriteMateiral);
 		 }
+
+		 // Breath Attacking Wolf
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss_Wolf_BreathAttacking",
+					 L"..\\Resources\\Texture\\Boss\\Wolf\\Breathing.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss_Wolf_BreathAttackingMtrl", spriteMateiral);
+		 }
+
+		 // Breath Attack Wolf End
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss_Wolf_BreathAttackEnd",
+					 L"..\\Resources\\Texture\\Boss\\Wolf\\BreathEnd.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss_Wolf_BreathAttackEndMtrl", spriteMateiral);
+		 }
+
+
 
 
 		 // BreathAttack Effect Start

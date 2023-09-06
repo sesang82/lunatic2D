@@ -26,6 +26,9 @@ namespace ss
 		, mLandingPos(Vector3::Zero)
 		, mbAppear(false)
 		, mbDisappear(false)
+		, mbDash(false)
+		, mbBreathStart(false)
+		, mbBreating(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -46,7 +49,7 @@ namespace ss
 
 		std::shared_ptr<ss::graphics::Texture> Image1 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Idle");
 		std::shared_ptr<ss::graphics::Texture> Image2 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Spawn");
-		std::shared_ptr<ss::graphics::Texture> Image3 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_BreathAttack");
+
 		std::shared_ptr<ss::graphics::Texture> Image4 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_BreathEffectStart");
 		std::shared_ptr<ss::graphics::Texture> Image5 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_BreathEffectEnd");
 		std::shared_ptr<ss::graphics::Texture> Image6 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Dash");
@@ -62,6 +65,10 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image16 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Storm1");
 		std::shared_ptr<ss::graphics::Texture> Image17 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Storm2");
 
+		std::shared_ptr<ss::graphics::Texture> Image18 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_BreathAttackStart");
+		std::shared_ptr<ss::graphics::Texture> Image19 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_BreathAttacking");
+		std::shared_ptr<ss::graphics::Texture> Image20 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_BreathAttackEnd");
+
 
 		mAnimator->Create(L"Boss_Wolf_IdleR", Image1, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f));
 		mAnimator->Create(L"Boss_Wolf_IdleL", Image1, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
@@ -69,8 +76,15 @@ namespace ss
 		//mAnimator->Create(L"Boss_Wolf_SpawnR", Image2, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f));
 		mAnimator->Create(L"Boss_Wolf_SpawnL", Image2, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Boss_Wolf_BreathAttackR", Image3, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 14, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_BreathAttackL", Image3, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 14, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_BreathAttackStartR", Image18, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f));
+		mAnimator->Create(L"Boss_Wolf_BreathAttackStartL", Image18, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
+
+		mAnimator->Create(L"Boss_Wolf_BreathAttackingR", Image19, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 2, Vector2(272.f, 271.f));
+		mAnimator->Create(L"Boss_Wolf_BreathAttackingL", Image19, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 2, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
+
+
+		mAnimator->Create(L"Boss_Wolf_BreathAttackEndR", Image20, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 3, Vector2(272.f, 271.f));
+		mAnimator->Create(L"Boss_Wolf_BreathAttackEndL", Image20, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 3, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 		//mAnimator->Create(L"Boss_Wolf_BreathEffectStartR", Image4, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 4, Vector2(272.f, 271.f));
 		//mAnimator->Create(L"Boss_Wolf_BreathEffectStartL", Image4, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 4, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
@@ -155,6 +169,10 @@ namespace ss
 		// ==== 메쉬 렌덛
 		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 
+
+		mAnimator->CompleteEvent(L"Boss_Wolf_BreathAttackingR") = std::bind(&BigWolfScript::Breathing_Event, this);
+		mAnimator->CompleteEvent(L"Boss_Wolf_BreathAttackingL") = std::bind(&BigWolfScript::Breathing_Event, this);
+
 	}
 	void BigWolfScript::Update()
 	{
@@ -193,8 +211,16 @@ namespace ss
 			Disappear();
 			break;
 
-		case ss::eWolfBossState::BREATH:
-			Breath();
+		case ss::eWolfBossState::BREATH_START:
+			Breath_start();
+			break;
+			
+		case ss::eWolfBossState::BREATHING:
+			Breathing();
+			break;
+
+		case ss::eWolfBossState::BREATH_END:
+			Breath_end();
 			break;
 
 		case ss::eWolfBossState::HOWLING:
@@ -208,6 +234,11 @@ namespace ss
 		case ss::eWolfBossState::STOM_START:
 			Stom_start();
 			break;
+
+		case ss::eWolfBossState::STOMING:
+			Stoming();
+			break;
+
 
 		case ss::eWolfBossState::STOM_END:
 			Stom_end();
@@ -241,18 +272,38 @@ namespace ss
 	
 
 	}
+
+	// true false 조작은 한 프레임씩 밀려서 조작해야한다. 
 	void BigWolfScript::Idle()
 	{
-		mbStomStart = false;
-		mbStomEnd = false;
-
-
+	
 		mbHit = false;
 
-		if (mCurDir.x > 0 && !mbIdle)
+
+		if (mPrevWolfBossState == eWolfBossState::DASH)
+		{
+			
+			if (mDir.x > 0 && !mbIdle)
+			{
+				mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", false);
+				mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
+				mbIdle = true;
+			}
+
+			else if (mDir.x < 0 && !mbIdle)
+			{
+				mAnimator->PlayAnimation(L"Boss_Wolf_IdleL", false);
+				mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
+				mbIdle = true;
+			}
+		}
+
+		
+
+		if (mCurDir.x > 0 && !mbIdle )
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", true);
-			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
 			mbIdle = true;
 		}
 
@@ -262,16 +313,27 @@ namespace ss
 			mDir = Vector3(-1.f, 0.f, 0.f);
 			mbIdle = true;
 		}
+	
+			// ======
+			m_fTime += Time::DeltaTime();
 
+			// 3초 뒤에 appear 상태로 간다. 
+			if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f)
+			{
+				ChangeState(eWolfBossState::DISAPPEAR);
+				mbIdle = false;
+				m_fTime = 0.f;
 
-		// ======
-		m_fTime += Time::DeltaTime();
+			}
 
-		// 3초 뒤에 appear 상태로 간다. 
-		if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f)
-		{
-			Disappear();
-		}
+		/*	if (mAnimator->GetCurActiveAnimation()->IsComplete())
+			{
+				if (mbDash && m_fTime > 1.f)
+				{
+					Breath_start();
+					m_fTime = 0.f;
+				}
+			}*/
 	}
 
 	void BigWolfScript::Hit()
@@ -279,8 +341,6 @@ namespace ss
 	}
 	void BigWolfScript::Appear()
 	{
-		mbDisappear = false;
-
 
 		// disappearr의 방향과 반대 방향의 애니메이션을 재생시켜야함 
 		if (mDir.x > 0 && !mbAppear)
@@ -289,6 +349,7 @@ namespace ss
 
 			mAnimator->PlayAnimation(L"Boss_Wolf_MoveAppearL", false);
 			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+			mbAppear = true;
 
 		}
 
@@ -298,15 +359,17 @@ namespace ss
 		
 			mAnimator->PlayAnimation(L"Boss_Wolf_MoveAppearR", false);
 			mDir = Vector3(-1.f, 0.f, 0.f);
+			mbAppear = true;
 
 		}
 
-		mbAppear = true;
+
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			renderer::mainCamera->SetTargetSize(1.6f);
 			ChangeState(eWolfBossState::DASH);
+			mbAppear = false;
 		}
 
 	}
@@ -314,25 +377,136 @@ namespace ss
 
 	void BigWolfScript::Disappear()
 	{
+
 		if (mDir.x > 0 && !mbDisappear)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_MoveDissappearR", false);
-			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
+			mbDisappear = true;
 		}
 
 		else if (mDir.x < 0 && !mbDisappear)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_MoveDissappearL", false);
 			mDir = Vector3(-1.f, 0.f, 0.f);
+			mbDisappear = true;
 		}
 
-		mbDisappear = true;
+	
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
-			ChangeState(eWolfBossState::APPEAR);
+			ChangeState(eWolfBossState::APPEAR); 
+			mbDisappear = false;
 		}
 
+
+
+	}
+
+	void BigWolfScript::Breath_start()
+	{
+		//mbDash = false;
+
+
+		//if (mDir.x > 0 && !mbBreathStart)
+		//{
+		//	mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackStartR", false);
+		//	mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+		//	mbBreathStart = true;
+
+		//}
+
+		//else if (mDir.x < 0 && !mbBreathStart)
+		//{
+
+		//	mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackStartL", false);
+		//	mDir = Vector3(-1.f, 0.f, 0.f);
+		//	mbBreathStart = true;
+
+		//}
+
+		//// mbBreath true는 breath 다음에 넘어가는 곳에서 true로 바꿔주기 . false는 true로 바꾼 상태에서 또 다른 상태 넘어간 곳에서 하고...
+
+		//if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		//{
+		//	Breathing();
+		//}
+
+
+	}
+
+	void BigWolfScript::Breathing()
+	{
+
+		//// ======
+		//m_fTime += Time::DeltaTime();
+
+		//	if (mDir.x > 0 && !mbBreating)
+		//	{
+		//		mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackingR", true);
+		//		mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+		//		mbBreating = true;
+
+		//	}
+
+		//	else if (mDir.x < 0 && !mbBreating)
+		//	{
+		//		mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackingL", true);
+		//		mDir = Vector3(-1.f, 0.f, 0.f);
+		//		mbBreating = true;
+
+		//	}
+
+
+		//// 몇 초 뒤에 끝낸다. 
+		//if (mbBreathStart && m_fTime >= 2.f)
+		//{
+		//	mAnimator->SetLoop(false);
+		//	Breath_end();
+		//	m_fTime = 0.f;
+
+		//}
+
+	}
+
+	void BigWolfScript::Breathing_Event()
+	{
+	/*	m_fTime += Time::DeltaTime();
+
+		if (m_fTime > 4.f)
+		{
+			mAnimator->SetLoop(false);
+		}
+*/
+
+
+
+
+	}
+
+	void BigWolfScript::Breath_end()
+	{
+
+		//if (mDir.x > 0)
+		//{
+		//	mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackEndR", false);
+		//	mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+
+		//}
+
+		//else if (mDir.x < 0)
+		//{
+		//	mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackEndL", false);
+		//	mDir = Vector3(-1.f, 0.f, 0.f);
+
+		//}
+
+		//if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		//{
+		//	mbBreating = false;
+		//	Stom_start();
+		//}
 
 
 	}
@@ -340,24 +514,21 @@ namespace ss
 	void BigWolfScript::Dash()
 	{
 
-		mbAppear = false;
-
-
-		if (mDir.x > 0)
+		if (mDir.x > 0 && !mbDash)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_DashL", false);
 			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+			mbDash = true;
+	
 		}
 
-		else if (mDir.x < 0)
+		else if (mDir.x < 0 && !mbDash)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_DashR", false);
 			mDir = Vector3(-1.f, 0.f, 0.f);
+			mbDash = true;
 
-		}
-
-
-	
+		}	
 
 		Vector3 BossPos = mTransform->GetPosition();
 
@@ -374,7 +545,7 @@ namespace ss
 
 			else if (mDir.x < 0 && BossPos.x < 320) // 왼쪽 끝에 도달하면 멈춤)
 			{
-				mRigidbody->AddForce(Vector2(-fSpeed, 0));
+				mRigidbody->SetVelocity(Vector2(fSpeed, 0));
 			}
 		}
 
@@ -385,46 +556,51 @@ namespace ss
 
 		mTransform->SetPosition(BossPos);
 
+		mPrevWolfBossState = eWolfBossState::DASH;
+
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eWolfBossState::IDLE);
+			mbDash = false;
+
+		}
 
 
 
 	}
 
-	void BigWolfScript::Breath()
-	{
-	}
+
 	void BigWolfScript::Howling()
 	{
+		
 	}
 
 	void BigWolfScript::Stom_start()
 	{
-
-			if (mCurDir.x > 0 && !mbStomStart)
+		if (mCurDir.x > 0 && !mbStomStart)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartR", false);
+				mbStomStart = true;
 			}
 
 			else if (mCurDir.x < 0 && !mbStomStart)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartL", false);
+				mbStomStart = true;
 			}
 
-	
 
 			if (mAnimator->GetCurActiveAnimation()->IsComplete())
 			{
-				Stoming();
+				ChangeState(eWolfBossState::STOMING);
+				mbStomStart = false;
+				
 			}
-
-		
 
 
 	}
 	void BigWolfScript::Stoming()
 	{
-		mbStomStart = true; // stom 애니메이션이 방향 바뀌면 계속 재생되는거 방지 
-
 
 		// 몇 초동안 플레이어의 위치를 실시간으로 따라다니다가 착지한다. 
 		Vector3 playerPos = mPlayer->GetComponent<Transform>()->GetPosition();
@@ -440,6 +616,7 @@ namespace ss
 
 		// 3초가 지나면 상태를 바꾼다. 
 		m_fTime += Time::DeltaTime();
+
 
 		// mHitGround가 null이 아니면, 객체의 위치만 실시간 업데이트
 		if (m_fTime < 3.f)
@@ -465,15 +642,18 @@ namespace ss
 		if (mCurDir.x > 0 && !mbStomEnd)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_StormLandingR", false);
+			mbStomEnd = true;
+		
 			
 		}
 
 		else if (mCurDir.x < 0 && !mbStomEnd)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_StormLandingL", false);
+			mbStomEnd = true;
 		}
 
-		mbStomEnd = true;
+	
 		mTransform->SetPosition(Vector3(mLandingPos.x, -183.f, 500.f)); // 나머지는 보스 위치 그대로 가져다 씀 
 		mPrevWolfBossState = eWolfBossState::STOM_END;
 		
@@ -482,6 +662,7 @@ namespace ss
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			ChangeState(eWolfBossState::IDLE);
+			mbStomEnd = false;
 		}
 	
 

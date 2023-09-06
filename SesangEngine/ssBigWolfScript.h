@@ -33,6 +33,7 @@ namespace ss
         class Collider2D* mNearCol;
 
 
+  
         Vector3                 mFirstPos;
 
 
@@ -61,6 +62,10 @@ namespace ss
         bool                    mbAppear;
         bool                    mbDisappear;
 
+        bool                    mbDash;
+        bool                    mbBreathStart;
+        bool                    mbBreating;
+
 
 
         class Player*           mPlayer;
@@ -78,7 +83,11 @@ namespace ss
         void Appear();
         void Disappear();
 
-        void Breath();
+        void Breath_start();
+        void Breathing();
+        void Breathing_Event();
+        void Breath_end();
+
         void Howling();
 
         void Dash();
