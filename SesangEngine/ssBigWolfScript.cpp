@@ -285,14 +285,14 @@ namespace ss
 			
 			if (mDir.x > 0 && !mbIdle)
 			{
-				mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", false);
-				mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
+				mAnimator->PlayAnimation(L"Boss_Wolf_IdleL", false);
+				mDir = Vector3(-1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
 				mbIdle = true;
 			}
 
 			else if (mDir.x < 0 && !mbIdle)
 			{
-				mAnimator->PlayAnimation(L"Boss_Wolf_IdleL", false);
+				mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", false);
 				mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
 				mbIdle = true;
 			}
@@ -300,7 +300,7 @@ namespace ss
 
 		
 
-		if (mCurDir.x > 0 && !mbIdle )
+		if (mCurDir.x > 0 && !mbIdle && mPrevWolfBossState != eWolfBossState::DASH)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", true);
 			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
@@ -417,7 +417,7 @@ namespace ss
 		else if (mDir.x < 0)// && !mbBreathStart)
 		{
 
-			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackStartR", false);
+			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackStartL", false);
 			mDir = Vector3(-1.f, 0.f, 0.f);
 			mbBreathStart = true;
 
@@ -449,7 +449,7 @@ namespace ss
 
 		else if (mDir.x < 0 && !mbBreating)
 		{
-			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackingR", true);
+			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackingL", true);
 			mDir = Vector3(-1.f, 0.f, 0.f);
 			mbBreating = true;
 
@@ -540,6 +540,7 @@ namespace ss
 			if (mDir.x > 0 && BossPos.x > -310) // 오른쪽 끝에 도달하면 멈춤
 			{
 				mRigidbody->SetVelocity(Vector2(-fSpeed, 0));
+
 			}
 
 			else if (mDir.x < 0 && BossPos.x < 320) // 왼쪽 끝에 도달하면 멈춤)
@@ -551,6 +552,17 @@ namespace ss
 		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
 		{
 			mRigidbody->SetVelocity(Vector2(0, 0));
+
+			if (mDir.x > 0)
+			{
+				mDir = Vector3(-1.f, 0.f, 0.f);
+			}
+		
+			else if (mDir.x < 0)
+			{
+				mDir = Vector3(1.f, 0.f, 0.f);
+			}
+
 		}
 
 		mTransform->SetPosition(BossPos);
