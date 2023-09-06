@@ -326,14 +326,14 @@ namespace ss
 
 			}
 
-		/*	if (mAnimator->GetCurActiveAnimation()->IsComplete())
+			else if (mAnimator->GetCurActiveAnimation()->IsComplete())
 			{
-				if (mbDash && m_fTime > 1.f)
+				if (m_fTime > 1.f)
 				{
-					Breath_start();
+					ChangeState(eWolfBossState::BREATH_START);
 					m_fTime = 0.f;
 				}
-			}*/
+			}
 	}
 
 	void BigWolfScript::Hit()
@@ -406,32 +406,30 @@ namespace ss
 
 	void BigWolfScript::Breath_start()
 	{
-		//mbDash = false;
+		if (mDir.x > 0)// && !mbBreathStart)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackStartR", false);
+			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+			mbBreathStart = true;
 
+		}
 
-		//if (mDir.x > 0 && !mbBreathStart)
-		//{
-		//	mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackStartR", false);
-		//	mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
-		//	mbBreathStart = true;
+		else if (mDir.x < 0)// && !mbBreathStart)
+		{
 
-		//}
+			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackStartR", false);
+			mDir = Vector3(-1.f, 0.f, 0.f);
+			mbBreathStart = true;
 
-		//else if (mDir.x < 0 && !mbBreathStart)
-		//{
+		}
 
-		//	mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackStartL", false);
-		//	mDir = Vector3(-1.f, 0.f, 0.f);
-		//	mbBreathStart = true;
+		// mbBreath true는 breath 다음에 넘어가는 곳에서 true로 바꿔주기 . false는 true로 바꾼 상태에서 또 다른 상태 넘어간 곳에서 하고...
 
-		//}
-
-		//// mbBreath true는 breath 다음에 넘어가는 곳에서 true로 바꿔주기 . false는 true로 바꾼 상태에서 또 다른 상태 넘어간 곳에서 하고...
-
-		//if (mAnimator->GetCurActiveAnimation()->IsComplete())
-		//{
-		//	Breathing();
-		//}
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eWolfBossState::BREATHING);
+			mbBreathStart = false;
+		}		
 
 
 	}
@@ -439,34 +437,35 @@ namespace ss
 	void BigWolfScript::Breathing()
 	{
 
+
+
+		if (mDir.x > 0 && !mbBreating)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackingR", true);
+			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+			mbBreating = true;
+
+		}
+
+		else if (mDir.x < 0 && !mbBreating)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackingR", true);
+			mDir = Vector3(-1.f, 0.f, 0.f);
+			mbBreating = true;
+
+		}
+
 		//// ======
-		//m_fTime += Time::DeltaTime();
+		m_fTime += Time::DeltaTime();
 
-		//	if (mDir.x > 0 && !mbBreating)
-		//	{
-		//		mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackingR", true);
-		//		mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
-		//		mbBreating = true;
+		// 몇 초 뒤에 끝낸다. 
+		if (mbBreating && m_fTime >= 2.f)
+		{
+			mbBreating = false; 
+			ChangeState(eWolfBossState::BREATH_END);
+			m_fTime = 0.f;
 
-		//	}
-
-		//	else if (mDir.x < 0 && !mbBreating)
-		//	{
-		//		mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackingL", true);
-		//		mDir = Vector3(-1.f, 0.f, 0.f);
-		//		mbBreating = true;
-
-		//	}
-
-
-		//// 몇 초 뒤에 끝낸다. 
-		//if (mbBreathStart && m_fTime >= 2.f)
-		//{
-		//	mAnimator->SetLoop(false);
-		//	Breath_end();
-		//	m_fTime = 0.f;
-
-		//}
+		}
 
 	}
 
