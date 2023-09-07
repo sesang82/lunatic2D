@@ -30,6 +30,7 @@ namespace ss
 		, mbBreathStart(false)
 		, mbBreating(false)
 		, mbStoming(false)
+		, miStomCount(0)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -643,40 +644,72 @@ namespace ss
 	void BigWolfScript::Stoming()
 	{
 
-		// 몇 초동안 플레이어의 위치를 실시간으로 따라다니다가 착지한다. 
-		Vector3 playerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
-		if (!mbStoming)
+		if (miStomCount == 0)
 		{
-			mHitGround = object::Instantiate<Effect>(playerPos, eLayerType::Effect, L"StomingHitGroundObj");
-			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
-			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
-			mbStoming = true;
+
+			// 몇 초동안 플레이어의 위치를 실시간으로 따라다니다가 착지한다. 
+			Vector3 playerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+
+			if (!mbStoming)
+			{
+				mHitGround = object::Instantiate<Effect>(playerPos, eLayerType::Effect, L"StomingHitGroundObj");
+				HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
+				script->SetMonsterOwner((Monster*)mTransform->GetOwner());
+				mbStoming = true;
+			}
+
+			mHitGround->SetEffectOwner(mTransform->GetOwner());
+
+			// 3초가 지나면 상태를 바꾼다. 
+			m_fTime += Time::DeltaTime();
+
+
+			// mHitGround가 null이 아니면, 객체의 위치만 실시간 업데이트
+			if (m_fTime < 3.f)
+			{
+				mHitGround->GetComponent<Transform>()->SetPosition(playerPos);
+				mLandingPos = playerPos; // 마지막 값만 저장해둔다. 
+			}
+
 		}
 
-		mHitGround->SetEffectOwner(mTransform->GetOwner());
-
-		// 3초가 지나면 상태를 바꾼다. 
-		m_fTime += Time::DeltaTime();
-
-
-		// mHitGround가 null이 아니면, 객체의 위치만 실시간 업데이트
-		if (m_fTime < 3.f)
+		else if (miStomCount == 1)
 		{
-			mHitGround->GetComponent<Transform>()->SetPosition(playerPos);
-			mLandingPos = playerPos; // 마지막 값만 저장해둔다. 
+			if (miStomCount == 2)
+				return;
+
+			if (!mbStoming)
+			{
+				mHitGround = object::Instantiate<Effect>(eLayerType::Effect, L"StomingHitGroundObj2");
+				HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
+				script->SetMonsterOwner((Monster*)mTransform->GetOwner());
+				mbStoming = true; // false처리는 hitGroundScrip에서 해주고 있음
+
+			}
+
+			mHitGround->SetEffectOwner(mTransform->GetOwner());
+
+			mHitGround->GetComponent<Transform>()->SetPosition(0.f, 0.f, 500.f);
+
+			// 3초가 지나면 상태를 바꾼다. 
+			m_fTime += Time::DeltaTime();
+
 		}
 
-
-		else if (m_fTime > 3.5f)
+		if (m_fTime > 3.5f)
 		{
 			//mHitGround->SetState(GameObject::eState::Dead);
 			ChangeState(eWolfBossState::STOM_END);
 			mPrevWolfBossState = eWolfBossState::STOMING;
+		
 
 			m_fTime = 0.f; // 3초 되고나서 안에서 초기화버리면 여기 if문에 못 오므로 이렇게 해준다. 
 
 		}
+
+
+
 
 	}
 	void BigWolfScript::Stom_end()
@@ -696,8 +729,20 @@ namespace ss
 			mbStomEnd = true;
 		}
 
-	
-		mTransform->SetPosition(Vector3(mLandingPos.x, -183.f, 500.f)); // 나머지는 보스 위치 그대로 가져다 씀 
+
+		// 처음때만 실시간 위치 반영되게 해둠 
+		if (miStomCount == 0)
+		{
+			mTransform->SetPosition(Vector3(mLandingPos.x, -183.f, 500.f)); // 나머지는 보스 위치 그대로 가져다 씀 
+		}
+
+		else if (miStomCount == 1)
+		{			
+			miStomCount = 0; // 0으로 초기화
+			mTransform->SetPosition(Vector3(10.f, -183.f, 500.f)); // 나머지는 보스 위치 그대로 가져다 씀 
+
+		}
+
 		mPrevWolfBossState = eWolfBossState::STOM_END;
 		
 
@@ -705,8 +750,10 @@ namespace ss
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			ChangeState(eWolfBossState::IDLE);
+
 			mPrevWolfBossState = eWolfBossState::STOM_END;
-			mbStomEnd = false;
+
+			++miStomCount;
 		}
 	
 

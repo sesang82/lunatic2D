@@ -1908,7 +1908,7 @@ namespace renderer
 		 }
 
 
-		 // ÀüÃ¼ ¸Ê hit
+		 // º¸½º ÀüÃ¼ ¸Ê hit
 		 {
 			 std::shared_ptr<Texture> texture
 				 = Resources::Load<Texture>(L"Boss_Wolf_HitFull",

@@ -39,6 +39,15 @@ namespace ss
 	
 		}
 
+		
+		else if (GetOwner()->GetName() == L"StomingHitGroundObj2")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"Boss_Wolf_HitFullMtrl"));
+			tr->SetScale(Vector3(1600.f, 896.f, 0.f));
+
+		}
+
+
 	}
 	void HitGroundScript::Update()
 	{
@@ -92,6 +101,22 @@ namespace ss
 		}
 
 		else if (GetOwner()->GetName() == L"StomingHitGroundObj")
+		{
+			BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
+			bool stoming = script->IsStoming();
+
+			eWolfBossState state = script->GetCurWolfState();
+
+
+			if (stoming && script->GetCurWolfState() == eWolfBossState::STOM_END)
+			{
+				script->SetStoming(false);
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+
+		}
+
+		else if (GetOwner()->GetName() == L"StomingHitGroundObj2")
 		{
 			BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
 			bool stoming = script->IsStoming();

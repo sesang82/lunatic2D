@@ -45,6 +45,7 @@ namespace ss
 
         Vector2                 mVelocity; // 점프할때 쓸 속도
 
+        int                     miStomCount;
 
         bool                    mbNearAttack;
         bool                    mbFarAttack;
@@ -115,9 +116,13 @@ namespace ss
         eMonsterState GetCurState() { return mCurState; }
 
         void SetPlayer(Player* player) { mPlayer = player; }
-
+        
         void SetStoming(bool stom) { mbStoming = stom; }
         bool IsStoming() { return mbStoming; }
+
+
+        void stomCount(int count) { miStomCount = count; }
+        int stomCount() { return miStomCount; }
 
     };
 
