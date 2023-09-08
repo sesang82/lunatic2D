@@ -661,6 +661,8 @@ namespace ss
 
 	void BigWolfScript::Howling()
 	{
+
+
 		if (mDir.x > 0 && !mbHowling)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_HowlingR", true);
@@ -677,22 +679,22 @@ namespace ss
 
 		}
 
-		if (!mbStoming)
+
+		if (!mbHowling && mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
 		{
 			mHitGround = object::Instantiate<Effect>(eLayerType::Effect, L"HowlingHitGroundObj");
 			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
 			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
-			mbStoming = true; // false처리는 hitGroundScrip에서 해주고 있음
+			mbHowling = true; // false는 hitground에서 해줌 
 
 		}
 
+
+
 		mHitGround->SetEffectOwner(mTransform->GetOwner());
 
-		mHitGround->GetComponent<Transform>()->SetPosition(0.f, 0.f, 500.f);
-
-
-
-
+		Vector3 WolfPos = mTransform->GetPosition();
+		mHitGround->GetComponent<Transform>()->SetPosition(WolfPos.x, -260.f, 500.f);
 
 
 
@@ -705,7 +707,7 @@ namespace ss
 			ChangeState(eWolfBossState::HOWLING_END);
 			mPrevWolfBossState = eWolfBossState::HOWLING;
 			m_fTime = 0.f;
-			mbHowling = false;
+		
 
 		}
 

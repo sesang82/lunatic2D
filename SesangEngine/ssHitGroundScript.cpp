@@ -47,6 +47,14 @@ namespace ss
 
 		}
 
+		else if (GetOwner()->GetName() == L"HowlingHitGroundObj")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"Boss_Wolf_PoistionHitMtrl"));
+			tr->SetScale(Vector3(583.f, 123.f, 0.f));
+
+		}
+
+
 
 	}
 	void HitGroundScript::Update()
@@ -131,6 +139,26 @@ namespace ss
 			}
 
 		}
+
+
+		else if (GetOwner()->GetName() == L"HowlingHitGroundObj")
+		{
+			BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
+			bool howling = script->IsHowling();
+
+			eWolfBossState state = script->GetCurWolfState();
+
+
+			if (howling && script->GetCurWolfState() == eWolfBossState::HOWLING_END)
+			{
+				script->SetHowling(false);
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+
+		}
+
+
+
 
 	}
 	void HitGroundScript::OnCollisionEnter(Collider2D* other)

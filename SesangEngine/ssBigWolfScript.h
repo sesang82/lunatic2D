@@ -127,6 +127,9 @@ namespace ss
         void SetStoming(bool stom) { mbStoming = stom; }
         bool IsStoming() { return mbStoming; }
 
+        void SetHowling(bool howl) { mbHowling = howl; }
+        bool IsHowling() { return mbHowling; }
+
 
         void stomCount(int count) { miStomCount = count; }
         int stomCount() { return miStomCount; }
