@@ -1748,6 +1748,19 @@ namespace renderer
 			 Resources::Insert(L"Boss_Wolf_HitMtrl", spriteMateiral);
 		 }
 
+		 // Howling Start
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss_Wolf_HowlingStart",
+					 L"..\\Resources\\Texture\\Boss\\Wolf\\Howling_Start.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss_Wolf_HowlingStartMtrl", spriteMateiral);
+		 }
 
 		 // Howling
 		 {
@@ -1762,6 +1775,22 @@ namespace renderer
 
 			 Resources::Insert(L"Boss_Wolf_HowlingMtrl", spriteMateiral);
 		 }
+
+		 // Howling End
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss_Wolf_HowlingEnd",
+					 L"..\\Resources\\Texture\\Boss\\Wolf\\Howling_End.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss_Wolf_HowlingEndMtrl", spriteMateiral);
+		 }
+
+
 
 		 // HowlingEffect
 		 {

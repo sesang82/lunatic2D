@@ -60,14 +60,19 @@ namespace ss
         bool                    mbStomEnd;
 
         bool                    mbIdle;
+  
+        int                     miAppearCount;
         bool                    mbAppear;
         bool                    mbDisappear;
+
 
         bool                    mbDash;
         bool                    mbBreathStart;
         bool                    mbBreating;
 
         bool                    mbStoming;
+
+        bool                    mbHowling;
 
 
 
@@ -91,7 +96,9 @@ namespace ss
         void Breathing_Event();
         void Breath_end();
 
+        void Howling_start();
         void Howling();
+        void Howling_end();
 
         void Dash();
 

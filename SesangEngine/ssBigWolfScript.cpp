@@ -16,6 +16,7 @@
 #include "ssHitGroundScript.h"
 #include "ssMonster.h"
 #include "ssRenderer.h"
+#include "ssGameState.h"
 
 namespace ss
 {
@@ -31,6 +32,8 @@ namespace ss
 		, mbBreating(false)
 		, mbStoming(false)
 		, miStomCount(0)
+		, miAppearCount(0)
+		, mbHowling(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -44,10 +47,16 @@ namespace ss
 
 		MonsterScript::Initialize();
 
+
+		
+
+		mCharacterState->SetMaxHP(110.f);
+		mCharacterState->SetCurrentHP(110.f);
+
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetScale(272.f, 271.f, 1.f);
 
-
+		
 
 		std::shared_ptr<ss::graphics::Texture> Image1 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Idle");
 		std::shared_ptr<ss::graphics::Texture> Image2 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Spawn");
@@ -57,7 +66,11 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image6 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Dash");
 		std::shared_ptr<ss::graphics::Texture> Image7 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Die");
 		std::shared_ptr<ss::graphics::Texture> Image8 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Hit");
-		std::shared_ptr<ss::graphics::Texture> Image9 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Howling");
+
+		std::shared_ptr<ss::graphics::Texture> Image21 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_HowlingStart");
+		std::shared_ptr<ss::graphics::Texture> Image22 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Howling");
+		std::shared_ptr<ss::graphics::Texture> Image23 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_HowlingEnd");
+
 		std::shared_ptr<ss::graphics::Texture> Image10 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_HowlingEffect");
 		std::shared_ptr<ss::graphics::Texture> Image11 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_HowlingPostioin");
 		std::shared_ptr<ss::graphics::Texture> Image12 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_MoveAppear");
@@ -105,8 +118,14 @@ namespace ss
 		mAnimator->Create(L"Boss_Wolf_HitL", Image8, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 2, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 		// 하울링 맨 마지막 인덱스 뭔가 이상함 
-		mAnimator->Create(L"Boss_Wolf_HowlingR", Image9, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 28, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_HowlingL", Image9, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 28, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_HowlingStartR", Image21, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 6, Vector2(272.f, 271.f));
+		mAnimator->Create(L"Boss_Wolf_HowlingStartL", Image21, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 6, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
+
+		mAnimator->Create(L"Boss_Wolf_HowlingR", Image22, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f));
+		mAnimator->Create(L"Boss_Wolf_HowlingL", Image22, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
+
+		mAnimator->Create(L"Boss_Wolf_HowlingEndR", Image23, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 11, Vector2(272.f, 271.f));
+		mAnimator->Create(L"Boss_Wolf_HowlingEndL", Image23, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 11, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 
 		//mAnimator->Create(L"Boss_Wolf_HowlingEffectR", Image10, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f));
@@ -225,8 +244,16 @@ namespace ss
 			Breath_end();
 			break;
 
+		case ss::eWolfBossState::HOWLING_START:
+			Howling_start();
+			break;
+
 		case ss::eWolfBossState::HOWLING:
 			Howling();
+			break;
+
+		case ss::eWolfBossState::HOWLING_END:
+			Howling_end();
 			break;
 	
 		case ss::eWolfBossState::DASH:
@@ -284,15 +311,14 @@ namespace ss
 
 		if (mPrevWolfBossState == eWolfBossState::DASH)
 		{
-			// R L 이 맞음 
-			if (mCurDir.x > 0 && !mbIdle)
+			if (mDir.x > 0 && !mbIdle)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_IdleL", false);
 				mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
 				mbIdle = true;
 			}
 
-			else if (mCurDir.x < 0 && !mbIdle)
+			else if (mDir.x < 0 && !mbIdle)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", false);
 				mDir = Vector3(-1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
@@ -316,30 +342,42 @@ namespace ss
 			mbIdle = true;
 		}
 	
-			// ======
-			m_fTime += Time::DeltaTime();
+		// ======
+		m_fTime += Time::DeltaTime();
 
-			// 3초 뒤에 appear 상태로 간다. 
-			if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f)
+		float BossHP = mCharacterState->GetCurrentHP();
+		
+		//// 3초 뒤에 appear 상태로 간다. 
+		//if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f)
+		//{
+		//	ChangeState(eWolfBossState::DISAPPEAR);
+		//	mPrevWolfBossState = eWolfBossState::IDLE;
+		//	mbIdle = false;
+		//	m_fTime = 0.f;
+
+
+		//}
+
+	
+		if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f)// && BossHP <= 50.f)
 			{
-				ChangeState(eWolfBossState::DISAPPEAR);
+				ChangeState(eWolfBossState::HOWLING_START);
 				mPrevWolfBossState = eWolfBossState::IDLE;
 				mbIdle = false;
 				m_fTime = 0.f;
-
 			}
 
-			else if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		else if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			if (m_fTime > 1.f)
 			{
-				if (m_fTime > 1.f)
-				{
-					ChangeState(eWolfBossState::BREATH_START);
-					mPrevWolfBossState = eWolfBossState::IDLE;
+				ChangeState(eWolfBossState::BREATH_START);
+				mPrevWolfBossState = eWolfBossState::IDLE;
 
-					mbIdle = false;
-					m_fTime = 0.f;
-				}
+				mbIdle = false;
+				m_fTime = 0.f;
 			}
+		}
 	}
 
 	void BigWolfScript::Hit()
@@ -373,6 +411,7 @@ namespace ss
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
+
 			renderer::mainCamera->SetTargetSize(1.6f);
 			ChangeState(eWolfBossState::DASH);
 			mPrevWolfBossState = eWolfBossState::APPEAR;
@@ -404,6 +443,7 @@ namespace ss
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			ChangeState(eWolfBossState::APPEAR); 
+
 			mPrevWolfBossState = eWolfBossState::DISAPPEAR;
 			mbDisappear = false;
 		}
@@ -592,9 +632,110 @@ namespace ss
 	}
 
 
+	void BigWolfScript::Howling_start()
+	{
+		if (mDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_HowlingStartR", false);
+			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+
+
+		}
+
+		else if (mDir.x < 0)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_HowlingStartL", false);
+			mDir = Vector3(-1.f, 0.f, 0.f);
+	
+
+		}
+
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eWolfBossState::HOWLING);
+			mPrevWolfBossState = eWolfBossState::HOWLING_START;
+		}
+
+
+	}
+
 	void BigWolfScript::Howling()
 	{
-		
+		if (mDir.x > 0 && !mbHowling)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_HowlingR", true);
+			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+
+
+		}
+
+		else if (mDir.x < 0 && !mbHowling)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_HowlingL", true);
+			mDir = Vector3(-1.f, 0.f, 0.f);
+
+
+		}
+
+		if (!mbStoming)
+		{
+			mHitGround = object::Instantiate<Effect>(eLayerType::Effect, L"HowlingHitGroundObj");
+			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
+			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
+			mbStoming = true; // false처리는 hitGroundScrip에서 해주고 있음
+
+		}
+
+		mHitGround->SetEffectOwner(mTransform->GetOwner());
+
+		mHitGround->GetComponent<Transform>()->SetPosition(0.f, 0.f, 500.f);
+
+
+
+
+
+
+
+		m_fTime += Time::DeltaTime();
+
+		// 몇 초 뒤에 끝낸다. 
+		if (m_fTime >= 5.f && mbHowling)
+		{
+
+			ChangeState(eWolfBossState::HOWLING_END);
+			mPrevWolfBossState = eWolfBossState::HOWLING;
+			m_fTime = 0.f;
+			mbHowling = false;
+
+		}
+
+	}
+
+	void BigWolfScript::Howling_end()
+	{
+		if (mDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_HowlingEndR", false);
+			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 
+
+
+		}
+
+		else if (mDir.x < 0)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_HowlingEndL", false);
+			mDir = Vector3(-1.f, 0.f, 0.f);
+
+
+		}
+
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eWolfBossState::IDLE);
+			mPrevWolfBossState = eWolfBossState::HOWLING_END;
+		}
+
+
 	}
 
 	void BigWolfScript::Stom_start()
