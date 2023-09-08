@@ -327,14 +327,14 @@ namespace ss
 
 		
 
-		if (mCurDir.x > 0 && !mbIdle)
+		if (mDir.x > 0 && !mbIdle)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", true);
 			mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
 			mbIdle = true;
 		}
 
-		else if (mCurDir.x < 0 && !mbIdle)
+		else if (mDir.x < 0 && !mbIdle)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_IdleL", true);
 			mDir = Vector3(-1.f, 0.f, 0.f);
@@ -344,21 +344,26 @@ namespace ss
 		// ======
 		m_fTime += Time::DeltaTime();
 
+		int randomValue = rand() % 2; // 0 또는 1을 생성 (랜덤으로) 
+
+
 		float BossHP = mCharacterState->GetCurrentHP();
 		
 		//// 3초 뒤에 appear 상태로 간다. 
-		//if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f)
-		//{
-		//	ChangeState(eWolfBossState::DISAPPEAR);
-		//	mPrevWolfBossState = eWolfBossState::IDLE;
-		//	mbIdle = false;
-		//	m_fTime = 0.f;
+		if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f
+			|| mPrevWolfBossState == eWolfBossState::HOWLING_END && m_fTime > 1.f)
+		{
+			
+			if (randomValue == 0)
+			{
 
+				ChangeState(eWolfBossState::DISAPPEAR);
+				mPrevWolfBossState = eWolfBossState::IDLE;
+				mbIdle = false;
+				m_fTime = 0.f;
+			}
 
-		//}
-
-	
-		if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f)// && BossHP <= 50.f)
+			else if (randomValue == 1) //&& BossHP <= 50.f)
 			{
 				ChangeState(eWolfBossState::HOWLING_START);
 				mPrevWolfBossState = eWolfBossState::IDLE;
@@ -366,6 +371,10 @@ namespace ss
 				m_fTime = 0.f;
 			}
 
+
+		}
+
+		// 이전 상태가 대쉬 상태일 경우 
 		else if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			if (m_fTime > 1.f)
@@ -765,13 +774,13 @@ namespace ss
 
 		else
 		{
-			if (mCurDir.x > 0 && !mbStomStart)
+			if (mDir.x > 0 && !mbStomStart)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartR", false);
 				mbStomStart = true;
 			}
 
-			else if (mCurDir.x < 0 && !mbStomStart)
+			else if (mDir.x < 0 && !mbStomStart)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_StormStartL", false);
 				mbStomStart = true;
@@ -836,6 +845,7 @@ namespace ss
 
 			}
 
+
 			mHitGround->SetEffectOwner(mTransform->GetOwner());
 
 			mHitGround->GetComponent<Transform>()->SetPosition(0.f, 0.f, 500.f);
@@ -863,7 +873,7 @@ namespace ss
 	void BigWolfScript::Stom_end()
 	{
 	
-		if (mCurDir.x > 0 && !mbStomEnd)
+		if (mDir.x > 0 && !mbStomEnd)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_StormLandingR", false);
 			mbStomEnd = true;
@@ -871,7 +881,7 @@ namespace ss
 			
 		}
 
-		else if (mCurDir.x < 0 && !mbStomEnd)
+		else if (mDir.x < 0 && !mbStomEnd)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_StormLandingL", false);
 			mbStomEnd = true;
@@ -882,12 +892,13 @@ namespace ss
 		if (miStomCount == 0)
 		{
 			mTransform->SetPosition(Vector3(mLandingPos.x, -183.f, 500.f)); // 나머지는 보스 위치 그대로 가져다 씀 
+
 		}
 
 		else if (miStomCount == 1)
-		{			
-			miStomCount = 0; // 0으로 초기화
+		{						
 			mTransform->SetPosition(Vector3(10.f, -183.f, 500.f)); // 나머지는 보스 위치 그대로 가져다 씀 
+			
 
 		}
 
@@ -901,7 +912,12 @@ namespace ss
 
 			mPrevWolfBossState = eWolfBossState::STOM_END;
 
-			++miStomCount;
+			if (miStomCount == 0)
+				++miStomCount;
+
+			else if (miStomCount == 1)
+				miStomCount = 0;
+
 			mbStomEnd = false;
 		}
 	
