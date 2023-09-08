@@ -25,7 +25,9 @@ namespace ss
 
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+
 
 		Animator* ani = AddComponent<Animator>();
 
@@ -49,20 +51,31 @@ namespace ss
 	void Effect::Update()
 	{
 	
-		if (mEffectOwner->GetName() == L"B_WolfObj")
+		if (nullptr != mEffectOwner)
 		{
-			Animator* anim = mEffectOwner->GetComponent<Animator>();
-
-
-			if (anim->GetCurActiveAnim() == L"Boss_Wolf_StormLandingR"
-				|| anim->GetCurActiveAnim() == L"Boss_Wolf_StormLandingL")
+			if (mEffectOwner->GetName() == L"B_WolfObj")
 			{
-				if(anim->GetCurActiveAnimation()->GetIndex() == 1)
-				SetState(GameObject::eState::Dead);
+				Animator* anim = mEffectOwner->GetComponent<Animator>();
+
+
+				if (anim->GetCurActiveAnim() == L"Boss_Wolf_StormLandingR"
+					|| anim->GetCurActiveAnim() == L"Boss_Wolf_StormLandingL")
+				{
+					if (anim->GetCurActiveAnimation()->GetIndex() == 1)
+						SetState(GameObject::eState::Dead);
+				}
+
 			}
 
-		}
 
+
+
+
+
+
+
+
+		}
 
 		GameObject::Update();
 	}	

@@ -194,6 +194,9 @@
     <ClCompile Include="ssTriggerScript.cpp">
       <Filter>Contents\Script\Platform</Filter>
     </ClCompile>
+    <ClCompile Include="ssEffectScript.cpp">
+      <Filter>Contents\Script\UI\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -387,6 +390,9 @@
     </Filter>
     <Filter Include="Contents\Script\UI\hitGround">
       <UniqueIdentifier>{d9f04092-0f15-42e7-abb5-67d9a1c9f85e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\UI\Effect">
+      <UniqueIdentifier>{ff4e79d1-9b70-49d3-8d38-71469822104f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -584,6 +590,9 @@
     </ClInclude>
     <ClInclude Include="ssTriggerScript.h">
       <Filter>Contents\Script\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="ssEffectScript.h">
+      <Filter>Contents\Script\UI\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

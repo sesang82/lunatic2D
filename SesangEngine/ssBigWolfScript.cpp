@@ -17,6 +17,7 @@
 #include "ssMonster.h"
 #include "ssRenderer.h"
 #include "ssGameState.h"
+#include "ssEffectScript.h"
 
 namespace ss
 {
@@ -128,9 +129,7 @@ namespace ss
 		mAnimator->Create(L"Boss_Wolf_HowlingEndL", Image23, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 11, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 
-		//mAnimator->Create(L"Boss_Wolf_HowlingEffectR", Image10, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f));
-		//mAnimator->Create(L"Boss_Wolf_HowlingEffectL", Image10, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
-
+		
 		//mAnimator->Create(L"Boss_Wolf_HowlingPostioinR", Image11, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f));
 		//mAnimator->Create(L"Boss_Wolf_HowlingPostioinL", Image11, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
 		//
@@ -680,21 +679,27 @@ namespace ss
 		}
 
 
-		if (!mbHowling && mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
+		if (!mbHowling)
 		{
 			mHitGround = object::Instantiate<Effect>(eLayerType::Effect, L"HowlingHitGroundObj");
 			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
 			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
 			mbHowling = true; // false는 hitground에서 해줌 
 
+			mHowlingEffect = object::Instantiate<Effect>(eLayerType::Effect, L"HowlingEffectObj");
+			EffectScript* effectcript = mHowlingEffect->AddComponent<EffectScript>();
+			effectcript->SetOriginOwner((Monster*)mTransform->GetOwner());
+
 		}
-
-
 
 		mHitGround->SetEffectOwner(mTransform->GetOwner());
 
+
+
 		Vector3 WolfPos = mTransform->GetPosition();
+
 		mHitGround->GetComponent<Transform>()->SetPosition(WolfPos.x, -260.f, 500.f);
+		mHowlingEffect-> GetComponent<Transform>()->SetPosition(WolfPos.x, -260.f, 500.f);
 
 
 
