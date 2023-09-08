@@ -754,6 +754,7 @@ namespace ss
 			mPrevWolfBossState = eWolfBossState::STOM_END;
 
 			++miStomCount;
+			mbStomEnd = false;
 		}
 	
 
