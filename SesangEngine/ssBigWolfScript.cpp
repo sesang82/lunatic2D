@@ -310,14 +310,14 @@ namespace ss
 
 		if (mPrevWolfBossState == eWolfBossState::DASH)
 		{
-			if (mDir.x > 0 && !mbIdle)
+			if (mCurDir.x > 0 && !mbIdle)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_IdleL", false);
 				mDir = Vector3(1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
 				mbIdle = true;
 			}
 
-			else if (mDir.x < 0 && !mbIdle)
+			else if (mCurDir.x < 0 && !mbIdle)
 			{
 				mAnimator->PlayAnimation(L"Boss_Wolf_IdleR", false);
 				mDir = Vector3(-1.f, 0.f, 0.f); // disapper이랑 appear 할 떄의 기준으로 삼기 	
@@ -363,7 +363,7 @@ namespace ss
 				m_fTime = 0.f;
 			}
 
-			else if (randomValue == 1) //&& BossHP <= 50.f)
+			else if (randomValue == 1 && mTransform->GetPosition() == Vector3(10.f, -183.f, 500.f)) //&& BossHP <= 50.f)
 			{
 				ChangeState(eWolfBossState::HOWLING_START);
 				mPrevWolfBossState = eWolfBossState::IDLE;
