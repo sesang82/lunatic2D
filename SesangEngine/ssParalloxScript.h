@@ -23,6 +23,11 @@ namespace ss
     private:
         class Player* mPlayer; // 몬스터의 애니메이션 인덱스 정보 땜에 만들어둠 
 
+        Vector3 mPlayerPrePos;
+        Vector3 mPlayerCurPos;
+
+        bool    mFirst;
+
     public:
         void SetPlayer(Player* monster) { mPlayer = monster; }
     };

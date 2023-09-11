@@ -83,7 +83,7 @@ namespace ss
 
 		// ====== 배경
 			// 둥근 달
-		{
+		
 			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Moon");
 			bg->Initialize();
 
@@ -95,56 +95,77 @@ namespace ss
 
 			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
 			parallox->SetPlayer(mPlayer);
-		}
 
-		// 나무1
+			
+		
 
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree1");
-			bg->Initialize();
+		//// 나무1
 
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
+		//{
+		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree1");
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -10.0f, 800.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
-		}
+		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+		//	mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
 
-		// 나무 2 
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree2");
-			bg->Initialize();
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -10.0f, 800.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
 
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
+		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+		//	parallox->SetPlayer(mPlayer);
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -50.f, 750.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
-		}
+		//	bg->Initialize();
+		//}
 
-		// 나무 3
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree3");
-			bg->Initialize();
+		//// 나무 2 
+		//{
+		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree2");
 
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Tree3Mtrl"));
+		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+		//	mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -100.f, 700.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 577.f, 1.0f));
-		}
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -50.f, 750.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
 
-		// 나무 4 
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree4");
-			bg->Initialize();
 
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Tree4Mtrl"));
+		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+		//	parallox->SetPlayer(mPlayer);
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(20.f, -140.f, 650.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 589.f, 1.0f));
-		}
+		//	bg->Initialize();
+		//}
+
+		//// 나무 3
+		//{
+		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree3");
+
+		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+		//	mr->SetMaterial(Resources::Find<Material>(L"Tree3Mtrl"));
+
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -100.f, 700.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 577.f, 1.0f));
+
+
+		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+		//	parallox->SetPlayer(mPlayer);
+
+		//	bg->Initialize();
+		//}
+
+		//// 나무 4 
+		//{
+		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree4");
+
+		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+		//	mr->SetMaterial(Resources::Find<Material>(L"Tree4Mtrl"));
+
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(20.f, -140.f, 650.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 589.f, 1.0f));
+
+		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+		//	parallox->SetPlayer(mPlayer);
+
+
+		//	bg->Initialize();
+		//}
 
 		// 왼쪽 맨 횃불
 		{

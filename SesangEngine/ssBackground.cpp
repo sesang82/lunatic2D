@@ -3,6 +3,7 @@
 #include "ssMesh.h"
 #include "ssMeshRenderer.h"
 #include "ssAnimator.h"
+#include "ssParalloxScript.h"
 
 namespace ss
 {
