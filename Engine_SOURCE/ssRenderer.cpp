@@ -211,6 +211,8 @@ namespace renderer
 #pragma region Sampler State
 		//Sampler State
 		D3D11_SAMPLER_DESC samplerDesc = {};
+
+		// UV값이 0~1을 넘었을 때 반복되도록 해두는 모드
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
