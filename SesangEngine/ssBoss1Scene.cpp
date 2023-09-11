@@ -34,7 +34,55 @@ namespace ss
 
 
 
-		// 둥근 달
+
+		// 보스 타일 (이건 플레이어보다 더 앞에 있어야해서 400으로 줌) 
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss1_Map");
+			bg->Initialize();
+
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Boss1TileMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 400.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 1.0f));
+		}
+
+
+
+		// =========== 캐릭터들
+
+
+
+		// 보스
+		mBoss1 = object::Instantiate<Monster>(eLayerType::Boss, L"B_WolfObj");
+		mBoss1->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+		Transform* eyetr = mBoss1->GetComponent<Transform>();
+			//eyetr->SetPosition(Vector3(10.f, 185.f, 500.f));
+		eyetr->SetPosition(Vector3(10.f, -183.f, 500.f)); // -10
+
+		BigWolfScript* wolfScript = mBoss1->AddComponent<BigWolfScript>();
+		wolfScript->SetFirstPos(eyetr->GetPosition());
+
+
+		//캐릭터
+		mPlayer = object::Instantiate<Player>(eLayerType::Player, L"Player");
+		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+		Transform* Playertr = mPlayer->GetComponent<Transform>();
+		//Playertr->SetPosition(Vector3(-450.f, -298.0f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
+		Playertr->SetPosition(Vector3(-450.f, -298.0f, 500.f));
+		PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
+		playerScript->SetMonster(mBoss1);
+
+
+		wolfScript->SetPlayer(mPlayer);
+
+		
+
+		// ====== 배경
+			// 둥근 달
 		{
 			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Moon");
 			bg->Initialize();
@@ -42,8 +90,11 @@ namespace ss
 			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
 			mr->SetMaterial(Resources::Find<Material>(L"Moon2Mtrl"));
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(13.f, 130.f, 850.f));
+			bg->GetComponent<Transform>()->SetPosition(Vector3(13.f, 90.f, 850.f));
 			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 900.f, 1.0f));
+
+			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+			parallox->SetPlayer(mPlayer);
 		}
 
 		// 나무1
@@ -95,8 +146,6 @@ namespace ss
 			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 589.f, 1.0f));
 		}
 
-
-
 		// 왼쪽 맨 횃불
 		{
 			Background* Fire = object::Instantiate<Background>(eLayerType::BG, L"WolfFireObj");
@@ -108,7 +157,7 @@ namespace ss
 
 			Fire->GetComponent<Transform>()->SetPosition(Vector3(-190.f, -265.f, 650.f));
 			Fire->GetComponent<Transform>()->SetScale(Vector3(41.f, 110.f, 1.0f));
-		
+
 			std::shared_ptr<Texture> Image1 = Resources::Find<Texture>(L"wolfFire");
 
 			Animator* anim = Fire->GetComponent<Animator>();
@@ -179,7 +228,7 @@ namespace ss
 			Background* Fire = object::Instantiate<Background>(eLayerType::BG, L"WolfFireObj");
 			Fire->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
-			
+
 			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
 			MeshRenderer* mr = Fire->GetComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -188,53 +237,6 @@ namespace ss
 			Fire->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.1f, 650.f));
 			Fire->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 1.0f));
 		}
-
-		// 보스 타일 (이건 플레이어보다 더 앞에 있어야해서 400으로 줌) 
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss1_Map");
-			bg->Initialize();
-
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Boss1TileMtrl"));
-
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 400.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 1.0f));
-		}
-
-
-
-		// =========== 캐릭터들
-
-
-
-		// 보스
-		mBoss1 = object::Instantiate<Monster>(eLayerType::Boss, L"B_WolfObj");
-		mBoss1->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-
-
-		Transform* eyetr = mBoss1->GetComponent<Transform>();
-			//eyetr->SetPosition(Vector3(10.f, 185.f, 500.f));
-		eyetr->SetPosition(Vector3(10.f, -183.f, 500.f)); // -10
-
-		BigWolfScript* wolfScript = mBoss1->AddComponent<BigWolfScript>();
-		wolfScript->SetFirstPos(eyetr->GetPosition());
-
-
-		//캐릭터
-		mPlayer = object::Instantiate<Player>(eLayerType::Player, L"Player");
-		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-
-		Transform* Playertr = mPlayer->GetComponent<Transform>();
-		//Playertr->SetPosition(Vector3(-450.f, -298.0f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
-		Playertr->SetPosition(Vector3(-450.f, -298.0f, 500.f));
-		PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
-		playerScript->SetMonster(mBoss1);
-
-
-		wolfScript->SetPlayer(mPlayer);
-
-		
-
 
 		// ======== 충돌체
 
