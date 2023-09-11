@@ -28,7 +28,11 @@ namespace ss
 	}
 	void Background::Update()
 	{
+
+
 		GameObject::Update();
+
+
 	}
 	void Background::LateUpdate()
 	{
