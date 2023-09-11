@@ -197,6 +197,9 @@
     <ClCompile Include="ssEffectScript.cpp">
       <Filter>Contents\Script\UI\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="ssParalloxScript.cpp">
+      <Filter>Contents\Script\UI\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -592,6 +595,9 @@
       <Filter>Contents\Script\Platform</Filter>
     </ClInclude>
     <ClInclude Include="ssEffectScript.h">
+      <Filter>Contents\Script\UI\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ssParalloxScript.h">
       <Filter>Contents\Script\UI\Effect</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,6 +18,7 @@
 #include "ssRigidbody2D.h"
 #include "ssPlatform.h"
 #include "ssTriggerScript.h"
+#include "ssParalloxScript.h"
 
 namespace ss
 {
@@ -33,70 +34,66 @@ namespace ss
 
 
 
-		//// 둥근 달
-		//{
-		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss1_Moon");
-		//	bg->Initialize();
+		// 둥근 달
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Moon");
+			bg->Initialize();
 
-		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-		//	mr->SetMaterial(Resources::Find<Material>(L"Moon2Mtrl"));
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Moon2Mtrl"));
 
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 850.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 900.f, 1.0f));
-		//}
+			bg->GetComponent<Transform>()->SetPosition(Vector3(13.f, 130.f, 850.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 900.f, 1.0f));
+		}
 
-		//// 나무1
+		// 나무1
 
-		//{
-		//	GameObject* bg = new GameObject();
-		//	AddGameObject(eLayerType::BG, bg);
-		//	// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-		//	MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree1");
+			bg->Initialize();
 
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.0f, 800.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
-		//}
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
 
-		//// 나무 2 
-		//{
-		//	GameObject* bg = new GameObject();
-		//	AddGameObject(eLayerType::BG, bg);
-		//	// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-		//	MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -10.0f, 800.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
+		}
 
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.24f, 750.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1.6f, 2.f, 1.0f));
-		//}
+		// 나무 2 
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree2");
+			bg->Initialize();
 
-		//// 나무 3
-		//{
-		//	GameObject* bg = new GameObject();
-		//	AddGameObject(eLayerType::BG, bg);
-		//	// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-		//	MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree3Mtrl"));
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
 
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.24f, 700.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1.6f, 2.f, 1.0f));
-		//}
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -50.f, 750.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
+		}
 
-		//// 나무 4 
-		//{
-		//	GameObject* bg = new GameObject();
-		//	AddGameObject(eLayerType::BG, bg);
-		//	// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-		//	MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree4Mtrl"));
+		// 나무 3
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree3");
+			bg->Initialize();
 
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.24f, 650.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1.6f, 2.f, 1.0f));
-		//}
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Tree3Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -100.f, 700.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 577.f, 1.0f));
+		}
+
+		// 나무 4 
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree4");
+			bg->Initialize();
+
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Tree4Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(20.f, -140.f, 650.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 589.f, 1.0f));
+		}
 
 
 

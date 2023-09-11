@@ -170,6 +170,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ssParalloxScript.cpp" />
     <ClCompile Include="ssEffectScript.cpp" />
     <ClCompile Include="ssArcherArrow.cpp" />
     <ClCompile Include="ssArcherArrowScript.cpp" />
@@ -238,6 +239,7 @@
     <ClCompile Include="ssZombieScript.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ssParalloxScript.h" />
     <ClInclude Include="ssEffectScript.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="ssArcherArrow.h" />
