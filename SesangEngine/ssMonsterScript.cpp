@@ -7,6 +7,8 @@
 #include "ssSceneManager.h"
 #include "ssPlayer.h"
 #include "ssMonster.h"
+#include "ssRenderer.h"
+#include "ssConstantBuffer.h"
 
 
 namespace ss
@@ -21,6 +23,7 @@ namespace ss
 		, mMeshRenderer(nullptr)
 		, mCharacterState(nullptr)
 		, mPlayer(nullptr)
+		, mHit(false)
 		, mOringinColSize(Vector2::Zero)
 		, mOringinColCeter(Vector2::Zero)
 		, m_fTime(0.0f)
@@ -97,7 +100,7 @@ namespace ss
 	}
 	void MonsterScript::Update()
 	{
-
+	
 
 	}
 
@@ -114,5 +117,21 @@ namespace ss
 	}
 	void MonsterScript::OnCollisionExit(Collider2D* other)
 	{
+	}
+
+	void MonsterScript::BindConstantBuffer()
+	{
+		// 상수 버퍼에 월드, 뷰, 투영 행렬을 담아 보내준다. 
+		renderer::HitCB hitCB = {};
+		hitCB.h_IsHit = mHit;
+
+		// 상수 버퍼 중에 Transform 상수 버퍼를 갖고 온다. 
+		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Hit];
+		cb->SetData(&hitCB); // 월드 행렬 정보를 상수 버퍼에 넣어준다.
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::PS); // 상수 버퍼는 어느 쉐이더 단계이든 바인딩할 수 있다는게 장점이다. 
+
+
+
 	}
 }

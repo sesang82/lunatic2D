@@ -21,6 +21,7 @@
 #define CBSLOT_COLLISION		3
 #define CBSLOT_ANIMATION2D		4
 #define CBSLOT_PROGRESSBAR		5
+#define CBSLOT_HIT              6
 
 
 namespace ss::graphics
@@ -48,6 +49,7 @@ namespace ss::graphics
 		Collision,
 		Animator,
 		Progressbar,
+		Hit,
 		End,
 	};
 

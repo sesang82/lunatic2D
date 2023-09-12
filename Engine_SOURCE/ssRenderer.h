@@ -69,6 +69,12 @@ namespace renderer
 	};
 
 
+	CBUFFER(HitCB, CBSLOT_HIT)
+	{
+		// 충돌 중인지 아닌지
+		bool h_IsHit;
+		int  h_Padding[3];
+	};
 
 
 	// 자주 사용하는 것들을 extern으로 해둔다. 

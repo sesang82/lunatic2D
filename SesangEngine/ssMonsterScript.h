@@ -116,9 +116,14 @@ namespace ss
 		Vector2					mOringinColCeter;
 
 		float					m_fTime; // 시간 측정용
+		bool                    mHit; // hit상태인지 
 
 	private:
 		GameObject* m_pTarget;
+
+
+	public:
+		virtual void BindConstantBuffer();
 
 	public:
 		virtual tMonsterInfo GetMonsterInfo() const
@@ -160,7 +165,7 @@ namespace ss
 		virtual eWolfBossState GetCurWolfState() { return mCurWolfBossState; }
 
 
-
+		virtual void SetHit(bool hit) { mHit = hit; }
 
 	};
 }

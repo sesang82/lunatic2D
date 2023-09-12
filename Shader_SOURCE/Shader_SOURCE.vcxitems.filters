@@ -63,6 +63,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)hpProgressPS.hlsl">
       <Filter>Sprite\2. PS</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)HitShaderPS.hlsl">
+      <Filter>Sprite\2. PS</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli">

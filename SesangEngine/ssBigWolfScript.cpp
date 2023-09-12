@@ -35,7 +35,6 @@ namespace ss
 		, miStomCount(0)
 		, miAppearCount(0)
 		, mbHowling(false)
-		, mbHit(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -54,6 +53,10 @@ namespace ss
 
 		mCharacterState->SetMaxHP(110.f);
 		mCharacterState->SetCurrentHP(110.f);
+
+
+		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetScale(272.f, 271.f, 1.f);
@@ -284,6 +287,17 @@ namespace ss
 	}
 	void BigWolfScript::LateUpdate()
 	{
+
+		m_fTime += Time::DeltaTime();
+	
+		if (mHit && m_fTime >= 2.5f)
+		{
+			mHit = false;
+			BindConstantBuffer();
+			m_fTime = 0.f;
+
+		}
+
 	}
 	void BigWolfScript::OnCollisionEnter(Collider2D* other)
 	{
@@ -389,27 +403,22 @@ namespace ss
 	void BigWolfScript::Hit()
 	{
 
-		if (!mbHit)
-		{
-			mbHit = true;
+		//if (!mHit)
+		//{
+		//	mHit = true;
+		//}
 
-		/*	if (mCurDir.x > 0)
-			{
-				mAnimator->PlayAnimation(L"Boss_Wolf_HitR", false);
-			}
+		////// ======
+		//m_fTime += Time::DeltaTime();
 
-			else
-			{
-				mAnimator->PlayAnimation(L"Boss_Wolf_HitL", false);
-			}*/
-		}
+		//// 몇 초 뒤에 끝낸다. 
+		//if (mHit && m_fTime >= 0.5f)
+		//{
+		//	mHit = false;
+		//	mPrevWolfBossState = eWolfBossState::HIT;
+		//	m_fTime = 0.f;
 
-		if (mbHit && mAnimator->GetCurActiveAnimation()->IsComplete())
-		{
-			ChangeState(eWolfBossState::IDLE);
-			mbHit = false;
-		}
-
+		//}
 
 
 

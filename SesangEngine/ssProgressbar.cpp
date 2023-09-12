@@ -60,7 +60,7 @@ namespace ss
 
 			mState = mOwner->GetComponent<CharacterState>();
 			
-			if (nullptr != mState)
+			if (nullptr != mState) // 몬스터가 dead 상태일 때 업데이트가 더는 돌지 않아서 오류나기 때문에 이처럼 함 
 			{
 			mfHPratio = mState->GetCurrentHP() / mState->GetMaxHP();
 			}

@@ -52,6 +52,16 @@ cbuffer Progressbar: register(b5)
 
 }
 
+
+cbuffer Hit : register(b6)
+{
+// 충돌 중인지 아닌지
+    bool h_IsHit;
+    int h_Padding[3];   
+
+}
+
+
 Texture2D albedoTexture : register(t0); // 플레이어 HP바, 그리고 다른 이미지들이 기본적으로 사용하는 슬롯
 Texture2D albedoTexture1 : register(t1); // 플레이어 SP바
 // ==== 몬스터나 보스 용도 

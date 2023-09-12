@@ -38,8 +38,21 @@ float4 main(VSOut In) : SV_TARGET
             || UV.y < SpriteLeftTop.y || UV.y > SpriteLeftTop.y + SpriteSize.y)
             discard;
         
-        color = atlasTexture.Sample(pointSampler, UV);
+       
+            color = atlasTexture.Sample(pointSampler, UV);
+       
     }
     
-    return color;
+    
+    if (h_IsHit) // 임시적으로 true로 설정하여 테스트
+    {
+        return color + float4(1, 0, 0, color.a); // 원래 이미지 픽셀에다가 빨간색을 물들인다. (원본 알파값은 유지)
+    }
+    else
+    {
+        return color;
+    }
+
+   
+
 }

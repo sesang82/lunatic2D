@@ -53,8 +53,6 @@ namespace ss
         bool                    mbNearAttacking;
         bool                    mbFarAttacking;
 
-        bool                    mbHit;
-
         // ==== 애니메이션 계속 호출되는거 막기 위한 용도 
         bool                    mbStomStart; // 애니메이션 계속 호출되는거 막기 위해서 해둠
         bool                    mbStomEnd;

@@ -350,6 +350,10 @@ namespace renderer
 		// Progressbar Buffer
 		constantBuffer[(UINT)eCBType::Progressbar] = new ConstantBuffer(eCBType::Progressbar);
 		constantBuffer[(UINT)eCBType::Progressbar]->Create(sizeof(ProgressbarCB));
+
+		// Hit Buffer (나중에 어느정도 완성되면 이거 컴퓨트 쉐이더로 써보기) 
+		constantBuffer[(UINT)eCBType::Hit] = new ConstantBuffer(eCBType::Hit);
+		constantBuffer[(UINT)eCBType::Hit]->Create(sizeof(HitCB));
 	}
 
 	void LoadShader()
