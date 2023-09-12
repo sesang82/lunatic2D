@@ -27,10 +27,17 @@ namespace ss
 		Animator* anim = GetOwner()->GetComponent<Animator>();
 
 		std::shared_ptr<ss::graphics::Texture> Image1 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_HowlingEffect");
+		std::shared_ptr<ss::graphics::Texture> Image2 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_BreathEffectStart");
+		std::shared_ptr<ss::graphics::Texture> Image3 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_BreathEffectEnd");
 
 		anim->Create(L"Boss_Wolf_HowlingEffect", Image1, Vector2(0.f, 0.f), Vector2(583.f, 123.f), 6, Vector2(583.f, 123.f));
-		//mAnimator->Create(L"Boss_Wolf_HowlingEffectL", Image10, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
-	
+		
+		anim->Create(L"Boss_Wolf_BreathStartEffectL", Image2, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 4, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"Boss_Wolf_BreathEndEffectL", Image3, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+
+		anim->Create(L"Boss_Wolf_BreathStartEffectR", Image2, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 4, Vector2(663.f, 69.f));
+		anim->Create(L"Boss_Wolf_BreathEndEffectR", Image3, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
+
 
 
 		// 일단 이렇게 한 이유는 hit ground의 크기가 다를 수도 있어서 일단 이렇게 해놨는데 나중에 그럴 필요없으면 리팩토링 하기
@@ -40,6 +47,17 @@ namespace ss
 			anim->PlayAnimation(L"Boss_Wolf_HowlingEffect", true);
 			
 		}
+
+		else if (GetOwner()->GetName() == L"BreathingObjL")
+		{
+			anim->PlayAnimation(L"Boss_Wolf_BreathStartEffectL", true);
+		}
+
+		else if (GetOwner()->GetName() == L"BreathingObjR")
+		{
+			anim->PlayAnimation(L"Boss_Wolf_BreathStartEffectR", true);
+		}
+
 	}
 
 
@@ -60,6 +78,63 @@ namespace ss
 			}
 
 		}
+
+		else if (GetOwner()->GetName() == L"BreathingObjL")
+		{
+			BigWolfScript* bosswolfScript = mOwnerObj->GetComponent<BigWolfScript>();
+			eWolfBossState state = bosswolfScript->GetCurWolfState();
+			
+			Animator* anim = GetOwner()->GetComponent<Animator>();
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+
+			if (bosswolfScript->GetCurWolfState() == eWolfBossState::BREATHING)
+			{
+				anim->PlayAnimation(L"Boss_Wolf_BreathStartEffectL", true);
+				tr->SetScale(Vector3(2652.f, 69.f, 0.f));
+			}
+
+			else if (bosswolfScript->GetCurWolfState() == eWolfBossState::BREATH_END)
+			{
+				anim->PlayAnimation(L"Boss_Wolf_BreathEndEffectL", false);
+				tr->SetScale(Vector3(1989.f, 69.f, 0.f));
+			}
+
+
+			else if (bosswolfScript->GetCurWolfState() == eWolfBossState::STOM_START)
+			{
+				GetOwner()->SetState(GameObject::eState::Dead); // breath 이펙트를 제거한다.
+			}
+
+		}
+
+		else if (GetOwner()->GetName() == L"BreathingObjR")
+		{
+			BigWolfScript* bosswolfScript = mOwnerObj->GetComponent<BigWolfScript>();
+			eWolfBossState state = bosswolfScript->GetCurWolfState();
+
+			Animator* anim = GetOwner()->GetComponent<Animator>();
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+
+			if (bosswolfScript->GetCurWolfState() == eWolfBossState::BREATHING)
+			{
+				anim->PlayAnimation(L"Boss_Wolf_BreathStartEffectR", true);
+				tr->SetScale(Vector3(1989.f, 69.f, 0.f));
+			}
+
+			else if (bosswolfScript->GetCurWolfState() == eWolfBossState::BREATH_END)
+			{
+				anim->PlayAnimation(L"Boss_Wolf_BreathEndEffectR", false);
+				tr->SetScale(Vector3(1989.f, 69.f, 0.f));
+			}
+
+
+			else if (bosswolfScript->GetCurWolfState() == eWolfBossState::STOM_START)
+			{
+				GetOwner()->SetState(GameObject::eState::Dead); // breath 이펙트를 제거한다.
+			}
+
+		}
+
 	}
 	void EffectScript::OnCollisionEnter(Collider2D* other)
 	{

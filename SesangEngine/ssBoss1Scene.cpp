@@ -169,7 +169,7 @@ namespace ss
 
 			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
 			parallox->SetPlayer(mPlayer);
-			parallox->SetSpeed(Vector2(0.6f, 0.f));
+			parallox->SetSpeed(Vector2(0.55f, 0.f));
 
 			parallox->SetMinX(-20.0f);
 			parallox->SetMaxX(80.0f);

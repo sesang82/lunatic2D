@@ -81,6 +81,7 @@ namespace ss
         // ==== 이펙트
         class Effect* mHitGround;
         class Effect* mHowlingEffect;
+        class Effect* mBreathEffect;
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 

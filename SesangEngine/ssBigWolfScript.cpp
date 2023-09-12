@@ -497,23 +497,53 @@ namespace ss
 		if (mDir.x > 0 && !mbBreating)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackingL", true);
-		
-			mbBreating = true;
-
+	
 		}
 
 		else if (mDir.x < 0 && !mbBreating)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_BreathAttackingR", true);
-			mbBreating = true;
+
 
 		}
+		
+
+		if (!mbBreating)
+		{
+			mbBreating = true;
+
+
+			if (mDir.x > 0)
+			{
+				mBreathEffect = object::Instantiate<Effect>(eLayerType::Effect, L"BreathingObjL");
+				EffectScript* effectcript = mBreathEffect->AddComponent<EffectScript>();
+				effectcript->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+				Vector3 WolfPos = mTransform->GetPosition();
+				mBreathEffect->GetComponent<Transform>()->SetPosition(WolfPos.x - 1360.f, -283.f, 550.f);
+			}
+
+			else if (mDir.x < 0)
+			{
+
+				mBreathEffect = object::Instantiate<Effect>(eLayerType::Effect, L"BreathingObjR");
+				EffectScript* effectcript = mBreathEffect->AddComponent<EffectScript>();
+				effectcript->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+				Vector3 WolfPos = mTransform->GetPosition();
+				mBreathEffect->GetComponent<Transform>()->SetPosition(WolfPos.x + 1040.f, -283.f, 550.f);
+			}
+
+		}
+
+		
+
 
 		//// ======
 		m_fTime += Time::DeltaTime();
 
 		// 몇 초 뒤에 끝낸다. 
-		if (mbBreating && m_fTime >= 2.f)
+		if (mbBreating && m_fTime >= 5.f)
 		{
 			mbBreating = false; 
 			ChangeState(eWolfBossState::BREATH_END);
