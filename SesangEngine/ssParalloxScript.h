@@ -27,7 +27,7 @@ namespace ss
         Vector3 mPlayerCurPos;
 
         bool    mFirst;
-        float   mSpeed;
+        Vector2   mSpeed;
 
         float   mMinX;
         float   mMaxX;
@@ -42,7 +42,8 @@ namespace ss
 
     public:
         void SetPlayer(Player* monster) { mPlayer = monster; }
-        void SetSpeed(float speed) { mSpeed = speed; }
+       // void SetSpeed(float speed) { mSpeed = speed; }
+        void SetSpeed(Vector2 speed) { mSpeed = speed; }
 
 
         void SetMinX(float min) { mMinX = min; }

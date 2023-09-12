@@ -90,95 +90,95 @@ namespace ss
 		MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
 		mr->SetMaterial(Resources::Find<Material>(L"Moon2Mtrl"));
 
-		bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 850.f));
+		bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 50.f, 850.f));
 		bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 900.f, 1.0f));
 
 		ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
 		parallox->SetPlayer(mPlayer);
-		parallox->SetSpeed(0.18f);
+		parallox->SetSpeed(Vector2(0.18f, 0.18f));
 
 		parallox->SetMinX(-31.0f);
 		parallox->SetMaxX(33.0f);
 
-		parallox->SetMinY(0.0f);
-		parallox->SetMaxY(0.0f);
+		parallox->SetMinY(-30.0f);
+		parallox->SetMaxY(30.0f);
 		
 
-		//// 唱公1
+		// 唱公1
 
-		//{
-		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree1");
-		//	bg->Initialize();
-
-
-		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
-
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 70.0f, 800.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
-
-		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
-		//	parallox->SetPlayer(mPlayer);
-		//	parallox->SetSpeed(0.35f);
-
-		//	parallox->SetMinX(-48.0f);
-		//	parallox->SetMaxX(48.0f);
-
-		//	parallox->SetMinY(-100.0f);
-		//	parallox->SetMaxY(-90.0f);
-
-		//}
-
-		//// 唱公 2 
-		//{
-		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree2");
-		//	bg->Initialize();
-
-		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
-
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -50.f, 750.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree1");
+			bg->Initialize();
 
 
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
 
-		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
-		//	parallox->SetPlayer(mPlayer);
-		//	parallox->SetSpeed(0.5f);
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.0f, 800.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
 
-		//	parallox->SetMinX(-30.0f);
-		//	parallox->SetMaxX(30.0f);
+			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+			parallox->SetPlayer(mPlayer);
+			parallox->SetSpeed(Vector2(0.3f, 0.3f));
 
-		//	parallox->SetMinY(-150.0f);
-		//	parallox->SetMaxY(-140.0f);
+			parallox->SetMinX(-48.0f);
+			parallox->SetMaxX(48.0f);
+
+			parallox->SetMinY(-150.0f);
+			parallox->SetMaxY(-150.0f);
+
+		}
+
+		// 唱公 2 
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree2");
+			bg->Initialize();
+
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -50.f, 750.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
 
 
-		//}
 
-		//// 唱公 3
-		//{
-		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree3");
-		//	bg->Initialize();
+			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+			parallox->SetPlayer(mPlayer);
+			parallox->SetSpeed(Vector2(0.5f, 0.f));
 
-		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree3Mtrl"));
+			parallox->SetMinX(-30.0f);
+			parallox->SetMaxX(30.0f);
 
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -100.f, 700.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 577.f, 1.0f));
+			parallox->SetMinY(-150.0f);
+			parallox->SetMaxY(-140.0f);
 
 
-		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
-		//	parallox->SetPlayer(mPlayer);
-		//	parallox->SetSpeed(0.7f);
+		}
 
-		//	parallox->SetMinX(-30.0f);
-		//	parallox->SetMaxX(10.0f);
+		// 唱公 3
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree3");
+			bg->Initialize();
 
-		//	parallox->SetMinY(-150.0f);
-		//	parallox->SetMaxY(-140.0f);
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Tree3Mtrl"));
 
-		//
-		//}
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -100.f, 700.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 577.f, 1.0f));
+
+
+			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+			parallox->SetPlayer(mPlayer);
+			parallox->SetSpeed(Vector2(0.7f, 0.f));
+
+			parallox->SetMinX(30.0f);
+			parallox->SetMaxX(10.0f);
+
+			parallox->SetMinY(-150.0f);
+			parallox->SetMaxY(-140.0f);
+
+		
+		}
 
 		//// 唱公 4 
 		//{
@@ -192,7 +192,7 @@ namespace ss
 		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 589.f, 1.0f));
 		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
 		//	parallox->SetPlayer(mPlayer);
-		//	parallox->SetSpeed(0.8f);
+		//	parallox->SetSpeed(Vector2(0.8f, 0.f));
 
 		//	parallox->SetMinX(-30.0f);
 		//	parallox->SetMaxX(10.0f);

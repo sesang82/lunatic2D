@@ -10,6 +10,8 @@
 #define NOMINMAX
 #include <windows.h>
 #include <algorithm>
+#include "ssRenderer.h"
+#include "ssCameraScript.h"
 
 
 
@@ -19,7 +21,7 @@ namespace ss
 {
 	ParalloxScript::ParalloxScript()
 		: mFirst(false)
-		, mSpeed(false)
+		, mSpeed(Vector2::Zero)
 		, mMinX(0.f)
 		, mMaxX(0.f)
 		, mMinY(0.f)
@@ -37,13 +39,9 @@ namespace ss
 		MeshRenderer* mr = GetOwner()->GetComponent<MeshRenderer>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
-		
-		// 배경마다 크기가 다르므로 아래처럼 해준다.
-		if (GetOwner()->GetName() == L"HowlingEffectObj")
-		{
-			tr->SetScale(Vector3(583.f, 123.f, 0.f));
 
-		}
+
+
 	}
 
 	void ParalloxScript::Update()
@@ -52,21 +50,25 @@ namespace ss
 
 		Transform* Layertr = GetOwner()->GetComponent<Transform>();
 
-		// mPlayer를 담아주는 코드 전에 AddComponent를 했더니 해당 스크립트의 Initalize를 먼저 돌아버려서
-		// mPlayer이 nullptr인 상태로 오기 땜에 initalize가 아닌 update에서 해줌 
+		//// mPlayer를 담아주는 코드 전에 AddComponent를 했더니 해당 스크립트의 Initalize를 먼저 돌아버려서
+		//// mPlayer이 nullptr인 상태로 오기 땜에 initalize가 아닌 update에서 해줌 
 
 		if (mFirst) // 플레이어의 처음 위치 
 		{
-			mPlayerPrePos = Playertr->GetPosition();
+			mPlayerPrePos = renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
 			mFirst = true; 
 		}
 		
 		
 		// 플레이어의 실시간 위치 
-		mPlayerCurPos = Playertr->GetPosition();
+	//	mPlayerCurPos = Playertr->GetPosition();
 		
+
+		mPlayerCurPos = renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
+
+
 		// 움직임 계산
-		Vector3 characterMovement = mPlayerCurPos - mPlayerPrePos;
+		//Vector3 characterMovement = mPlayerCurPos - mPlayerPrePos;
 
 
 		if (GetOwner()->GetName() == L"BG_Moon"
@@ -78,8 +80,10 @@ namespace ss
 
 			// 배경 레이어 새 위치 계산 (배경 레이어들 속도는 
 			// (가장 먼 배경은 최대 1로, 가장 가까운건 최소 0에 가깝게)) 
-			Vector3 LayerNewPos = Layertr->GetPosition() + (characterMovement * mSpeed);
+			Vector3 LayerNewPos = Layertr->GetPosition();
 
+			LayerNewPos.x += (mPlayerCurPos.x - mPlayerPrePos.x) * mSpeed.x;
+			LayerNewPos.y += (mPlayerCurPos.y - mPlayerPrePos.y) * mSpeed.y;
 
 			// 새 위치가 경계 값을 넘어가지 않도록 체크
 			LayerNewPos.x = (std::max)(mMinX, (std::min)(mMaxX, LayerNewPos.x));
