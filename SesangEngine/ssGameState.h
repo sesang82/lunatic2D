@@ -55,7 +55,6 @@ namespace ss
 
 		// 보스 2처럼 2페이즈 있는 보스들은 아래 활용하면 될듯 
 
-		// 저장해둔 일부 녀석만 삭제하고 싶을 때
 		void RemoveState(const std::wstring& Name)
 		{
 			CharacterState* stateToRemove = mCharacterStates[Name];

@@ -26,8 +26,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)GridVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\this game%28thisthis%29\DX_Lunatic\Shader_SOURCE\ProgressPS.hlsl" />
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\this game%28thisthis%29\DX_Lunatic\Shader_SOURCE\ProgressVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)hpProgressPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)spProgressPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)spProgressVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteAnimationPS.hlsl">

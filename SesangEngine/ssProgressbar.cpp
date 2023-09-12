@@ -16,6 +16,7 @@ namespace ss
 		: UI(eUIType::Progressbar)
 		, mWidth(18) // 이미지 실제 크기 값 
 		, mOffset(0.f)
+		, mfHPratio(0.f)
 	{
 	}
 	Progressbar::~Progressbar()
@@ -26,40 +27,70 @@ namespace ss
 
 
 		mTransform = GetComponent<Transform>();
-		mTransform->SetScale(Vector3(18.f, 3.f, 1.f)); // backsize랑 스케일값 동일하게 주기. 
 
 
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 
 
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl")); 
+
+		if (GetName() != L"Boss_Bar")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl"));
+			mTransform->SetScale(Vector3(18.f, 3.f, 1.f)); // backsize랑 스케일값 동일하게 주기.
+			mOwner = GetParent();
+		}
+
+		else
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"BossHPBarMtrl"));
+			mTransform->SetScale(Vector3(260.f, 6.f, 1.f)); // backsize랑 스케일값 동일하게 주기.
+			mWidth = 260.f;
+		}
 
 
-		mOwner = GetParent();
-		mState = mOwner->GetComponent<CharacterState>();
-
+		
+	
 		UI::Initialize();
 
 	}
 	void Progressbar::Update()
 	{
 	
-		float HPratio = mState->GetCurrentHP() / mState->GetMaxHP();
 
-		float test2 = mState->GetCurrentHP();
+			mState = mOwner->GetComponent<CharacterState>();
+			
+			if (nullptr != mState)
+			{
+			mfHPratio = mState->GetCurrentHP() / mState->GetMaxHP();
+			}
 
 		// 체력의 비율에 따라 체력바의 너비 조절
-		float CurWidth = mWidth * HPratio;
+		float CurWidth = mWidth * mfHPratio;
+
+		Vector3 pos = mTransform->GetPosition();
 
 
-			float test = mState->GetCurrentHP();
+		if (mOwner->GetName() == L"B_WolfObj")
+		{
+			// 체력바 스케일 설정 
+			mTransform->SetScale(Vector3(CurWidth, 6, 1.f));
 
+			Vector3 Scale = mTransform->GetScale();
 
-			Vector3 pos = mTransform->GetPosition();
+			// 체력바의 왼쪽 끝 위치를 계산 (x 위치에 왼쪽 끝으로 이동)
+			Vector2 leftTop = mTransform->GetWorldLeftTop();
 
+			leftTop.x = -130.f;
+			pos.x = leftTop.x + (Scale.x * 0.5f);
 
+			// 체력바의 위치 설정
+			mTransform->SetPosition(pos);
 
+		}
+
+		else
+		{
 			// update를 돌 동안 값이 바뀔때만 하게 하려했으나, 오프셋 문제로 지움 
 			if (mOwner->GetName() == L"StoneEye")
 			{
@@ -81,14 +112,14 @@ namespace ss
 				{
 					pos.x = 5; // offset 크기 조정 
 				}
-	
+
 			}
 
 			if (mOwner->GetName() == L"Lizard")
 			{
 				SkeletonLizardScript* LizardScript = mOwner->GetComponent<SkeletonLizardScript>();
 				pos.x = -5;
-				
+
 			}
 
 
@@ -105,13 +136,15 @@ namespace ss
 			}
 
 			// 체력바 오른쪽에서 왼쪽으로 깎이도록 하기 
-			pos.x -= (1 - HPratio) * mWidth * 0.5;
-
-			// 체력바의 위치 설정
-			mTransform->SetPosition(Vector3(pos));
+			pos.x -= (1 - mfHPratio) * mWidth * 0.5;
 
 			// 체력바 스케일 설정 
 			mTransform->SetScale(Vector3(CurWidth, 3, 1));
+
+		}
+
+	
+			
 
 
 

@@ -19,6 +19,11 @@
 #include "ssPlatform.h"
 #include "ssTriggerScript.h"
 #include "ssParalloxScript.h"
+#include "ssCollisionManager.h"
+#include "ssProgressbar.h"
+
+
+
 
 namespace ss
 {
@@ -31,7 +36,7 @@ namespace ss
 	void Boss1Scene::Initialize()
 	{
 
-
+		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::Collision, true);
 
 
 
@@ -389,16 +394,14 @@ namespace ss
 
 		// 보스 hp바
 		{
-			GameObject* bg = new GameObject();
-			AddGameObject(eLayerType::UI, bg);
-			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"BossHPBarMtrl"));
+			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"Boss_Bar");
+			stoneHP->SetOwner(mBoss1);
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 196.f, 250.f));
-			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
-			bg->GetComponent<Transform>()->SetScale(Vector3(262.f, 6.f, 1.f));
+			Transform* stonehptr = stoneHP->GetComponent<Transform>();
+			stonehptr->SetPosition(Vector3(0.f, 196.f, 250.f));
+
+			stoneHP->Initialize();
+			
 		}
 
 		//플레이어 HP바

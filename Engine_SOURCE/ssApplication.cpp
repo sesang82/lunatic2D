@@ -41,6 +41,7 @@ namespace ss
 		renderer::Initialize();
 
 		GameState::GetInst().AddState(L"Player", 100, 50);
+
 	
 		SceneManager::Initialize();
 	}

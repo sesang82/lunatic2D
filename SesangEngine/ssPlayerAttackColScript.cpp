@@ -9,6 +9,7 @@
 #include "ssStoneEyeScript.h"
 #include "ssSkeletonArcherScript.h"
 #include "ssSkeletonLizardScript.h"
+#include "ssBigWolfScript.h"
 
 namespace ss
 {
@@ -62,7 +63,7 @@ namespace ss
 		
 		}
 
-		if (L"Archer" == other->GetOwner()->GetName())
+		else if (L"Archer" == other->GetOwner()->GetName())
 		{
 			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
 			SkeletonArcherScript* script = other->GetOwner()->GetComponent<SkeletonArcherScript>();
@@ -85,7 +86,7 @@ namespace ss
 		}
 	
 
-		if (L"Lizard" == other->GetOwner()->GetName())
+		else if (L"Lizard" == other->GetOwner()->GetName())
 		{
 			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
 			SkeletonLizardScript* script = other->GetOwner()->GetComponent<SkeletonLizardScript>();
@@ -108,8 +109,28 @@ namespace ss
 		}
 
 
+		else if (L"B_WolfObj" == other->GetOwner()->GetName())
+		{
+			
+			CharacterState* B_wolf = other->GetOwner()->GetComponent<CharacterState>();
+			BigWolfScript* script = other->GetOwner()->GetComponent<BigWolfScript>();
+
+			if (B_wolf->GetCurrentHP() > 0.f)
+			{
+
+				B_wolf->SetCurrentHP(B_wolf->GetCurrentHP() - 10);
 
 
+				script->ChangeState(eWolfBossState::HIT);
+			}
+
+			else if (B_wolf->GetCurrentHP() <= 0.f)
+			{
+				script->ChangeState(eWolfBossState::DEAD);
+			}
+
+
+		}
 
 
 	}

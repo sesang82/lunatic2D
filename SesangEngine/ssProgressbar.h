@@ -20,6 +20,7 @@ namespace ss
 	public:
 		int mWidth;
 		float mOffset;
+		float mfHPratio;
 		class CharacterState* mState;
 		class GameObject* mOwner;
 		Vector3 mCurScale;

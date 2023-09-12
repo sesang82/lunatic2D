@@ -386,8 +386,8 @@ namespace renderer
 		ss::Resources::Insert(L"DebugShader", debugShader);
 
 		std::shared_ptr<Shader> progressShader = std::make_shared<Shader>();
-		progressShader->Create(eShaderStage::VS, L"ProgressVS.hlsl", "main");
-		progressShader->Create(eShaderStage::PS, L"ProgressPS.hlsl", "main");
+		progressShader->Create(eShaderStage::VS, L"spProgressVS.hlsl", "main");
+		progressShader->Create(eShaderStage::PS, L"hpProgressPS.hlsl", "main");
 		ss::Resources::Insert(L"ProgressHPbarShader", progressShader);
 
 

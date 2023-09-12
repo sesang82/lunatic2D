@@ -35,6 +35,7 @@ namespace ss
 		, miStomCount(0)
 		, miAppearCount(0)
 		, mbHowling(false)
+		, mbHit(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -280,13 +281,13 @@ namespace ss
 
 
 
-
 	}
 	void BigWolfScript::LateUpdate()
 	{
 	}
 	void BigWolfScript::OnCollisionEnter(Collider2D* other)
 	{
+
 	}
 	void BigWolfScript::OnCollisionStay(Collider2D* other)
 	{
@@ -305,9 +306,6 @@ namespace ss
 	void BigWolfScript::Idle()
 	{
 	
-		mbHit = false;
-
-
 		if (mPrevWolfBossState == eWolfBossState::DASH)
 		{
 			if (mCurDir.x > 0 && !mbIdle)
@@ -390,6 +388,31 @@ namespace ss
 
 	void BigWolfScript::Hit()
 	{
+
+		if (!mbHit)
+		{
+			mbHit = true;
+
+		/*	if (mCurDir.x > 0)
+			{
+				mAnimator->PlayAnimation(L"Boss_Wolf_HitR", false);
+			}
+
+			else
+			{
+				mAnimator->PlayAnimation(L"Boss_Wolf_HitL", false);
+			}*/
+		}
+
+		if (mbHit && mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eWolfBossState::IDLE);
+			mbHit = false;
+		}
+
+
+
+
 	}
 	void BigWolfScript::Appear()
 	{
@@ -958,6 +981,27 @@ namespace ss
 
 	void BigWolfScript::Dead()
 	{
+
+		if (mCurDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_DieR", false);
+
+		}
+
+		else
+		{
+			mAnimator->PlayAnimation(L"Boss_Wolf_DieL", false);
+		}
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			mAttackColliderObj->SetState(GameObject::eState::Dead);
+
+
+			GetOwner()->SetState(GameObject::eState::Dead);
+		}
+
 	}
 	void BigWolfScript::Animation()
 	{
