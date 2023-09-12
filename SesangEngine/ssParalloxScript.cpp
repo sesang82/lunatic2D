@@ -22,6 +22,7 @@ namespace ss
 	ParalloxScript::ParalloxScript()
 		: mFirst(false)
 		, mSpeed(Vector2::Zero)
+		, mTextureOffset(Vector2::Zero)
 		, mMinX(0.f)
 		, mMaxX(0.f)
 		, mMinY(0.f)
@@ -55,20 +56,18 @@ namespace ss
 
 		if (mFirst) // 플레이어의 처음 위치 
 		{
-			mPlayerPrePos = renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
+			mPlayerPrePos = Playertr->GetPosition();
 			mFirst = true; 
 		}
 		
 		
 		// 플레이어의 실시간 위치 
-	//	mPlayerCurPos = Playertr->GetPosition();
+		mPlayerCurPos = Playertr->GetPosition();
 		
-
-		mPlayerCurPos = renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
 
 
 		// 움직임 계산
-		//Vector3 characterMovement = mPlayerCurPos - mPlayerPrePos;
+		Vector3 characterMovement = mPlayerCurPos - mPlayerPrePos;
 
 
 		if (GetOwner()->GetName() == L"BG_Moon"

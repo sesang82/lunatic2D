@@ -164,15 +164,15 @@ namespace ss
 			mr->SetMaterial(Resources::Find<Material>(L"Tree3Mtrl"));
 
 			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -100.f, 700.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 577.f, 1.0f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1200.f, 577.f, 1.0f));
 
 
 			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
 			parallox->SetPlayer(mPlayer);
-			parallox->SetSpeed(Vector2(0.7f, 0.f));
+			parallox->SetSpeed(Vector2(0.6f, 0.f));
 
-			parallox->SetMinX(30.0f);
-			parallox->SetMaxX(10.0f);
+			parallox->SetMinX(-20.0f);
+			parallox->SetMaxX(80.0f);
 
 			parallox->SetMinY(-150.0f);
 			parallox->SetMaxY(-140.0f);
