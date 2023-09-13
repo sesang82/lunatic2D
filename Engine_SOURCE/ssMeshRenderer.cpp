@@ -6,11 +6,13 @@
 #include "ssAnimation.h"
 #include "../SesangEngine/ssMonsterScript.h"
 #include "../SesangEngine/ssPlayerScript.h"
+#include "ssTime.h"
 
 namespace ss
 {
 	MeshRenderer::MeshRenderer()
 		: Component(eComponentType::MeshRenderer)
+		, Time(0.f)
 	{
 	}
 	MeshRenderer::~MeshRenderer()
@@ -21,6 +23,8 @@ namespace ss
 	}
 	void MeshRenderer::Update()
 	{
+		
+
 	}
 	void MeshRenderer::LateUpdate()
 	{
@@ -45,12 +49,6 @@ namespace ss
 			animator->Binds();
 		}
 
-		MonsterScript* monscript = GetOwner()->GetComponent<MonsterScript>();
-
-		if (monscript)
-		{
-			monscript->BindConstantBuffer();
-		}
 
 		PlayerScript* Playerscript = GetOwner()->GetComponent<PlayerScript>();
 
@@ -58,6 +56,18 @@ namespace ss
 		{
 			Playerscript->BindConstantBuffer();
 		}
+
+		MonsterScript* monscript = GetOwner()->GetComponent<MonsterScript>();
+
+		if (monscript)
+		{
+			monscript->BindConstantBuffer();
+
+
+
+		}
+
+	
 
 		mMesh->Render();
 

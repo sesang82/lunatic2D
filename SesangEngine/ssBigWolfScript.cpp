@@ -199,7 +199,9 @@ namespace ss
 	}
 	void BigWolfScript::Update()
 	{
+
 		MonsterScript::Update();
+
 
 		Vector3 MonsterPos = mTransform->GetPosition();
 		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
@@ -207,9 +209,6 @@ namespace ss
 		mCurDir = (PlayerPos - MonsterPos);
 		mCurDir.Normalize();
 		mCurDir = Vector3(mCurDir.x, mCurDir.y, 0.f); 
-
-	
-		
 
 		// 이동->상태변환->애니메이션
 
@@ -282,23 +281,26 @@ namespace ss
 
 		}
 
+		////// ======
+		//mHitTime += Time::DeltaTime();
+
+		//// 몇 초 뒤에 끝낸다. 
+		//if (mHit && mHitTime >= 0.8f)
+		//{
+		//	mHit = false;
+		//	mHitTime = 0.f;
+
+		//}
+
 
 
 	}
 	void BigWolfScript::LateUpdate()
 	{
 
-		//mHitTime += Time::DeltaTime();
-	
-		//if (mHit && mHitTime >= 2.5f)
-		//{
-		//	mHit = false;
-		//	BindConstantBuffer();
-		//	mHitTime = 0.f;
+		
 
-		//}
 
-		//mMeshRenderer->GetMateiral()->Clear();
 	}
 	void BigWolfScript::OnCollisionEnter(Collider2D* other)
 	{
@@ -404,22 +406,7 @@ namespace ss
 	void BigWolfScript::Hit()
 	{
 
-		//if (!mHit)
-		//{
-		//	mHit = true;
-		//}
-
-		////// ======
-		//m_fTime += Time::DeltaTime();
-
-		//// 몇 초 뒤에 끝낸다. 
-		//if (mHit && m_fTime >= 0.5f)
-		//{
-		//	mHit = false;
-		//	mPrevWolfBossState = eWolfBossState::HIT;
-		//	m_fTime = 0.f;
-
-		//}
+	
 
 
 

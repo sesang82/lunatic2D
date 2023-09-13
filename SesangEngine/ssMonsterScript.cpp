@@ -102,8 +102,17 @@ namespace ss
 	}
 	void MonsterScript::Update()
 	{
-	
-		//BindConstantBuffer();
+		//mHitTime += Time::DeltaTime();
+
+		//// 몇 초 뒤에 끝낸다. 
+		//if (mHit && mHitTime >= 0.8f)
+		//{
+		//	mHit = false;
+		//	mHitTime = 0.f;
+
+		//}
+
+
 	}
 
 	// 충돌체 작용 내용은 상속 되지 않음. 따로따로 적어줘야됨 
@@ -123,6 +132,7 @@ namespace ss
 
 	void MonsterScript::BindConstantBuffer()
 	{
+
 		// 상수 버퍼에 월드, 뷰, 투영 행렬을 담아 보내준다. 
 		renderer::HitCB hitCB = {};
 		hitCB.h_IsHit = mHit;
@@ -131,7 +141,7 @@ namespace ss
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Hit];
 		cb->SetData(&hitCB); // 월드 행렬 정보를 상수 버퍼에 넣어준다.
 		cb->Bind(eShaderStage::VS);
-		cb->Bind(eShaderStage::PS); // 상수 버퍼는 어느 쉐이더 단계이든 바인딩할 수 있다는게 장점이다. 
+		cb->Bind(eShaderStage::PS); // 상수 버퍼는 어느 쉐이더 단계이든 바인딩할 수 있다는게 장점이다.
 
 
 

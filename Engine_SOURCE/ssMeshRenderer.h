@@ -25,6 +25,9 @@ namespace ss
 		void SetMaterial(std::shared_ptr<Material> material) { mMaterial = material; }
 		std::shared_ptr<Material> GetMaterial() { return mMaterial; }
 
+
+		float Time;
+
 	private:
 		std::shared_ptr<Mesh> mMesh;
 		std::shared_ptr<Material> mMaterial;

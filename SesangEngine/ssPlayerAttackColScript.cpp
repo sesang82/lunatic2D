@@ -148,5 +148,10 @@ namespace ss
 			script->ChangeState(eMonsterState::HIT);
 
 		}
+
+
+
+
+
 	}
 }

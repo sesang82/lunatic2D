@@ -1212,6 +1212,7 @@ namespace ss
 		//mCollider->SetCenter(Vector2(-3.5f, 2.f));
 
 		mAttackColliderObj->RemoveComponent<Collider2D>();
+		mMonster->GetComponent<MonsterScript>()->SetHit(false);
 
 
 

@@ -81,6 +81,7 @@ namespace ss
 			return;
 
 		mActiveAnimation->Binds();
+
 	}
 
 	std::function<void()>& Animator::StartEvent(const std::wstring key)
