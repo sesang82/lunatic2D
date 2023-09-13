@@ -61,6 +61,7 @@ namespace ss
         float mTime;
 
         bool mHit;
+        bool mbHitting;
         float mJumpPower;
         float mJumpHeight;
         float mFallTime;
@@ -88,8 +89,9 @@ namespace ss
         class Collider2D*       mGuardCol;
 
         // 보스 start 충돌체 
-        class Platform*     mBossStartColObj;
+        class Platform*         mBossStartColObj;
 
+        class Effect*           mHitEffect;
 
         // 몬스터 갖고 올 수 잇는 벡터 만들어서 여따가 저장시켜둔다. (스크립트에 써먹기 위함)
        
@@ -128,6 +130,7 @@ namespace ss
         Vector3 GetPrevDir() { return mPrevDir; }
         Vector3 GetCurDir() { return mCurDir; }
 
+        ePlayerState GetState() { return mCurState; }
 
         Vector2 GetPrevColSize() { return mPrevColSize; }
         Vector2 GetPrevColCenter() { return mPrevColCeter; }

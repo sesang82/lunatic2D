@@ -2389,6 +2389,24 @@ namespace renderer
 
 		}
 
+
+		// Low UI
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"UILowHP", L"..\\Resources\\Texture\\UI\\Etc\\UI_LowHP.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+
+			Resources::Insert(L"UILowHPMtrl", spriteMateiral);
+		}
+
+
+
+
 		// WOLF BOSS 이름
 		{
 

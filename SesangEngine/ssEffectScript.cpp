@@ -9,6 +9,7 @@
 #include "ssWolfScript.h"
 #include "ssZombieScript.h"
 #include "ssBigWolfScript.h"
+#include "ssPlayerScript.h"
 
 
 namespace ss
@@ -56,7 +57,12 @@ namespace ss
 			anim->PlayAnimation(L"Boss_Wolf_BreathStartEffectR", true);
 		}
 
-
+		else if (GetOwner()->GetName() == L"PlayerHitUI")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"UILowHPMtrl"));
+			tr->SetScale(Vector3(512.f, 288.f, 0.f));
+			tr->SetPosition(Vector3(0.f, -350.f, 150.f));
+		}
 
 	}
 
@@ -135,6 +141,22 @@ namespace ss
 			{
 				GetOwner()->SetState(GameObject::eState::Dead); // breath 이펙트를 제거한다.
 			}
+
+		}
+
+
+		else if (GetOwner()->GetName() == L"PlayerHitUI")
+		{
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+
+			PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
+
+			if (playerscript->GetState() == ePlayerState::IDLE)
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+		
+
 
 		}
 

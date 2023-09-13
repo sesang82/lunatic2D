@@ -21,7 +21,8 @@
 #include "ssBigWolfScript.h"
 #include "ssRenderer.h"
 #include "ssConstantBuffer.h"
-
+#include "ssEffect.h"
+#include "ssEffectScript.h"
 
 
 namespace ss
@@ -46,6 +47,8 @@ namespace ss
 		, mTime(0.f)
 		, mbChange(false)
 		, mHit(false)
+		, mbHitting(false)
+		, mHitEffect(nullptr)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -694,13 +697,23 @@ namespace ss
 
 	void PlayerScript::Hit()
 	{
+		
 		// hit 상태 즉시 제자리에 멈춰있도록 속도 0으로 만듦
 		mRigidbody->SetVelocity(Vector2(0.f, 0.f));
 
+		if (!mbHitting)
+		{
+			mHitEffect = object::Instantiate<Effect>(eLayerType::Effect, L"PlayerHitUI");
+			EffectScript* effectscript = mHitEffect->AddComponent<EffectScript>();
+			effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+			mbHitting = true;
+		}
+
 		// 애니메이션 재생이 끝나면 
-		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		if (mbHitting && mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			ChangeState(ePlayerState::IDLE);
+			mbHitting = false;
 		}
 
 	}
@@ -1013,6 +1026,8 @@ namespace ss
 
 					else
 						mAnimator->PlayAnimation(L"Player_S_HitL", false);
+
+		
 				}
 
 				else if (mWeaponType == eWeaponType::BOW)
@@ -1212,7 +1227,11 @@ namespace ss
 		//mCollider->SetCenter(Vector2(-3.5f, 2.f));
 
 		mAttackColliderObj->RemoveComponent<Collider2D>();
-		mMonster->GetComponent<MonsterScript>()->SetHit(false);
+
+		if (nullptr != mMonster)
+		{
+			mMonster->GetComponent<MonsterScript>()->SetHit(false);
+		}
 
 
 
