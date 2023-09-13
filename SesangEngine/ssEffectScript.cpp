@@ -60,8 +60,8 @@ namespace ss
 		else if (GetOwner()->GetName() == L"PlayerHitUI")
 		{
 			mr->SetMaterial(Resources::Find<Material>(L"UILowHPMtrl"));
-			tr->SetScale(Vector3(512.f, 288.f, 0.f));
-			tr->SetPosition(Vector3(0.f, -350.f, 150.f));
+			tr->SetScale(Vector3(1600.f, 596.f, 0.f));
+			tr->SetPosition(Vector3(0.f, -300.f, 150.f));
 		}
 
 	}
