@@ -111,15 +111,19 @@ namespace ss
 		else if (GetOwner()->GetName() == L"StomingHitGroundObj")
 		{
 			BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
-			bool stoming = script->IsStoming();
 
-			eWolfBossState state = script->GetCurWolfState();
-
-
-			if (stoming && script->GetCurWolfState() == eWolfBossState::STOM_END)
+			if (nullptr != script)
 			{
-				script->SetStoming(false);
-				GetOwner()->SetState(GameObject::eState::Dead);
+				bool stoming = script->IsStoming();
+
+				eWolfBossState state = script->GetCurWolfState();
+
+
+				if (stoming && script->GetCurWolfState() == eWolfBossState::STOM_END)
+				{
+					script->SetStoming(false);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
 			}
 
 		}
@@ -127,34 +131,41 @@ namespace ss
 		else if (GetOwner()->GetName() == L"StomingHitGroundObj2")
 		{
 			BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
-			bool stoming = script->IsStoming();
 
-			eWolfBossState state = script->GetCurWolfState();
-
-
-			if (stoming && script->GetCurWolfState() == eWolfBossState::STOM_END)
+			if (nullptr != script)
 			{
-				script->SetStoming(false);
-				GetOwner()->SetState(GameObject::eState::Dead);
-			}
+				bool stoming = script->IsStoming();
 
+				eWolfBossState state = script->GetCurWolfState();
+
+
+				if (stoming && script->GetCurWolfState() == eWolfBossState::STOM_END)
+				{
+					script->SetStoming(false);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+			}
 		}
 
 
 		else if (GetOwner()->GetName() == L"HowlingHitGroundObj")
 		{
 			BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
-			bool howling = script->IsHowling();
 
-			eWolfBossState state = script->GetCurWolfState();
-
-
-			if (howling && script->GetCurWolfState() == eWolfBossState::HOWLING_END)
+			if (nullptr != script)
 			{
-				script->SetHowling(false);
-				GetOwner()->SetState(GameObject::eState::Dead);
-			}
+				bool howling = script->IsHowling();
 
+				eWolfBossState state = script->GetCurWolfState();
+
+
+				if (howling && script->GetCurWolfState() == eWolfBossState::HOWLING_END)
+				{
+					script->SetHowling(false);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+			}
 		}
 
 

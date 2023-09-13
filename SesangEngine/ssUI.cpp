@@ -1,18 +1,19 @@
 #include "ssUI.h"
 #include "ssMeshRenderer.h"
 #include "ssCharacterState.h"
+#include "ssResources.h"
 
 namespace ss
 {
-	UI::UI(eUIType type)
-		: mUIType(type)
-		, mAnimator(nullptr)
+	UI::UI()
+		: mAnimator(nullptr)
 		, mRigidbody(nullptr)
 		, mTransform(nullptr)
 		, mCollider(nullptr)
 		, mMeshRenderer(nullptr)
 		, mCharacterState(nullptr)
 	{
+	
 	}
 
 
@@ -24,7 +25,7 @@ namespace ss
 	{
 
 
-	GameObject::Initialize();
+		GameObject::Initialize();
 
 
 	}

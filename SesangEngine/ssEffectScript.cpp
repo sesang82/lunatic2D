@@ -39,8 +39,6 @@ namespace ss
 		anim->Create(L"Boss_Wolf_BreathEndEffectR", Image3, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
 
 
-
-		// 일단 이렇게 한 이유는 hit ground의 크기가 다를 수도 있어서 일단 이렇게 해놨는데 나중에 그럴 필요없으면 리팩토링 하기
 		if (GetOwner()->GetName() == L"HowlingEffectObj")
 		{
 			tr->SetScale(Vector3(583.f, 123.f, 0.f));
@@ -58,13 +56,15 @@ namespace ss
 			anim->PlayAnimation(L"Boss_Wolf_BreathStartEffectR", true);
 		}
 
+
+
 	}
 
 
 	void EffectScript::Update()
 	{
 
-		
+
 
 		//if (SceneManager::GetActiveScene()->GetName() == L"Stage1Scene")
 		if (GetOwner()->GetName() == L"HowlingEffectObj")
@@ -72,7 +72,8 @@ namespace ss
 			BigWolfScript* bosswolfScript = mOwnerObj->GetComponent<BigWolfScript>();
 			eWolfBossState state = bosswolfScript->GetCurWolfState();
 
-			if (bosswolfScript->GetCurWolfState() == eWolfBossState::HOWLING_END)
+			if (bosswolfScript->GetCurWolfState() == eWolfBossState::HOWLING_END
+				|| bosswolfScript->GetCurWolfState() == eWolfBossState::DEAD)
 			{
 				GetOwner()->SetState(GameObject::eState::Dead); // 하울링 이펙트를 제거한다.
 			}
@@ -83,7 +84,7 @@ namespace ss
 		{
 			BigWolfScript* bosswolfScript = mOwnerObj->GetComponent<BigWolfScript>();
 			eWolfBossState state = bosswolfScript->GetCurWolfState();
-			
+
 			Animator* anim = GetOwner()->GetComponent<Animator>();
 			Transform* tr = GetOwner()->GetComponent<Transform>();
 
@@ -100,7 +101,8 @@ namespace ss
 			}
 
 
-			else if (bosswolfScript->GetCurWolfState() == eWolfBossState::STOM_START)
+			else if (bosswolfScript->GetCurWolfState() == eWolfBossState::STOM_START
+				|| bosswolfScript->GetCurWolfState() == eWolfBossState::DEAD)
 			{
 				GetOwner()->SetState(GameObject::eState::Dead); // breath 이펙트를 제거한다.
 			}
@@ -128,7 +130,8 @@ namespace ss
 			}
 
 
-			else if (bosswolfScript->GetCurWolfState() == eWolfBossState::STOM_START)
+			else if (bosswolfScript->GetCurWolfState() == eWolfBossState::STOM_START
+				|| bosswolfScript->GetCurWolfState() == eWolfBossState::DEAD)
 			{
 				GetOwner()->SetState(GameObject::eState::Dead); // breath 이펙트를 제거한다.
 			}

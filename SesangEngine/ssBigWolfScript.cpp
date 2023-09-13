@@ -576,14 +576,6 @@ namespace ss
 
 	void BigWolfScript::Breathing_Event()
 	{
-	/*	m_fTime += Time::DeltaTime();
-
-		if (m_fTime > 4.f)
-		{
-			mAnimator->SetLoop(false);
-		}
-*/
-
 
 
 
@@ -997,7 +989,14 @@ namespace ss
 
 
 			GetOwner()->SetState(GameObject::eState::Dead);
+
+			mBossHPFrame->SetState(GameObject::eState::Dead);
+
+
+
 		}
+
+
 
 	}
 	void BigWolfScript::Animation()

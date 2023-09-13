@@ -7,14 +7,14 @@
 #include "ssSkeletonArcherScript.h"
 #include "ssStoneEyeScript.h"
 #include "ssSkeletonLizardScript.h"
+#include "ssBigWolfScript.h"
 
 namespace ss
 {
 	using namespace ss::graphics;
 
 	Progressbar::Progressbar()
-		: UI(eUIType::Progressbar)
-		, mWidth(18) // 이미지 실제 크기 값 
+		: mWidth(18) // 이미지 실제 크기 값 
 		, mOffset(0.f)
 		, mfHPratio(0.f)
 	{
@@ -73,6 +73,7 @@ namespace ss
 
 		if (mOwner->GetName() == L"B_WolfObj")
 		{
+
 			// 체력바 스케일 설정 
 			mTransform->SetScale(Vector3(CurWidth, 6, 1.f));
 
@@ -155,7 +156,6 @@ namespace ss
 
 	void Progressbar::LateUpdate()
 	{
-
 
 
 		UI::LateUpdate();

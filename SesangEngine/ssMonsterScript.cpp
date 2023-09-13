@@ -10,6 +10,7 @@
 #include "ssRenderer.h"
 #include "ssConstantBuffer.h"
 #include "ssMeshRenderer.h"
+#include "ssCharacterState.h"
 
 
 namespace ss
@@ -29,6 +30,7 @@ namespace ss
 		, mOringinColCeter(Vector2::Zero)
 		, m_fTime(0.0f)
 		, mHitTime(0.0f)
+		, mBossHPFrame(nullptr)
 	{
 		
 
@@ -102,16 +104,13 @@ namespace ss
 	}
 	void MonsterScript::Update()
 	{
-		//mHitTime += Time::DeltaTime();
 
-		//// 몇 초 뒤에 끝낸다. 
-		//if (mHit && mHitTime >= 0.8f)
-		//{
-		//	mHit = false;
-		//	mHitTime = 0.f;
 
-		//}
 
+	}
+
+	void MonsterScript::LateUpdate()
+	{
 
 	}
 

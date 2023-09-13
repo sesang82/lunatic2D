@@ -79,6 +79,7 @@ namespace ss
     public:
         virtual void Initialize() override;
         virtual void Update() override;
+		virtual void LateUpdate() override;
 
         virtual void OnCollisionEnter(Collider2D* other) override;
         virtual void OnCollisionStay(Collider2D* other) override;
@@ -101,6 +102,7 @@ namespace ss
 		class CharacterState*	mCharacterState;
 		
 		class Player*			mPlayer;
+		class GameObject*       mBossHPFrame;
 		//class Monster*			mMonster;
 
 		Vector3					mPrevDir;
@@ -170,6 +172,10 @@ namespace ss
 
 		virtual void SetHit(bool hit) { mHit = hit; }
 		bool GetHit() { return mHit; }
+
+
+		void SetUI(GameObject* ui) { mBossHPFrame = ui; }
+		GameObject* GetUI() { return mBossHPFrame;}
 
 	};
 }

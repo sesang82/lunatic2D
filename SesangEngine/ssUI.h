@@ -7,16 +7,9 @@ namespace ss
         public GameObject
     {
 	public:
-		enum class eUIType
-		{
-			Button,
-			Progressbar,
-			END,
-		};
-
 
 	public:
-		UI(eUIType type);
+		UI();
 		virtual ~UI() override;
 
 	public:
@@ -28,13 +21,20 @@ namespace ss
 
 
 	protected:
-		eUIType mUIType;
 		class Animator*			mAnimator;
 		class Rigidbody2D*		mRigidbody;
 		class Transform*		mTransform;
 		class Collider2D*		mCollider;
 		class MeshRenderer*		mMeshRenderer;
 		class CharacterState*	mCharacterState;
+
+
+
+	private:
+		class Monster* mBoss;
+
+	public:
+		void SetBoss(Monster* boss) { mBoss = boss; }
 
 	};
   

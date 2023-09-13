@@ -21,6 +21,7 @@
 #include "ssParalloxScript.h"
 #include "ssCollisionManager.h"
 #include "ssProgressbar.h"
+#include "ssEffect.h"
 
 
 
@@ -389,6 +390,10 @@ namespace ss
 			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 198.f, 300.f));
 			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
 			bg->GetComponent<Transform>()->SetScale(Vector3(266.f, 28.f, 1.f));
+			bg->SetName(L"BossHPFrame");
+
+
+			mBoss1->GetComponent<MonsterScript>()->SetUI(bg);
 		}
 
 
