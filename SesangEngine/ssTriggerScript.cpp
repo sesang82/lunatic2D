@@ -81,7 +81,7 @@ namespace ss
 
 			// 보스 캐릭터의 것을 갖고 와서 수정한다. 
 			MeshRenderer* Bossmr = mMonster->GetComponent<MeshRenderer>();
-			Bossmr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+			Bossmr->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
 			Animator* animator = mMonster->GetComponent<Animator>();
 			animator->PlayAnimation(L"Boss_Wolf_SpawnL", false);

@@ -54,8 +54,7 @@ namespace ss
 		mCharacterState->SetMaxHP(110.f);
 		mCharacterState->SetCurrentHP(110.f);
 
-
-		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -288,13 +287,13 @@ namespace ss
 	void BigWolfScript::LateUpdate()
 	{
 
-		m_fTime += Time::DeltaTime();
+		mHitTime += Time::DeltaTime();
 	
-		if (mHit && m_fTime >= 2.5f)
+		if (mHit && mHitTime >= 2.5f)
 		{
 			mHit = false;
 			BindConstantBuffer();
-			m_fTime = 0.f;
+			mHitTime = 0.f;
 
 		}
 

@@ -116,6 +116,9 @@ namespace ss
 		Vector2					mOringinColCeter;
 
 		float					m_fTime; // 시간 측정용
+
+
+		float                   mHitTime;
 		bool                    mHit; // hit상태인지 
 
 	private:

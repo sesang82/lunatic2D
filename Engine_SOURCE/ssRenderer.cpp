@@ -376,6 +376,8 @@ namespace renderer
 		spriteAnimShader->Create(eShaderStage::PS, L"SpriteAnimationPS.hlsl", "main");
 		ss::Resources::Insert(L"SpriteAnimationShader", spriteAnimShader);
 
+
+
 		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
 		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
@@ -452,6 +454,16 @@ namespace renderer
 		material->SetShader(AnimShader);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"SpriteAnimationMaterial", material);
+
+
+		// 
+		std::shared_ptr<Shader> BossShader
+			= Resources::Find<Shader>(L"SpriteAnimationShader");
+
+		material = std::make_shared<Material>();
+		material->SetShader(BossShader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"BossAnimMtrl", material);
 
 
 
