@@ -169,6 +169,7 @@ namespace ss
 
 
 		virtual void SetHit(bool hit) { mHit = hit; }
+		bool GetHit() { return mHit; }
 
 	};
 }

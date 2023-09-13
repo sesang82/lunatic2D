@@ -9,6 +9,7 @@
 #include "ssMonster.h"
 #include "ssRenderer.h"
 #include "ssConstantBuffer.h"
+#include "ssMeshRenderer.h"
 
 
 namespace ss
@@ -102,7 +103,7 @@ namespace ss
 	void MonsterScript::Update()
 	{
 	
-
+		//BindConstantBuffer();
 	}
 
 	// 충돌체 작용 내용은 상속 되지 않음. 따로따로 적어줘야됨 

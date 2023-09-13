@@ -68,12 +68,50 @@ namespace renderer
 		UINT p_Padding[2];
 	};
 
-
+	
 	CBUFFER(HitCB, CBSLOT_HIT)
 	{
 		// 충돌 중인지 아닌지
 		bool h_IsHit;
 		int  h_Padding[3];
+	}; 
+
+
+	CBUFFER(MaterialCB, CBSLOT_MATERIAL)
+	{
+		int iData1 = -1;
+		int iData2 = -1;
+		int iData3 = -1;
+		int iData4 = -1;
+
+		float fData1 = -1.f;
+		float fData2 = -1.f;
+		float fData3 = -1.f;
+		float fData4 = -1.f;
+
+		Vector2 xy1 = {};
+		Vector2 xy2 = {};
+		Vector2 xy3 = {};
+		Vector2 xy4 = {};
+
+		Vector3 xyz1 = {};
+		float	xyzPadding1 = -1;
+		Vector3 xyz2 = {};
+		float	xyzPadding2 = -1;
+		Vector3 xyz3 = {};
+		float	xyzPadding3 = -1;
+		Vector3 xyz4 = {};
+		float	xyzPadding4 = -1;
+
+		Vector4 xyzw1 = {};
+		Vector4 xyzw2 = {};
+		Vector4 xyzw3 = {};
+		Vector4 xyzw4 = {};
+
+		Matrix matrix1 = {};
+		Matrix matrix2 = {};
+		Matrix matrix3 = {};
+		Matrix matrix4 = {};
 	};
 
 

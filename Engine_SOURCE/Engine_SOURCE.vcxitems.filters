@@ -210,6 +210,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ssFmod.cpp">
       <Filter>Resource\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssHitEffectMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -322,6 +325,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ssFmod.h">
       <Filter>Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssHitEffectMaterial.h">
+      <Filter>Resource\Material</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

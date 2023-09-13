@@ -39,4 +39,15 @@ namespace ss::graphics
 		ss::graphics::GetDevice()->BindConstantBuffer(stage, mType, buffer.Get());
 	}
 
+	void ConstantBuffer::Clear()
+	{
+		GetDevice()->ClearConstantBuffer(buffer.Get(), desc.ByteWidth);
+
+		UINT stageCount = static_cast<UINT>(eShaderStage::Count);
+		for (UINT stage = 0; stage < stageCount; ++stage)
+		{
+			GetDevice()->BindConstantBuffer(static_cast<eShaderStage>(stage), mType, buffer.Get());
+		}
+	}
+
 }

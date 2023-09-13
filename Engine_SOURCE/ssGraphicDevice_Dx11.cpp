@@ -311,6 +311,16 @@ namespace ss::graphics
 		mContext->DrawIndexed(IndexCount, StartIndexLocation, BaseVertexLocation);
 	}
 
+	void GraphicDevice_Dx11::ClearConstantBuffer(ID3D11Buffer* buffer, UINT size)
+	{
+
+		D3D11_MAPPED_SUBRESOURCE sub = {};
+		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
+		memset(sub.pData, 0, size);
+		mContext->Unmap(buffer, 0);
+
+	}
+
 	void GraphicDevice_Dx11::BindInputLayout(ID3D11InputLayout* pInputLayout)
 	{
 		mContext->IASetInputLayout(pInputLayout);

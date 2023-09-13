@@ -22,6 +22,8 @@
 #define CBSLOT_ANIMATION2D		4
 #define CBSLOT_PROGRESSBAR		5
 #define CBSLOT_HIT              6
+#define CBSLOT_MATERIAL         7
+
 
 
 namespace ss::graphics
@@ -34,10 +36,29 @@ namespace ss::graphics
 		GS,
 		PS,
 		CS,
+		Count,
 		End,
 	};
 
+	enum class eTextureSlot
+	{
+		T0,
+		T1,
+		T2,
+		T3,
+		T4,
+		T5,
+		T6,
+		T7,
 
+		CubeT8,
+		CubeT9,
+
+		Array2DT10,
+		Array2DT11,
+
+		End,
+	};
 	// enum 값은 따로 지정하지 않는 한, 기본 값이 0이다.
 	// hlsl에서 쓰는 상수버퍼의 이름과 레지스터 번호는 여기 아래에 기재한 enum class의 값을 기준으로 똑같이 작성하자.
 	// 상수 버퍼에 담아서 쓸 데이터 종류에 따라 아래 멤버 추가될 예정
@@ -98,6 +119,35 @@ namespace ss::graphics
 		CutOut, // 반투명
 		Transparent, // 투명
 		End,
+	};
+
+
+	enum class eGPUParam
+	{
+		Int_1,
+		Int_2,
+		Int_3,
+		Int_4,
+		Float_1,
+		Float_2,
+		Float_3,
+		Float_4,
+		Vector2_1,
+		Vector2_2,
+		Vector2_3,
+		Vector2_4,
+		Vector3_1,
+		Vector3_2,
+		Vector3_3,
+		Vector3_4,
+		Vector4_1,
+		Vector4_2,
+		Vector4_3,
+		Vector4_4,
+		Matrix_1,
+		Matrix_2,
+		Matrix_3,
+		Matrix_4,
 	};
 
 	struct GpuBuffer

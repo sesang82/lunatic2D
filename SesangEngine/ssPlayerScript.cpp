@@ -19,6 +19,8 @@
 #include "ssSceneManager.h"
 #include "ssMonster.h"
 #include "ssBigWolfScript.h"
+#include "ssRenderer.h"
+#include "ssConstantBuffer.h"
 
 
 
@@ -43,6 +45,7 @@ namespace ss
 		, mPrevColCeter(Vector2(-3.5f, 2.f))
 		, mTime(0.f)
 		, mbChange(false)
+		, mHit(false)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -111,6 +114,7 @@ namespace ss
 			mWeaponType = SceneManager::GetWeaponInfo();
 			mbChange = false;
 		
+		//	BindConstantBuffer();
 
 		switch (mCurState)
 		{
@@ -313,6 +317,21 @@ namespace ss
 			mBossStartColObj->SetState(GameObject::eState::Dead);
 
 		}
+
+	}
+
+	void PlayerScript::BindConstantBuffer()
+	{
+
+		// 상수 버퍼에 월드, 뷰, 투영 행렬을 담아 보내준다. 
+		renderer::HitCB hitCB = {};
+		hitCB.h_IsHit = mHit;
+
+		// 상수 버퍼 중에 Transform 상수 버퍼를 갖고 온다. 
+		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Hit];
+		cb->SetData(&hitCB); // 월드 행렬 정보를 상수 버퍼에 넣어준다.
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::PS); // 상수 버퍼는 어느 쉐이더 단계이든 바인딩할 수 있다는게 장점이다. 
 
 	}
 

@@ -12,6 +12,7 @@ namespace ss::graphics
 		bool Create(size_t size);
 		void SetData(void* data);
 		void Bind(eShaderStage stage);
+		void Clear();
 
 	private:
 		const eCBType mType;

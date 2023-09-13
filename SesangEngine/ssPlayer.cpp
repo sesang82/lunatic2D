@@ -44,7 +44,7 @@ namespace ss
 
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+		mr->SetMaterial(Resources::Find<Material>(L"PlayerAnimMtrl"));
 
 	
 

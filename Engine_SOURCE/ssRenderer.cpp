@@ -354,6 +354,11 @@ namespace renderer
 		// Hit Buffer (나중에 어느정도 완성되면 이거 컴퓨트 쉐이더로 써보기) 
 		constantBuffer[(UINT)eCBType::Hit] = new ConstantBuffer(eCBType::Hit);
 		constantBuffer[(UINT)eCBType::Hit]->Create(sizeof(HitCB));
+
+
+		// Hit Buffer (나중에 어느정도 완성되면 이거 컴퓨트 쉐이더로 써보기) 
+		constantBuffer[(UINT)eCBType::Material] = new ConstantBuffer(eCBType::Material);
+		constantBuffer[(UINT)eCBType::Material]->Create(sizeof(MaterialCB));
 	}
 
 	void LoadShader()
@@ -464,6 +469,18 @@ namespace renderer
 		material->SetShader(BossShader);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"BossAnimMtrl", material);
+
+
+		material = std::make_shared<Material>();
+		material->SetShader(BossShader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"PlayerAnimMtrl", material);
+
+
+		material = std::make_shared<Material>();
+		material->SetShader(BossShader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"torchAnimMtrl", material);
 
 
 

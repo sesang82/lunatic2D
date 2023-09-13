@@ -48,6 +48,7 @@ namespace ss
         //virtual void OnTriggerStay(Collider2D* collider) {};
         //virtual void OnTriggerExit(Collider2D* collider) {};
 
+        void BindConstantBuffer();
 
     private:
         bool  mbIdleJump;
@@ -59,6 +60,7 @@ namespace ss
         float mSpeed;
         float mTime;
 
+        bool mHit;
         float mJumpPower;
         float mJumpHeight;
         float mFallTime;

@@ -29,6 +29,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ssFmod.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssGraphicDevice_Dx11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ssHitEffectMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssLayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ssMaterial.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ssGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssGraphicDevice_Dx11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssGraphics.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ssHitEffectMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ssMaterial.h" />

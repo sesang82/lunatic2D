@@ -199,6 +199,7 @@ namespace ss
 	}
 	void BigWolfScript::Update()
 	{
+		MonsterScript::Update();
 
 		Vector3 MonsterPos = mTransform->GetPosition();
 		Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
@@ -287,16 +288,17 @@ namespace ss
 	void BigWolfScript::LateUpdate()
 	{
 
-		mHitTime += Time::DeltaTime();
+		//mHitTime += Time::DeltaTime();
 	
-		if (mHit && mHitTime >= 2.5f)
-		{
-			mHit = false;
-			BindConstantBuffer();
-			mHitTime = 0.f;
+		//if (mHit && mHitTime >= 2.5f)
+		//{
+		//	mHit = false;
+		//	BindConstantBuffer();
+		//	mHitTime = 0.f;
 
-		}
+		//}
 
+		//mMeshRenderer->GetMateiral()->Clear();
 	}
 	void BigWolfScript::OnCollisionEnter(Collider2D* other)
 	{

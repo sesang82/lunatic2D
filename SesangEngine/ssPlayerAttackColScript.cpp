@@ -120,7 +120,7 @@ namespace ss
 
 				B_wolf->SetCurrentHP(B_wolf->GetCurrentHP() - 10);
 				script->SetHit(true);
-				script->BindConstantBuffer();
+				//script->BindConstantBuffer();
 
 			}
 
