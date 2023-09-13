@@ -46,7 +46,7 @@ float4 main(VSOut In) : SV_TARGET
     
     if (h_IsHit) // 임시적으로 true로 설정하여 테스트
     {
-        return color + float4(1, 0, 0, color.a); // 원래 이미지 픽셀에다가 빨간색을 물들인다. (원본 알파값은 유지)
+        return color + float4(0.5, -0.3882, -0.2784, color.a);
     }
     else
     {
