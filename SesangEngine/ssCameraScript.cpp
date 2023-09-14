@@ -21,6 +21,7 @@ namespace ss
 		mMapSize = Vector2(800.0f, 448.f); // 전체 맵의 절반 크기 
 		mbFllowMonster = false;
 		mbReturnToPlayer = false;
+		isShaking = false;
 
 		// 카메라의 트랜스폼 얻어옴
 		Camera* cameraComp = GetOwner()->GetComponent<Camera>();
@@ -133,6 +134,25 @@ namespace ss
 		}
 
 
+
+
+		if (isShaking) 
+		{
+			shakeTimer += Time::DeltaTime();
+			if (shakeTimer >= shakeDuration) {
+				isShaking = false;
+				shakeTimer = 0.0f;
+			}
+			else {
+				float xOff = ((float(rand()) / RAND_MAX) * 2 - 1) * shakeMagnitude;
+				float yOff = ((float(rand()) / RAND_MAX) * 2 - 1) * shakeMagnitude;
+				Cam_tr->SetPosition(originalPosition + Vector3(xOff, yOff, 0));
+			}
+		}
+
+
+
+
 		HWND hWnd = application.GetHwnd();
 		RECT winRect = {};
 		GetClientRect(hWnd, &winRect);
@@ -202,5 +222,13 @@ namespace ss
 		//	Cam_tr->SetPosition(pos);
 		//}
 
+	}
+	void CameraScript::StartShake(float duration, float magnitude)
+	{
+		isShaking = true;
+		shakeDuration = duration;
+		shakeMagnitude = magnitude;
+		shakeTimer = 0.0f;
+		originalPosition = GetOwner()->GetComponent<Transform>()->GetPosition();
 	}
 }

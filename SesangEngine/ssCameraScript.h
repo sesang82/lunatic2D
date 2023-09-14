@@ -36,11 +36,18 @@ namespace ss
 
 		CameraOffset cameraOffset;
 		
-
+		// shake 관련 
+		bool isShaking = false;
+		float shakeDuration = 0.0f;
+		float shakeTimer = 0.0f;
+		float shakeMagnitude = 0.0f;
+		Vector3 originalPosition;
 
 	public:
 		// 게임오브젝트를 상속받은 다른 녀석들을 인수로 넣을 떄 오류가 난다면 해당 클래스 헤더 파일을 인클루드 하면 된다. 
 		void SetTarget(GameObject* obj) { mTarget = obj; }
+
+		void StartShake(float duration, float magnitude);
 
 
 	};

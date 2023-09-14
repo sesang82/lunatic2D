@@ -14,7 +14,7 @@ namespace ss
 	using namespace ss::graphics;
 
 	Progressbar::Progressbar()
-		: mWidth(18) // 이미지 실제 크기 값 
+		: mWidth(0.f) // 이미지 실제 크기 값 
 		, mOffset(0.f)
 		, mfHPratio(0.f)
 	{
@@ -39,14 +39,15 @@ namespace ss
 			mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl"));
 			mTransform->SetScale(Vector3(18.f, 3.f, 1.f)); // backsize랑 스케일값 동일하게 주기.
 			mOwner = GetParent();
+			mWidth = 18.f;
 		}
 
-		else
-		{
-			mr->SetMaterial(Resources::Find<Material>(L"BossHPBarMtrl"));
-			mTransform->SetScale(Vector3(260.f, 6.f, 1.f)); // backsize랑 스케일값 동일하게 주기.
-			mWidth = 260.f;
-		}
+		//else
+		//{
+		//	mr->SetMaterial(Resources::Find<Material>(L"BossHPBarMtrl"));
+		//	mTransform->SetScale(Vector3(260.f, 6.f, 1.f)); // backsize랑 스케일값 동일하게 주기.
+		//	mWidth = 260.f;
+		//}
 
 
 		
@@ -71,27 +72,27 @@ namespace ss
 		Vector3 pos = mTransform->GetPosition();
 
 
-		if (mOwner->GetName() == L"B_WolfObj")
-		{
+		//if (mOwner->GetName() == L"B_WolfObj")
+		//{
 
-			// 체력바 스케일 설정 
-			mTransform->SetScale(Vector3(CurWidth, 6, 1.f));
+		//	// 체력바 스케일 설정 
+		//	mTransform->SetScale(Vector3(CurWidth, 6, 1.f));
 
-			Vector3 Scale = mTransform->GetScale();
+		//	Vector3 Scale = mTransform->GetScale();
 
-			// 체력바의 왼쪽 끝 위치를 계산 (x 위치에 왼쪽 끝으로 이동)
-			Vector2 leftTop = mTransform->GetWorldLeftTop();
+		//	// 체력바의 왼쪽 끝 위치를 계산 (x 위치에 왼쪽 끝으로 이동)
+		//	Vector2 leftTop = mTransform->GetWorldLeftTop();
 
-			leftTop.x = -130.f;
-			pos.x = leftTop.x + (Scale.x * 0.5f);
+		//	leftTop.x = -130.f;
+		//	pos.x = leftTop.x + (Scale.x * 0.5f);
 
-			// 체력바의 위치 설정
-			mTransform->SetPosition(pos);
+		//	// 체력바의 위치 설정
+		//	mTransform->SetPosition(pos);
 
-		}
+		//}
 
-		else
-		{
+		//else
+		//{
 			// update를 돌 동안 값이 바뀔때만 하게 하려했으나, 오프셋 문제로 지움 
 			if (mOwner->GetName() == L"StoneEye")
 			{
@@ -142,7 +143,7 @@ namespace ss
 			// 체력바 스케일 설정 
 			mTransform->SetScale(Vector3(CurWidth, 3, 1));
 
-		}
+		//}
 
 	
 			

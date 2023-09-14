@@ -687,6 +687,9 @@ namespace ss
 
 	void PlayerScript::Attack()
 	{
+		CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+		camera->StartShake(0.01f, 0.05f);
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{

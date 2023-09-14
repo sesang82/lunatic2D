@@ -75,22 +75,22 @@ namespace ss
 		mAnimator->Create(L"Archer_IdleR", Image1, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 4, Vector2(73.f, 61.f));
 
 		mAnimator->Create(L"Archer_RunR", Image2, Vector2(0.f, 0.f), Vector2(73.f, 61.f),8, Vector2(73.f, 61.f));
-		mAnimator->Create(L"Archer_RunL", Image2, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 8, Vector2(73.f, 61.f), Vector2(0.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Archer_RunL", Image2, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 8, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Archer_HitR", Image3, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 1, Vector2(73.f, 61.f));
-		mAnimator->Create(L"Archer_HitL", Image3, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 1, Vector2(73.f, 61.f), Vector2(0.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Archer_HitL", Image3, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 1, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Archer_NearAttackR", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f));
-		mAnimator->Create(L"Archer_NearAttackL", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2(0.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Archer_NearAttackL", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Archer_FarAttackR", Image5, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f));
-		mAnimator->Create(L"Archer_FarAttackL", Image5, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2(0.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Archer_FarAttackL", Image5, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Archer_StunR", Image6, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 5, Vector2(73.f, 61.f));
-		mAnimator->Create(L"Archer_StunL", Image6, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 5, Vector2(73.f, 61.f), Vector2(0.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Archer_StunL", Image6, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 5, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Archer_DieR", Image7, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 17, Vector2(73.f, 61.f));
-		mAnimator->Create(L"Archer_DieL", Image7, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 17, Vector2(73.f, 61.f));
+		mAnimator->Create(L"Archer_DieL", Image7, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 17, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.1f, true);
 
 		// 일단 Idle 상태는 나중으로 만들기 
 	
@@ -304,15 +304,11 @@ namespace ss
 		if (mDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Archer_RunR", true);
-			mCollider->SetSize(Vector2(0.4f, 0.9f));
-			mCollider->SetCenter(Vector2(-6.f, -0.f));
 		}
 
 		else if (mDir.x < 0)
 		{
 			mAnimator->PlayAnimation(L"Archer_RunL", true);
-			mCollider->SetSize(Vector2(0.4f, 0.9f));
-			mCollider->SetCenter(Vector2(6.f, -0.f));
 		}
 
 
@@ -520,16 +516,12 @@ namespace ss
 			if (mCurDir.x > 0)
 			{
 				mAnimator->PlayAnimation(L"Archer_FarAttackR", true);
-				mCollider->SetSize(Vector2(0.4f, 0.9f));
-				mCollider->SetCenter(Vector2(6.f, -0.f));
 
 			}
 
 			else
 			{
 				mAnimator->PlayAnimation(L"Archer_FarAttackL", true);
-				mCollider->SetSize(Vector2(0.4f, 0.9f));
-				mCollider->SetCenter(Vector2(6.f, -0.f));
 			}
 
 		}
@@ -539,16 +531,12 @@ namespace ss
 		if (mCurDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Archer_DieR", false);
-			mCollider->SetSize(Vector2(0.19f, 0.33f));
-			mCollider->SetCenter(Vector2(-32.f, 0.f));
 
 		}
 
 		else
 		{
 			mAnimator->PlayAnimation(L"Archer_DieL", false);
-			mCollider->SetSize(Vector2(0.19f, 0.33f));
-			mCollider->SetCenter(Vector2(-37.f, 0.f));
 		}
 
 		// 애니메이션 재생이 끝나면 
