@@ -42,12 +42,12 @@ namespace ss
 			mWidth = 18.f;
 		}
 
-		//else
-		//{
-		//	mr->SetMaterial(Resources::Find<Material>(L"BossHPBarMtrl"));
-		//	mTransform->SetScale(Vector3(260.f, 6.f, 1.f)); // backsize랑 스케일값 동일하게 주기.
-		//	mWidth = 260.f;
-		//}
+		else
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"BossHPBarMtrl"));
+			mTransform->SetScale(Vector3(260.f, 6.f, 1.f)); // backsize랑 스케일값 동일하게 주기.
+			mWidth = 260.f;
+		}
 
 
 		
@@ -72,78 +72,78 @@ namespace ss
 		Vector3 pos = mTransform->GetPosition();
 
 
-		//if (mOwner->GetName() == L"B_WolfObj")
-		//{
+		if (mOwner->GetName() == L"B_WolfObj")
+		{
 
-		//	// 체력바 스케일 설정 
-		//	mTransform->SetScale(Vector3(CurWidth, 6, 1.f));
+			// 체력바 스케일 설정 
+			mTransform->SetScale(Vector3(CurWidth, 6, 1.f));
 
-		//	Vector3 Scale = mTransform->GetScale();
+			Vector3 Scale = mTransform->GetScale();
 
-		//	// 체력바의 왼쪽 끝 위치를 계산 (x 위치에 왼쪽 끝으로 이동)
-		//	Vector2 leftTop = mTransform->GetWorldLeftTop();
+			// 체력바의 왼쪽 끝 위치를 계산 (x 위치에 왼쪽 끝으로 이동)
+			Vector2 leftTop = mTransform->GetWorldLeftTop();
 
-		//	leftTop.x = -130.f;
-		//	pos.x = leftTop.x + (Scale.x * 0.5f);
+			leftTop.x = -130.f;
+			pos.x = leftTop.x + (Scale.x * 0.5f);
 
-		//	// 체력바의 위치 설정
-		//	mTransform->SetPosition(pos);
+			// 체력바의 위치 설정
+			mTransform->SetPosition(pos);
 
-		//}
+		}
 
-		//else
-		//{
+		else
+		{
+
+
+			// 체력바 스케일 설정 
+			mTransform->SetScale(Vector3(CurWidth, 3, 1));
+
+			Vector3 Scale = mTransform->GetScale();
+
+			// 체력바의 왼쪽 끝 위치를 계산 (x 위치에 왼쪽 끝으로 이동)
+			Vector2 leftTop = mTransform->GetWorldLeftTop();
+
+			
 			// update를 돌 동안 값이 바뀔때만 하게 하려했으나, 오프셋 문제로 지움 
 			if (mOwner->GetName() == L"StoneEye")
 			{
 				// 스톤아이처럼 오프셋을 하나로만 쓰려면, 애니메이션에다가 충돌체를 맞추지말고
 				// 충돌체에다가 애니메이션을 맞춰야함. 
-				pos.x = -36;
+				leftTop.x = -45.f;
 
 			}
 
-			if (mOwner->GetName() == L"Archer")
+			else if (mOwner->GetName() == L"Archer")
 			{
-				SkeletonArcherScript* ArcherScript = mOwner->GetComponent<SkeletonArcherScript>();
-
-				if (ArcherScript->GetDir() == Vector3(1.0f, 0.f, 0.f))
-				{
-					pos.x = -5; // offset 크기 조정 
-				}
-				else if (ArcherScript->GetDir() == Vector3(-1.0f, 0.f, 0.f))
-				{
-					pos.x = 5; // offset 크기 조정 
-				}
+				leftTop.x = -15.f;
 
 			}
 
-			if (mOwner->GetName() == L"Lizard")
+			else if (mOwner->GetName() == L"Lizard")
 			{
-				SkeletonLizardScript* LizardScript = mOwner->GetComponent<SkeletonLizardScript>();
-				pos.x = -5;
+				leftTop.x = -25.f;
 
 			}
 
 
-			if (mOwner->GetName() == L"WoodGolemObj")
+			else if (mOwner->GetName() == L"WoodGolemObj")
 			{
-				pos.x = -13;
+				leftTop.x = -20.f;
 
 			}
 
-			if (mOwner->GetName() == L"WolfObj")
+			else if (mOwner->GetName() == L"WolfObj")
 			{
-				pos.x = 8;
+				leftTop.x = -3.f;
 
 			}
 
-			// 체력바 오른쪽에서 왼쪽으로 깎이도록 하기 
-			pos.x -= (1 - mfHPratio) * mWidth * 0.5;
+			pos.x = leftTop.x + (Scale.x * 0.5f);
 
-			// 체력바 스케일 설정 
-			mTransform->SetScale(Vector3(CurWidth, 3, 1));
+			// 체력바의 위치 설정
+			mTransform->SetPosition(pos);
 
-		//}
+		}
 
 	
 			
