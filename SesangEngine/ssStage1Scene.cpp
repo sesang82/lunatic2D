@@ -202,7 +202,7 @@ namespace ss
 			Monster* Liazrd = object::Instantiate<Monster>(eLayerType::Monster, L"Lizard");
 			Liazrd->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 			Transform* eyetr = Liazrd->GetComponent<Transform>();
-			eyetr->SetPosition(Vector3(40.f, 185.f, 500.f));
+			eyetr->SetPosition(Vector3(-50.f, 185.f, 500.f));
 		
 
 
@@ -217,7 +217,7 @@ namespace ss
 
 
 			Transform* stonehptr = stoneHP->GetComponent<Transform>();
-			stonehptr->SetPosition(Vector3(50.f, 25.f, 500.f));
+			stonehptr->SetPosition(Vector3(-15.f, 25.f, 500.f));
 
 			stoneHP->Initialize();
 
@@ -250,7 +250,7 @@ namespace ss
 
 
 			Transform* stonehptr = stoneHP->GetComponent<Transform>();
-			stonehptr->SetPosition(Vector3(50.f, 40.f, 500.f));
+			stonehptr->SetPosition(Vector3(-10.f, 40.f, 500.f));
 
 			stoneHP->Initialize();
 
@@ -284,7 +284,7 @@ namespace ss
 			stoneHP->SetParent(Wolf);
 		
 			Transform* stonehptr = stoneHP->GetComponent<Transform>();
-			stonehptr->SetPosition(Vector3(50.f, 25.f, 500.f));
+			stonehptr->SetPosition(Vector3(7.f, 25.f, 500.f));
 
 			stoneHP->Initialize();
 
