@@ -707,6 +707,7 @@ namespace ss
 		if (!mbHitting)
 		{
 			mHitEffect = object::Instantiate<Effect>(eLayerType::Effect, L"PlayerHitUI");
+
 			EffectScript* effectscript = mHitEffect->AddComponent<EffectScript>();
 			effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
 			mbHitting = true;

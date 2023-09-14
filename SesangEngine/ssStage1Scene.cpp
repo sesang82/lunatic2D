@@ -540,7 +540,7 @@ namespace ss
 	void Stage1Scene::OnEnter()
 	{
 		renderer::mainCamera = mCamera;
-		mCamera->SetSize(2.3f);
+		mCamera->SetSize(2.3f); // 2.3
 
 		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 		camerscript->SetTarget(mPlayer);

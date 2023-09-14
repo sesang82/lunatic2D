@@ -10,6 +10,7 @@
 #include "ssZombieScript.h"
 #include "ssBigWolfScript.h"
 #include "ssPlayerScript.h"
+#include "ssrenderer.h"
 
 
 namespace ss
@@ -59,9 +60,12 @@ namespace ss
 
 		else if (GetOwner()->GetName() == L"PlayerHitUI")
 		{
+			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
+
+			
 			mr->SetMaterial(Resources::Find<Material>(L"UILowHPMtrl"));
-			tr->SetScale(Vector3(1600.f, 596.f, 0.f));
-			tr->SetPosition(Vector3(0.f, -300.f, 150.f));
+			tr->SetScale(Vector3(2300.f, 500.f, 0.f));
+			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition()));
 		}
 
 	}
@@ -148,6 +152,10 @@ namespace ss
 		else if (GetOwner()->GetName() == L"PlayerHitUI")
 		{
 			Transform* tr = GetOwner()->GetComponent<Transform>();
+			Transform* playertr = mOwnerObj->GetComponent<Transform>();
+
+			//tr->SetPosition(Vector3(playertr->GetPosition().x, playertr->GetPosition().y + 50.f, playertr->GetPosition().z));
+
 
 			PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
 
