@@ -1,0 +1,9 @@
+코너에 overload 이펙트 :
+총 7개
+
+horizion : 
+215 44 6개
+
+start:
+197 78 8개
+
