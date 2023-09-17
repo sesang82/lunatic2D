@@ -145,6 +145,15 @@ namespace ss
 			Attack();
 			break;
 
+		case ss::ePlayerState::SPATTACK:
+			SPAttack();
+			break;
+
+
+		case ss::ePlayerState::OVERLOADING:
+			Overloading();
+			break;
+
 		case ss::ePlayerState::HIT:
 			Hit();
 			break;
@@ -460,6 +469,19 @@ namespace ss
 		}
 
 
+		// °úºÎÇÏ 
+		else if (Input::GetKeyDown(eKeyCode::G))
+		{
+			if (mWeaponType == eWeaponType::SWORD)
+			{
+				ChangeState(ePlayerState::OVERLOAD_START);
+			}
+			
+		}
+
+
+
+
 	}
 
 
@@ -698,6 +720,26 @@ namespace ss
 
 	}
 
+	void PlayerScript::SPAttack()
+	{
+
+	}
+
+	void PlayerScript::Overload_Start()
+	{
+
+	}
+
+	void PlayerScript::Overloading()
+	{
+
+	}
+
+	void PlayerScript::Overload_End()
+	{
+
+	}
+
 	void PlayerScript::Hit()
 	{
 		
@@ -805,7 +847,7 @@ namespace ss
 					}
 				}
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mChangeFirst)
 					{
@@ -826,6 +868,13 @@ namespace ss
 					else
 						mAnimator->PlayAnimation(L"Player_B_IdleL", true);
 				}
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+
+
+
 				break;
 
 			case ss::ePlayerState::RUN:
@@ -854,7 +903,15 @@ namespace ss
 				}
 
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
+				{
+					if (mCurDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_B_RunR", true);
+					else
+						mAnimator->PlayAnimation(L"Player_B_RunL", true);
+				}
+
+				else if (mWeaponType == eWeaponType::PISTOL)
 				{
 					if (mCurDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_B_RunR", true);
@@ -873,7 +930,15 @@ namespace ss
 						mAnimator->PlayAnimation(L"Player_S_HangL", true);
 				}
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
+				{
+					if (mCurDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_B_HangL", true);
+					else
+						mAnimator->PlayAnimation(L"Player_B_HangL", true);
+				}
+
+				else if (mWeaponType == eWeaponType::PISTOL)
 				{
 					if (mCurDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_B_HangL", true);
@@ -918,7 +983,7 @@ namespace ss
 					}
 				}
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mCurDir.x > 0)
 					{
@@ -928,6 +993,13 @@ namespace ss
 					else
 						mAnimator->PlayAnimation(L"Player_B_JumpL", false);
 				}
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+
+
+
 
 				break;
 
@@ -955,13 +1027,20 @@ namespace ss
 				}
 
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_B_FallR", true);
 					else
 						mAnimator->PlayAnimation(L"Player_B_FallL", true);
 				}
+
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+
+
 				break;
 
 
@@ -974,12 +1053,16 @@ namespace ss
 						mAnimator->PlayAnimation(L"Player_S_Landingl", true);
 				}
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_B_LandingR", true);
 					else
 						mAnimator->PlayAnimation(L"Player_B_Landingl", true);
+				}
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
 				}
 
 
@@ -994,13 +1077,20 @@ namespace ss
 						mAnimator->PlayAnimation(L"Player_S_DashL", true);
 				}
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_B_DashR", true);
 					else
 						mAnimator->PlayAnimation(L"Player_B_DashL", true);
 				}
+
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+
+
 				break;
 
 			case ss::ePlayerState::STUN:
@@ -1012,13 +1102,19 @@ namespace ss
 						mAnimator->PlayAnimation(L"Player_S_StunL", false);
 				}
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_B_StunR", false);
 					else
 						mAnimator->PlayAnimation(L"Player_B_StunL", false);
 				}
+
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+
 				break;
 
 			case ss::ePlayerState::HIT:
@@ -1034,13 +1130,18 @@ namespace ss
 		
 				}
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_B_HitR", false);
 					else
 						mAnimator->PlayAnimation(L"Player_B_HitL", false);
 				}
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+
 			}
 			break;
 
@@ -1054,13 +1155,19 @@ namespace ss
 						mAnimator->PlayAnimation(L"Player_S_GuardL", false);
 				}
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_B_GuardR", false);
 					else
 						mAnimator->PlayAnimation(L"Player_B_GuardL", false);
 				}
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+
+
 
 			}
 			break;
@@ -1126,7 +1233,7 @@ namespace ss
 				}
 
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mAttackCount == 1)
 					{
@@ -1156,6 +1263,10 @@ namespace ss
 					}
 				}
 
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+
 				break;
 
 			case ss::ePlayerState::SPATTACK:
@@ -1164,10 +1275,71 @@ namespace ss
 
 				}
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
+				{
+				}
+
+
+				else if (mWeaponType == eWeaponType::PISTOL)
 				{
 				}
 				break;
+
+
+
+			case ss::ePlayerState::OVERLOAD_START:
+				if (mWeaponType == eWeaponType::SWORD)
+				{
+
+				}
+
+				else if (mWeaponType == eWeaponType::GAUNTLET)
+				{
+				}
+
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+				break;
+
+			case ss::ePlayerState::OVERLOADING:
+				if (mWeaponType == eWeaponType::SWORD)
+				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_S_DieR", true);
+					else
+						mAnimator->PlayAnimation(L"Player_S_DieL", true);
+				}
+
+				else if (mWeaponType == eWeaponType::GAUNTLET)
+				{
+				}
+
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+				break;
+
+
+			case ss::ePlayerState::OVERLOAD_END:
+				if (mWeaponType == eWeaponType::SWORD)
+				{
+
+				}
+
+				else if (mWeaponType == eWeaponType::GAUNTLET)
+				{
+				}
+
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+				break;
+
+
 
 			case ss::ePlayerState::DEAD:
 				if (mWeaponType == eWeaponType::SWORD)
@@ -1179,13 +1351,18 @@ namespace ss
 				}
 
 
-				else if (mWeaponType == eWeaponType::BOW)
+				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_B_DieR", true);
 					else
 						mAnimator->PlayAnimation(L"Player_B_DieL", true);
 				}
+
+				else if (mWeaponType == eWeaponType::PISTOL)
+				{
+				}
+
 				break;
 			}
 

@@ -17,6 +17,9 @@ namespace ss
         GUARD,
 		ATTACK,
         SPATTACK,
+        OVERLOAD_START,
+        OVERLOADING,
+        OVERLOAD_END,
 		DEAD,
         END
 	};
@@ -156,6 +159,11 @@ namespace ss
         void Guard();
 
         void Attack();
+        void SPAttack();
+
+        void Overload_Start();
+        void Overloading();
+        void Overload_End();
 
         void Animation();
 

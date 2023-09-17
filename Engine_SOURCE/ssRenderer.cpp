@@ -854,6 +854,21 @@ namespace renderer
 
 		 }
 
+		 // >> Overloading
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"S_PlayerOverloading", L"..\\Resources\\Texture\\Player\\Sword\\Overload\\Overload.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"S_PlayerOverloadingMtrl", spriteMateiral);
+
+		 }
+
 
 
 #pragma endregion 
@@ -964,7 +979,522 @@ namespace renderer
 		// >> Guard
 		// >> Attack
 		// >> SP Attack
- 
+
+		// >> Idle
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerIdle", L"..\\Resources\\Texture\\Player\\Pistol\\Idle.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"P_PlayerIdleMtrl", spriteMateiral);
+
+		 }
+
+		 // >> Run
+		 // 
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerRun", L"..\\Resources\\Texture\\Player\\Pistol\\Run.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerRunMtrl", spriteMateiral);
+
+		 }
+		 // >> Jump (fall 照杯庁暗)
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerJump", L"..\\Resources\\Texture\\Player\\Pistol\\Jump.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerJumpMtrl", spriteMateiral);
+
+		 }
+		 // >> Fall
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerFall", L"..\\Resources\\Texture\\Player\\Pistol\\Fall.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerFallMtrl", spriteMateiral);
+
+		 }
+		 //// >> Landing
+		 //{
+			// std::shared_ptr<Texture> texture
+			//	 = Resources::Load<Texture>(L"P_PlayerLanding", L"..\\Resources\\Texture\\Player\\Pistol\\Landing.png");
+
+			// // === Material 持失
+			// std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			// spriteMateiral->SetShader(AnimShader);
+			// spriteMateiral->SetTexture(texture);
+			// spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			// Resources::Insert(L"P_PlayerLandingMtrl", spriteMateiral);
+
+		 //}
+		 //// >> Hang
+		 //{
+			// std::shared_ptr<Texture> texture
+			//	 = Resources::Load<Texture>(L"S_PlayerHang", L"..\\Resources\\Texture\\Player\\Pistol\\Hang.png");
+
+			// // === Material 持失
+			// std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			// spriteMateiral->SetShader(AnimShader);
+			// spriteMateiral->SetTexture(texture);
+			// spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			// Resources::Insert(L"S_PlayerHangMtrl", spriteMateiral);
+
+		 //}
+		 // >> Dash
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerDash", L"..\\Resources\\Texture\\Player\\Pistol\\Dash.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerDashMtrl", spriteMateiral);
+
+		 }
+		 //// >> Stun
+		 //{
+			// std::shared_ptr<Texture> texture
+			//	 = Resources::Load<Texture>(L"S_PlayerStun", L"..\\Resources\\Texture\\Player\\Pistol\\Stun.png");
+
+			// // === Material 持失
+			// std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			// spriteMateiral->SetShader(AnimShader);
+			// spriteMateiral->SetTexture(texture);
+			// spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			// Resources::Insert(L"S_PlayerStunMtrl", spriteMateiral);
+
+		 //}
+
+
+		 // >> Hit
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerHit", L"..\\Resources\\Texture\\Player\\Pistol\\Hit.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_HitMtrl", spriteMateiral);
+
+		 }
+
+
+
+
+
+		 //// >> Die
+		 //{
+			// std::shared_ptr<Texture> texture
+			//	 = Resources::Load<Texture>(L"S_PlayerDie", L"..\\Resources\\Texture\\Player\\Pistol\\Die.png");
+
+			// // === Material 持失
+			// std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			// spriteMateiral->SetShader(AnimShader);
+			// spriteMateiral->SetTexture(texture);
+			// spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			// Resources::Insert(L"S_PlayerDieMtrl", spriteMateiral);
+
+		 //}
+		 // >> Guard
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerGuard", L"..\\Resources\\Texture\\Player\\Pistol\\Guard.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerGuardMtrl", spriteMateiral);
+
+		 }
+		 // >> Attack 1,2
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerAttack1,2", L"..\\Resources\\Texture\\Player\\Pistol\\ATTACK1.2 105 57 4.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerAttack1Mtrl", spriteMateiral);
+
+		 }
+
+		 // >> Attack 3
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerAttack3", L"..\\Resources\\Texture\\Player\\Pistol\\ATTACK3.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerAttack3Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // >> SP Attack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerspAttack", L"..\\Resources\\Texture\\Player\\Pistol\\spAttack 105 57 15.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerspAttackMtrl", spriteMateiral);
+
+		 }
+
+		 // >> OverLoad Ready
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerOverLoadReady", L"..\\Resources\\Texture\\Player\\Pistol\\OverloadReady.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerOverLoadReadyMtrl", spriteMateiral);
+
+		 }
+
+		 // >> OverLoading
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerOverLoading", L"..\\Resources\\Texture\\Player\\Pistol\\Overloading.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerOverLoadingMtrl", spriteMateiral);
+
+		 }
+
+		 // >> OverLoad End
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerOverLoadEnd", L"..\\Resources\\Texture\\Player\\Pistol\\OverloadEnd.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerOverLoadEndMtrl", spriteMateiral);
+
+		 }
+
+
+
+#pragma endregion 
+
+
+
+#pragma region Player [Gauntlet]
+		 // >> Idle
+		 // >> Run
+		 // >> Dash
+		 // >> Jump
+		 // >> Fall
+		 // >> Landing
+		 // >> Hang
+		 // >> Hit
+		 // >> Stun
+		 // >> Die
+		 // >> Guard
+		 // >> Attack
+		 // >> SP Attack
+
+		 // >> Idle
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerIdle", L"..\\Resources\\Texture\\Player\\Gauntlet\\Idle.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"G_PlayerIdleMtrl", spriteMateiral);
+
+		 }
+
+		 // >> Run
+		 // 
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerRun", L"..\\Resources\\Texture\\Player\\Gauntlet\\Run.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_PlayerRunMtrl", spriteMateiral);
+
+		 }
+		 // >> Jump (fall 照杯庁暗)
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerJump", L"..\\Resources\\Texture\\Player\\Gauntlet\\Jump.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_PlayerJumpMtrl", spriteMateiral);
+
+		 }
+		 // >> Fall
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerFall", L"..\\Resources\\Texture\\Player\\Gauntlet\\Fall.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_PlayerFallMtrl", spriteMateiral);
+
+		 }
+		 //// >> Landing
+		 //{
+			// std::shared_ptr<Texture> texture
+			//	 = Resources::Load<Texture>(L"G_PlayerLanding", L"..\\Resources\\Texture\\Player\\Gauntlet\\Landing.png");
+
+			// // === Material 持失
+			// std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			// spriteMateiral->SetShader(AnimShader);
+			// spriteMateiral->SetTexture(texture);
+			// spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			// Resources::Insert(L"G_PlayerLandingMtrl", spriteMateiral);
+
+		 //}
+		 //// >> Hang
+		 //{
+			// std::shared_ptr<Texture> texture
+			//	 = Resources::Load<Texture>(L"G_PlayerHang", L"..\\Resources\\Texture\\Player\\Gauntlet\\Hang.png");
+
+			// // === Material 持失
+			// std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			// spriteMateiral->SetShader(AnimShader);
+			// spriteMateiral->SetTexture(texture);
+			// spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			// Resources::Insert(L"G_PlayerHangMtrl", spriteMateiral);
+
+		 //}
+		 // >> Dash
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerDash", L"..\\Resources\\Texture\\Player\\Gauntlet\\Dash.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_PlayerDashMtrl", spriteMateiral);
+
+		 }
+		 //// >> Stun
+		 //{
+			// std::shared_ptr<Texture> texture
+			//	 = Resources::Load<Texture>(L"G_PlayerStun", L"..\\Resources\\Texture\\Player\\Gauntlet\\Stun.png");
+
+			// // === Material 持失
+			// std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			// spriteMateiral->SetShader(AnimShader);
+			// spriteMateiral->SetTexture(texture);
+			// spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			// Resources::Insert(L"G_PlayerStunMtrl", spriteMateiral);
+
+		 //}
+
+
+		 // >> Hit
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerHit", L"..\\Resources\\Texture\\Player\\Gauntlet\\Hit.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_HitMtrl", spriteMateiral);
+
+		 }
+
+
+
+
+
+		 //// >> Die
+		 //{
+			// std::shared_ptr<Texture> texture
+			//	 = Resources::Load<Texture>(L"G_PlayerDie", L"..\\Resources\\Texture\\Player\\Gauntlet\\Die.png");
+
+			// // === Material 持失
+			// std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			// spriteMateiral->SetShader(AnimShader);
+			// spriteMateiral->SetTexture(texture);
+			// spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			// Resources::Insert(L"G_PlayerDieMtrl", spriteMateiral);
+
+		 //}
+		 // >> Guard
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerGuard", L"..\\Resources\\Texture\\Player\\Gauntlet\\Guard.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_PlayerGuardMtrl", spriteMateiral);
+
+		 }
+		 // >> Attack 1
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerAttack1", L"..\\Resources\\Texture\\Player\\Gauntlet\\Attack1.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_PlayerAttack1Mtrl", spriteMateiral);
+
+		 }
+
+		 // >> Attack 2
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerAttack2", L"..\\Resources\\Texture\\Player\\Gauntlet\\Attack2.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_PlayerAttack2Mtrl", spriteMateiral);
+
+		 }
+
+		 // >> Attack 3
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerAttack3", L"..\\Resources\\Texture\\Player\\Gauntlet\\Attack3.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_PlayerAttack3Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // >> SP Attack
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_PlayerspAttack", L"..\\Resources\\Texture\\Player\\Gauntlet\\spAttack.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_PlayerspAttackMtrl", spriteMateiral);
+
+		 }
+
+		 // >> OverLoad
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_Playeroverload", L"..\\Resources\\Texture\\Player\\Gauntlet\\overload.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_PlayeroverloadMtrl", spriteMateiral);
+
+		 }
+
+
 
 
 #pragma endregion 

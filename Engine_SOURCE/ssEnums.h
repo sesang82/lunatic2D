@@ -80,7 +80,7 @@ namespace ss::enums
 	{
 		NONE = 1,
 		SWORD,
-		BOW,
+		GAUNTLET,
 		PISTOL,
 		END,
 	};
