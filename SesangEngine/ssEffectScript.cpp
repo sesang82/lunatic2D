@@ -202,6 +202,15 @@ namespace ss
 
 		}
 
+		else if (GetOwner()->GetName() == L"OverloadUI")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"UI_OverloadScreenMtrl"));
+			tr->SetScale(Vector3(700.f, 390.f, 0.f));
+			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition()));
+
+		}
+
+
 	}
 
 
@@ -403,10 +412,22 @@ namespace ss
 
 
 			//  overload 게이지가 0일 때 없앤다. 
-			//if (!IsUseOverload) // false일 때 
+			//if (게이지가 0이라면 ) //
 			//{
 			//	GetOwner()->SetState(GameObject::eState::Dead);
 			//}
+		}
+
+		else if (GetOwner()->GetName() == L"OverloadUI")
+		{
+			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
+
+			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition()));
+			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
+
+			// overload 게이지가 0일 떄 없앤다. 
+
+
 		}
 
 

@@ -70,6 +70,7 @@ namespace ss
         bool mbUseOverload;
         bool mbOverloading;
         bool mbPlayerOverloadingEffet;
+        bool mTurnOverload;
   
 
         float mJumpPower;

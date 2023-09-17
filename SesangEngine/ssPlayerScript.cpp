@@ -55,6 +55,7 @@ namespace ss
 		, mbUseOverload(false)
 		, mPlayerOverloadEffect(nullptr)
 		, mbPlayerOverloadingEffet(false)
+		, mTurnOverload(false)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -415,8 +416,7 @@ namespace ss
 
 			++mAttackCount;
 
-		
-
+	
 			ChangeState(ePlayerState::ATTACK);
 		}
 
@@ -490,7 +490,7 @@ namespace ss
 		{
 			ChangeState(ePlayerState::SPATTACK);
 
-			// SP 게이지 감소시키기 (-30)
+			// SP 게이지 감소시키기 (-30) && mTurnOverload 상태가 아닐떄만 
 
 		}
 
@@ -500,9 +500,12 @@ namespace ss
 		{
 			// 과부하 게이지 알아서 차감되게 하기 & 과부하 게이지가 100이라면 상태를 변경한다.
 			ChangeState(ePlayerState::OVERLOAD_READY);
+
+			// false는 과부하 게이지가 0이 되면 꺼지도록 해두기
+			// 또한 아래 bool 값 이용해서 애니메이션에서 해당 bool 값이 켜져있다면  다른 거 동작하게 해두기 
+			mTurnOverload = true; 
 			
 		}
-
 
 
 
@@ -733,9 +736,6 @@ namespace ss
 
 	void PlayerScript::Attack()
 	{
-		CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
-
-		camera->StartShake(0.01f, 0.05f);
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
@@ -1301,6 +1301,9 @@ namespace ss
 
 					if (mAttackCount == 1)
 					{
+						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+						camera->StartShake(0.01f, 0.05f);
 
 						if (mPrevDir.x > 0)
 						{
@@ -1316,6 +1319,9 @@ namespace ss
 
 					else if (mAttackCount == 2)
 					{
+						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+						camera->StartShake(0.01f, 0.05f);
 
 						if (mPrevDir.x > 0)
 							mAnimator->PlayAnimation(L"Player_S_Attack2R", false);
@@ -1325,6 +1331,9 @@ namespace ss
 
 					else if (mAttackCount == 3)
 					{
+						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+						camera->StartShake(0.1f, 0.3f); // 1, 2인덱스보다 쎄게! 
 
 						if (mPrevDir.x > 0)
 							mAnimator->PlayAnimation(L"Player_S_Attack3R", false);
@@ -1524,15 +1533,26 @@ namespace ss
 
 					if (mPrevDir.x > 0)
 					{
+						// ** 이펙트 삭제는 전부 이펙트 스크립트에서 진행 
+						
+						// player용 start 이펙트 재생 
 						mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"OverloadStratEffectR");
 
 						EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
 						effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+						// overload용 UI 나오게 하기 
+						mOverloadUIEffect = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadUI");
+
+						EffectScript* effectscript2 = mOverloadUIEffect->AddComponent<EffectScript>();
+						effectscript2->SetOriginOwner((Player*)mTransform->GetOwner());
+
 						
 					}
 
 					else if (mPrevDir.x < 0)
 					{
+						// player용 start 이펙트 재생 
 						mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"OverloadStratEffectL");
 						EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
 						effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
@@ -1543,11 +1563,13 @@ namespace ss
 				// 애니메이션 재생이 끝나면 
 				if (mbUseOverload && mPlayerOverloadEffect->GetComponent<Animator>()->GetCurActiveAnimation()->IsComplete())
 				{
+					mbUseOverload = false; 
 
 					if (!mbPlayerOverloadingEffet)
 					{
 						mbPlayerOverloadingEffet = true;
 
+						// 이펙트 삭제는 effectScript에서 진행할 예정 
 						if (mPrevDir.x > 0)
 						{
 							mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"PlayerOverloadingEffectR");
@@ -1567,19 +1589,7 @@ namespace ss
 
 					}
 
-
-					if (mWeaponType == eWeaponType::PISTOL)
-					{
-						ChangeState(ePlayerState::OVERLOAD_START);
-
-					}
-
-					else
-					{
-						//ChangeState(ePlayerState::OVERLOADING);
 						ChangeState(ePlayerState::IDLE);
-
-					}
 				}
 
 				break;
