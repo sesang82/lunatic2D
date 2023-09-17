@@ -111,12 +111,9 @@ namespace ss
 		anim->Create(L"G_PlayerOverload_EffectR", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
 		anim->Create(L"G_PlayerOverload_EffectL", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
 
-		anim->Create(L"PlayerOverloadStart_EffectR", Image16, Vector2(0.f, 0.f), Vector2(197.f, 78.f), 3, Vector2(197.f, 78.f));
-		anim->Create(L"PlayerOverloadStart_EffectL", Image16, Vector2(0.f, 0.f), Vector2(197.f, 78.f), 3, Vector2(197.f, 78.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"PlayerOverloadStart_Effect", Image16, Vector2(0.f, 0.f), Vector2(107.f, 78.f), 9, Vector2(107.f, 78.f), Vector2(-5.0f, -6.f));
 
-
-		anim->Create(L"PlayerOverloading_EffectR", Image17, Vector2(0.f, 0.f), Vector2(64.f, 40.f), 12, Vector2(64.f, 40.f));
-		anim->Create(L"PlayerOverloading_EffectL", Image17, Vector2(0.f, 0.f), Vector2(64.f, 40.f), 12, Vector2(64.f, 40.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"PlayerOverloading_Effect", Image17, Vector2(0.f, 0.f), Vector2(64.f, 40.f), 13, Vector2(64.f, 40.f));
 
 
 
@@ -165,22 +162,22 @@ namespace ss
 
 		}
 
-		else if (GetOwner()->GetName() == L"PlayerOverloadEffect")
+		else if (GetOwner()->GetName() == L"OverloadStratEffect")
 		{
 			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
 
-			anim->PlayAnimation(L"S_PlayerSPEffectL", false);
-			tr->SetScale(Vector3(197.f, 78.f, 0.f));
+			anim->PlayAnimation(L"PlayerOverloadStart_Effect", false);
+			tr->SetScale(Vector3(107.f, 78.f, 0.f));
 
 		}
 
 
-		else if (GetOwner()->GetName() == L"PlayerOverloadEffect")
+		else if (GetOwner()->GetName() == L"OverloadingEffect")
 		{
 			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
 
-			anim->PlayAnimation(L"S_PlayerSPEffectL", false);
-			tr->SetScale(Vector3(197.f, 78.f, 0.f));
+			anim->PlayAnimation(L"PlayerOverloading_Effect", true);
+			tr->SetScale(Vector3(64.f, 40.f, 0.f));
 
 		}
 
@@ -300,9 +297,46 @@ namespace ss
 				GetOwner()->SetState(GameObject::eState::Dead);
 			}
 
+		}
 
+		else if (GetOwner()->GetName() == L"OverloadStratEffect")
+		{
+			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
+			PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
+
+			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
+
+			// 이펙트가 플레이어 위치를 실시간으로 따라가게 한다. 
+			Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
+
+		
+
+			if (playerscript->GetState() == ePlayerState::OVERLOAD_START 
+				|| playerscript->GetState() == ePlayerState::OVERLOADING)
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
 
 		}
+
+		else if (GetOwner()->GetName() == L"OverloadingEffect")
+		{
+			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
+			PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
+
+			// overload 게이지가 0일 때 없앤다. 
+			//bool IsUseOverload = playerscript->IsUseOverload();
+
+			//if (!IsUseOverload) // false일 때 
+			//{
+			//	GetOwner()->SetState(GameObject::eState::Dead);
+			//}
+
+		}
+
+
+
+
 
 	}
 	void EffectScript::OnCollisionEnter(Collider2D* other)

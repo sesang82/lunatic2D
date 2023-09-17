@@ -154,6 +154,8 @@ namespace ss
 
         void SetMonster(Monster* monster) { mMonster = monster; } // 몬스터 정보 가져다 쓸 때 쓸라고 만들어둠 
         void SetBossStartColObj(Platform* obj) { mBossStartColObj = obj; }
+
+        bool IsUseOverload() { return mbUseOverload;}
  
 
 

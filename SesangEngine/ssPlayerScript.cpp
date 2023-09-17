@@ -490,7 +490,7 @@ namespace ss
 				// 제자리에 멈춰있도록 속도 0으로 만듦
 				mRigidbody->SetVelocity(Vector2(0.f, 0.f));
 
-				mPlayerOverloadEffect = object::Instantiate<Effect>(eLayerType::Effect, L"PlayerOverloadEffect");
+				mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(),eLayerType::Effect, L"OverloadStratEffect");
 				
 				EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
 				effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
@@ -501,16 +501,18 @@ namespace ss
 			// 애니메이션 재생이 끝나면 
 			if (mbUseOverload && mAnimator->GetCurActiveAnimation()->IsComplete())
 			{
+				mbUseOverload = false;
+
 				if (mWeaponType == eWeaponType::PISTOL)
 				{
 					ChangeState(ePlayerState::OVERLOAD_START);
-					mbUseOverload = false;
+				
 				}
 
 				else
 				{
 					ChangeState(ePlayerState::OVERLOADING);
-					mbUseOverload = false;
+
 				}
 			}
 		
