@@ -1541,12 +1541,19 @@ namespace ss
 						EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
 						effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
 
-						// overload용 UI 나오게 하기 
+						// overload용 UI
 						mOverloadUIEffect = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadUI");
 
 						EffectScript* effectscript2 = mOverloadUIEffect->AddComponent<EffectScript>();
 						effectscript2->SetOriginOwner((Player*)mTransform->GetOwner());
 
+
+
+						// OVERLOAD UI에 띄워줄 녀석들 
+						Effect* Top = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadTopUI");
+
+						EffectScript* effectscript3 = Top->AddComponent<EffectScript>();
+						effectscript3->SetOriginOwner((Player*)mTransform->GetOwner());
 						
 					}
 

@@ -60,6 +60,14 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image16 = Resources::Find<ss::graphics::Texture>(L"PlayerOverloadingStartEffect");
 		std::shared_ptr<ss::graphics::Texture> Image17 = Resources::Find<ss::graphics::Texture>(L"PlayerOverloadingEffect");
 
+		// overloading 꾸미는 용도 
+		std::shared_ptr<ss::graphics::Texture> Image18 = Resources::Find<ss::graphics::Texture>(L"Overload_LB");
+		std::shared_ptr<ss::graphics::Texture> Image19 = Resources::Find<ss::graphics::Texture>(L"Overload_LT");
+		std::shared_ptr<ss::graphics::Texture> Image20 = Resources::Find<ss::graphics::Texture>(L"Overload_RT");
+		std::shared_ptr<ss::graphics::Texture> Image21 = Resources::Find<ss::graphics::Texture>(L"Overload_RB");
+		std::shared_ptr<ss::graphics::Texture> Image22 = Resources::Find<ss::graphics::Texture>(L"Overload_BottomHorizion");
+		std::shared_ptr<ss::graphics::Texture> Image23 = Resources::Find<ss::graphics::Texture>(L"Overload_TopHorizion");
+
 
 		// 보스 늑대용
 		anim->Create(L"Boss_Wolf_HowlingEffect", Image1, Vector2(0.f, 0.f), Vector2(583.f, 123.f), 6, Vector2(583.f, 123.f));
@@ -114,10 +122,15 @@ namespace ss
 		anim->Create(L"PlayerOverloadStart_EffectR", Image16, Vector2(0.f, 0.f), Vector2(107.f, 78.f), 9, Vector2(107.f, 78.f), Vector2(-5.0f, -6.f));
 		anim->Create(L"PlayerOverloadStart_EffectL", Image16, Vector2(0.f, 0.f), Vector2(107.f, 78.f), 9, Vector2(107.f, 78.f), Vector2(-5.0f, -6.f), 0.1f, true);
 
-
 		anim->Create(L"PlayerOverloading_EffectR", Image17, Vector2(0.f, 0.f), Vector2(64.f, 40.f), 13, Vector2(64.f, 40.f), Vector2(-5.0f, 7.f));
 		anim->Create(L"PlayerOverloading_EffectL", Image17, Vector2(0.f, 0.f), Vector2(64.f, 40.f), 13, Vector2(64.f, 40.f), Vector2(-5.0f, 7.f), 0.1f, true);
 
+		anim->Create(L"Over_LB", Image18, Vector2(0.f, 0.f), Vector2(142.f, 136.f), 8, Vector2(142.f, 136.f));
+		anim->Create(L"Over_LT", Image19, Vector2(0.f, 0.f), Vector2(142.f, 136.f), 8, Vector2(142.f, 136.f));
+		anim->Create(L"Over_RT", Image20, Vector2(0.f, 0.f), Vector2(142.f, 136.f), 8, Vector2(142.f, 136.f));
+		anim->Create(L"Over_RB", Image21, Vector2(0.f, 0.f), Vector2(142.f, 136.f), 8, Vector2(142.f, 136.f));
+		anim->Create(L"Over_BottomHorizion", Image22, Vector2(0.f, 0.f), Vector2(215.f, 44.f), 6, Vector2(215.f, 44.f));
+		anim->Create(L"Over_TopHorizion", Image23, Vector2(0.f, 0.f), Vector2(215.f, 44.f), 6, Vector2(215.f, 44.f));
 
 
 		if (GetOwner()->GetName() == L"HowlingEffectObj")
@@ -193,14 +206,16 @@ namespace ss
 
 		}
 
+
 		else if (GetOwner()->GetName() == L"PlayerOverloadingEffectL")
 		{
 			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
 
-			anim->PlayAnimation(L"PlayerOverloading_EffectL", true);
+			anim->PlayAnimation(L"PlayerOverloading_EffectR", true);
 			tr->SetScale(Vector3(64.f, 40.f, 0.f));
 
 		}
+
 
 		else if (GetOwner()->GetName() == L"OverloadUI")
 		{
@@ -209,6 +224,19 @@ namespace ss
 			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition()));
 
 		}
+
+
+		// ====== 아래에 추가하기 
+		else if (GetOwner()->GetName() == L"OverloadTopUI")
+		{
+			anim->PlayAnimation(L"Over_LB", true);
+			tr->SetScale(Vector3(142.f, 136.f, 0.f));
+
+			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x - 500.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+		}
+
 
 
 	}
@@ -429,6 +457,21 @@ namespace ss
 
 
 		}
+		
+
+		else if (GetOwner()->GetName() == L"OverloadTopUI")
+		{
+			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
+
+			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x - 275.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y - 127.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
+
+			// overload 게이지가 0일 떄 없앤다. 
+
+
+			}
 
 
 
