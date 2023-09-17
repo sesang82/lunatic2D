@@ -3103,7 +3103,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3118,7 +3118,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3133,7 +3133,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3147,7 +3147,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3162,7 +3162,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3177,7 +3177,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3192,7 +3192,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3207,7 +3207,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3221,7 +3221,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3237,7 +3237,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3251,7 +3251,7 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
@@ -3265,12 +3265,138 @@ namespace renderer
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
 			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
 
 			Resources::Insert(L"G_PlayerOverload_EffectMtrl", spriteMateiral);
 		}
+
+		// =============
+		// 4. 플레이어 공통 overload 관련 UI 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"UI_OverloadScreen", L"..\\Resources\\Texture\\UI\\Etc\\UI_OverloadScreen.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"UI_OverloadScreenMtrl", spriteMateiral);
+		}
+
+		// 플레이어한테 띄워줄 overload effect 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"PlayerOverloadingStartEffect", L"..\\Resources\\Texture\\UI\\Player\\overload\\OverloadingStartEffect.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(AnimShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"PlayerOverloadingStartEffectMtrl", spriteMateiral);
+		}
+
+		// 플레이어한테 띄워줄 overloading 중일 떄의 effect 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"PlayerOverloadingEffect", L"..\\Resources\\Texture\\UI\\Player\\overload\\OverloadingEffect.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(AnimShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"PlayerOverloadingEffectMtrl", spriteMateiral);
+		}
+
+
+		// overload 화면에 띄워질 것 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Overload_LB", L"..\\Resources\\Texture\\UI\\Player\\overload\\LB.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(AnimShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"Overload_LBMtrl", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Overload_LT", L"..\\Resources\\Texture\\UI\\Player\\overload\\LT.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(AnimShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"Overload_LTMtrl", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Overload_RT", L"..\\Resources\\Texture\\UI\\Player\\overload\\RT.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(AnimShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"Overload_RTMtrl", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Overload_RB", L"..\\Resources\\Texture\\UI\\Player\\overload\\RB.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(AnimShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"Overload_RBMtrl", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Overload_BottomHorizion", L"..\\Resources\\Texture\\UI\\Player\\overload\\BottomHorizion.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(AnimShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"Overload_BottomHorizionMtrl", spriteMateiral);
+		}
+
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Overload_TopHorizion", L"..\\Resources\\Texture\\UI\\Player\\overload\\TopHorizion.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(AnimShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"Overload_TopHorizionMtrl", spriteMateiral);
+		}
+
+
 
 #pragma endregion 
 

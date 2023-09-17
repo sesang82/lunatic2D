@@ -66,7 +66,9 @@ namespace ss
         bool mHit;
         bool mbHitting;
         bool mbspAttack;
+        bool mbUseOverload;
         bool mbOverloading;
+  
 
         float mJumpPower;
         float mJumpHeight;
@@ -99,6 +101,8 @@ namespace ss
 
         class Effect*           mHitEffect;
         class Effect*           mSPEffect;
+        class Effect*           mPlayerOverloadEffect;
+        class Effect*           mOverloadUIEffect;
 
         // 몬스터 갖고 올 수 잇는 벡터 만들어서 여따가 저장시켜둔다. (스크립트에 써먹기 위함)
        

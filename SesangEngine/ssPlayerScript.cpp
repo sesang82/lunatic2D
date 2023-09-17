@@ -52,6 +52,8 @@ namespace ss
 		, mSPEffect(nullptr)
 		, mbspAttack(false)
 		, mbOverloading(false)
+		, mbUseOverload(false)
+		, mPlayerOverloadEffect(nullptr)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -483,15 +485,35 @@ namespace ss
 		// 과부하 (과부하 게이지가 100% 일 때만 작동하도록 나중에 바꾸기)
 		else if (Input::GetKeyDown(eKeyCode::G))
 		{
-			if (mWeaponType == eWeaponType::PISTOL)
+			if (!mbUseOverload)
 			{
-				ChangeState(ePlayerState::OVERLOAD_START);
+				// 제자리에 멈춰있도록 속도 0으로 만듦
+				mRigidbody->SetVelocity(Vector2(0.f, 0.f));
+
+				mPlayerOverloadEffect = object::Instantiate<Effect>(eLayerType::Effect, L"PlayerOverloadEffect");
+				
+				EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
+				effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+				mbUseOverload = true;
+
 			}
 
-			else
+			// 애니메이션 재생이 끝나면 
+			if (mbUseOverload && mAnimator->GetCurActiveAnimation()->IsComplete())
 			{
-				ChangeState(ePlayerState::OVERLOADING);
+				if (mWeaponType == eWeaponType::PISTOL)
+				{
+					ChangeState(ePlayerState::OVERLOAD_START);
+					mbUseOverload = false;
+				}
+
+				else
+				{
+					ChangeState(ePlayerState::OVERLOADING);
+					mbUseOverload = false;
+				}
 			}
+		
 			
 		}
 
@@ -1474,7 +1496,7 @@ namespace ss
 					{
 						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 
-						camera->StartShake(0.05f, 0.3f);
+						camera->StartShake(0.1f, 0.3f);
 					}
 
 

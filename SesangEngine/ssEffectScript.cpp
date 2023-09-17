@@ -56,6 +56,11 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image14 = Resources::Find<ss::graphics::Texture>(L"G_PlayerspAttack2_Effect");
 		std::shared_ptr<ss::graphics::Texture> Image15 = Resources::Find<ss::graphics::Texture>(L"G_PlayerOverload_Effect");
 
+		// effect 관련
+		std::shared_ptr<ss::graphics::Texture> Image16 = Resources::Find<ss::graphics::Texture>(L"PlayerOverloadingStartEffect");
+		std::shared_ptr<ss::graphics::Texture> Image17 = Resources::Find<ss::graphics::Texture>(L"PlayerOverloadingEffect");
+
+
 		// 보스 늑대용
 		anim->Create(L"Boss_Wolf_HowlingEffect", Image1, Vector2(0.f, 0.f), Vector2(583.f, 123.f), 6, Vector2(583.f, 123.f));
 		
@@ -106,6 +111,15 @@ namespace ss
 		anim->Create(L"G_PlayerOverload_EffectR", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
 		anim->Create(L"G_PlayerOverload_EffectL", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
 
+		anim->Create(L"G_PlayerOverload_EffectR", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
+		anim->Create(L"G_PlayerOverload_EffectL", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+
+
+		anim->Create(L"G_PlayerOverload_EffectR", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
+		anim->Create(L"G_PlayerOverload_EffectL", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+
+
+
 		if (GetOwner()->GetName() == L"HowlingEffectObj")
 		{
 			tr->SetScale(Vector3(583.f, 123.f, 0.f));
@@ -151,8 +165,24 @@ namespace ss
 
 		}
 
+		else if (GetOwner()->GetName() == L"PlayerOverloadEffect")
+		{
+			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
+
+			anim->PlayAnimation(L"S_PlayerSPEffectL", false);
+			tr->SetScale(Vector3(197.f, 78.f, 0.f));
+
+		}
 
 
+		else if (GetOwner()->GetName() == L"PlayerOverloadEffect")
+		{
+			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
+
+			anim->PlayAnimation(L"S_PlayerSPEffectL", false);
+			tr->SetScale(Vector3(197.f, 78.f, 0.f));
+
+		}
 
 	}
 
