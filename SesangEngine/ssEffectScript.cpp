@@ -111,9 +111,12 @@ namespace ss
 		anim->Create(L"G_PlayerOverload_EffectR", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
 		anim->Create(L"G_PlayerOverload_EffectL", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
 
-		anim->Create(L"PlayerOverloadStart_Effect", Image16, Vector2(0.f, 0.f), Vector2(107.f, 78.f), 9, Vector2(107.f, 78.f), Vector2(-5.0f, -6.f));
+		anim->Create(L"PlayerOverloadStart_EffectR", Image16, Vector2(0.f, 0.f), Vector2(107.f, 78.f), 9, Vector2(107.f, 78.f), Vector2(-5.0f, -6.f));
+		anim->Create(L"PlayerOverloadStart_EffectL", Image16, Vector2(0.f, 0.f), Vector2(107.f, 78.f), 9, Vector2(107.f, 78.f), Vector2(-5.0f, -6.f), 0.1f, true);
 
-		anim->Create(L"PlayerOverloading_Effect", Image17, Vector2(0.f, 0.f), Vector2(64.f, 40.f), 13, Vector2(64.f, 40.f));
+
+		anim->Create(L"PlayerOverloading_EffectR", Image17, Vector2(0.f, 0.f), Vector2(64.f, 40.f), 13, Vector2(64.f, 40.f), Vector2(-5.0f, 7.f));
+		anim->Create(L"PlayerOverloading_EffectL", Image17, Vector2(0.f, 0.f), Vector2(64.f, 40.f), 13, Vector2(64.f, 40.f), Vector2(-5.0f, 7.f), 0.1f, true);
 
 
 
@@ -162,21 +165,39 @@ namespace ss
 
 		}
 
-		else if (GetOwner()->GetName() == L"OverloadStratEffect")
+		else if (GetOwner()->GetName() == L"OverloadStratEffectR")
 		{
 			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
 
-			anim->PlayAnimation(L"PlayerOverloadStart_Effect", false);
+			anim->PlayAnimation(L"PlayerOverloadStart_EffectR", false);
+			tr->SetScale(Vector3(107.f, 78.f, 0.f));
+
+		}
+
+		else if (GetOwner()->GetName() == L"OverloadStratEffectL")
+		{
+			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
+
+			anim->PlayAnimation(L"PlayerOverloadStart_EffectL", false);
 			tr->SetScale(Vector3(107.f, 78.f, 0.f));
 
 		}
 
 
-		else if (GetOwner()->GetName() == L"OverloadingEffect")
+		else if (GetOwner()->GetName() == L"PlayerOverloadingEffectR")
 		{
 			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
 
-			anim->PlayAnimation(L"PlayerOverloading_Effect", true);
+			anim->PlayAnimation(L"PlayerOverloading_EffectR", true);
+			tr->SetScale(Vector3(64.f, 40.f, 0.f));
+
+		}
+
+		else if (GetOwner()->GetName() == L"PlayerOverloadingEffectL")
+		{
+			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
+
+			anim->PlayAnimation(L"PlayerOverloading_EffectL", true);
 			tr->SetScale(Vector3(64.f, 40.f, 0.f));
 
 		}
@@ -299,7 +320,8 @@ namespace ss
 
 		}
 
-		else if (GetOwner()->GetName() == L"OverloadStratEffect")
+		else if (GetOwner()->GetName() == L"OverloadStratEffectR"
+			|| GetOwner()->GetName() == L"OverloadStratEffectL")
 		{
 			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
 			PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
@@ -309,6 +331,12 @@ namespace ss
 			// 이펙트가 플레이어 위치를 실시간으로 따라가게 한다. 
 			Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
 
+	/*		Animator* EffectAnim = GetOwner()->GetComponent<Animator>();
+
+			if (EffectAnim->GetCurActiveAnimation()->IsComplete())
+			{
+
+			}*/
 		
 
 			if (playerscript->GetState() == ePlayerState::OVERLOAD_START 
@@ -319,14 +347,30 @@ namespace ss
 
 		}
 
-		else if (GetOwner()->GetName() == L"OverloadingEffect")
+		else if (GetOwner()->GetName() == L"PlayerOverloadingEffectR")
 		{
 			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
 			PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
 
-			// overload 게이지가 0일 때 없앤다. 
-			//bool IsUseOverload = playerscript->IsUseOverload();
+			// 플레이어 위치를 따라다닌다.
+			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
 
+			// 이펙트가 플레이어 위치를 실시간으로 따라가게 한다. 
+
+			if (playerscript->GetCurDir().x == 1.0)
+			{
+				Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
+			}
+
+			if (playerscript->GetCurDir().x == -1.0)
+			{
+				Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition().x + 14.f,
+					mOwnerObj->GetComponent<Transform>()->GetPosition().y,
+					mOwnerObj->GetComponent<Transform>()->GetPosition().z);
+			}
+
+
+			//  overload 게이지가 0일 때 없앤다. 
 			//if (!IsUseOverload) // false일 때 
 			//{
 			//	GetOwner()->SetState(GameObject::eState::Dead);
@@ -334,6 +378,36 @@ namespace ss
 
 		}
 
+		else if (GetOwner()->GetName() == L"PlayerOverloadingEffectL")
+		{
+			PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
+
+			// 플레이어 위치를 따라다닌다.
+			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
+
+			// 이펙트가 플레이어 위치를 실시간으로 따라가게 한다. 
+
+			if (playerscript->GetCurDir().x == 1.0)
+			{
+				Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition().x - 14.f,
+					mOwnerObj->GetComponent<Transform>()->GetPosition().y,
+					mOwnerObj->GetComponent<Transform>()->GetPosition().z);
+			}
+
+			if (playerscript->GetCurDir().x == -1.0)
+			{
+				Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
+
+		
+			}
+
+
+			//  overload 게이지가 0일 때 없앤다. 
+			//if (!IsUseOverload) // false일 때 
+			//{
+			//	GetOwner()->SetState(GameObject::eState::Dead);
+			//}
+		}
 
 
 

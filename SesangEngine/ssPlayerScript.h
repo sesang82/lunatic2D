@@ -17,6 +17,7 @@ namespace ss
         GUARD,
 		ATTACK,
         SPATTACK,
+        OVERLOAD_READY, // 모든 무기 공통 
         OVERLOAD_START,
         OVERLOADING,
         OVERLOAD_END,
@@ -68,6 +69,7 @@ namespace ss
         bool mbspAttack;
         bool mbUseOverload;
         bool mbOverloading;
+        bool mbPlayerOverloadingEffet;
   
 
         float mJumpPower;
@@ -171,6 +173,7 @@ namespace ss
         void Attack();
         void SPAttack();
 
+        void Overload_Ready(); // 모든 무기 공통 
         void Overload_Start();
         void Overloading();
         void Overload_End();

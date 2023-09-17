@@ -54,6 +54,7 @@ namespace ss
 		, mbOverloading(false)
 		, mbUseOverload(false)
 		, mPlayerOverloadEffect(nullptr)
+		, mbPlayerOverloadingEffet(false)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -154,8 +155,20 @@ namespace ss
 			SPAttack();
 			break;
 
+		case ss::ePlayerState::OVERLOAD_READY:
+			Overload_Ready();
+			break;
+
+		case ss::ePlayerState::OVERLOAD_START:
+			Overload_Start();
+			break;
+
 		case ss::ePlayerState::OVERLOADING:
 			Overloading();
+			break;
+
+		case ss::ePlayerState::OVERLOAD_END:
+			Overload_End();
 			break;
 
 		case ss::ePlayerState::HIT:
@@ -485,37 +498,8 @@ namespace ss
 		// 과부하 (과부하 게이지가 100% 일 때만 작동하도록 나중에 바꾸기)
 		else if (Input::GetKeyDown(eKeyCode::G))
 		{
-			if (!mbUseOverload)
-			{
-				// 제자리에 멈춰있도록 속도 0으로 만듦
-				mRigidbody->SetVelocity(Vector2(0.f, 0.f));
-
-				mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(),eLayerType::Effect, L"OverloadStratEffect");
-				
-				EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
-				effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
-				mbUseOverload = true;
-
-			}
-
-			// 애니메이션 재생이 끝나면 
-			if (mbUseOverload && mAnimator->GetCurActiveAnimation()->IsComplete())
-			{
-				mbUseOverload = false;
-
-				if (mWeaponType == eWeaponType::PISTOL)
-				{
-					ChangeState(ePlayerState::OVERLOAD_START);
-				
-				}
-
-				else
-				{
-					ChangeState(ePlayerState::OVERLOADING);
-
-				}
-			}
-		
+			// 과부하 게이지 알아서 차감되게 하기 & 과부하 게이지가 100이라면 상태를 변경한다.
+			ChangeState(ePlayerState::OVERLOAD_READY);
 			
 		}
 
@@ -768,6 +752,10 @@ namespace ss
 			mbOverloading = false;
 		
 		}
+	}
+
+	void PlayerScript::Overload_Ready()
+	{
 	}
 
 	void PlayerScript::Overload_Start()
@@ -1528,7 +1516,74 @@ namespace ss
 				}
 				break;
 
+			case ss::ePlayerState::OVERLOAD_READY:
+				
+				if (!mbUseOverload)
+				{
+					mbUseOverload = true;
 
+					if (mPrevDir.x > 0)
+					{
+						mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"OverloadStratEffectR");
+
+						EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
+						effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+						
+					}
+
+					else if (mPrevDir.x < 0)
+					{
+						mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"OverloadStratEffectL");
+						EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
+						effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+					}
+
+				}
+	
+				// 애니메이션 재생이 끝나면 
+				if (mbUseOverload && mPlayerOverloadEffect->GetComponent<Animator>()->GetCurActiveAnimation()->IsComplete())
+				{
+
+					if (!mbPlayerOverloadingEffet)
+					{
+						mbPlayerOverloadingEffet = true;
+
+						if (mPrevDir.x > 0)
+						{
+							mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"PlayerOverloadingEffectR");
+
+							EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
+							effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+						}
+
+						else if (mPrevDir.x < 0)
+						{
+							mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"PlayerOverloadingEffectL");
+
+							EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
+							effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+						}
+			
+
+					}
+
+
+					if (mWeaponType == eWeaponType::PISTOL)
+					{
+						ChangeState(ePlayerState::OVERLOAD_START);
+
+					}
+
+					else
+					{
+						//ChangeState(ePlayerState::OVERLOADING);
+						ChangeState(ePlayerState::IDLE);
+
+					}
+				}
+
+				break;
+			
 
 			case ss::ePlayerState::OVERLOAD_START:
 				if (mWeaponType == eWeaponType::SWORD)
