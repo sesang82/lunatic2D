@@ -11,7 +11,7 @@ namespace ss
 		Z, X, C, V, B, N, M,
 
 		UP, DOWN, LEFT, RIGHT, SPACE,
-		LBUTTON, RBUTTON, ENTER, LCTRL,
+		LBUTTON, RBUTTON, ENTER, LCTRL, LSHIFT,
 		END,
 	};
 

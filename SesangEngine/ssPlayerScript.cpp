@@ -49,6 +49,9 @@ namespace ss
 		, mHit(false)
 		, mbHitting(false)
 		, mHitEffect(nullptr)
+		, mSPEffect(nullptr)
+		, mbspAttack(false)
+		, mbOverloading(false)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -148,7 +151,6 @@ namespace ss
 		case ss::ePlayerState::SPATTACK:
 			SPAttack();
 			break;
-
 
 		case ss::ePlayerState::OVERLOADING:
 			Overloading();
@@ -468,13 +470,27 @@ namespace ss
 			ChangeState(ePlayerState::GUARD);
 		}
 
+		// SP 공격
+		else if (Input::GetKeyDown(eKeyCode::LSHIFT))
+		{
+			ChangeState(ePlayerState::SPATTACK);
 
-		// 과부하 
+			// SP 게이지 감소시키기 (-30)
+
+		}
+
+
+		// 과부하 (과부하 게이지가 100% 일 때만 작동하도록 나중에 바꾸기)
 		else if (Input::GetKeyDown(eKeyCode::G))
 		{
-			if (mWeaponType == eWeaponType::SWORD)
+			if (mWeaponType == eWeaponType::PISTOL)
 			{
 				ChangeState(ePlayerState::OVERLOAD_START);
+			}
+
+			else
+			{
+				ChangeState(ePlayerState::OVERLOADING);
 			}
 			
 		}
@@ -722,7 +738,12 @@ namespace ss
 
 	void PlayerScript::SPAttack()
 	{
-
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(ePlayerState::IDLE);
+			mbOverloading = false;
+		
+		}
 	}
 
 	void PlayerScript::Overload_Start()
@@ -732,7 +753,10 @@ namespace ss
 
 	void PlayerScript::Overloading()
 	{
-
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(ePlayerState::IDLE);
+		}
 	}
 
 	void PlayerScript::Overload_End()
@@ -854,23 +878,44 @@ namespace ss
 						mChangeFirst = false;
 
 						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_B_IdleR", true);
+							mAnimator->PlayAnimation(L"Player_G_IdleR", true);
 
 						else
-							mAnimator->PlayAnimation(L"Player_B_IdleL", true);
+							mAnimator->PlayAnimation(L"Player_G_IdleL", true);
 
 					}
 
 
 					if (mCurDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_RunR", true);
+						mAnimator->PlayAnimation(L"Player_G_IdleR", true);
 
 					else
-						mAnimator->PlayAnimation(L"Player_B_IdleL", true);
+						mAnimator->PlayAnimation(L"Player_G_IdleL", true);
 				}
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+					if (mChangeFirst)
+					{
+						mChangeFirst = false;
+
+
+						if (mPrevDir.x > 0)
+							mAnimator->PlayAnimation(L"Player_P_IdleR", true);
+
+						else
+							mAnimator->PlayAnimation(L"Player_P_IdleL", true);
+
+
+					}
+
+
+					if (mCurDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_P_IdleR", true);
+
+					else
+						mAnimator->PlayAnimation(L"Player_P_IdleL", true);
+
 				}
 
 
@@ -906,17 +951,17 @@ namespace ss
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mCurDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_RunR", true);
+						mAnimator->PlayAnimation(L"Player_G_RunR", true);
 					else
-						mAnimator->PlayAnimation(L"Player_B_RunL", true);
+						mAnimator->PlayAnimation(L"Player_G_RunL", true);
 				}
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
 					if (mCurDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_RunR", true);
+						mAnimator->PlayAnimation(L"Player_P_RunR", true);
 					else
-						mAnimator->PlayAnimation(L"Player_B_RunL", true);
+						mAnimator->PlayAnimation(L"Player_P_RunL", true);
 				}
 				break;
 
@@ -933,17 +978,17 @@ namespace ss
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mCurDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_HangL", true);
+						mAnimator->PlayAnimation(L"Player_G_HangL", true);
 					else
-						mAnimator->PlayAnimation(L"Player_B_HangL", true);
+						mAnimator->PlayAnimation(L"Player_G_HangL", true);
 				}
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
 					if (mCurDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_HangL", true);
+						mAnimator->PlayAnimation(L"Player_P_HangL", true);
 					else
-						mAnimator->PlayAnimation(L"Player_B_HangL", true);
+						mAnimator->PlayAnimation(L"Player_P_HangL", true);
 				}
 
 				break;
@@ -987,21 +1032,36 @@ namespace ss
 				{
 					if (mCurDir.x > 0)
 					{
-						mAnimator->PlayAnimation(L"Player_B_JumpR", false);
+						mAnimator->PlayAnimation(L"Player_G_JumpR", false);
+						mCollider->SetCenter(Vector2(-7.f, 2.f));
 					}
 
 					else
-						mAnimator->PlayAnimation(L"Player_B_JumpL", false);
+					{
+						mAnimator->PlayAnimation(L"Player_G_JumpL", false);
+						mCollider->SetCenter(Vector2(7.f, 2.f));
+					}
 				}
+
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+
+					if (mCurDir.x > 0)
+					{
+						mAnimator->PlayAnimation(L"Player_P_JumpR", false);
+						mCollider->SetCenter(Vector2(-7.f, 2.f));
+					}
+
+					else
+					{
+						mAnimator->PlayAnimation(L"Player_P_JumpL", false);
+						mCollider->SetCenter(Vector2(7.f, 2.f));
+					}
+
 				}
-
-
-
-
 				break;
+
 
 			case ss::ePlayerState::FALL:
 				if (mWeaponType == eWeaponType::NONE)
@@ -1030,14 +1090,33 @@ namespace ss
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_FallR", true);
+					{
+
+						mAnimator->PlayAnimation(L"Player_G_FallR", true);
+						mCollider->SetCenter(Vector2(-6.f, 2.f));
+					}
 					else
-						mAnimator->PlayAnimation(L"Player_B_FallL", true);
+					{
+						mAnimator->PlayAnimation(L"Player_G_FallL", true);
+						mCollider->SetCenter(Vector2(6.f, 2.f));
+					}
 				}
 
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+					if (mPrevDir.x > 0)
+					{
+						mAnimator->PlayAnimation(L"Player_P_FallR", true);
+						mCollider->SetCenter(Vector2(-6.f, 2.f));
+					}
+
+
+					else
+					{
+						mAnimator->PlayAnimation(L"Player_P_FallL", true);
+						mCollider->SetCenter(Vector2(6.f, 2.f));
+					}
 				}
 
 
@@ -1080,14 +1159,18 @@ namespace ss
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_DashR", true);
+						mAnimator->PlayAnimation(L"Player_G_DashR", true);
 					else
-						mAnimator->PlayAnimation(L"Player_B_DashL", true);
+						mAnimator->PlayAnimation(L"Player_G_DashL", true);
 				}
 
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_P_DashR", true);
+					else
+						mAnimator->PlayAnimation(L"Player_P_DashL", true);
 				}
 
 
@@ -1133,13 +1216,17 @@ namespace ss
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_HitR", false);
+						mAnimator->PlayAnimation(L"Player_G_HitR", false);
 					else
-						mAnimator->PlayAnimation(L"Player_B_HitL", false);
+						mAnimator->PlayAnimation(L"Player_G_HitL", false);
 				}
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_P_HitR", false);
+					else
+						mAnimator->PlayAnimation(L"Player_P_HitL", false);
 				}
 
 			}
@@ -1158,16 +1245,18 @@ namespace ss
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_B_GuardR", false);
+						mAnimator->PlayAnimation(L"Player_G_GuardR", false);
 					else
-						mAnimator->PlayAnimation(L"Player_B_GuardL", false);
+						mAnimator->PlayAnimation(L"Player_G_GuardL", false);
 				}
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_P_GuardR", false);
+					else
+						mAnimator->PlayAnimation(L"Player_P_GuardL", false);
 				}
-
-
 
 			}
 			break;
@@ -1235,36 +1324,66 @@ namespace ss
 
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
+
 					if (mAttackCount == 1)
 					{
 
 						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_B_Attack1R", false);
+							mAnimator->PlayAnimation(L"Player_G_Attack1R", false);
 						else
-							mAnimator->PlayAnimation(L"Player_B_Attack1L", false);
+							mAnimator->PlayAnimation(L"Player_G_Attack1L", false);
 					}
 
 					else if (mAttackCount == 2)
 					{
 
 						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_B_Attack2R", false);
+							mAnimator->PlayAnimation(L"Player_G_Attack2R", false);
 						else
-							mAnimator->PlayAnimation(L"Player_B_Attack2L", false);
+							mAnimator->PlayAnimation(L"Player_G_Attack2L", false);
 					}
 
 					else if (mAttackCount == 3)
 					{
 
 						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_B_Attack3R", false);
+							mAnimator->PlayAnimation(L"Player_G_Attack3R", false);
 						else
-							mAnimator->PlayAnimation(L"Player_B_Attack3L", false);
+							mAnimator->PlayAnimation(L"Player_G_Attack3L", false);
 					}
 				}
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+
+					if (mAttackCount == 1)
+					{
+
+						if (mPrevDir.x > 0)
+							mAnimator->PlayAnimation(L"Player_P_Attack1,2R", false);
+						else
+							mAnimator->PlayAnimation(L"Player_P_Attack1,2L", false);
+					}
+
+					else if (mAttackCount == 2)
+					{
+
+						if (mPrevDir.x > 0)
+							mAnimator->PlayAnimation(L"Player_P_Attack1,2R", false);
+						else
+							mAnimator->PlayAnimation(L"Player_P_Attack1,2L", false);
+					}
+
+
+					else if (mAttackCount == 3)
+					{
+
+						if (mPrevDir.x > 0)
+							mAnimator->PlayAnimation(L"Player_P_Attack3R", false);
+						else
+							mAnimator->PlayAnimation(L"Player_P_Attack3L", false);
+					}
+
 				}
 
 				break;
@@ -1273,15 +1392,115 @@ namespace ss
 				if (mWeaponType == eWeaponType::SWORD)
 				{
 
+					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
+					{
+						// hit 상태 즉시 제자리에 멈춰있도록 속도 0으로 만듦
+						mRigidbody->SetVelocity(Vector2(0.f, 0.f));
+
+						if (!mbOverloading)
+						{
+							if (mPrevDir.x > 0)
+							{
+								Vector3 PlayerPos = Vector3(mTransform->GetPosition().x + 107.f, mTransform->GetPosition().y, mTransform->GetPosition().z);
+								
+
+								mSPEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Sword_SPEffectR");
+
+								EffectScript* effectscript = mSPEffect->AddComponent<EffectScript>();
+								mbOverloading = true;
+								//Transform* effectTR = mSPEffect->GetComponent<Transform>();
+								
+								effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+							}
+
+							else if (mPrevDir.x < 0)
+							{
+								Vector3 PlayerPos = Vector3(mTransform->GetPosition().x - 107.f, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+								mbOverloading = true;
+								mSPEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Sword_SPEffectL");
+
+								EffectScript* effectscript = mSPEffect->AddComponent<EffectScript>();
+								effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+							}
+						}
+
+					}
+
+
+					else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3)
+					{
+						if (mPrevDir.x > 0)
+						{
+							Vector3 CurPos = mTransform->GetPosition();
+
+						    mTransform->SetPosition(CurPos.x + 0.7f, CurPos.y, CurPos.z);
+							//mPrevDir.x * mRigidbody->GetVelocity().x;
+
+
+						}
+
+
+						else if (mPrevDir.x < 0)
+						{
+							Vector3 CurPos = mTransform->GetPosition();
+
+							mTransform->SetPosition(CurPos.x - 0.7f, CurPos.y, CurPos.z);
+						}
+						
+						
+						
+						/*
+						if (mPrevDir.x > 0)
+						{
+
+							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+							mAttackCol->SetSize(Vector2(30.f, 40.f));
+							mAttackCol->SetCenter(Vector2(14.f, 2.f));
+						}
+
+						else if (mPrevDir.x < 0)
+						{
+							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+							mAttackCol->SetSize(Vector2(30.f, 40.f));
+							mAttackCol->SetCenter(Vector2(-14.f, 2.f));
+						}*/
+
+
+					}
+
+					else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
+					{
+						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+						camera->StartShake(0.05f, 0.3f);
+					}
+
+
+
+
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_S_spAttackR", false);
+					else
+						mAnimator->PlayAnimation(L"Player_S_spAttackL", false);
 				}
 
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_G_spAttackR", false);
+					else
+						mAnimator->PlayAnimation(L"Player_G_spAttackL", false);
 				}
 
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_P_spAttackR", false);
+					else
+						mAnimator->PlayAnimation(L"Player_P_spAttackL", false);
 				}
 				break;
 
@@ -1290,16 +1509,27 @@ namespace ss
 			case ss::ePlayerState::OVERLOAD_START:
 				if (mWeaponType == eWeaponType::SWORD)
 				{
-
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_S_OverLoadReadyR", false);
+					else
+						mAnimator->PlayAnimation(L"Player_S_OverLoadReadyL", false);
 				}
 
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_G_OverLoadReadyR", false);
+					else
+						mAnimator->PlayAnimation(L"Player_G_OverLoadReadyL", false);
 				}
 
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_P_OverLoadReadyR", false);
+					else
+						mAnimator->PlayAnimation(L"Player_P_OverLoadReadyL", false);
 				}
 				break;
 
@@ -1307,18 +1537,26 @@ namespace ss
 				if (mWeaponType == eWeaponType::SWORD)
 				{
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_S_DieR", true);
+						mAnimator->PlayAnimation(L"Player_S_OverLoadingR", true);
 					else
-						mAnimator->PlayAnimation(L"Player_S_DieL", true);
+						mAnimator->PlayAnimation(L"Player_S_OverLoadingL", true);
 				}
 
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_G_OverLoadingR", true);
+					else
+						mAnimator->PlayAnimation(L"Player_G_OverLoadingL", true);
 				}
 
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_P_OverLoadingR", true);
+					else
+						mAnimator->PlayAnimation(L"Player_P_OverLoadingL", true);
 				}
 				break;
 
@@ -1326,16 +1564,27 @@ namespace ss
 			case ss::ePlayerState::OVERLOAD_END:
 				if (mWeaponType == eWeaponType::SWORD)
 				{
-
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_S_OverLoadEndR", true);
+					else
+						mAnimator->PlayAnimation(L"Player_S_OverLoadEndL", true);
 				}
 
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_G_OverLoadEndR", true);
+					else
+						mAnimator->PlayAnimation(L"Player_G_OverLoadEndL", true);
 				}
 
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+					if (mPrevDir.x > 0)
+						mAnimator->PlayAnimation(L"Player_P_OverLoadEndR", true);
+					else
+						mAnimator->PlayAnimation(L"Player_P_OverLoadEndL", true);
 				}
 				break;
 

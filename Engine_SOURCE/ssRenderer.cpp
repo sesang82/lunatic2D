@@ -3096,7 +3096,181 @@ namespace renderer
 		}
 
 
+		// 플레이어 sword sp 이펙트 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"S_PlayerSPEffect", L"..\\Resources\\Texture\\Player\\Sword\\spAttack\\spSwordEffect.png");
 
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"S_PlayerSPEffectMtrl", spriteMateiral);
+		}
+
+
+		// 플레이어 sword hit 이펙트 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"S_PlayerHitEffect", L"..\\Resources\\Texture\\Player\\Sword\\HitEffect(51 51).png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"S_PlayerHitEffectMtrl", spriteMateiral);
+		}
+
+		// 2. 피스톨
+			// 플레이어 pistol attack 1,2 이펙트 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"P_PlayerAttack1_2_Effect", L"..\\Resources\\Texture\\Player\\Pistol\\ATTACK_EFFECT 51 55 4.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"P_PlayerAttack1_2_EffectMtrl", spriteMateiral);
+		}
+
+		// 플레이어 pistol attack 3 이펙트 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"P_PlayerAttack3_Effect", L"..\\Resources\\Texture\\Player\\Pistol\\ATTACK3_EFFECT 72 66 3.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"P_PlayerAttack3_EffectMtrl", spriteMateiral);
+		}
+
+
+		// 플레이어 pistol hit 이펙트 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"P_PlayerHit_Effect", L"..\\Resources\\Texture\\Player\\Pistol\\Effect_Weapon_Pistol_Hit(39-61).png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"P_PlayerHit_EffectMtrl", spriteMateiral);
+		}
+
+
+		// 플레이어 pistol spAttack 이펙트 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"P_PlayerspAttack_Effect", L"..\\Resources\\Texture\\Player\\Pistol\\spAttackEffect 86 67 4.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"P_PlayerspAttack_EffectMtrl", spriteMateiral);
+		}
+
+
+		// 플레이어 pistol overloading 이펙트 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"P_PlayerOverloading_Effect", L"..\\Resources\\Texture\\Player\\Pistol\\OverloadingEffect 88 157 2.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"P_PlayerOverloading_EffectMtrl", spriteMateiral);
+		}
+
+
+		// 플레이어 pistol overload End 이펙트 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"P_PlayerOverloadEnd_Effect", L"..\\Resources\\Texture\\Player\\Pistol\\OverloadingEndEffect 88 157.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"P_PlayerOverloadEnd_EffectMtrl", spriteMateiral);
+		}
+
+		// 플레이어 pistol overload circle 이펙트
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"P_PlayerOverloadCircle_Effect", L"..\\Resources\\Texture\\Player\\Pistol\\OverloadEffectCircle189 189 9.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"P_PlayerOverloadCircle_EffectMtrl", spriteMateiral);
+		}
+
+		// ================
+		// 3. 건틀렛 관련 
+		// 플레이어 건틀렛 SP Attack 1 이펙트
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"G_PlayerspAttack1_Effect", L"..\\Resources\\Texture\\Player\\Gauntlet\\spAttackEffect 1...194 50 5.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"G_PlayerspAttack1_EffectMtrl", spriteMateiral);
+		}
+
+		// 플레이어 건틀렛 SP Attack 2 이펙트
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"G_PlayerspAttack2_Effect", L"..\\Resources\\Texture\\Player\\Gauntlet\\spAttackEffect2 6.74.49.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"G_PlayerspAttack2_EffectMtrl", spriteMateiral);
+		}
+
+			// 플레이어 건틀렛 Overload 이펙트
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"G_PlayerOverload_Effect", L"..\\Resources\\Texture\\Player\\Gauntlet\\overloadEffect_36.38.10.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"G_PlayerOverload_EffectMtrl", spriteMateiral);
+		}
 
 #pragma endregion 
 
