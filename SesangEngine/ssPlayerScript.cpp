@@ -1550,10 +1550,17 @@ namespace ss
 
 
 						// OVERLOAD UI¿¡ ¶ç¿öÁÙ ³à¼®µé 
-						Effect* Top = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadTopUI");
 
-						EffectScript* effectscript3 = Top->AddComponent<EffectScript>();
+						Effect* LT = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadTopUI");
+
+						EffectScript* effectscript3 = LT->AddComponent<EffectScript>();
 						effectscript3->SetOriginOwner((Player*)mTransform->GetOwner());
+
+
+						Effect* LB = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadBottomUI");
+
+						EffectScript* effectscript4 = LB->AddComponent<EffectScript>();
+						effectscript4->SetOriginOwner((Player*)mTransform->GetOwner());
 						
 					}
 

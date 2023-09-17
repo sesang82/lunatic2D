@@ -229,6 +229,16 @@ namespace ss
 		// ====== 아래에 추가하기 
 		else if (GetOwner()->GetName() == L"OverloadTopUI")
 		{
+			anim->PlayAnimation(L"Over_LT", true);
+			tr->SetScale(Vector3(142.f, 136.f, 0.f));
+
+			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x - 500.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+		}
+
+		else if (GetOwner()->GetName() == L"OverloadBottomUI")
+		{
 			anim->PlayAnimation(L"Over_LB", true);
 			tr->SetScale(Vector3(142.f, 136.f, 0.f));
 
@@ -458,8 +468,19 @@ namespace ss
 
 		}
 		
-
 		else if (GetOwner()->GetName() == L"OverloadTopUI")
+		{
+			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
+
+			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x - 275.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y + 127.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+
+			// overload 게이지가 0일 떄 없앤다. 
+		}
+
+
+		else if (GetOwner()->GetName() == L"OverloadBottomUI")
 		{
 			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
 
@@ -471,7 +492,8 @@ namespace ss
 			// overload 게이지가 0일 떄 없앤다. 
 
 
-			}
+		}
+
 
 
 
