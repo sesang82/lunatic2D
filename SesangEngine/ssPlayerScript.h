@@ -104,8 +104,16 @@ namespace ss
 
         class Effect*           mHitEffect;
         class Effect*           mSPEffect;
+
         class Effect*           mPlayerOverloadEffect;
         class Effect*           mOverloadUIEffect;
+        class Effect*           mTopHorizion;
+        class Effect*           mBottomHorizion;
+        class Effect*           mLT;
+        class Effect*           mLB;
+        class Effect*           mRT;
+        class Effect*           mRB;
+
 
         // 몬스터 갖고 올 수 잇는 벡터 만들어서 여따가 저장시켜둔다. (스크립트에 써먹기 위함)
        

@@ -197,6 +197,17 @@ namespace ss
 			if (mState->GetCurrentOverload() <= 0.f)
 			{
 				mTurnOverload = false;
+
+				mPlayerOverloadEffect->SetState(GameObject::eState::Dead);
+				mOverloadUIEffect->SetState(GameObject::eState::Dead);
+
+				mBottomHorizion->SetState(GameObject::eState::Dead);
+				mLT->SetState(GameObject::eState::Dead);
+				mLB->SetState(GameObject::eState::Dead);
+				mRT->SetState(GameObject::eState::Dead);
+				mRB->SetState(GameObject::eState::Dead);
+				mTopHorizion->SetState(GameObject::eState::Dead);
+
 			}
 		}
 
@@ -1579,7 +1590,6 @@ namespace ss
 
 					if (mPrevDir.x > 0)
 					{
-						// ** 이펙트 삭제는 전부 이펙트 스크립트에서 진행 
 						
 						// player용 start 이펙트 재생 
 						mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"OverloadStratEffectR");						
@@ -1593,7 +1603,7 @@ namespace ss
 						effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
 					}
 
-					// bool로 여러번 눌리는거 방지하는거 해주긴해야됨 
+					// ***bool로 여러번 눌리는거 방지하는거 해주긴해야됨 
 					EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
 					effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
 
@@ -1607,39 +1617,39 @@ namespace ss
 
 					// OVERLOAD UI에 띄워줄 녀석들 
 
-					Effect* LT = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadLTUI");
+					mLT = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadLTUI");
 
-					EffectScript* effectscript3 = LT->AddComponent<EffectScript>();
+					EffectScript* effectscript3 = mLT->AddComponent<EffectScript>();
 					effectscript3->SetOriginOwner((Player*)mTransform->GetOwner());
 
 
-					Effect* LB = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadLBUI");
+					mLB = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadLBUI");
 
-					EffectScript* effectscript4 = LB->AddComponent<EffectScript>();
+					EffectScript* effectscript4 = mLB->AddComponent<EffectScript>();
 					effectscript4->SetOriginOwner((Player*)mTransform->GetOwner());
 
 
-					Effect* RT = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadRTUI");
+					mRT = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadRTUI");
 
-					EffectScript* effectscript5 = RT->AddComponent<EffectScript>();
+					EffectScript* effectscript5 = mRT->AddComponent<EffectScript>();
 					effectscript5->SetOriginOwner((Player*)mTransform->GetOwner());
 
 
-					Effect* RB = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadRBUI");
+					mRB = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadRBUI");
 
-					EffectScript* effectscript6 = RB->AddComponent<EffectScript>();
+					EffectScript* effectscript6 = mRB->AddComponent<EffectScript>();
 					effectscript6->SetOriginOwner((Player*)mTransform->GetOwner());
 
 
-					Effect* TopHorizion = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadTopHorizionUI");
+					mTopHorizion = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadTopHorizionUI");
 
-					EffectScript* effectscript7 = TopHorizion->AddComponent<EffectScript>();
+					EffectScript* effectscript7 = mTopHorizion->AddComponent<EffectScript>();
 					effectscript7->SetOriginOwner((Player*)mTransform->GetOwner());
 
 
-					Effect* BottomHorizion = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadBottomHorizionUI");
+					mBottomHorizion = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadBottomHorizionUI");
 
-					EffectScript* effectscript8 = BottomHorizion->AddComponent<EffectScript>();
+					EffectScript* effectscript8 = mBottomHorizion->AddComponent<EffectScript>();
 					effectscript8->SetOriginOwner((Player*)mTransform->GetOwner());
 				}
 	
@@ -1652,7 +1662,7 @@ namespace ss
 					{
 						mbPlayerOverloadingEffet = true;
 
-						// 이펙트 삭제는 effectScript에서 진행할 예정 
+						// 이펙트 삭제는 update에서 게이지 0일 때 삭제되게 해둠 
 						if (mPrevDir.x > 0)
 						{
 							mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"PlayerOverloadingEffectR");

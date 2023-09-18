@@ -2850,7 +2850,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"Boss1TileMtrl", spriteMateiral);
 		}
@@ -2864,6 +2864,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(AnimShader);
 			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"wolfFireMtrl", spriteMateiral);
 		}
