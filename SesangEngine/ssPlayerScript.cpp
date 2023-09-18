@@ -69,7 +69,7 @@ namespace ss
 
 	
 
-		mState = GetOwner()->GetComponent<CharacterState>();
+		mState = GameState::GetInst().GetState(L"Player");  //GetOwner()->GetComponent<CharacterState>();
 		mAnimator = GetOwner()->GetComponent<Animator>();
 		mTransform = GetOwner()->GetComponent<Transform>();
 		mRigidbody = GetOwner()->GetComponent<Rigidbody2D>();
@@ -118,6 +118,7 @@ namespace ss
 	}
 	void PlayerScript::Update()
 	{
+
 
 		Vector3 pos = mTransform->GetPosition();
 	
@@ -186,6 +187,18 @@ namespace ss
 		mPrevState = mCurState;
 		mPrevDir = mCurDir;
 
+
+		if (mTurnOverload)
+		{
+			float speed = 15.f;
+
+			mState->SetDecreaseOverload(Time::DeltaTime() * speed);
+
+			if (mState->GetCurrentOverload() <= 0.f)
+			{
+				mTurnOverload = false;
+			}
+		}
 
 		// 이동->상태변환->애니메이션
 
@@ -498,12 +511,18 @@ namespace ss
 		// 과부하 (과부하 게이지가 100% 일 때만 작동하도록 나중에 바꾸기)
 		else if (Input::GetKeyDown(eKeyCode::G))
 		{
-			// 과부하 게이지 알아서 차감되게 하기 & 과부하 게이지가 100이라면 상태를 변경한다.
-			ChangeState(ePlayerState::OVERLOAD_READY);
+			float CurOverload = mState->GetCurrentOverload();
 
-			// false는 과부하 게이지가 0이 되면 꺼지도록 해두기
-			// 또한 아래 bool 값 이용해서 애니메이션에서 해당 bool 값이 켜져있다면  다른 거 동작하게 해두기 
-			mTurnOverload = true; 
+			if (CurOverload == 100.f && !mTurnOverload)
+			{
+				// 과부하 게이지 알아서 차감되게 하기 & 과부하 게이지가 100이라면 상태를 변경한다.
+				ChangeState(ePlayerState::OVERLOAD_READY);
+
+				// false는 과부하 게이지가 0이 되면 꺼지도록 해두기
+				// 또한 아래 bool 값 이용해서 애니메이션에서 해당 bool 값이 켜져있다면 다른 거 동작하게 해두기 
+				mTurnOverload = true;
+
+			}
 			
 		}
 

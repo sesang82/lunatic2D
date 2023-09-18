@@ -1,5 +1,6 @@
 #pragma once
 #include <ssScript.h>
+#include "ssTime.h"
 
 namespace ss
 {
@@ -127,6 +128,8 @@ namespace ss
 
         void SetCurOverload(float _over)
         {
+            if (mStateType.mCurOverload < 0)
+                return;
 
             mStateType.mCurOverload = _over;
         }
@@ -135,6 +138,18 @@ namespace ss
         void SetMaxOverload(float _over)
         {
             mStateType.mMaxOverload = _over;
+        }
+
+        void SetDecreaseOverload(float _over)
+        {
+
+            if (mStateType.mCurOverload <= 0)
+            {
+                mStateType.mCurOverload = 0; // 0보다 작아지지 않도록 보장
+                return;
+            }
+
+            mStateType.mCurOverload -= _over;
         }
 
         
