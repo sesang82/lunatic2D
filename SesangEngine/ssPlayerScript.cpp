@@ -199,6 +199,8 @@ namespace ss
 				mTurnOverload = false;
 
 				mPlayerOverloadEffect->SetState(GameObject::eState::Dead);
+				mbPlayerOverloadingEffet = false;
+
 				mOverloadUIEffect->SetState(GameObject::eState::Dead);
 
 				mBottomHorizion->SetState(GameObject::eState::Dead);
