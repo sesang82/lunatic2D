@@ -10,6 +10,7 @@ namespace ss
 	Item::Item()
 	{
 		Item::Initialize(); // 생성자에서 안해주면 렌더링 가려짐 
+		SetName(L"ItemObj");
 	}
 	Item::~Item()
 	{

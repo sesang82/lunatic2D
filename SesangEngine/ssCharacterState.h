@@ -137,13 +137,20 @@ namespace ss
 
         void SetMaxOverload(float _over)
         {
+            if (mStateType.mCurOverload > 100)
+            {
+                mStateType.mCurOverload = 100; // 0보다 커지지 않도록 보장
+                return;
+            }
+
+
             mStateType.mMaxOverload = _over;
         }
 
         void SetDecreaseOverload(float _over)
         {
 
-            if (mStateType.mCurOverload <= 0)
+            if (mStateType.mCurOverload < 0)
             {
                 mStateType.mCurOverload = 0; // 0보다 작아지지 않도록 보장
                 return;

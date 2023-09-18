@@ -50,7 +50,6 @@ namespace ss
 			newState->SetMaxHP(hp);
 			newState->SetCurrentSP(sp);
 			newState->SetMaxSP(sp);
-			newState->SetCurOverload(overload);
 			newState->SetMaxOverload(overload);
 			mCharacterStates[Name] = newState;
 		}
