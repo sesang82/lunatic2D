@@ -129,7 +129,12 @@ namespace ss
         void SetCurOverload(float _over)
         {
             if (mStateType.mCurOverload < 0)
+            {
+
+                mStateType.mCurOverload = 0;
                 return;
+            }
+              
 
             mStateType.mCurOverload = _over;
         }
@@ -139,7 +144,7 @@ namespace ss
         {
             if (mStateType.mCurOverload > 100)
             {
-                mStateType.mCurOverload = 100; // 0보다 커지지 않도록 보장
+                mStateType.mCurOverload = 100; // 100이 넘을 시 100으로 고정
                 return;
             }
 
