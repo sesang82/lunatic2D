@@ -43,13 +43,15 @@ namespace ss
 
 	
 		// appllication에서 추가해주면 됨 
-		void AddState(const std::wstring& Name, int hp, int sp)
+		void AddState(const std::wstring& Name, float hp, float sp, float overload)
 		{
 			CharacterState* newState = new CharacterState();
 			newState->SetCurrentHP(hp);
 			newState->SetMaxHP(hp);
 			newState->SetCurrentSP(sp);
 			newState->SetMaxSP(sp);
+			newState->SetCurOverload(overload);
+			newState->SetMaxOverload(overload);
 			mCharacterStates[Name] = newState;
 		}
 

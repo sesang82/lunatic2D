@@ -3063,6 +3063,22 @@ namespace renderer
 
 			Resources::Insert(L"PlayerSPBarMtrl", spriteMateiral);
 		}
+
+		// 플레이어 Overload바 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"PlayerOverloadBar", L"..\\Resources\\Texture\\UI\\Player\\overload\\UI_PlayerUI_Bar_Overload.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+
+			Resources::Insert(L"PlayerOverloadBarMtrl", spriteMateiral);
+		}
+
+
 #pragma endregion 
 
 

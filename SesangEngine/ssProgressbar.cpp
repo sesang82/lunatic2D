@@ -8,6 +8,7 @@
 #include "ssStoneEyeScript.h"
 #include "ssSkeletonLizardScript.h"
 #include "ssBigWolfScript.h"
+#include "ssGameState.h"
 
 namespace ss
 {
@@ -34,19 +35,27 @@ namespace ss
 
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 
-		if (GetName() != L"Boss_Bar")
-		{
-			mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl"));
-			mTransform->SetScale(Vector3(18.f, 3.f, 1.f)); // backsize랑 스케일값 동일하게 주기.
-			mOwner = GetParent();
-			mWidth = 18.f;
-		}
-
-		else
+		if (GetName() == L"Boss_Bar")
 		{
 			mr->SetMaterial(Resources::Find<Material>(L"BossHPBarMtrl"));
-			mTransform->SetScale(Vector3(260.f, 6.f, 1.f)); // backsize랑 스케일값 동일하게 주기.
+			mTransform->SetScale(Vector3(260.f, 6.f, 1.f));
 			mWidth = 260.f;
+		}
+
+
+		else if (GetName() == L"overloadBar")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"PlayerOverloadBarMtrl"));
+			mTransform->SetScale(Vector3(48.f, 4.f, 1.f));
+			mWidth = 48.f;
+		}
+
+		else // 일반 몬스터 hp바 
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"MonsterHPBarMtrl"));
+			mTransform->SetScale(Vector3(18.f, 3.f, 1.f));
+			mOwner = GetParent();
+			mWidth = 18.f;
 		}
 
 
@@ -63,11 +72,11 @@ namespace ss
 			
 			if (nullptr != mState) // 몬스터가 dead 상태일 때 업데이트가 더는 돌지 않아서 오류나기 때문에 이처럼 함 
 			{
-			mfHPratio = mState->GetCurrentHP() / mState->GetMaxHP();
+			  mfHPratio = mState->GetCurrentHP() / mState->GetMaxHP();
 			}
 
 		// 체력의 비율에 따라 체력바의 너비 조절
-		float CurWidth = mWidth * mfHPratio;
+		float CurHPWidth = mWidth * mfHPratio;
 
 		Vector3 pos = mTransform->GetPosition();
 
@@ -76,7 +85,7 @@ namespace ss
 		{
 
 			// 체력바 스케일 설정 
-			mTransform->SetScale(Vector3(CurWidth, 6, 1.f));
+			mTransform->SetScale(Vector3(CurHPWidth, 6, 1.f));
 
 			Vector3 Scale = mTransform->GetScale();
 
@@ -91,12 +100,41 @@ namespace ss
 
 		}
 
+
+		else if (GetName() == L"overloadBar")
+		{
+			mState = GameState::GetInst().GetState(L"Player");
+
+			float CurOverloadratio = mState->GetCurrentOverload() / mState->GetMaxOverload();
+
+			// 체력의 비율에 따라 체력바의 너비 조절
+			float CurOverloadWidth = mWidth * CurOverloadratio;
+
+
+			// 체력바 스케일 설정 
+			mTransform->SetScale(Vector3(CurOverloadWidth, 4, 1.f));
+
+			Vector3 Scale = mTransform->GetScale();
+
+			// 체력바의 왼쪽 끝 위치를 계산 (x 위치에 왼쪽 끝으로 이동)
+			Vector2 leftTop = mTransform->GetWorldLeftTop();
+
+			leftTop.x = -24.f;
+			pos.x = leftTop.x + (Scale.x * 0.5f);
+
+			// 체력바의 위치 설정
+			mTransform->SetPosition(pos);
+
+
+		}
+
+
 		else
 		{
 
 
 			// 체력바 스케일 설정 
-			mTransform->SetScale(Vector3(CurWidth, 3, 1));
+			mTransform->SetScale(Vector3(CurHPWidth, 3, 1));
 
 			Vector3 Scale = mTransform->GetScale();
 

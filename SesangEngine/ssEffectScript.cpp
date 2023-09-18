@@ -129,9 +129,8 @@ namespace ss
 		anim->Create(L"Over_LT", Image19, Vector2(0.f, 0.f), Vector2(142.f, 136.f), 8, Vector2(142.f, 136.f));
 		anim->Create(L"Over_RT", Image20, Vector2(0.f, 0.f), Vector2(142.f, 136.f), 8, Vector2(142.f, 136.f));
 		anim->Create(L"Over_RB", Image21, Vector2(0.f, 0.f), Vector2(142.f, 136.f), 8, Vector2(142.f, 136.f));
-		anim->Create(L"Over_BottomHorizion", Image22, Vector2(0.f, 0.f), Vector2(215.f, 44.f), 6, Vector2(215.f, 44.f));
-		anim->Create(L"Over_TopHorizion", Image23, Vector2(0.f, 0.f), Vector2(215.f, 44.f), 6, Vector2(215.f, 44.f));
-
+		anim->Create(L"Over_TopHorizion", Image22, Vector2(0.f, 0.f), Vector2(215.f, 44.f), 6, Vector2(215.f, 44.f));
+		anim->Create(L"Over_BottomHorizion", Image23, Vector2(0.f, 0.f), Vector2(215.f, 44.f), 6, Vector2(215.f, 44.f));
 
 		if (GetOwner()->GetName() == L"HowlingEffectObj")
 		{
@@ -227,7 +226,7 @@ namespace ss
 
 
 		// ====== 아래에 추가하기 
-		else if (GetOwner()->GetName() == L"OverloadTopUI")
+		else if (GetOwner()->GetName() == L"OverloadLTUI")
 		{
 			anim->PlayAnimation(L"Over_LT", true);
 			tr->SetScale(Vector3(142.f, 136.f, 0.f));
@@ -237,7 +236,7 @@ namespace ss
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 		}
 
-		else if (GetOwner()->GetName() == L"OverloadBottomUI")
+		else if (GetOwner()->GetName() == L"OverloadLBUI")
 		{
 			anim->PlayAnimation(L"Over_LB", true);
 			tr->SetScale(Vector3(142.f, 136.f, 0.f));
@@ -246,6 +245,46 @@ namespace ss
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 		}
+
+		else if (GetOwner()->GetName() == L"OverloadRTUI")
+		{
+			anim->PlayAnimation(L"Over_RT", true);
+			tr->SetScale(Vector3(142.f, 136.f, 0.f));
+
+			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x - 500.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+				}
+
+		else if (GetOwner()->GetName() == L"OverloadRBUI")
+		{
+			anim->PlayAnimation(L"Over_RB", true);
+			tr->SetScale(Vector3(142.f, 136.f, 0.f));
+
+			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x - 500.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+				}
+
+		else if (GetOwner()->GetName() == L"OverloadTopHorizionUI")
+		{
+			anim->PlayAnimation(L"Over_TopHorizion", true);
+				tr->SetScale(Vector3(480.f, 45.f, 0.f));
+
+			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+				}
+
+		else if (GetOwner()->GetName() == L"OverloadBottomHorizionUI")
+		{
+			anim->PlayAnimation(L"Over_BottomHorizion", true);
+			tr->SetScale(Vector3(480.f, 45.f, 0.f));
+
+			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+			}
 
 
 
@@ -468,23 +507,39 @@ namespace ss
 
 		}
 		
-		else if (GetOwner()->GetName() == L"OverloadTopUI")
+
+		// ======================================================
+		else if (GetOwner()->GetName() == L"OverloadLBUI")
 		{
 			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
 
 			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x - 275.f,
-				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y + 127.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y - 127.f,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 
 			// overload 게이지가 0일 떄 없앤다. 
 		}
 
 
-		else if (GetOwner()->GetName() == L"OverloadBottomUI")
+		else if (GetOwner()->GetName() == L"OverloadLTUI")
 		{
 			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
 
 			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x - 275.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y + 127.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
+
+			// overload 게이지가 0일 떄 없앤다. 
+
+
+		}
+
+		else if (GetOwner()->GetName() == L"OverloadRBUI")
+		{
+			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
+
+			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x + 275.f,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y - 127.f,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
@@ -494,9 +549,47 @@ namespace ss
 
 		}
 
+		else if (GetOwner()->GetName() == L"OverloadRTUI")
+		{
+			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
+
+			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x + 275.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y + 127.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
+
+			// overload 게이지가 0일 떄 없앤다. 
 
 
+		}
 
+		else if (GetOwner()->GetName() == L"OverloadTopHorizionUI")
+		{
+			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
+
+			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y + 174.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
+
+			// overload 게이지가 0일 떄 없앤다. 
+
+
+		}
+
+		else if (GetOwner()->GetName() == L"OverloadBottomHorizionUI")
+		{
+			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
+
+			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x ,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y - 174.f,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
+
+			// overload 게이지가 0일 떄 없앤다. 
+
+
+			}
 
 	}
 	void EffectScript::OnCollisionEnter(Collider2D* other)

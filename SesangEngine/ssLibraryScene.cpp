@@ -18,6 +18,7 @@
 #include "ssMonster.h"
 #include "ssStoneEyeScript.h"
 #include "ssStoneEye.h"
+#include "ssProgressbar.h"
 
 namespace ss
 {
@@ -267,6 +268,37 @@ namespace ss
 			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
 		}
 
+		//플레이어 SP바
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"PlayerSPBarMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(103.f, -205.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
+		}
+
+
+
+		//플레이어 오버로드 바
+		{
+			Progressbar* overloadBar = object::Instantiate<Progressbar>(eLayerType::UI, L"overloadBar");
+			overloadBar->SetOwner(mPlayer);
+
+			Transform* tr = overloadBar->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.f, -218.f, 100.f));
+
+			overloadBar->Initialize();
+
+		}
+
+
+
+
 		 // 메인 카메라 생성 (반드시 씬마다 각기 다른 메인 카메라가 하나씩 있어야함!) 
 		{
 			mCameraObj = new GameObject();
@@ -274,7 +306,7 @@ namespace ss
 
 			mCamera = mCameraObj->AddComponent<Camera>();
 			mCamera->TurnLayerMask(eLayerType::UI, false);
-			mCamera->SetSize(2.3f);
+			mCamera->SetSize(2.3f); // 2.3 
 
 			CameraScript* camerscript = mCameraObj->AddComponent<CameraScript>();
 

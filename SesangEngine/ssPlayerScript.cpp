@@ -832,25 +832,30 @@ namespace ss
 			{
 			case ss::ePlayerState::IDLE:
 
+				mCollider->SetCenter(Vector2(6.f, -2.f));
+
 				if (mWeaponType == eWeaponType::NONE)
 				{
+				
 
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_D_IdleR", true);
-						mCollider->SetCenter(Vector2(-6.f, 2.f));
+					
 					}
 
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_D_IdleL", true);
-						mCollider->SetCenter(Vector2(6.f, 2.f));
+				
 					}
 
 				}
 
 				else if (mWeaponType == eWeaponType::SWORD)
 				{
+					
+
 					if (mChangeFirst)
 					{
 						mChangeFirst = false;
@@ -858,13 +863,14 @@ namespace ss
 						if (mPrevDir.x > 0)
 						{
 							mAnimator->PlayAnimation(L"Player_S_IdleR", true);
-							mCollider->SetCenter(Vector2(-6.f, 2.f));
+						
 						}
 
 						else
 						{
 							mAnimator->PlayAnimation(L"Player_S_IdleL", true);
-							mCollider->SetCenter(Vector2(6.5f, 2.f));
+
+		
 						}
 
 					}
@@ -873,64 +879,92 @@ namespace ss
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_S_IdleR", true);
-						mCollider->SetCenter(Vector2(-6.f, 2.f));
+
+						
 					}
 
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_S_IdleL", true);
-						mCollider->SetCenter(Vector2(6.5f, 2.f));
+					
+						
 					}
 				}
 
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
+				
+
+
 					if (mChangeFirst)
 					{
 						mChangeFirst = false;
 
 						if (mPrevDir.x > 0)
+						{
 							mAnimator->PlayAnimation(L"Player_G_IdleR", true);
+	
+						}
 
 						else
+						{
 							mAnimator->PlayAnimation(L"Player_G_IdleL", true);
+	
+						}
 
 					}
 
 
 					if (mCurDir.x > 0)
+					{
 						mAnimator->PlayAnimation(L"Player_G_IdleR", true);
+			
+					}
 
 					else
+					{
 						mAnimator->PlayAnimation(L"Player_G_IdleL", true);
+					}
 				}
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+				
+
 					if (mChangeFirst)
 					{
 						mChangeFirst = false;
 
 
 						if (mPrevDir.x > 0)
+						{
 							mAnimator->PlayAnimation(L"Player_P_IdleR", true);
+							
+						}
 
 						else
+						{
 							mAnimator->PlayAnimation(L"Player_P_IdleL", true);
+
+						}
 
 
 					}
 
 
 					if (mCurDir.x > 0)
+					{
 						mAnimator->PlayAnimation(L"Player_P_IdleR", true);
+						
+					}
 
 					else
+					{
 						mAnimator->PlayAnimation(L"Player_P_IdleL", true);
+					
+					}
 
 				}
-
-
 
 				break;
 
@@ -941,13 +975,13 @@ namespace ss
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_D_RunR", true);
-						mCollider->SetCenter(Vector2(-6.f, 2.f));
+						
 					}
 
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_D_RunL", true);
-						mCollider->SetCenter(Vector2(6.f, 2.f));
+				
 					}
 				}
 
@@ -1007,19 +1041,22 @@ namespace ss
 
 
 			case ss::ePlayerState::JUMP:
+
+				mCollider->SetCenter(Vector2(6.f, -2.f));
+
 				if (mWeaponType == eWeaponType::NONE)
 				{
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_D_JumpR", false);
-						mCollider->SetCenter(Vector2(-7.f, 2.f));
+					
 					}
 
 
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_D_JumpL", false);
-						mCollider->SetCenter(Vector2(7.f, 2.f));
+				
 					}
 				}
 
@@ -1030,13 +1067,13 @@ namespace ss
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_S_JumpR", false);
-						mCollider->SetCenter(Vector2(-7.f, 2.f));
+						
 					}
 
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_S_JumpL", false);
-						mCollider->SetCenter(Vector2(7.f, 2.f));
+				
 					}
 				}
 
@@ -1045,13 +1082,11 @@ namespace ss
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_G_JumpR", false);
-						mCollider->SetCenter(Vector2(-7.f, 2.f));
 					}
 
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_G_JumpL", false);
-						mCollider->SetCenter(Vector2(7.f, 2.f));
 					}
 				}
 
@@ -1062,13 +1097,11 @@ namespace ss
 					if (mCurDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_P_JumpR", false);
-						mCollider->SetCenter(Vector2(-7.f, 2.f));
 					}
 
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_P_JumpL", false);
-						mCollider->SetCenter(Vector2(7.f, 2.f));
 					}
 
 				}
@@ -1089,12 +1122,10 @@ namespace ss
 					if (mPrevDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_S_FallR", true);
-						mCollider->SetCenter(Vector2(-6.f, 2.f));
 					}
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_S_FallL", true);
-						mCollider->SetCenter(Vector2(6.f, 2.f));
 					}
 				}
 
@@ -1105,12 +1136,10 @@ namespace ss
 					{
 
 						mAnimator->PlayAnimation(L"Player_G_FallR", true);
-						mCollider->SetCenter(Vector2(-6.f, 2.f));
 					}
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_G_FallL", true);
-						mCollider->SetCenter(Vector2(6.f, 2.f));
 					}
 				}
 
@@ -1120,14 +1149,12 @@ namespace ss
 					if (mPrevDir.x > 0)
 					{
 						mAnimator->PlayAnimation(L"Player_P_FallR", true);
-						mCollider->SetCenter(Vector2(-6.f, 2.f));
 					}
 
 
 					else
 					{
 						mAnimator->PlayAnimation(L"Player_P_FallL", true);
-						mCollider->SetCenter(Vector2(6.f, 2.f));
 					}
 				}
 
@@ -1536,32 +1563,7 @@ namespace ss
 						// ** 이펙트 삭제는 전부 이펙트 스크립트에서 진행 
 						
 						// player용 start 이펙트 재생 
-						mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"OverloadStratEffectR");
-
-						EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
-						effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
-
-						// overload용 UI
-						mOverloadUIEffect = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadUI");
-
-						EffectScript* effectscript2 = mOverloadUIEffect->AddComponent<EffectScript>();
-						effectscript2->SetOriginOwner((Player*)mTransform->GetOwner());
-
-
-
-						// OVERLOAD UI에 띄워줄 녀석들 
-
-						Effect* LT = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadTopUI");
-
-						EffectScript* effectscript3 = LT->AddComponent<EffectScript>();
-						effectscript3->SetOriginOwner((Player*)mTransform->GetOwner());
-
-
-						Effect* LB = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadBottomUI");
-
-						EffectScript* effectscript4 = LB->AddComponent<EffectScript>();
-						effectscript4->SetOriginOwner((Player*)mTransform->GetOwner());
-						
+						mPlayerOverloadEffect = object::Instantiate<Effect>(mTransform->GetPosition(), eLayerType::Effect, L"OverloadStratEffectR");						
 					}
 
 					else if (mPrevDir.x < 0)
@@ -1572,6 +1574,54 @@ namespace ss
 						effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
 					}
 
+					// bool로 여러번 눌리는거 방지하는거 해주긴해야됨 
+					EffectScript* effectscript = mPlayerOverloadEffect->AddComponent<EffectScript>();
+					effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+					// overload용 UI
+					mOverloadUIEffect = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadUI");
+
+					EffectScript* effectscript2 = mOverloadUIEffect->AddComponent<EffectScript>();
+					effectscript2->SetOriginOwner((Player*)mTransform->GetOwner());
+
+
+
+					// OVERLOAD UI에 띄워줄 녀석들 
+
+					Effect* LT = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadLTUI");
+
+					EffectScript* effectscript3 = LT->AddComponent<EffectScript>();
+					effectscript3->SetOriginOwner((Player*)mTransform->GetOwner());
+
+
+					Effect* LB = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadLBUI");
+
+					EffectScript* effectscript4 = LB->AddComponent<EffectScript>();
+					effectscript4->SetOriginOwner((Player*)mTransform->GetOwner());
+
+
+					Effect* RT = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadRTUI");
+
+					EffectScript* effectscript5 = RT->AddComponent<EffectScript>();
+					effectscript5->SetOriginOwner((Player*)mTransform->GetOwner());
+
+
+					Effect* RB = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadRBUI");
+
+					EffectScript* effectscript6 = RB->AddComponent<EffectScript>();
+					effectscript6->SetOriginOwner((Player*)mTransform->GetOwner());
+
+
+					Effect* TopHorizion = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadTopHorizionUI");
+
+					EffectScript* effectscript7 = TopHorizion->AddComponent<EffectScript>();
+					effectscript7->SetOriginOwner((Player*)mTransform->GetOwner());
+
+
+					Effect* BottomHorizion = object::Instantiate<Effect>(eLayerType::Effect, L"OverloadBottomHorizionUI");
+
+					EffectScript* effectscript8 = BottomHorizion->AddComponent<EffectScript>();
+					effectscript8->SetOriginOwner((Player*)mTransform->GetOwner());
 				}
 	
 				// 애니메이션 재생이 끝나면 

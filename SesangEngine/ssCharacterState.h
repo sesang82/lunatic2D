@@ -14,14 +14,14 @@ namespace ss
             // 다른 상태들 추가 가능
         };
 
-
-        // 여기 안에 보스용 변수 넣어서 따로 집어넣기. (프로그래스바 전체적으로 오류 있어서 어쩔 수 없음) 
         struct tState
         {
-            float mCurrentHP;
-            float mMaxHP;
-            float mCurrentSP;
-            float mMaxSP;
+            float mCurrentHP = 0;
+            float mMaxHP = 0;
+            float mCurrentSP = 0;
+            float mMaxSP = 0;
+            float mCurOverload = 0;
+            float mMaxOverload = 0;
             eBarState mBarState; // 0 = 감소하는 형태, 1 = 증가하는 형태
             std::wstring Name;
         };
@@ -125,6 +125,17 @@ namespace ss
 
         }
 
+        void SetCurOverload(float _over)
+        {
+
+            mStateType.mCurOverload = _over;
+        }
+
+
+        void SetMaxOverload(float _over)
+        {
+            mStateType.mMaxOverload = _over;
+        }
 
         
         // 쉐이더에 switch case로 구분 지어 주기 
@@ -143,6 +154,9 @@ namespace ss
 
         float GetCurrentSP() { return mStateType.mCurrentSP; }
         float GetMaxSP() { return mStateType.mMaxSP; }
+
+        float GetCurrentOverload() { return mStateType.mCurOverload; }
+        float GetMaxOverload() { return mStateType.mMaxOverload; }
 
         eBarState   GetBarType() { return mStateType.mBarState; }
 
