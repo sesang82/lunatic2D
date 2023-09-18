@@ -290,12 +290,26 @@ namespace ss
 			overloadBar->SetOwner(mPlayer);
 
 			Transform* tr = overloadBar->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.f, -218.f, 100.f));
+			tr->SetPosition(Vector3(0.f, -218.f, 95.f));
 
 			overloadBar->Initialize();
 
 		}
 
+
+		//플레이어 오버로드 빈 bar 
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Overload_BarMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -218.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 4.f, 1.f));
+		}
 
 
 

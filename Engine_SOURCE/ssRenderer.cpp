@@ -3413,7 +3413,19 @@ namespace renderer
 			Resources::Insert(L"Overload_TopHorizionMtrl", spriteMateiral);
 		}
 
+		// overload bar 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Overload_Bar", L"..\\Resources\\Texture\\UI\\Player\\overload\\UI_PlayerUI_Bar_Overload_no.png");
 
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"Overload_BarMtrl", spriteMateiral);
+		}
 
 #pragma endregion 
 
