@@ -3080,6 +3080,9 @@ namespace renderer
 		}
 
 
+		
+
+
 #pragma endregion 
 
 
@@ -3429,6 +3432,29 @@ namespace renderer
 
 #pragma endregion 
 
+
+
+
+#pragma region Item
+
+		// overload 아이템 
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Item_Overload", L"..\\Resources\\Texture\\Common\\Item\\Item_OverheatCore.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut); // 앞에 띄워야되는건 이걸로 
+
+			Resources::Insert(L"Item_OverloadMtrl", spriteMateiral);
+		}
+
+
+
+
+#pragma endregion 
 
 	}
 

@@ -35,6 +35,7 @@ namespace ss::enums
 		Mon_Bullet,
 		Guard,
 		Effect,
+		Item,
 		Ground,
 		Wall,
 		Etc, // 원래 UI로 빼야하는데 스크립트에 붙이다보니 안나오는 것들은 이거 쓰기

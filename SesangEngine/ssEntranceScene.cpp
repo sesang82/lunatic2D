@@ -16,6 +16,9 @@
 #include "ssCameraScript.h"
 #include "ssStoneEyeScript.h"
 #include "ssMonster.h"
+#include "ssProgressbar.h"
+#include "ssItem.h"
+#include "ssItemScript.h"
 
 namespace ss
 {
@@ -27,7 +30,11 @@ namespace ss
 	}
 	void EntranceScene::Initialize()
 	{
-	  
+
+		// 레이어 충돌을 담당하는 함수
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+
 
 		// 배경 맵 설정 
 		{
@@ -58,7 +65,7 @@ namespace ss
 
 			Transform* tr = col_Floor->GetComponent<Transform>();
 			tr->SetScale(Vector3(416.f, 200.f, 1.f));
-			tr->SetPosition(Vector3(-400.f, -292.f, 1.f));
+			tr->SetPosition(Vector3(-400.f, -292.f, 500.f));
 
 		}
 
@@ -70,14 +77,27 @@ namespace ss
 
 			Transform* tr = col_Floor->GetComponent<Transform>();
 			tr->SetScale(Vector3(1000.f, 200.f, 1.f));
-			tr->SetPosition(Vector3(200.f, -419.f, 1.f));
+			tr->SetPosition(Vector3(200.f, -419.f, 500.f));
 
 		}
 
-		// 레이어 충돌을 담당하는 함수 
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+
+		// 아이템 오버로드 
+		{
+			Item* Item_overload = object::Instantiate<Item>(eLayerType::Item, L"overload_Item");
+		
+
+			ItemScript* script = Item_overload->AddComponent<ItemScript>();
+			script->SetOwnerObj(mPlayer);
+
+			Transform* tr = Item_overload->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-494.f, -140.f, 500.f));
 
 
+			
+
+
+		}
 
 
 		// 포탈
@@ -97,7 +117,9 @@ namespace ss
 		//}
 
 		//==== UI
-	//플레이어 UI Frame
+		
+
+		// //플레이어 UI Frame
 		{
 			GameObject* bg = new GameObject();
 			AddGameObject(eLayerType::UI, bg);
@@ -123,6 +145,49 @@ namespace ss
 			bg->GetComponent<Transform>()->SetPosition(Vector3(-103.f, -205.f, 100.f));
 			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
 			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
+		}
+
+		//플레이어 SP바
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"PlayerSPBarMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(103.f, -205.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
+		}
+
+
+
+		//플레이어 오버로드 바
+		{
+			Progressbar* overloadBar = object::Instantiate<Progressbar>(eLayerType::UI, L"overloadBar");
+			overloadBar->SetOwner(mPlayer);
+
+			Transform* tr = overloadBar->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.f, -218.f, 95.f));
+
+			overloadBar->Initialize();
+
+		}
+
+
+		//플레이어 오버로드 빈 bar 
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Overload_BarMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -218.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 4.f, 1.f));
 		}
 
 		// === 카메라

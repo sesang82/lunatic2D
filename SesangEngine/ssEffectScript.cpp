@@ -12,10 +12,13 @@
 #include "ssPlayerScript.h"
 #include "ssrenderer.h"
 
+// 아이템도 그냥 여기다가 같이 넣기 
+
 
 namespace ss
 {
 	EffectScript::EffectScript()
+		: mOwnerObj(nullptr)
 	{
 
 	}
@@ -284,8 +287,7 @@ namespace ss
 			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
-			}
-
+		}
 
 
 	}
@@ -456,12 +458,6 @@ namespace ss
 			}
 
 
-			//  overload 게이지가 0일 때 없앤다. 
-			//if (!IsUseOverload) // false일 때 
-			//{
-			//	GetOwner()->SetState(GameObject::eState::Dead);
-			//}
-
 		}
 
 		else if (GetOwner()->GetName() == L"PlayerOverloadingEffectL")
@@ -486,13 +482,6 @@ namespace ss
 
 		
 			}
-
-
-			//  overload 게이지가 0일 때 없앤다. 
-			//if (게이지가 0이라면 ) //
-			//{
-			//	GetOwner()->SetState(GameObject::eState::Dead);
-			//}
 		}
 
 		else if (GetOwner()->GetName() == L"OverloadUI")
@@ -502,8 +491,7 @@ namespace ss
 			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition()));
 			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
 
-			// overload 게이지가 0일 떄 없앤다. 
-
+	
 
 		}
 		
@@ -517,7 +505,6 @@ namespace ss
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y - 127.f,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 
-			// overload 게이지가 0일 떄 없앤다. 
 		}
 
 
@@ -530,7 +517,6 @@ namespace ss
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
 
-			// overload 게이지가 0일 떄 없앤다. 
 
 
 		}
@@ -544,8 +530,6 @@ namespace ss
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
 
-			// overload 게이지가 0일 떄 없앤다. 
-
 
 		}
 
@@ -558,7 +542,6 @@ namespace ss
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
 
-			// overload 게이지가 0일 떄 없앤다. 
 
 
 		}
@@ -572,7 +555,6 @@ namespace ss
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
 
-			// overload 게이지가 0일 떄 없앤다. 
 
 
 		}
@@ -586,7 +568,6 @@ namespace ss
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
 
-			// overload 게이지가 0일 떄 없앤다. 
 
 
 			}

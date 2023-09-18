@@ -200,6 +200,12 @@
     <ClCompile Include="ssParalloxScript.cpp">
       <Filter>Contents\Script\UI\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="ssItem.cpp">
+      <Filter>Contents\GameObj\etc\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ssItemScript.cpp">
+      <Filter>Contents\Script\UI\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -273,9 +279,6 @@
     </Filter>
     <Filter Include="Contents\Script\UI">
       <UniqueIdentifier>{0a38b36d-ad3b-4491-86cf-da763ff97bd4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Script\UI\Progress">
-      <UniqueIdentifier>{8391e36b-9bb2-4d60-8db0-b39745745ed4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\Script\Platform\Ground">
       <UniqueIdentifier>{62a3b5e8-76e9-4487-9048-7fbed7104e32}</UniqueIdentifier>
@@ -396,6 +399,12 @@
     </Filter>
     <Filter Include="Contents\Script\UI\Effect">
       <UniqueIdentifier>{ff4e79d1-9b70-49d3-8d38-71469822104f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\UI\Item">
+      <UniqueIdentifier>{8a1db49d-7dec-44d9-bbe4-9be8474c4bb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\etc\Item">
+      <UniqueIdentifier>{cd853916-1f6e-4161-b1b6-b82a15dd96c0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -599,6 +608,12 @@
     </ClInclude>
     <ClInclude Include="ssParalloxScript.h">
       <Filter>Contents\Script\UI\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ssItem.h">
+      <Filter>Contents\GameObj\etc\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ssItemScript.h">
+      <Filter>Contents\Script\UI\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
