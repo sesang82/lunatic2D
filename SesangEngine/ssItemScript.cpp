@@ -6,6 +6,8 @@
 #include "ssMonster.h"
 #include "ssSceneManager.h"
 #include "ssrenderer.h"
+#include "ssInput.h"
+#include "ssGameState.h"
 
 namespace ss
 {
@@ -26,6 +28,8 @@ namespace ss
 		Animator* anim = GetOwner()->GetComponent<Animator>();
 		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 
+		mState = GameState::GetInst().GetState(L"Player");
+
 		if (GetOwner()->GetName() == L"overload_Item")
 		{
 			mr->SetMaterial(Resources::Find<Material>(L"Item_OverloadMtrl"));
@@ -38,6 +42,19 @@ namespace ss
 
 	void ItemScript::Update()
 	{
+
+
+		if (GetOwner()->GetName() == L"overload_Item")
+		{
+			if (Input::GetKeyState(eKeyCode::F) == eKeyState::Down)
+			{
+				mState->SetCurOverload(100);
+				GetOwner()->SetState(GameObject::eState::Dead);
+		    }
+		}
+
+
+
 	}
 	void ItemScript::OnCollisionEnter(Collider2D* other)
 	{

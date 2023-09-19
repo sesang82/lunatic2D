@@ -312,18 +312,6 @@ namespace ss
 		}	
 
 
-
-		// 아이템  ** 과부하
-		else if (L"overload_Item" == other->GetOwner()->GetName())
-		{
-			if (Input::GetKeyDown(eKeyCode::F))
-			{
-				mState->SetCurOverload(100);
-				//GetOwner()->SetState(GameObject::eState::Dead);
-			}
-
-		}
-
 	}
 
 	void PlayerScript::OnCollisionExit(Collider2D* other)

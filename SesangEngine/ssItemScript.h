@@ -20,6 +20,7 @@ namespace ss
 
      private:
          class GameObject* mOwnerObj; // 몬스터의 애니메이션 인덱스 정보 땜에 만들어둠 
+         class CharacterState* mState; 
 
      public:
          void SetOwnerObj(GameObject* monster) { mOwnerObj = monster; }
