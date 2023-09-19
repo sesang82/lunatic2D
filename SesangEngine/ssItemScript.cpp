@@ -44,15 +44,6 @@ namespace ss
 	{
 
 
-		if (GetOwner()->GetName() == L"overload_Item")
-		{
-			if (Input::GetKeyState(eKeyCode::F) == eKeyState::Down)
-			{
-				mState->SetCurOverload(100);
-				GetOwner()->SetState(GameObject::eState::Dead);
-		    }
-		}
-
 
 
 	}

@@ -23,6 +23,8 @@
 #include "ssConstantBuffer.h"
 #include "ssEffect.h"
 #include "ssEffectScript.h"
+#include "ssItem.h"
+#include "ssItemScript.h"
 
 
 namespace ss
@@ -94,6 +96,8 @@ namespace ss
 		mAnimator->EndEvent(L"Player_S_Attack2L") = std::bind(&PlayerScript::AttackEnd, this);
 		mAnimator->EndEvent(L"Player_S_Attack3R") = std::bind(&PlayerScript::AttackEnd, this);
 		mAnimator->EndEvent(L"Player_S_Attack3L") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_S_OverloadingR") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_S_OverloadingL") = std::bind(&PlayerScript::AttackEnd, this);
 
 		// 가드할 때 
 		mAnimator->EndEvent(L"Player_S_GuardR") = std::bind(&PlayerScript::GuardEnd, this);
@@ -310,6 +314,19 @@ namespace ss
 			}
 
 		}	
+
+		// 아이템  ** 과부하
+		else if (L"overload_Item" == other->GetOwner()->GetName())
+		{
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+				mState->SetCurOverload(100);
+				
+				Item* obj = (Item*)other->GetOwner();
+				obj->SetState(GameObject::eState::Dead);
+			}
+
+		}
 
 
 	}
@@ -1396,6 +1413,7 @@ namespace ss
 					{
 						if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 						{
+							// 충돌체 사이즈는 그냥 다른 무기 완성하면 그 떄 다시 만지기 
 							if (mPrevDir.x > 0)
 							{
 
@@ -1463,11 +1481,46 @@ namespace ss
 
 					else if (mTurnOverload)
 					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+
+						if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
+							|| mAnimator->GetCurActiveAnimation()->GetIndex() == 3
+							|| mAnimator->GetCurActiveAnimation()->GetIndex() == 5
+							|| mAnimator->GetCurActiveAnimation()->GetIndex() == 7)
+						{
+							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+							camera->StartShake(0.01f, 0.06f); // 진동을 너무 크게 주면 재빠른 오버로드 느낌이 죽을거같아서 이정도로만하기 
+
+							if (mPrevDir.x > 0)
+							{
+
+								mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+								mAttackCol->SetSize(Vector2(100.f, 40.f));
+								mAttackCol->SetCenter(Vector2(65.f, 2.f));
+							}
+
+							else if (mPrevDir.x < 0)
+							{
+								mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+								mAttackCol->SetSize(Vector2(100.f, 40.f));
+								mAttackCol->SetCenter(Vector2(-55.f, 2.f));
+							}
+
+							
+
+						}
+
+					
+
 
 						if (mPrevDir.x > 0)
 							mAnimator->PlayAnimation(L"Player_S_OverloadingR", false);
 						else
 							mAnimator->PlayAnimation(L"Player_S_OverloadingL", false);
+
+
+
 					}
 				}
 
