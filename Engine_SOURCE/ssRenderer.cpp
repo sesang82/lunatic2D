@@ -871,6 +871,22 @@ namespace renderer
 
 
 
+		 // 아이템 오버로드 설명
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"overload_explain", L"..\\Resources\\Texture\\UI\\Etc\\overload_explain.png");
+
+			 // === Material 생성
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"overload_explaingMtrl", spriteMateiral);
+
+		 }
+
+
 #pragma endregion 
 
 #pragma region Player [Bow]

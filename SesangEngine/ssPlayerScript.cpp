@@ -190,9 +190,9 @@ namespace ss
 
 		if (mTurnOverload)
 		{
-			float speed = 15.f;
+			float DecreseSpeed = 15.f;
 
-			mState->SetDecreaseOverload(Time::DeltaTime() * speed);
+			mState->SetDecreaseOverload(Time::DeltaTime() * DecreseSpeed);
 
 			if (mState->GetCurrentOverload() <= 0.f)
 			{
@@ -439,8 +439,10 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::Z))
 		{
-
-			++mAttackCount;
+			if (!mTurnOverload)
+			{
+				++mAttackCount;
+			}
 
 	
 			ChangeState(ePlayerState::ATTACK);
@@ -449,13 +451,17 @@ namespace ss
 		else if (Input::GetKeyDown(eKeyCode::Z) && mAttackCount == 1)
 		{
 			++mAttackCount;
+		
 			ChangeState(ePlayerState::ATTACK);
 
 		}
 
 		else if (Input::GetKeyDown(eKeyCode::Z) && mAttackCount == 2)
 		{
+			
 			++mAttackCount;
+		
+
 			ChangeState(ePlayerState::ATTACK);
 		}
 
@@ -469,11 +475,27 @@ namespace ss
 
 			// Run일 때는 속력을 주고 있지만, Idle때는 아무런 키도 누를 일이 없어서 속도가 0이라 임의로 부여해줌 
 
-			if(mPrevDir.x > 0)
-			mRigidbody->SetVelocity(Vector2(300.f, 0.f));
+			if (mPrevDir.x > 0 && !mTurnOverload)
+			{
+				mRigidbody->SetVelocity(Vector2(300.f, 0.f));
+			}
 
-			else if (mPrevDir.x < 0)
+			else if (mPrevDir.x > 0 && mTurnOverload)
+			{
+				mRigidbody->SetVelocity(Vector2(400.f, 0.f));
+			}
+
+
+			if (mPrevDir.x < 0 && !mTurnOverload)
+			{
 				mRigidbody->SetVelocity(Vector2(-300.f, 0.f));
+			}
+
+			else if (mPrevDir.x < 0 && mTurnOverload)
+			{
+				mRigidbody->SetVelocity(Vector2(-400.f, 0.f));
+			}
+
 
 			mVelocity.x *= 100 * Time::DeltaTime();  // 속도 증가
 
@@ -528,11 +550,8 @@ namespace ss
 
 			if (CurOverload == 100.f && !mTurnOverload)
 			{
-				// 과부하 게이지 알아서 차감되게 하기 & 과부하 게이지가 100이라면 상태를 변경한다.
 				ChangeState(ePlayerState::OVERLOAD_READY);
-
-				// false는 과부하 게이지가 0이 되면 꺼지도록 해두기
-				// 또한 아래 bool 값 이용해서 애니메이션에서 해당 bool 값이 켜져있다면 다른 거 동작하게 해두기 
+		
 				mTurnOverload = true;
 
 			}
@@ -557,7 +576,11 @@ namespace ss
 		// === 오른쪽
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
+			if(!mTurnOverload)
 			mRigidbody->SetVelocity(Vector2(300.f, 0.f));
+
+			else
+			mRigidbody->SetVelocity(Vector2(400.f, 0.f));
 
 
 		}
@@ -572,7 +595,11 @@ namespace ss
 				// 왼쪽
 		if (Input::GetKey(eKeyCode::LEFT))
 		{
+			if (!mTurnOverload)
 			mRigidbody->SetVelocity(Vector2(-300.f, 0.f));
+
+			else
+				mRigidbody->SetVelocity(Vector2(-400.f, 0.f));
 
 
 		}
@@ -1365,68 +1392,82 @@ namespace ss
 			case ss::ePlayerState::ATTACK:
 				if (mWeaponType == eWeaponType::SWORD)
 				{
-					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
+					if (!mTurnOverload)
 					{
-						if (mPrevDir.x > 0)
+						if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 						{
+							if (mPrevDir.x > 0)
+							{
 
-							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-							mAttackCol->SetSize(Vector2(30.f, 40.f));
-							mAttackCol->SetCenter(Vector2(14.f, 2.f));
+								mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+								mAttackCol->SetSize(Vector2(30.f, 40.f));
+								mAttackCol->SetCenter(Vector2(14.f, 2.f));
+							}
+
+							else if (mPrevDir.x < 0)
+							{
+								mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+								mAttackCol->SetSize(Vector2(30.f, 40.f));
+								mAttackCol->SetCenter(Vector2(-14.f, 2.f));
+							}
+						
+
 						}
-
-						else if (mPrevDir.x < 0)
-						{
-							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-							mAttackCol->SetSize(Vector2(30.f, 40.f));
-							mAttackCol->SetCenter(Vector2(-14.f, 2.f));
-						}
-					
-
-					}
 
 			
-
-					if (mAttackCount == 1)
-					{
-						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
-
-						camera->StartShake(0.01f, 0.05f);
-
-						if (mPrevDir.x > 0)
+			
+						if (mAttackCount == 1)
 						{
+							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+							camera->StartShake(0.01f, 0.05f);
+
+							if (mPrevDir.x > 0)
+							{
 
 
-					
-							mAnimator->PlayAnimation(L"Player_S_Attack1R", false);
+
+								mAnimator->PlayAnimation(L"Player_S_Attack1R", false);
+							}
+
+							else
+								mAnimator->PlayAnimation(L"Player_S_Attack1L", false);
 						}
 
-						else
-							mAnimator->PlayAnimation(L"Player_S_Attack1L", false);
+						else if (mAttackCount == 2)
+						{
+							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+							camera->StartShake(0.01f, 0.05f);
+
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_S_Attack2R", false);
+							else
+								mAnimator->PlayAnimation(L"Player_S_Attack2L", false);
+						}
+
+						else if (mAttackCount == 3)
+						{
+							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+							camera->StartShake(0.1f, 0.3f); // 1, 2인덱스보다 쎄게! 
+
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_S_Attack3R", false);
+							else
+								mAnimator->PlayAnimation(L"Player_S_Attack3L", false);
+						}
+
 					}
 
-					else if (mAttackCount == 2)
-					{
-						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 
-						camera->StartShake(0.01f, 0.05f);
+					else if (mTurnOverload)
+					{
 
 						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_S_Attack2R", false);
+							mAnimator->PlayAnimation(L"Player_S_OverloadingR", false);
 						else
-							mAnimator->PlayAnimation(L"Player_S_Attack2L", false);
-					}
-
-					else if (mAttackCount == 3)
-					{
-						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
-
-						camera->StartShake(0.1f, 0.3f); // 1, 2인덱스보다 쎄게! 
-
-						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_S_Attack3R", false);
-						else
-							mAnimator->PlayAnimation(L"Player_S_Attack3L", false);
+							mAnimator->PlayAnimation(L"Player_S_OverloadingL", false);
 					}
 				}
 
