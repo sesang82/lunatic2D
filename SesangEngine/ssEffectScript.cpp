@@ -71,6 +71,9 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image22 = Resources::Find<ss::graphics::Texture>(L"Overload_BottomHorizion");
 		std::shared_ptr<ss::graphics::Texture> Image23 = Resources::Find<ss::graphics::Texture>(L"Overload_TopHorizion");
 
+		// 플레이어용 기타 효과
+		std::shared_ptr<ss::graphics::Texture> Image24 = Resources::Find<ss::graphics::Texture>(L"Player_GuardEffect");
+
 
 		// 보스 늑대용
 		anim->Create(L"Boss_Wolf_HowlingEffect", Image1, Vector2(0.f, 0.f), Vector2(583.f, 123.f), 6, Vector2(583.f, 123.f));
@@ -133,6 +136,11 @@ namespace ss
 		anim->Create(L"Over_RB", Image21, Vector2(0.f, 0.f), Vector2(142.f, 136.f), 8, Vector2(142.f, 136.f));
 		anim->Create(L"Over_TopHorizion", Image22, Vector2(0.f, 0.f), Vector2(215.f, 44.f), 6, Vector2(215.f, 44.f));
 		anim->Create(L"Over_BottomHorizion", Image23, Vector2(0.f, 0.f), Vector2(215.f, 44.f), 6, Vector2(215.f, 44.f));
+
+		// 
+		anim->Create(L"PlayerGuardEffectR", Image24, Vector2(0.f, 0.f), Vector2(24.f, 55.f), 5, Vector2(70.f, 55.f), Vector2(17.f, 0.f));
+		anim->Create(L"PlayerGuardEffectL", Image24, Vector2(0.f, 0.f), Vector2(24.f, 55.f), 5, Vector2(70.f, 55.f), Vector2(7, 0.f), 0.1f,  true);
+
 
 		if (GetOwner()->GetName() == L"HowlingEffectObj")
 		{
@@ -325,7 +333,22 @@ namespace ss
 			tr->SetScale(Vector3(500.f, 50.f, 0.f));
 
 		}
+		
 
+		// ===== 플레이어 기타 효과 
+		else if (GetOwner()->GetName() == L"PlayerGuardEffectObjR")
+		{
+			anim->PlayAnimation(L"PlayerGuardEffectR", false);
+			tr->SetScale(Vector3(70.f, 55.f, 0.f));
+
+		}
+
+		else if (GetOwner()->GetName() == L"PlayerGuardEffectObjL")
+		{
+			anim->PlayAnimation(L"PlayerGuardEffectL", false);
+			tr->SetScale(Vector3(70.f, 55.f, 0.f));
+
+		}
 	}
 
 
@@ -660,6 +683,20 @@ namespace ss
 			{
 				GetOwner()->SetState(GameObject::eState::Dead);
 		
+			}
+
+		}
+
+
+		else if (GetOwner()->GetName() == L"PlayerGuardEffectR"
+				|| GetOwner()->GetName() == L"PlayerGuardEffectL")
+		{
+			PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
+
+			if (anim->GetCurActiveAnimation()->IsComplete())
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
+
 			}
 
 		}

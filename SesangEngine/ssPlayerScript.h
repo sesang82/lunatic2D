@@ -101,6 +101,7 @@ namespace ss
         class AttackCollider*   mGuardColObj;
         class Transform*        mGuardColTr;
         class Collider2D*       mGuardCol;
+        class Effect*           mGuardEffectObj;
 
         // 보스 start 충돌체 
         class Platform*         mBossStartColObj;

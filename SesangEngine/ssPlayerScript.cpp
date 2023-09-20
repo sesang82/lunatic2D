@@ -538,12 +538,20 @@ namespace ss
 			{
 				mGuardCol->SetSize(Vector2(2.f, 15.f));
 				mGuardCol->SetCenter(Vector2(13.f, 3.f));
+
+				// GuardøÎ ¿Ã∆Â∆Æ
+				mGuardEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"PlayerGuardEffectObjR");
+				EffectScript* effectscript = mGuardEffectObj->AddComponent<EffectScript>();
 			}
 
 			else
 			{
 				mGuardCol->SetSize(Vector2(2.f, 15.f));
 				mGuardCol->SetCenter(Vector2(-13.5f, 3.f));
+
+				// GuardøÎ ¿Ã∆Â∆Æ
+				mGuardEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"PlayerGuardEffectObjL");
+				EffectScript* effectscript = mGuardEffectObj->AddComponent<EffectScript>();
 			}
 
 
@@ -687,23 +695,30 @@ namespace ss
 			mGuardColObj->Initialize();
 			PlayerGuardColScript* guardScript = mGuardColObj->AddComponent<PlayerGuardColScript>();
 			mGuardCol = mGuardColObj->AddComponent<Collider2D>();
-			mGuardCol->SetName(L"PlayerGuardCol");
+			
 
 			if (mCurDir.x > 0)
 			{
 				mGuardCol->SetSize(Vector2(2.f, 15.f));
 				mGuardCol->SetCenter(Vector2(8.f, 3.f));
+
+				// GuardøÎ ¿Ã∆Â∆Æ
+				mGuardEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"PlayerGuardEffectObjR");
+				EffectScript* effectscript = mGuardEffectObj->AddComponent<EffectScript>();
 			}
 
 			else
 			{
 				mGuardCol->SetSize(Vector2(2.f, 15.f));
 				mGuardCol->SetCenter(Vector2(-8.f, 3.f));
+
+				// GuardøÎ ¿Ã∆Â∆Æ
+				mGuardEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"PlayerGuardEffectObjL");
+				EffectScript* effectscript = mGuardEffectObj->AddComponent<EffectScript>();
 			}
 
 
 			guardScript->StorePlayerScript(this);
-
 
 			ChangeState(ePlayerState::GUARD);
 		}
@@ -945,6 +960,7 @@ namespace ss
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			ChangeState(ePlayerState::IDLE);
+			mGuardColObj->SetState(GameObject::eState::Dead);
 		}
 
 	}

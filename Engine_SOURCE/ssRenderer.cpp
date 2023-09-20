@@ -3446,6 +3446,22 @@ namespace renderer
 			Resources::Insert(L"Overload_BarMtrl", spriteMateiral);
 		}
 
+
+		// === guard 이펙트
+	
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Player_GuardEffect", L"..\\Resources\\Texture\\Player\\Common\\PlayerParryEffect 24 55 5.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			Resources::Insert(L"Player_GuardEffectMtrl", spriteMateiral);
+		}
+
 #pragma endregion 
 
 
