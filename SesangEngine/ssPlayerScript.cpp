@@ -808,6 +808,7 @@ namespace ss
 	void PlayerScript::Fall()
 	{
 
+		mRigidbody->SetGravity(Vector2(0.f, 1500.f));
 		// 나무 발판에서 떨어질 떄 떨어지는 모션 (falling) 모션 넣기 
 		// 어색하게 떨어지는 것도 수정해야함 (나무 발판의 양 옆 충돌체의 어느 크기를 벗어나면 떨어지게 한다거나 그런 거 하면 될듯 )
 
