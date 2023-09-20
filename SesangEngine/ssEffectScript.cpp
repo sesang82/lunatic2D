@@ -112,12 +112,11 @@ namespace ss
 		anim->Create(L"P_PlayerOverloadCircle_EffectR", Image12, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
 		anim->Create(L"P_PlayerOverloadCircle_EffectL", Image12, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
 
-		anim->Create(L"G_PlayerspAttack1_EffectR", Image13, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
-		anim->Create(L"G_PlayerspAttack1_EffectL", Image13, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"G_PlayerspAttack1_EffectR", Image13, Vector2(0.f, 0.f), Vector2(194.f, 50.f), 6, Vector2(500.f, 50.f), Vector2(85.f, -3.f), 0.06f);
+		anim->Create(L"G_PlayerspAttack1_EffectL", Image13, Vector2(0.f, 0.f), Vector2(194.f, 50.f), 6, Vector2(500.f, 50.f), Vector2(78.f, -3.f), 0.06f, true);
 
-
-		anim->Create(L"G_PlayerspAttack2_EffectR", Image14, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
-		anim->Create(L"G_PlayerspAttack2_EffectL", Image14, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"G_PlayerspAttack2_EffectR", Image14, Vector2(0.f, 0.f), Vector2(74.f, 49.f), 7, Vector2(130.f, 49.f), Vector2(-15.f, -3.f));
+		anim->Create(L"G_PlayerspAttack2_EffectL", Image14, Vector2(0.f, 0.f), Vector2(74.f, 49.f), 7, Vector2(130.f, 49.f), Vector2(-30.f, -3.f), 0.1f, true);
 
 		anim->Create(L"G_PlayerOverload_EffectR", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
 		anim->Create(L"G_PlayerOverload_EffectL", Image15, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
@@ -296,27 +295,36 @@ namespace ss
 
 		// =========================
 		// 플레이어 건틀렛 관련
-		else if (GetOwner()->GetName() == L"OverloadBottomHorizionUI")
+		else if (GetOwner()->GetName() == L"Player_Gauntlet_SPEffect_DustR")
 		{
-			anim->PlayAnimation(L"Over_BottomHorizion", true);
-			tr->SetScale(Vector3(480.f, 45.f, 0.f));
+			anim->PlayAnimation(L"G_PlayerspAttack2_EffectR", false);
+			tr->SetScale(Vector3(130.f, 49.f, 0.f));
 
-			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x,
-				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
-				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+		
 		}
 
-		else if (GetOwner()->GetName() == L"OverloadBottomHorizionUI")
+		else if (GetOwner()->GetName() == L"Player_Gauntlet_SPEffect_DustL")
 		{
-			anim->PlayAnimation(L"Over_BottomHorizion", true);
-			tr->SetScale(Vector3(480.f, 45.f, 0.f));
+			anim->PlayAnimation(L"G_PlayerspAttack2_EffectL", false);
+			tr->SetScale(Vector3(130.f, 49.f, 0.f));
 
-			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x,
-				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
-				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 		}
 
 
+		else if (GetOwner()->GetName() == L"Player_Gauntlet_SPEffect_PushR")
+		{
+			anim->PlayAnimation(L"G_PlayerspAttack1_EffectR", false);
+			tr->SetScale(Vector3(500.f, 50.f, 0.f));
+
+		}
+
+
+		else if (GetOwner()->GetName() == L"Player_Gauntlet_SPEffect_PushL")
+		{
+			anim->PlayAnimation(L"G_PlayerspAttack1_EffectL", false);
+			tr->SetScale(Vector3(500.f, 50.f, 0.f));
+
+		}
 
 	}
 
@@ -324,7 +332,7 @@ namespace ss
 	void EffectScript::Update()
 	{
 
-
+		Animator* anim = GetOwner()->GetComponent<Animator>();
 
 		//if (SceneManager::GetActiveScene()->GetName() == L"Stage1Scene")
 		if (GetOwner()->GetName() == L"HowlingEffectObj")
@@ -598,7 +606,48 @@ namespace ss
 
 
 
+		}
+
+
+		// ============= 건틀렛
+
+		else if (GetOwner()->GetName() == L"Player_Gauntlet_SPEffect_DustR")
+		{
+
+			if (anim->GetCurActiveAnimation()->IsComplete())
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
 			}
+
+		}
+
+
+		else if (GetOwner()->GetName() == L"Player_Gauntlet_SPEffect_DustL")
+		{
+			if (anim->GetCurActiveAnimation()->IsComplete())
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+		}
+
+
+		else if (GetOwner()->GetName() == L"Player_Gauntlet_SPEffect_PushR")
+		{
+			if (anim->GetCurActiveAnimation()->IsComplete())
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+
+		}
+
+		else if (GetOwner()->GetName() == L"Player_Gauntlet_SPEffect_PushL")
+		{
+			if (anim->GetCurActiveAnimation()->IsComplete())
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+
+		}
 
 	}
 	void EffectScript::OnCollisionEnter(Collider2D* other)

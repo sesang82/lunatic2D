@@ -3269,7 +3269,7 @@ namespace renderer
 		// 플레이어 건틀렛 SP Attack 1 이펙트
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"G_PlayerspAttack1_Effect", L"..\\Resources\\Texture\\Player\\Gauntlet\\spAttackEffect 1...194 50 5.png");
+				= Resources::Load<Texture>(L"G_PlayerspAttack1_Effect", L"..\\Resources\\Texture\\Player\\Gauntlet\\spAttackEffect 1...194 50 6.png");
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
@@ -3283,7 +3283,7 @@ namespace renderer
 		// 플레이어 건틀렛 SP Attack 2 이펙트
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"G_PlayerspAttack2_Effect", L"..\\Resources\\Texture\\Player\\Gauntlet\\spAttackEffect2 6.74.49.png");
+				= Resources::Load<Texture>(L"G_PlayerspAttack2_Effect", L"..\\Resources\\Texture\\Player\\Gauntlet\\spAttackEffect2.png");
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();

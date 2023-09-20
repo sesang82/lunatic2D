@@ -104,6 +104,7 @@ namespace ss
 
         class Effect*           mHitEffect;
         class Effect*           mSPEffect;
+        class Effect*           mSPEffect2;
 
         class Effect*           mPlayerOverloadEffect;
         class Effect*           mOverloadUIEffect;

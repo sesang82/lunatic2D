@@ -58,6 +58,7 @@ namespace ss
 		, mPlayerOverloadEffect(nullptr)
 		, mbPlayerOverloadingEffet(false)
 		, mTurnOverload(false)
+		, mSPEffect2(nullptr)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -1695,11 +1696,11 @@ namespace ss
 			case ss::ePlayerState::SPATTACK:
 				if (mWeaponType == eWeaponType::SWORD)
 				{
+					mRigidbody->SetVelocity(Vector2(0.f, 0.f));
 
 					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 					{
-						mRigidbody->SetVelocity(Vector2(0.f, 0.f));
-
+					
 						if (!mbOverloading)
 						{
 							if (mPrevDir.x > 0)
@@ -1791,10 +1792,83 @@ namespace ss
 
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
-					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_G_spAttackR", false);
-					else
-						mAnimator->PlayAnimation(L"Player_G_spAttackL", false);
+
+				
+						if (!mbOverloading)
+						{
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3)
+							{
+
+								//if (mPrevDir.x > 0)
+								//{
+								//	// 삭제는 이펙트 스크립트에서 진행했음 
+								//	Vector3 PlayerPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+								//	mSPEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Gauntlet_SPEffect_DustR");
+
+								//	EffectScript* effectscript = mSPEffect->AddComponent<EffectScript>();
+
+								//	effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+								//}
+
+								//else
+								//{
+								//	Vector3 PlayerPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+								//	mSPEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Gauntlet_SPEffect_PushR");
+
+								//	EffectScript* effectscript = mSPEffect->AddComponent<EffectScript>();
+
+								//	effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+								//}
+							}
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
+							{
+								if (mPrevDir.x > 0)
+								{
+									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+									mSPEffect2 = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Gauntlet_SPEffect_PushR");
+
+									EffectScript* effectscript = mSPEffect2->AddComponent<EffectScript>();
+
+									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+								}
+
+								else
+								{
+									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+									mSPEffect2 = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Gauntlet_SPEffect_PushL");
+
+									EffectScript* effectscript = mSPEffect2->AddComponent<EffectScript>();
+
+									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+								}
+							}
+
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_G_spAttackR", false);
+							else
+								mAnimator->PlayAnimation(L"Player_G_spAttackL", false);
+
+
+
+						}
+
+
+						else if (mbOverloading)
+						{
+						}
+					
+
+				
 				}
 
 
