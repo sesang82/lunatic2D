@@ -68,7 +68,20 @@ namespace ss
         bool GetDirection() { return mDirection; }
         void SetDirection(bool direction) { mDirection = direction; }
 
+        // 특정 인덱스의 재생 시간 값을 바꾸기 위한 함수 
+        void SetCurSpriteDuration(size_t spriteIndex, float newDuration)
+        {
+            mIndex = spriteIndex;
 
+            if (mIndex < mSprites.size())
+            {
+                mSprites[mIndex].duration = newDuration;
+            }
+
+            else
+                return; // 인덱스 값이 전체 크기보다 큰 경우 리턴처리
+        
+        }
 
         UINT GetAnimCount()  { return mAnimCount; }
 

@@ -1849,6 +1849,9 @@ namespace ss
 							{
 								mbspAttack = true;
 
+								// ** 특정 인덱스의 재생 시간 값을 바꾸는 함수 (테스트 완료) 
+								//mAnimator->GetCurActiveAnimation()->SetCurSpriteDuration(4, 3.f);
+
 								if (mPrevDir.x > 0)
 								{
 									

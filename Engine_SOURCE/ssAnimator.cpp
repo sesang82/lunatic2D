@@ -84,6 +84,7 @@ namespace ss
 
 	}
 
+
 	std::function<void()>& Animator::StartEvent(const std::wstring key)
 	{
 		Events* events = FindEvents(key);
