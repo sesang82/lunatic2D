@@ -320,7 +320,7 @@ namespace ss
 
 			mCamera = mCameraObj->AddComponent<Camera>();
 			mCamera->TurnLayerMask(eLayerType::UI, false);
-			mCamera->SetSize(2.3f); // 2.3 
+			mCamera->SetSize(3.3f); // 2.3 
 
 			CameraScript* camerscript = mCameraObj->AddComponent<CameraScript>();
 

@@ -706,6 +706,35 @@ namespace ss
 		}
 
 
+		else if (Input::GetKeyDown(eKeyCode::Z))
+		{
+			if (!mTurnOverload)
+			{
+				++mAttackCount;
+			}
+
+
+			ChangeState(ePlayerState::ATTACK);
+		}
+
+		else if (Input::GetKeyDown(eKeyCode::Z) && mAttackCount == 1)
+		{
+			++mAttackCount;
+
+			ChangeState(ePlayerState::ATTACK);
+
+		}
+
+		else if (Input::GetKeyDown(eKeyCode::Z) && mAttackCount == 2)
+		{
+
+			++mAttackCount;
+
+
+			ChangeState(ePlayerState::ATTACK);
+		}
+
+
 		// SP 공격
 		else if (Input::GetKeyDown(eKeyCode::LSHIFT))
 		{
@@ -1443,9 +1472,6 @@ namespace ss
 
 							if (mPrevDir.x > 0)
 							{
-
-
-
 								mAnimator->PlayAnimation(L"Player_S_Attack1R", false);
 							}
 
@@ -1528,64 +1554,138 @@ namespace ss
 
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
-
-					if (mAttackCount == 1)
+					if (!mTurnOverload)
 					{
+						mRigidbody->SetVelocity(Vector2(0.f, 0.f));
+						
+						if (mAttackCount == 1)
+						{
+							mAttackColliderObj->RemoveComponent<Collider2D>();
 
-						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_G_Attack1R", false);
-						else
-							mAnimator->PlayAnimation(L"Player_G_Attack1L", false);
-					}
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
+							{
+							
+								if (mPrevDir.x > 0)
+								{
 
-					else if (mAttackCount == 2)
-					{
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(34.f, 40.f));
+									mAttackCol->SetCenter(Vector2(16.f, 2.f));
+								}
 
-						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_G_Attack2R", false);
-						else
-							mAnimator->PlayAnimation(L"Player_G_Attack2L", false);
-					}
+								else if (mPrevDir.x < 0)
+								{
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(34.f, 40.f));
+									mAttackCol->SetCenter(Vector2(-6.f, 2.f));
+								}
 
-					else if (mAttackCount == 3)
-					{
 
-						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_G_Attack3R", false);
-						else
-							mAnimator->PlayAnimation(L"Player_G_Attack3L", false);
+							}
+
+
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_G_Attack1R", false);
+							else
+								mAnimator->PlayAnimation(L"Player_G_Attack1L", false);
+						}
+
+						else if (mAttackCount == 2)
+						{
+
+							mAttackColliderObj->RemoveComponent<Collider2D>();
+
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
+							{
+
+								if (mPrevDir.x > 0)
+								{
+
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(34.f, 40.f));
+									mAttackCol->SetCenter(Vector2(16.f, 2.f));
+								}
+
+								else if (mPrevDir.x < 0)
+								{
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(34.f, 40.f));
+									mAttackCol->SetCenter(Vector2(-6.f, 2.f));
+								}
+							}
+
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_G_Attack2R", false);
+							else
+								mAnimator->PlayAnimation(L"Player_G_Attack2L", false);
+						}
+
+
+
+						else if (mAttackCount == 3)
+						{
+							mAttackColliderObj->RemoveComponent<Collider2D>();
+
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
+							{
+
+								if (mPrevDir.x > 0)
+								{
+
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(34.f, 40.f));
+									mAttackCol->SetCenter(Vector2(16.f, 2.f));
+								}
+
+								else if (mPrevDir.x < 0)
+								{
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(34.f, 40.f));
+									mAttackCol->SetCenter(Vector2(-6.f, 2.f));
+								}
+							}
+
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_G_Attack3R", false);
+							else
+								mAnimator->PlayAnimation(L"Player_G_Attack3L", false);
+						}
+
 					}
 				}
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
-
-					if (mAttackCount == 1)
+					if (!mTurnOverload)
 					{
+						if (mAttackCount == 1)
+						{
 
-						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_P_Attack1,2R", false);
-						else
-							mAnimator->PlayAnimation(L"Player_P_Attack1,2L", false);
-					}
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_P_Attack1,2R", false);
+							else
+								mAnimator->PlayAnimation(L"Player_P_Attack1,2L", false);
+						}
 
-					else if (mAttackCount == 2)
-					{
+						else if (mAttackCount == 2)
+						{
 
-						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_P_Attack1,2R", false);
-						else
-							mAnimator->PlayAnimation(L"Player_P_Attack1,2L", false);
-					}
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_P_Attack1,2R", false);
+							else
+								mAnimator->PlayAnimation(L"Player_P_Attack1,2L", false);
+						}
 
 
-					else if (mAttackCount == 3)
-					{
+						else if (mAttackCount == 3)
+						{
 
-						if (mPrevDir.x > 0)
-							mAnimator->PlayAnimation(L"Player_P_Attack3R", false);
-						else
-							mAnimator->PlayAnimation(L"Player_P_Attack3L", false);
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_P_Attack3R", false);
+							else
+								mAnimator->PlayAnimation(L"Player_P_Attack3L", false);
+						}
 					}
 
 				}
@@ -1598,7 +1698,6 @@ namespace ss
 
 					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 					{
-						// hit 상태 즉시 제자리에 멈춰있도록 속도 0으로 만듦
 						mRigidbody->SetVelocity(Vector2(0.f, 0.f));
 
 						if (!mbOverloading)

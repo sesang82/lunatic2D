@@ -257,43 +257,43 @@ namespace ss
 
 		// =============================
 		// 4. Àå°© 
-		anim->Create(L"Player_G_IdleR", Image36, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 6, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_IdleL", Image36, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 6, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_IdleR", Image36, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 6, Vector2(240.f, 50.f), Vector2(10.f, -7.f));
+		anim->Create(L"Player_G_IdleL", Image36, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 6, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 
-		anim->Create(L"Player_G_RunR", Image37, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_RunL", Image37, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
-
-
-		anim->Create(L"Player_G_JumpR", Image38, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 9, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_JumpL", Image38, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 9, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_RunR", Image37, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(10.f, -7.f));
+		anim->Create(L"Player_G_RunL", Image37, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 
 
-		anim->Create(L"Player_G_FallR", Image39, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_FallL", Image39, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_JumpR", Image38, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 9, Vector2(240.f, 50.f), Vector2(10.f, -7.f));
+		anim->Create(L"Player_G_JumpL", Image38, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 9, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
+
+
+		anim->Create(L"Player_G_FallR", Image39, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(240.f, 50.f), Vector2(10.f, -7.f));
+		anim->Create(L"Player_G_FallL", Image39, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 											  
-		anim->Create(L"Player_G_DashR", Image40, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 3, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_DashL", Image40, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 3, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_DashR", Image40, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 3, Vector2(240.f, 50.f), Vector2(10.f, -7.f));
+		anim->Create(L"Player_G_DashL", Image40, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 3, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 
-		anim->Create(L"Player_G_HitR", Image41, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_HitL", Image41, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_HitR", Image41, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(240.f, 50.f), Vector2(10.f, -7.f));
+		anim->Create(L"Player_G_HitL", Image41, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 
-		anim->Create(L"Player_G_GuardR", Image42, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_GuardL", Image42, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_GuardR", Image42, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(240.f, 50.f), Vector2(10.f, -7.f));
+		anim->Create(L"Player_G_GuardL", Image42, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 1, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 
-		anim->Create(L"Player_G_Attack1R", Image43, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_Attack1L", Image43, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_Attack1R", Image43, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(10.f, -7.f), 0.06f);
+		anim->Create(L"Player_G_Attack1L", Image43, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.06f, true);
 
-		anim->Create(L"Player_G_Attack2R", Image44, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_Attack2L", Image44, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_Attack2R", Image44, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(240.f, 50.f), Vector2(10.f, -7.f), 0.06f);
+		anim->Create(L"Player_G_Attack2L", Image44, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.06f, true);
 
-		anim->Create(L"Player_G_Attack3R", Image45, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 7, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_Attack3L", Image45, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 7, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_Attack3R", Image45, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 7, Vector2(240.f, 50.f), Vector2(10.f, -7.f), 0.06f);
+		anim->Create(L"Player_G_Attack3L", Image45, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 7, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.06f, true);
 
-		anim->Create(L"Player_G_spAttackR", Image46, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 10, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_spAttackL", Image46, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 10, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_spAttackR", Image46, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 10, Vector2(240.f, 50.f), Vector2(10.f, -7.f));
+		anim->Create(L"Player_G_spAttackL", Image46, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 10, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 
-		anim->Create(L"Player_G_overloadR", Image47, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 16, Vector2(240.f, 50.f), Vector2(10.f, 2.f));
-		anim->Create(L"Player_G_overloadL", Image47, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 16, Vector2(240.f, 50.f), Vector2(0.f, 2.f), 0.1f, true);
+		anim->Create(L"Player_G_overloadR", Image47, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 16, Vector2(240.f, 50.f), Vector2(10.f, -7.f), 0.1f);
+		anim->Create(L"Player_G_overloadL", Image47, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 16, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 
 
 

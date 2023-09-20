@@ -180,6 +180,10 @@ namespace ss
 
 		}
 
+
+
+		// =========== 오버로드 UI관련 
+
 		else if (GetOwner()->GetName() == L"OverloadStratEffectR")
 		{
 			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
@@ -288,6 +292,30 @@ namespace ss
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 		}
+
+
+		// =========================
+		// 플레이어 건틀렛 관련
+		else if (GetOwner()->GetName() == L"OverloadBottomHorizionUI")
+		{
+			anim->PlayAnimation(L"Over_BottomHorizion", true);
+			tr->SetScale(Vector3(480.f, 45.f, 0.f));
+
+			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+		}
+
+		else if (GetOwner()->GetName() == L"OverloadBottomHorizionUI")
+		{
+			anim->PlayAnimation(L"Over_BottomHorizion", true);
+			tr->SetScale(Vector3(480.f, 45.f, 0.f));
+
+			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
+				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+		}
+
 
 
 	}
