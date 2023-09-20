@@ -104,6 +104,8 @@ namespace ss
 		mAnimator->EndEvent(L"Player_S_GuardR") = std::bind(&PlayerScript::GuardEnd, this);
 		mAnimator->EndEvent(L"Player_S_GuardL") = std::bind(&PlayerScript::GuardEnd, this);
 
+	
+
 		// ==== 플레이어 클래스에 화살버전 guard는 안 만들었음. 추가해놓고 이거 주석 풀기 
 		//mAnimator->EndEvent(L"Player_B_GuardR") = std::bind(&PlayerScript::GuardEnd, this);
 		//mAnimator->EndEvent(L"Player_B_GuardL") = std::bind(&PlayerScript::GuardEnd, this);
@@ -1798,37 +1800,43 @@ namespace ss
 						{
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3)
 							{
+								mbspAttack = false;
 
-								//if (mPrevDir.x > 0)
-								//{
-								//	// 삭제는 이펙트 스크립트에서 진행했음 
-								//	Vector3 PlayerPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
-
-
-								//	mSPEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Gauntlet_SPEffect_DustR");
-
-								//	EffectScript* effectscript = mSPEffect->AddComponent<EffectScript>();
-
-								//	effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
-								//}
-
-								//else
-								//{
-								//	Vector3 PlayerPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
-
-
-								//	mSPEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Gauntlet_SPEffect_PushR");
-
-								//	EffectScript* effectscript = mSPEffect->AddComponent<EffectScript>();
-
-								//	effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
-								//}
-							}
-
-							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
-							{
 								if (mPrevDir.x > 0)
 								{
+									// 삭제는 이펙트 스크립트에서 진행했음 
+									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+									mSPEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Gauntlet_SPEffect_DustR");
+
+									EffectScript* effectscript = mSPEffect->AddComponent<EffectScript>();
+
+									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+								}
+
+								else if(mPrevDir.x < 0)
+								{
+									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+									mSPEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Gauntlet_SPEffect_DustL");
+
+									EffectScript* effectscript = mSPEffect->AddComponent<EffectScript>();
+
+									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+								}
+
+							}
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4 && !mbspAttack)
+							{
+								mbspAttack = true;
+
+								if (mPrevDir.x > 0)
+								{
+									
+
 									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
 
 
@@ -1837,6 +1845,12 @@ namespace ss
 									EffectScript* effectscript = mSPEffect2->AddComponent<EffectScript>();
 
 									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+
+									// 
+									Vector3 CurPos = mTransform->GetPosition();
+
+									mTransform->SetPosition(CurPos.x + 130.f, CurPos.y, CurPos.z);
 
 								}
 
@@ -1850,8 +1864,35 @@ namespace ss
 									EffectScript* effectscript = mSPEffect2->AddComponent<EffectScript>();
 
 									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+									// 
+									Vector3 CurPos = mTransform->GetPosition();
+
+									mTransform->SetPosition(CurPos.x - 130.f, CurPos.y, CurPos.z);
 								}
 							}
+
+							//else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 5)
+							//{
+							//	if (mPrevDir.x > 0)
+							//	{
+							//		Vector3 CurPos = mTransform->GetPosition();
+
+							//		mTransform->SetPosition(CurPos.x + 0.8f, CurPos.y, CurPos.z);
+							//		//mPrevDir.x * mRigidbody->GetVelocity().x;
+
+
+							//	}
+
+
+							//	else if (mPrevDir.x < 0)
+							//	{
+							//		Vector3 CurPos = mTransform->GetPosition();
+
+							//		mTransform->SetPosition(CurPos.x - 0.8f, CurPos.y, CurPos.z);
+							//	}
+
+							//}
 
 							if (mPrevDir.x > 0)
 								mAnimator->PlayAnimation(L"Player_G_spAttackR", false);
@@ -2150,6 +2191,7 @@ namespace ss
 		//mCollider->SetCenter(Vector2(-3.5f, 2.f));
 		//ChangeState(ePlayerState::IDLE);
 	}
+
 
 
 

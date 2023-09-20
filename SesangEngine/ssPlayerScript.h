@@ -60,6 +60,9 @@ namespace ss
         bool  mbChange;
         bool  mChangeFirst; // 무기 변경할 떄의 첫 애니메이션 땜에 만듦
         bool  mbDash;
+
+
+
         float DashDuration;
         float mSpeed;
         float mTime;
@@ -168,6 +171,7 @@ namespace ss
         void SetBossStartColObj(Platform* obj) { mBossStartColObj = obj; }
 
         bool IsUseOverload() { return mbUseOverload;}
+        void SetboolSPAttack(bool useAttack) { useAttack = mbspAttack;  }
  
 
 
