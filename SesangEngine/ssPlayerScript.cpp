@@ -1816,6 +1816,7 @@ namespace ss
 						{
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3)
 							{
+								
 								mbspAttack = false;
 
 								if (mPrevDir.x > 0)
@@ -1847,10 +1848,12 @@ namespace ss
 
 							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4 && !mbspAttack)
 							{
+								
+
 								mbspAttack = true;
 
 								// ** 특정 인덱스의 재생 시간 값을 바꾸는 함수 (테스트 완료) 
-								//mAnimator->GetCurActiveAnimation()->SetCurSpriteDuration(4, 3.f);
+								//mAnimator->GetCurActiveAnimation()->SetCurSpriteDuration(3.f);
 
 								if (mPrevDir.x > 0)
 								{
@@ -1891,6 +1894,7 @@ namespace ss
 								}
 							}
 
+							//mAnimator->GetCurActiveAnimation()->SetCurSpriteDuration(5, 3.f);
 							//else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 5)
 							//{
 							//	if (mPrevDir.x > 0)
@@ -1918,7 +1922,7 @@ namespace ss
 							else
 								mAnimator->PlayAnimation(L"Player_G_spAttackL", false);
 
-
+					
 
 						}
 
