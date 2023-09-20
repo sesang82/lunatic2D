@@ -688,10 +688,10 @@ namespace ss
 		}
 
 
-		else if (GetOwner()->GetName() == L"PlayerGuardEffectR"
-				|| GetOwner()->GetName() == L"PlayerGuardEffectL")
+		else if (GetOwner()->GetName() == L"PlayerGuardEffectObjR"
+				|| GetOwner()->GetName() == L"PlayerGuardEffectObjL")
 		{
-			PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
+			//PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
 
 			if (anim->GetCurActiveAnimation()->IsComplete())
 			{
