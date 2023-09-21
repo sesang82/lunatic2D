@@ -195,7 +195,7 @@ namespace ss
 		mPrevDir = mCurDir;
 
 
-		/*if (mTurnOverload)
+	/*	if (mTurnOverload)
 		{
 			float DecreseSpeed = 15.f;
 
@@ -573,6 +573,7 @@ namespace ss
 		// SP 공격
 		else if (Input::GetKeyDown(eKeyCode::LSHIFT))
 		{
+
 			ChangeState(ePlayerState::SPATTACK);
 
 			// SP 게이지 감소시키기 (-30) && mTurnOverload 상태가 아닐떄만 
@@ -735,6 +736,9 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::Z))
 		{
+
+			mRigidbody->SetVelocity(Vector2::Zero);
+
 			if (!mTurnOverload && mWeaponType == eWeaponType::SWORD
 				|| !mTurnOverload && mWeaponType == eWeaponType::GAUNTLET
 				|| mTurnOverload && mWeaponType == eWeaponType::GAUNTLET)
@@ -748,6 +752,8 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::Z) && mAttackCount == 1)
 		{
+			mRigidbody->SetVelocity(Vector2::Zero);
+
 			++mAttackCount;
 
 			ChangeState(ePlayerState::ATTACK);
@@ -756,6 +762,8 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::Z) && mAttackCount == 2)
 		{
+			mRigidbody->SetVelocity(Vector2::Zero);
+
 			if (mTurnOverload && mWeaponType == eWeaponType::GAUNTLET)
 				return;
 
@@ -1687,10 +1695,35 @@ namespace ss
 
 					}
 
+					// 오버로드 상태라면 
 					else
 					{
 						if (mAttackCount == 1)
 						{
+							mAttackColliderObj->RemoveComponent<Collider2D>();
+
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 3
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 5)
+							{
+
+								if (mPrevDir.x > 0)
+								{
+
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(45.f, 40.f));
+									mAttackCol->SetCenter(Vector2(25.f, 2.f));
+								}
+
+								else if (mPrevDir.x < 0)
+								{
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(45.f, 40.f));
+									mAttackCol->SetCenter(Vector2(-25.f, 2.f));
+								}
+							}
+
+
 							if (mPrevDir.x > 0)
 								mAnimator->PlayAnimation(L"Player_G_overload_Attack1R", false);
 							else if (mPrevDir.x < 0)
@@ -1699,10 +1732,55 @@ namespace ss
 
 						else if (mAttackCount == 2)
 						{
+							mAttackColliderObj->RemoveComponent<Collider2D>();
+
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
+								
+							{
+
+								if (mPrevDir.x > 0)
+								{
+
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(45.f, 40.f));
+									mAttackCol->SetCenter(Vector2(25.f, 2.f));
+								}
+
+								else if (mPrevDir.x < 0)
+								{
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(45.f, 40.f));
+									mAttackCol->SetCenter(Vector2(-25.f, 2.f));
+								}
+								
+							}
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
+
+							{
+
+								if (mPrevDir.x > 0)
+								{
+
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(45.f, 40.f));
+									mAttackCol->SetCenter(Vector2(15.f, 2.f));
+								}
+
+								else if (mPrevDir.x < 0)
+								{
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(45.f, 40.f));
+									mAttackCol->SetCenter(Vector2(-15.f, 2.f));
+								}
+
+							}
+
 							if (mPrevDir.x > 0)
 								mAnimator->PlayAnimation(L"Player_G_overload_Attack2R", false);
 							else if (mPrevDir.x < 0)
 								mAnimator->PlayAnimation(L"Player_G_overload_Attack2L", false);
+
 						}
 
 
