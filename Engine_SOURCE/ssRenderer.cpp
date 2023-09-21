@@ -1495,10 +1495,10 @@ namespace renderer
 
 		 }
 
-		 // >> OverLoad
+		 // >> OverLoad attack 1 
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"G_Playeroverload", L"..\\Resources\\Texture\\Player\\Gauntlet\\overload.png");
+				 = Resources::Load<Texture>(L"G_Playeroverload_attack1", L"..\\Resources\\Texture\\Player\\Gauntlet\\Overload_Attack1(8.105.57).png");
 
 			 // === Material 持失
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
@@ -1506,11 +1506,25 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"G_PlayeroverloadMtrl", spriteMateiral);
+			 Resources::Insert(L"G_Playeroverload_attack1Mtrl", spriteMateiral);
 
 		 }
 
 
+		 // >> OverLoad attack 2
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"G_Playeroverload_attack2", L"..\\Resources\\Texture\\Player\\Gauntlet\\Overload_Attack2(8.105.57).png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"G_Playeroverload_attack2Mtrl", spriteMateiral);
+
+		 }
 
 
 #pragma endregion 

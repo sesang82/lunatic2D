@@ -101,7 +101,8 @@ namespace ss
 		std::shared_ptr<Texture> Image44 = Resources::Find<Texture>(L"G_PlayerAttack2");
 		std::shared_ptr<Texture> Image45 = Resources::Find<Texture>(L"G_PlayerAttack3");
 		std::shared_ptr<Texture> Image46 = Resources::Find<Texture>(L"G_PlayerspAttack");
-		std::shared_ptr<Texture> Image47 = Resources::Find<Texture>(L"G_Playeroverload");
+		std::shared_ptr<Texture> Image47 = Resources::Find<Texture>(L"G_Playeroverload_attack1");
+		std::shared_ptr<Texture> Image48 = Resources::Find<Texture>(L"G_Playeroverload_attack2");
 
 
 
@@ -292,9 +293,11 @@ namespace ss
 		anim->Create(L"Player_G_spAttackR", Image46, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 10, Vector2(240.f, 50.f), Vector2(10.f, -7.f));
 		anim->Create(L"Player_G_spAttackL", Image46, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 10, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 
-		anim->Create(L"Player_G_overloadR", Image47, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 16, Vector2(240.f, 50.f), Vector2(10.f, -7.f), 0.1f);
-		anim->Create(L"Player_G_overloadL", Image47, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 16, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
+		anim->Create(L"Player_G_overload_Attack1R", Image47, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(10.f, -7.f), 0.1f);
+		anim->Create(L"Player_G_overload_Attack1L", Image47, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 
+		anim->Create(L"Player_G_overload_Attack2R", Image48, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(10.f, -7.f), 0.1f);
+		anim->Create(L"Player_G_overload_Attack2L", Image48, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(240.f, 50.f), Vector2(0.f, -7.f), 0.1f, true);
 
 
 		Rigidbody2D* rigid = AddComponent<Rigidbody2D>();

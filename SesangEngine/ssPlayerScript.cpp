@@ -195,7 +195,7 @@ namespace ss
 		mPrevDir = mCurDir;
 
 
-		if (mTurnOverload)
+		/*if (mTurnOverload)
 		{
 			float DecreseSpeed = 15.f;
 
@@ -218,7 +218,7 @@ namespace ss
 				mTopHorizion->SetState(GameObject::eState::Dead);
 
 			}
-		}
+		}*/
 
 		// 이동->상태변환->애니메이션
 
@@ -422,6 +422,11 @@ namespace ss
 			mAttackCount = 0;
 		}
 
+		else if (mAttackCount == 2 && mWeaponType == eWeaponType::GAUNTLET && mTurnOverload)
+		{
+			mAttackCount = 0; 
+		}
+
 		// 제자리에서 점프  (맨 앞에 둬야됨) 
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
@@ -459,7 +464,9 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::Z))
 		{
-			if (!mTurnOverload)
+			if (!mTurnOverload &&  mWeaponType == eWeaponType::SWORD
+				|| !mTurnOverload && mWeaponType == eWeaponType::GAUNTLET
+				|| mTurnOverload && mWeaponType == eWeaponType::GAUNTLET)
 			{
 				++mAttackCount;
 			}
@@ -478,7 +485,9 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::Z) && mAttackCount == 2)
 		{
-			
+			if (mTurnOverload && mWeaponType == eWeaponType::GAUNTLET)
+				return;
+
 			++mAttackCount;
 		
 
@@ -726,7 +735,9 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::Z))
 		{
-			if (!mTurnOverload)
+			if (!mTurnOverload && mWeaponType == eWeaponType::SWORD
+				|| !mTurnOverload && mWeaponType == eWeaponType::GAUNTLET
+				|| mTurnOverload && mWeaponType == eWeaponType::GAUNTLET)
 			{
 				++mAttackCount;
 			}
@@ -745,6 +756,9 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::Z) && mAttackCount == 2)
 		{
+			if (mTurnOverload && mWeaponType == eWeaponType::GAUNTLET)
+				return;
+
 
 			++mAttackCount;
 
@@ -1672,6 +1686,28 @@ namespace ss
 						}
 
 					}
+
+					else
+					{
+						if (mAttackCount == 1)
+						{
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_G_overload_Attack1R", false);
+							else if (mPrevDir.x < 0)
+								mAnimator->PlayAnimation(L"Player_G_overload_Attack1L", false);
+						}
+
+						else if (mAttackCount == 2)
+						{
+							if (mPrevDir.x > 0)
+								mAnimator->PlayAnimation(L"Player_G_overload_Attack2R", false);
+							else if (mPrevDir.x < 0)
+								mAnimator->PlayAnimation(L"Player_G_overload_Attack2L", false);
+						}
+
+
+					}
+
 				}
 
 				else if (mWeaponType == eWeaponType::PISTOL)
