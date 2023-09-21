@@ -787,11 +787,14 @@ namespace ss
 
 		// 과부하 (과부하 게이지가 100% 일 때만 작동하도록 나중에 바꾸기)
 		else if (Input::GetKeyDown(eKeyCode::G))
-		{
+		{	
+
+
 			float CurOverload = mState->GetCurrentOverload();
 
 			if (CurOverload == 100.f && !mTurnOverload)
 			{
+
 				// 과부하 게이지 알아서 차감되게 하기 & 과부하 게이지가 100이라면 상태를 변경한다.
 				ChangeState(ePlayerState::OVERLOAD_READY);
 
@@ -1484,20 +1487,19 @@ namespace ss
 					{
 						if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 						{
-							// 충돌체 사이즈는 그냥 다른 무기 완성하면 그 떄 다시 만지기 
 							if (mPrevDir.x > 0)
 							{
 
 								mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-								mAttackCol->SetSize(Vector2(30.f, 40.f));
-								mAttackCol->SetCenter(Vector2(14.f, 2.f));
+								mAttackCol->SetSize(Vector2(50.f, 40.f));
+								mAttackCol->SetCenter(Vector2(40.f, 2.f));
 							}
 
 							else if (mPrevDir.x < 0)
 							{
 								mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-								mAttackCol->SetSize(Vector2(30.f, 40.f));
-								mAttackCol->SetCenter(Vector2(-14.f, 2.f));
+								mAttackCol->SetSize(Vector2(50.f, 40.f));
+								mAttackCol->SetCenter(Vector2(-25.f, 2.f));
 							}
 						
 
@@ -1599,9 +1601,14 @@ namespace ss
 					{
 						mRigidbody->SetVelocity(Vector2(0.f, 0.f));
 						
+					
+
 						if (mAttackCount == 1)
 						{
 							mAttackColliderObj->RemoveComponent<Collider2D>();
+
+							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+							camera->StartShake(0.01f, 0.05f);
 
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
 								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
@@ -1637,6 +1644,9 @@ namespace ss
 
 							mAttackColliderObj->RemoveComponent<Collider2D>();
 
+							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+							camera->StartShake(0.01f, 0.05f);
+
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
 							{
 
@@ -1667,6 +1677,9 @@ namespace ss
 						else if (mAttackCount == 3)
 						{
 							mAttackColliderObj->RemoveComponent<Collider2D>();
+
+							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+							camera->StartShake(0.03f, 0.15f);
 
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 							{
@@ -1702,6 +1715,9 @@ namespace ss
 						{
 							mAttackColliderObj->RemoveComponent<Collider2D>();
 
+							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+							camera->StartShake(0.03f, 0.15f);
+
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
 								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 3
 								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 5)
@@ -1734,6 +1750,9 @@ namespace ss
 						{
 							mAttackColliderObj->RemoveComponent<Collider2D>();
 
+							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+							camera->StartShake(0.01f, 0.15f);
+
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
 								
 							{
@@ -1758,6 +1777,8 @@ namespace ss
 							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
 
 							{
+								CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+								camera->StartShake(0.05f, 0.3f);
 
 								if (mPrevDir.x > 0)
 								{
@@ -1829,6 +1850,7 @@ namespace ss
 				if (mWeaponType == eWeaponType::SWORD)
 				{
 					mRigidbody->SetVelocity(Vector2(0.f, 0.f));
+				
 
 					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 					{
@@ -1865,14 +1887,20 @@ namespace ss
 					}
 
 
+					// 각 몬스터 스크립트에다가 bool값 이용해가지고 true면 잠시 pause상태로 둔다 이런거 만들어두기 
 					else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3)
 					{
 						if (mPrevDir.x > 0)
 						{
-							Vector3 CurPos = mTransform->GetPosition();
+							Vector3 CurPos = Vector3(mTransform->GetPosition().x + 1.5f, mTransform->GetPosition().y, mTransform->GetPosition().z);
 
-						    mTransform->SetPosition(CurPos.x + 0.7f, CurPos.y, CurPos.z);
+						    mTransform->SetPosition(CurPos);
 							//mPrevDir.x * mRigidbody->GetVelocity().x;
+
+							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+							mAttackCol->SetSize(Vector2(34.f, 40.f));
+							mAttackCol->SetCenter(Vector2(8.f, 2.f));
+							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
 
 
 						}
@@ -1880,9 +1908,15 @@ namespace ss
 
 						else if (mPrevDir.x < 0)
 						{
-							Vector3 CurPos = mTransform->GetPosition();
+							Vector3 CurPos = Vector3(mTransform->GetPosition().x - 1.5f, mTransform->GetPosition().y, mTransform->GetPosition().z);
 
-							mTransform->SetPosition(CurPos.x - 0.7f, CurPos.y, CurPos.z);
+							mTransform->SetPosition(CurPos);
+
+							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+							mAttackCol->SetSize(Vector2(34.f, 40.f));
+							mAttackCol->SetCenter(Vector2(8.f, 2.f));
+							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+
 						}
 						
 						
@@ -1908,6 +1942,8 @@ namespace ss
 
 					else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
 					{
+						mAttackColliderObj->RemoveComponent<Collider2D>();
+
 						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 
 						camera->StartShake(0.1f, 0.3f);
@@ -1925,7 +1961,7 @@ namespace ss
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
 
-				
+
 						if (!mbOverloading)
 						{
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3)
@@ -1960,11 +1996,15 @@ namespace ss
 
 							}
 
+
+
+
 							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4 && !mbspAttack)
 							{
 								
 
 								mbspAttack = true;
+		
 
 								// ** 특정 인덱스의 재생 시간 값을 바꾸는 함수 (테스트 완료) 
 								//mAnimator->GetCurActiveAnimation()->SetCurSpriteDuration(3.f);
@@ -1988,6 +2028,12 @@ namespace ss
 
 									mTransform->SetPosition(CurPos.x + 130.f, CurPos.y, CurPos.z);
 
+
+
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(34.f, 40.f));
+									mAttackCol->SetCenter(Vector2(8.f, 2.f));
+
 								}
 
 								else
@@ -2001,35 +2047,32 @@ namespace ss
 
 									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
 
-									// 
+									
 									Vector3 CurPos = mTransform->GetPosition();
 
 									mTransform->SetPosition(CurPos.x - 130.f, CurPos.y, CurPos.z);
+
+
+
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(34.f, 40.f));
+									mAttackCol->SetCenter(Vector2(0.f, 2.f));
 								}
 							}
 
-							//mAnimator->GetCurActiveAnimation()->SetCurSpriteDuration(5, 3.f);
-							//else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 5)
-							//{
-							//	if (mPrevDir.x > 0)
-							//	{
-							//		Vector3 CurPos = mTransform->GetPosition();
-
-							//		mTransform->SetPosition(CurPos.x + 0.8f, CurPos.y, CurPos.z);
-							//		//mPrevDir.x * mRigidbody->GetVelocity().x;
 
 
-							//	}
 
 
-							//	else if (mPrevDir.x < 0)
-							//	{
-							//		Vector3 CurPos = mTransform->GetPosition();
 
-							//		mTransform->SetPosition(CurPos.x - 0.8f, CurPos.y, CurPos.z);
-							//	}
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 7)
+							{
+								mAttackColliderObj->RemoveComponent<Collider2D>();
 
-							//}
+							
+							}
+						
+
 
 							if (mPrevDir.x > 0)
 								mAnimator->PlayAnimation(L"Player_G_spAttackR", false);
@@ -2039,13 +2082,7 @@ namespace ss
 					
 
 						}
-
-
-						else if (mbOverloading)
-						{
-						}
 					
-
 				
 				}
 

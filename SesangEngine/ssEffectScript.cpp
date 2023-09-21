@@ -115,7 +115,7 @@ namespace ss
 		anim->Create(L"P_PlayerOverloadCircle_EffectR", Image12, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
 		anim->Create(L"P_PlayerOverloadCircle_EffectL", Image12, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
 
-		anim->Create(L"G_PlayerspAttack1_EffectR", Image13, Vector2(0.f, 0.f), Vector2(194.f, 50.f), 6, Vector2(500.f, 50.f), Vector2(85.f, -3.f), 0.08f);
+		anim->Create(L"G_PlayerspAttack1_EffectR", Image13, Vector2(0.f, 0.f), Vector2(194.f, 50.f), 6, Vector2(500.f, 50.f), Vector2(85.f, -3.f), 0.08f); // 0.08
 		anim->Create(L"G_PlayerspAttack1_EffectL", Image13, Vector2(0.f, 0.f), Vector2(194.f, 50.f), 6, Vector2(500.f, 50.f), Vector2(78.f, -3.f), 0.08f, true);
 
 		anim->Create(L"G_PlayerspAttack2_EffectR", Image14, Vector2(0.f, 0.f), Vector2(74.f, 49.f), 7, Vector2(130.f, 49.f), Vector2(-15.f, -3.f));
