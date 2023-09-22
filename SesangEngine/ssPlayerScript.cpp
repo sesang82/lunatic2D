@@ -2325,7 +2325,8 @@ namespace ss
 
 						}
 
-						else if (mbRepeat)
+						// z키 여러번 눌러도 전에 재생됐던 애니메이션이 끝난 다음에 재생되도록 
+						else if (mbRepeat && mAnimator->GetCurActiveAnimation()->IsComplete())
 						{
 							mbRepeat = false;
 
