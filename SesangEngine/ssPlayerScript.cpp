@@ -59,6 +59,7 @@ namespace ss
 		, mbPlayerOverloadingEffet(false)
 		, mTurnOverload(false)
 		, mSPEffect2(nullptr)
+		, mbRepeat(false)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -170,10 +171,6 @@ namespace ss
 
 		case ss::ePlayerState::OVERLOAD_START:
 			Overload_Start();
-			break;
-
-		case ss::ePlayerState::OVERLOADING:
-			Overloading();
 			break;
 
 		case ss::ePlayerState::OVERLOAD_END:
@@ -466,7 +463,8 @@ namespace ss
 		{
 			if (!mTurnOverload &&  mWeaponType == eWeaponType::SWORD
 				|| !mTurnOverload && mWeaponType == eWeaponType::GAUNTLET
-				|| mTurnOverload && mWeaponType == eWeaponType::GAUNTLET)
+				|| mTurnOverload && mWeaponType == eWeaponType::GAUNTLET
+				|| !mTurnOverload && mWeaponType == eWeaponType::PISTOL)
 			{
 				++mAttackCount;
 			}
@@ -741,7 +739,8 @@ namespace ss
 
 			if (!mTurnOverload && mWeaponType == eWeaponType::SWORD
 				|| !mTurnOverload && mWeaponType == eWeaponType::GAUNTLET
-				|| mTurnOverload && mWeaponType == eWeaponType::GAUNTLET)
+				|| mTurnOverload && mWeaponType == eWeaponType::GAUNTLET
+				|| !mTurnOverload && mWeaponType == eWeaponType::PISTOL)
 			{
 				++mAttackCount;
 			}
@@ -917,8 +916,19 @@ namespace ss
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
-			ChangeState(ePlayerState::IDLE);
+
+			if (mTurnOverload && mWeaponType == eWeaponType::PISTOL)
+			{
+				ChangeState(ePlayerState::OVERLOAD_START);
+			}
+
+			else
+			{
+				ChangeState(ePlayerState::IDLE);
+			}
 		}
+
+	
 
 	}
 
@@ -939,19 +949,37 @@ namespace ss
 	void PlayerScript::Overload_Start()
 	{
 
+
+		 if (mAnimator->GetCurActiveAnimation()->IsComplete() && mWeaponType == eWeaponType::PISTOL)
+		{
+
+			if (mbRepeat)
+			{
+				ChangeState(ePlayerState::OVERLOAD_START);
+				
+				
+				
+			}
+
+			else
+			{
+				ChangeState(ePlayerState::OVERLOAD_END);
+			}
+		}
+
+		
 	}
 
-	void PlayerScript::Overloading()
-	{
-		if (mAnimator->GetCurActiveAnimation()->IsComplete())
-		{
-			ChangeState(ePlayerState::IDLE);
-		}
-	}
+
+
 
 	void PlayerScript::Overload_End()
 	{
+		if (mAnimator->GetCurActiveAnimation()->IsComplete() && mWeaponType == eWeaponType::PISTOL)
+		{
+			ChangeState(ePlayerState::IDLE);
 
+		}
 	}
 
 	void PlayerScript::Hit()
@@ -1001,8 +1029,9 @@ namespace ss
 
 
 
-		if (mCurState != mPrevState || mCurDir != mPrevDir ||
-			mChangeFirst && mCurState == ePlayerState::IDLE)
+		if (mCurState != mPrevState || mCurDir != mPrevDir
+	       || mChangeFirst&& mCurState == ePlayerState::IDLE
+		   || mCurState == ePlayerState::OVERLOAD_START && mPrevState == ePlayerState::OVERLOAD_START)
 
 		{
 		}
@@ -1842,6 +1871,17 @@ namespace ss
 						}
 					}
 
+
+					// 오버로드 중이라면 
+					else
+					{
+						if (mPrevDir.x > 0)
+							mAnimator->PlayAnimation(L"Player_P_OverLoadReadyR", false);
+						else
+							mAnimator->PlayAnimation(L"Player_P_OverLoadReadyL", false);
+
+					}
+
 				}
 
 				break;
@@ -2203,85 +2243,126 @@ namespace ss
 			
 
 			case ss::ePlayerState::OVERLOAD_START:
-				if (mWeaponType == eWeaponType::SWORD)
+				if (mWeaponType == eWeaponType::PISTOL)
 				{
+					Vector3 PlayerPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+		
 					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_S_OverLoadReadyR", false);
-					else
-						mAnimator->PlayAnimation(L"Player_S_OverLoadReadyL", false);
+					{
+						
+						if (!mbRepeat)
+						{
+							mAnimator->SetAgainAttack(false);
+
+							mAnimator->PlayAnimation(L"Player_P_OverLoadingR", false);
+
+							if (Input::GetKeyDown(eKeyCode::Z))
+							{
+
+								mbRepeat = true;
+
+
+							}
+						}
+
+						else if (!mbspAttack)
+						{
+							mbspAttack = true;
+
+							mSPEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"PlayerPistol_CircleEffectObjR");
+
+							EffectScript* effectscript = mSPEffect->AddComponent<EffectScript>();
+
+							effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+						}
+
+
+						else if (mbRepeat && mAnimator->GetCurActiveAnimation()->IsComplete())
+						{
+							mbRepeat = false;
+
+							mAnimator->SetAgainAttack(true);
+
+							mAnimator->PlayAnimation(L"Player_P_OverLoadingR", false);
+
+						}
+
+
+
+			
+						
+					}
+
+
+					else if (mPrevDir.x < 0)
+					{
+						if (!mbRepeat)
+						{
+							mAnimator->SetAgainAttack(false);
+
+							mAnimator->PlayAnimation(L"Player_P_OverLoadingL", false);
+
+							if (Input::GetKeyDown(eKeyCode::Z))
+							{
+
+								mbRepeat = true;
+
+
+							}
+						}
+
+						else if (!mbspAttack)
+						{
+							mbspAttack = true;
+
+
+							mSPEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"PlayerPistol_CircleEffectObjL");
+
+							EffectScript* effectscript = mSPEffect->AddComponent<EffectScript>();
+
+							effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+						}
+
+						else if (mbRepeat)
+						{
+							mbRepeat = false;
+
+							mAnimator->SetAgainAttack(true);
+
+							mAnimator->PlayAnimation(L"Player_P_OverLoadingL", false);
+
+						}
+
+
+						
+					}
 				}
 
-				else if (mWeaponType == eWeaponType::GAUNTLET)
-				{
-					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_G_OverLoadReadyR", false);
-					else
-						mAnimator->PlayAnimation(L"Player_G_OverLoadReadyL", false);
-				}
-
-
-				else if (mWeaponType == eWeaponType::PISTOL)
-				{
-					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_P_OverLoadReadyR", false);
-					else
-						mAnimator->PlayAnimation(L"Player_P_OverLoadReadyL", false);
-				}
 				break;
-
-			case ss::ePlayerState::OVERLOADING:
-				if (mWeaponType == eWeaponType::SWORD)
-				{
-					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_S_OverLoadingR", true);
-					else
-						mAnimator->PlayAnimation(L"Player_S_OverLoadingL", true);
-				}
-
-				else if (mWeaponType == eWeaponType::GAUNTLET)
-				{
-					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_G_OverLoadingR", true);
-					else
-						mAnimator->PlayAnimation(L"Player_G_OverLoadingL", true);
-				}
-
-
-				else if (mWeaponType == eWeaponType::PISTOL)
-				{
-					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_P_OverLoadingR", true);
-					else
-						mAnimator->PlayAnimation(L"Player_P_OverLoadingL", true);
-				}
-				break;
-
 
 			case ss::ePlayerState::OVERLOAD_END:
-				if (mWeaponType == eWeaponType::SWORD)
+				 if (mWeaponType == eWeaponType::GAUNTLET)
 				{
-					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_S_OverLoadEndR", true);
-					else
-						mAnimator->PlayAnimation(L"Player_S_OverLoadEndL", true);
-				}
-
-				else if (mWeaponType == eWeaponType::GAUNTLET)
-				{
+					 mbspAttack = false;
+					 
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_G_OverLoadEndR", true);
 					else
 						mAnimator->PlayAnimation(L"Player_G_OverLoadEndL", true);
+
 				}
 
+				 else if (mWeaponType == eWeaponType::PISTOL)
+				 {
+					 if (mPrevDir.x > 0)
+						 mAnimator->PlayAnimation(L"Player_P_OverLoadEndR", false);
+					 else
+						 mAnimator->PlayAnimation(L"Player_P_OverLoadEndL", false);
 
-				else if (mWeaponType == eWeaponType::PISTOL)
-				{
-					if (mPrevDir.x > 0)
-						mAnimator->PlayAnimation(L"Player_P_OverLoadEndR", true);
-					else
-						mAnimator->PlayAnimation(L"Player_P_OverLoadEndL", true);
-				}
+				 }
+
 				break;
 
 

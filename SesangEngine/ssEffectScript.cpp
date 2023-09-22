@@ -93,17 +93,17 @@ namespace ss
 		anim->Create(L"S_PlayerHitEffectL", Image5, Vector2(0.f, 0.f), Vector2(51.f, 51.f), 5, Vector2(51.f, 51.f), Vector2::Zero, 0.1f, true);
 
 		// pistol
-		anim->Create(L"P_PlayerAttack1_2_EffectR", Image6, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
-		anim->Create(L"P_PlayerAttack1_2_EffectL", Image6, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"P_PlayerAttack1_2_EffectR", Image6, Vector2(0.f, 0.f), Vector2(51.f, 55.f), 4, Vector2(51.f, 55.f));
+		anim->Create(L"P_PlayerAttack1_2_EffectL", Image6, Vector2(0.f, 0.f), Vector2(51.f, 55.f), 4, Vector2(51.f, 55.f), Vector2::Zero, 0.1f, true);
 
-		anim->Create(L"P_PlayerAttack3_EffectR", Image7, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
-		anim->Create(L"P_PlayerAttack3_EffectL", Image7, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"P_PlayerAttack3_EffectR", Image7, Vector2(0.f, 0.f), Vector2(72.f, 66.f), 3, Vector2(72.f, 66.f));
+		anim->Create(L"P_PlayerAttack3_EffectL", Image7, Vector2(0.f, 0.f), Vector2(72.f, 66.f), 3, Vector2(72.f, 66.f), Vector2::Zero, 0.1f, true);
 
-		anim->Create(L"P_PlayerHit_EffectR", Image8, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
-		anim->Create(L"P_PlayerHit_EffectL", Image8, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"P_PlayerHit_EffectR", Image8, Vector2(0.f, 0.f), Vector2(39.f, 61.f), 4, Vector2(39.f, 61.f));
+		anim->Create(L"P_PlayerHit_EffectL", Image8, Vector2(0.f, 0.f), Vector2(39.f, 61.f), 4, Vector2(39.f, 61.f), Vector2::Zero, 0.1f, true);
 
-		anim->Create(L"P_PlayerspAttack_EffectR", Image9, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
-		anim->Create(L"P_PlayerspAttack_EffectL", Image9, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"P_PlayerspAttack_EffectR", Image9, Vector2(0.f, 0.f), Vector2(86.f, 67.f), 4, Vector2(86.f, 67.f));
+		anim->Create(L"P_PlayerspAttack_EffectL", Image9, Vector2(0.f, 0.f), Vector2(86.f, 67.f), 4, Vector2(86.f, 67.f), Vector2::Zero, 0.1f, true);
 
 		anim->Create(L"P_PlayerOverloading_EffectR", Image10, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
 		anim->Create(L"P_PlayerOverloading_EffectL", Image10, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
@@ -112,8 +112,8 @@ namespace ss
 		anim->Create(L"P_PlayerOverloadEnd_EffectL", Image11, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
 
 
-		anim->Create(L"P_PlayerOverloadCircle_EffectR", Image12, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
-		anim->Create(L"P_PlayerOverloadCircle_EffectL", Image12, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"P_PlayerOverloadCircle_EffectR", Image12, Vector2(0.f, 0.f), Vector2(189.f, 189.f), 9, Vector2(189.f, 189.f), Vector2(20.f, -15.f), 0.1f);
+		anim->Create(L"P_PlayerOverloadCircle_EffectL", Image12, Vector2(0.f, 0.f), Vector2(189.f, 189.f), 9, Vector2(189.f, 189.f), Vector2(0.f, -15.f), 0.1f, true);
 
 		anim->Create(L"G_PlayerspAttack1_EffectR", Image13, Vector2(0.f, 0.f), Vector2(194.f, 50.f), 6, Vector2(500.f, 50.f), Vector2(85.f, -3.f), 0.08f); // 0.08
 		anim->Create(L"G_PlayerspAttack1_EffectL", Image13, Vector2(0.f, 0.f), Vector2(194.f, 50.f), 6, Vector2(500.f, 50.f), Vector2(78.f, -3.f), 0.08f, true);
@@ -349,6 +349,24 @@ namespace ss
 			tr->SetScale(Vector3(70.f, 55.f, 0.f));
 
 		}
+
+
+		else if (GetOwner()->GetName() == L"PlayerPistol_CircleEffectObjR")
+		{
+			anim->PlayAnimation(L"P_PlayerOverloadCircle_EffectR", false);
+			tr->SetScale(Vector3(70.f, 55.f, 0.f));
+
+		}
+
+		else if (GetOwner()->GetName() == L"PlayerPistol_CircleEffectObjL")
+		{
+			anim->PlayAnimation(L"P_PlayerOverloadCircle_EffectL", false);
+			tr->SetScale(Vector3(70.f, 55.f, 0.f));
+
+		}
+
+
+
 	}
 
 
@@ -485,9 +503,9 @@ namespace ss
 
 			}*/
 		
-
-			if (playerscript->GetState() == ePlayerState::OVERLOAD_START 
-				|| playerscript->GetState() == ePlayerState::OVERLOADING)
+			// *************** 오버로딩 없앤건데 이거 확인해보기 
+			if (playerscript->GetState() == ePlayerState::OVERLOAD_START )
+				//|| playerscript->GetState() == ePlayerState::OVERLOADING)
 			{
 				GetOwner()->SetState(GameObject::eState::Dead);
 			}
@@ -700,6 +718,20 @@ namespace ss
 			}
 
 		}
+
+
+
+
+		else if (GetOwner()->GetName() == L"PlayerPistol_CircleEffectObjR"
+			|| GetOwner()->GetName() == L"PlayerPistol_CircleEffectObjL")
+		{
+			if (anim->GetCurActiveAnimation()->IsComplete())
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+
+		}
+
 
 	}
 	void EffectScript::OnCollisionEnter(Collider2D* other)

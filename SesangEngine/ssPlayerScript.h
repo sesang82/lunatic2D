@@ -19,7 +19,6 @@ namespace ss
         SPATTACK,
         OVERLOAD_READY, // 모든 무기 공통 
         OVERLOAD_START,
-        OVERLOADING,
         OVERLOAD_END,
 		DEAD,
         END
@@ -74,6 +73,7 @@ namespace ss
         bool mbOverloading;
         bool mbPlayerOverloadingEffet;
         bool mTurnOverload;
+        bool mbRepeat;
   
 
         float mJumpPower;
@@ -190,7 +190,7 @@ namespace ss
 
         void Overload_Ready(); // 모든 무기 공통 
         void Overload_Start();
-        void Overloading();
+       
         void Overload_End();
 
         void Animation();

@@ -1251,6 +1251,21 @@ namespace renderer
 		 }
 
 
+		 // >> overloading 합본 
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"P_PlayerOverLoadingAdd", L"..\\Resources\\Texture\\Player\\Pistol\\Overloading(169 134 17).png");
+
+			 // === Material 생성
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"P_PlayerOverLoadingAddMtrl", spriteMateiral);
+
+		 }
+
 
 #pragma endregion 
 
