@@ -93,17 +93,17 @@ namespace ss
 		anim->Create(L"S_PlayerHitEffectL", Image5, Vector2(0.f, 0.f), Vector2(51.f, 51.f), 5, Vector2(51.f, 51.f), Vector2::Zero, 0.1f, true);
 
 		// pistol
-		anim->Create(L"P_PlayerAttack1_2_EffectR", Image6, Vector2(0.f, 0.f), Vector2(51.f, 55.f), 4, Vector2(51.f, 55.f));
-		anim->Create(L"P_PlayerAttack1_2_EffectL", Image6, Vector2(0.f, 0.f), Vector2(51.f, 55.f), 4, Vector2(51.f, 55.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"P_PlayerAttack1_2_EffectR", Image6, Vector2(0.f, 0.f), Vector2(51.f, 55.f), 4, Vector2(51.f, 55.f), Vector2(0.f, -9.f));
+		anim->Create(L"P_PlayerAttack1_2_EffectL", Image6, Vector2(0.f, 0.f), Vector2(51.f, 55.f), 4, Vector2(51.f, 55.f), Vector2(0.f, -9.f), 0.1f, true);
 
-		anim->Create(L"P_PlayerAttack3_EffectR", Image7, Vector2(0.f, 0.f), Vector2(72.f, 66.f), 3, Vector2(72.f, 66.f));
-		anim->Create(L"P_PlayerAttack3_EffectL", Image7, Vector2(0.f, 0.f), Vector2(72.f, 66.f), 3, Vector2(72.f, 66.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"P_PlayerAttack3_EffectR", Image7, Vector2(0.f, 0.f), Vector2(72.f, 66.f), 3, Vector2(72.f, 66.f), Vector2(0.f, -8.f));
+		anim->Create(L"P_PlayerAttack3_EffectL", Image7, Vector2(0.f, 0.f), Vector2(72.f, 66.f), 3, Vector2(72.f, 66.f), Vector2(0.f, -8.f), 0.1f, true);
 
 		anim->Create(L"P_PlayerHit_EffectR", Image8, Vector2(0.f, 0.f), Vector2(39.f, 61.f), 4, Vector2(39.f, 61.f));
 		anim->Create(L"P_PlayerHit_EffectL", Image8, Vector2(0.f, 0.f), Vector2(39.f, 61.f), 4, Vector2(39.f, 61.f), Vector2::Zero, 0.1f, true);
 
-		anim->Create(L"P_PlayerspAttack_EffectR", Image9, Vector2(0.f, 0.f), Vector2(86.f, 67.f), 4, Vector2(86.f, 67.f));
-		anim->Create(L"P_PlayerspAttack_EffectL", Image9, Vector2(0.f, 0.f), Vector2(86.f, 67.f), 4, Vector2(86.f, 67.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"P_PlayerspAttack_EffectR", Image9, Vector2(0.f, 0.f), Vector2(86.f, 67.f), 4, Vector2(86.f, 67.f), Vector2(0.f, -8.f));
+		anim->Create(L"P_PlayerspAttack_EffectL", Image9, Vector2(0.f, 0.f), Vector2(86.f, 67.f), 4, Vector2(86.f, 67.f), Vector2(0.f, -8.f), 0.1f, true);
 
 		anim->Create(L"P_PlayerOverloading_EffectR", Image10, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
 		anim->Create(L"P_PlayerOverloading_EffectL", Image10, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
@@ -367,6 +367,50 @@ namespace ss
 
 
 
+		else if (GetOwner()->GetName() == L"Player_Pistol_AttackEffectR")
+		{
+			anim->PlayAnimation(L"P_PlayerAttack1_2_EffectR", false);
+			tr->SetScale(Vector3(51.f, 55.f, 0.f));
+
+		}
+
+
+		else if (GetOwner()->GetName() == L"Player_Pistol_AttackEffectL")
+		{
+			anim->PlayAnimation(L"P_PlayerAttack1_2_EffectL", false);
+			tr->SetScale(Vector3(51.f, 55.f, 0.f));
+
+		}
+
+
+		else if (GetOwner()->GetName() == L"Player_Pistol_Attack_Last_EffectR")
+		{
+			anim->PlayAnimation(L"P_PlayerAttack3_EffectR", false);
+			tr->SetScale(Vector3(72.f, 66.f, 0.f));
+
+		}
+
+
+		else if (GetOwner()->GetName() == L"Player_Pistol_Attack_Last_EffectL")
+		{
+			anim->PlayAnimation(L"P_PlayerAttack3_EffectL", false);
+			tr->SetScale(Vector3(72.f, 66.f, 0.f));
+
+		}
+
+		else if (GetOwner()->GetName() == L"Player_Pistol_SPAttack_EffectR")
+		{
+			anim->PlayAnimation(L"P_PlayerspAttack_EffectR", false);
+			tr->SetScale(Vector3(86.f, 67.f, 0.f));
+
+			}
+		else if (GetOwner()->GetName() == L"Player_Pistol_SPAttack_EffectL")
+		{
+			anim->PlayAnimation(L"P_PlayerspAttack_EffectL", false);
+			tr->SetScale(Vector3(86.f, 67.f, 0.f));
+
+			}
+
 	}
 
 
@@ -462,7 +506,7 @@ namespace ss
 			{
 				GetOwner()->SetState(GameObject::eState::Dead);
 			}
-		
+
 
 
 		}
@@ -496,15 +540,15 @@ namespace ss
 			// 이펙트가 플레이어 위치를 실시간으로 따라가게 한다. 
 			Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
 
-	/*		Animator* EffectAnim = GetOwner()->GetComponent<Animator>();
+			/*		Animator* EffectAnim = GetOwner()->GetComponent<Animator>();
 
-			if (EffectAnim->GetCurActiveAnimation()->IsComplete())
-			{
+					if (EffectAnim->GetCurActiveAnimation()->IsComplete())
+					{
 
-			}*/
-		
-			// *************** 오버로딩 없앤건데 이거 확인해보기 
-			if (playerscript->GetState() == ePlayerState::OVERLOAD_START )
+					}*/
+
+					// *************** 오버로딩 없앤건데 이거 확인해보기 
+			if (playerscript->GetState() == ePlayerState::OVERLOAD_START)
 				//|| playerscript->GetState() == ePlayerState::OVERLOADING)
 			{
 				GetOwner()->SetState(GameObject::eState::Dead);
@@ -557,7 +601,7 @@ namespace ss
 			{
 				Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
 
-		
+
 			}
 		}
 
@@ -568,10 +612,10 @@ namespace ss
 			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition()));
 			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
 
-	
+
 
 		}
-		
+
 
 		// ======================================================
 		else if (GetOwner()->GetName() == L"OverloadLBUI")
@@ -640,7 +684,7 @@ namespace ss
 		{
 			Transform* Effecttr = GetOwner()->GetComponent<Transform>();
 
-			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x ,
+			Effecttr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y - 174.f,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
 			//Effecttr->SetPosition(mOwnerObj->GetComponent<Transform>()->GetPosition());
@@ -660,7 +704,7 @@ namespace ss
 			if (anim->GetCurActiveAnimation()->IsComplete())
 			{
 				GetOwner()->SetState(GameObject::eState::Dead);
-			
+
 
 			}
 
@@ -700,14 +744,14 @@ namespace ss
 			if (anim->GetCurActiveAnimation()->IsComplete())
 			{
 				GetOwner()->SetState(GameObject::eState::Dead);
-		
+
 			}
 
 		}
 
 
 		else if (GetOwner()->GetName() == L"PlayerGuardEffectObjR"
-				|| GetOwner()->GetName() == L"PlayerGuardEffectObjL")
+			|| GetOwner()->GetName() == L"PlayerGuardEffectObjL")
 		{
 			//PlayerScript* playerscript = mOwnerObj->GetComponent<PlayerScript>();
 
@@ -731,6 +775,44 @@ namespace ss
 			}
 
 		}
+
+
+
+		else if (GetOwner()->GetName() == L"Player_Pistol_AttackEffectR"
+			|| GetOwner()->GetName() == L"Player_Pistol_AttackEffectL")
+
+			{
+				if (anim->GetCurActiveAnimation()->IsComplete())
+				{
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+		
+
+			}
+
+
+
+		else if (GetOwner()->GetName() == L"Player_Pistol_Attack_Last_EffectR"
+			|| GetOwner()->GetName() == L"Player_Pistol_Attack_Last_EffectL")
+		{
+			if (anim->GetCurActiveAnimation()->IsComplete())
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+
+		}
+
+
+		else if (GetOwner()->GetName() == L"Player_Pistol_SPAttack_EffectR"
+			|| GetOwner()->GetName() == L"Player_Pistol_SPAttack_EffectL")
+			{
+				if (anim->GetCurActiveAnimation()->IsComplete())
+				{
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				}
 
 
 	}

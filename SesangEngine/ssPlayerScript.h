@@ -68,6 +68,7 @@ namespace ss
 
         bool mHit;
         bool mbHitting;
+        bool mbAttack;
         bool mbspAttack;
         bool mbUseOverload;
         bool mbOverloading;
@@ -106,7 +107,8 @@ namespace ss
         // 보스 start 충돌체 
         class Platform*         mBossStartColObj;
 
-        class Effect*           mHitEffect;
+        class Effect*           mHitEffect; // 플레이어가 몬스터에게 공격 받았을 떄 이펙트
+        class Effect*           mAttackEffect;
         class Effect*           mSPEffect;
         class Effect*           mSPEffect2;
 

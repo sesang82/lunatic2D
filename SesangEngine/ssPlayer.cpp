@@ -241,7 +241,6 @@ namespace ss
 		anim->Create(L"Player_P_Attack1,2R", Image30, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(900.f, 600.f), Vector2(10.f, -8.f));
 		anim->Create(L"Player_P_Attack1,2L", Image30, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(900.f, 600.f), Vector2(0.f, -8.f), 0.1f, true);
 
-
 		anim->Create(L"Player_P_Attack3R", Image31, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 7, Vector2(900.f, 600.f), Vector2(10.f, -8.f));
 		anim->Create(L"Player_P_Attack3L", Image31, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 7, Vector2(900.f, 600.f), Vector2(0.f, -8.f), 0.1f, true);
 

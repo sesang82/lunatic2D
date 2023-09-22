@@ -60,6 +60,8 @@ namespace ss
 		, mTurnOverload(false)
 		, mSPEffect2(nullptr)
 		, mbRepeat(false)
+		, mAttackEffect(nullptr)
+		, mbAttack(false)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -1626,9 +1628,11 @@ namespace ss
 
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
+					mRigidbody->SetVelocity(Vector2(0.f, 0.f));
+
 					if (!mTurnOverload)
 					{
-						mRigidbody->SetVelocity(Vector2(0.f, 0.f));
+					
 						
 					
 
@@ -1840,34 +1844,129 @@ namespace ss
 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+					mRigidbody->SetVelocity(Vector2(0.f, 0.f));
+
+
 					if (!mTurnOverload)
 					{
-						if (mAttackCount == 1)
+						if (mAttackCount == 1 
+							|| mAttackCount == 2)
 						{
+						
+							// ÃÑ¾Ë ¹ß»ç , ÀÌÆåÆ® ±¸Çö 
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
+							{
+								CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+								camera->StartShake(0.01f, 0.06f);
+
+								if (mPrevDir.x > 0)
+								{
+
+									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x + 55.f, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+									mAttackEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Pistol_AttackEffectR");
+
+									EffectScript* effectscript = mAttackEffect->AddComponent<EffectScript>();
+									
+							
+
+									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+								}
+
+
+								else
+								{
+									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x - 55.f, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+									mAttackEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Pistol_AttackEffectL");
+
+									EffectScript* effectscript = mAttackEffect->AddComponent<EffectScript>();
+							
+						
+ 								    effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+								}
+
+							}
 
 							if (mPrevDir.x > 0)
 								mAnimator->PlayAnimation(L"Player_P_Attack1,2R", false);
 							else
 								mAnimator->PlayAnimation(L"Player_P_Attack1,2L", false);
-						}
 
-						else if (mAttackCount == 2)
-						{
 
-							if (mPrevDir.x > 0)
-								mAnimator->PlayAnimation(L"Player_P_Attack1,2R", false);
-							else
-								mAnimator->PlayAnimation(L"Player_P_Attack1,2L", false);
 						}
 
 
 						else if (mAttackCount == 3)
 						{
 
+							// ÃÑ¾Ë ¹ß»ç , ÀÌÆåÆ® ±¸Çö 
+
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
+							{
+								CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+								camera->StartShake(0.1f, 0.3f);
+							}
+
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3 && !mbAttack)
+							{
+								
+
+								CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+								camera->StartShake(0.1f, 0.3f);
+								mbAttack = true;
+
+
+								if (mPrevDir.x > 0)
+								{
+
+									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x + 50.f, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+									mAttackEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Pistol_Attack_Last_EffectR");
+
+									EffectScript* effectscript = mAttackEffect->AddComponent<EffectScript>();
+
+									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+								}
+
+
+								else
+								{
+									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x - 50.f, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+									mAttackEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Pistol_Attack_Last_EffectL");
+
+									EffectScript* effectscript = mAttackEffect->AddComponent<EffectScript>();
+				
+									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+								}
+
+
+							}
+
+
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
+							{
+								mbAttack = false;
+							}
+
+
+
 							if (mPrevDir.x > 0)
 								mAnimator->PlayAnimation(L"Player_P_Attack3R", false);
 							else
 								mAnimator->PlayAnimation(L"Player_P_Attack3L", false);
+
 						}
 					}
 
@@ -1885,6 +1984,11 @@ namespace ss
 				}
 
 				break;
+
+
+
+
+
 
 			case ss::ePlayerState::SPATTACK:
 				if (mWeaponType == eWeaponType::SWORD)
@@ -2127,14 +2231,75 @@ namespace ss
 				}
 
 
+				// ¿À¹ö·ÎµùÇÒ ¶§¶û ¾ÈÇÒ¶§¶û ¶È°°À½ 
 				else if (mWeaponType == eWeaponType::PISTOL)
 				{
+
+			
+
+
+					// 2,3 ÀÎµ¦½º ÃÑ¾Ë °¢°¢ ¹ß»ç // 10, 11ÀÎµ¦½º ÃÑ¾Ë ¹ß»ç 
+					if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2
+						|| mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+					{
+
+
+						if (mPrevDir.x > 0 && !mbspAttack)
+						{
+							mbspAttack = true;
+
+							Vector3 PlayerPos = Vector3(mTransform->GetPosition().x + 65.f, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+							mAttackEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Pistol_SPAttack_EffectR");
+
+							EffectScript* effectscript = mAttackEffect->AddComponent<EffectScript>();
+
+							effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+						}
+
+						else if (mPrevDir.x < 0 && !mbspAttack)
+						{
+							mbspAttack = true;
+
+							Vector3 PlayerPos = Vector3(mTransform->GetPosition().x - 50.f, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+
+							mAttackEffect = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"Player_Pistol_SPAttack_EffectL");
+
+							EffectScript* effectscript = mAttackEffect->AddComponent<EffectScript>();
+
+							effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+						}
+
+						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+						camera->StartShake(0.1f, 0.3f); // 1, 2ÀÎµ¦½ºº¸´Ù ½ê°Ô! 
+					}
+
+					else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3
+						|| mAnimator->GetCurActiveAnimation()->GetIndex() == 11)
+					{
+						mbspAttack = false;
+					}
+
+
+					
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_P_spAttackR", false);
 					else
 						mAnimator->PlayAnimation(L"Player_P_spAttackL", false);
 				}
 				break;
+
+
+
+
+
+
+
+
 
 			case ss::ePlayerState::OVERLOAD_READY:
 				
