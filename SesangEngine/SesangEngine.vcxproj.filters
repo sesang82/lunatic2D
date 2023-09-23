@@ -206,6 +206,12 @@
     <ClCompile Include="ssItemScript.cpp">
       <Filter>Contents\Script\UI\Item</Filter>
     </ClCompile>
+    <ClCompile Include="ssPlayerPistolBullet.cpp">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="ssPistolBulletScript.cpp">
+      <Filter>Contents\Script\Character\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -614,6 +620,12 @@
     </ClInclude>
     <ClInclude Include="ssItemScript.h">
       <Filter>Contents\Script\UI\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPlayerPistolBullet.h">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ssPistolBulletScript.h">
+      <Filter>Contents\Script\Character\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

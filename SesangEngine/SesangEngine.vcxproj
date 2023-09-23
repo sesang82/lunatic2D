@@ -210,11 +210,13 @@
     <ClCompile Include="ssMonster.cpp" />
     <ClCompile Include="ssMonsterAttackColScript.cpp" />
     <ClCompile Include="ssMonsterScript.cpp" />
+    <ClCompile Include="ssPistolBulletScript.cpp" />
     <ClCompile Include="ssPlatform.cpp" />
     <ClCompile Include="ssPlayer.cpp" />
     <ClCompile Include="ssPlayerAttackColScript.cpp" />
     <ClCompile Include="ssPlayerGuardColScript.cpp" />
     <ClCompile Include="ssPlayerHP.cpp" />
+    <ClCompile Include="ssPlayerPistolBullet.cpp" />
     <ClCompile Include="ssPlayerScript.cpp" />
     <ClCompile Include="ssPlayScene.cpp" />
     <ClCompile Include="ssProgressbar.cpp" />
@@ -281,11 +283,13 @@
     <ClInclude Include="ssMonster.h" />
     <ClInclude Include="ssMonsterAttackColScript.h" />
     <ClInclude Include="ssMonsterScript.h" />
+    <ClInclude Include="ssPistolBulletScript.h" />
     <ClInclude Include="ssPlatform.h" />
     <ClInclude Include="ssPlayer.h" />
     <ClInclude Include="ssPlayerAttackColScript.h" />
     <ClInclude Include="ssPlayerGuardColScript.h" />
     <ClInclude Include="ssPlayerHP.h" />
+    <ClInclude Include="ssPlayerPistolBullet.h" />
     <ClInclude Include="ssPlayerScript.h" />
     <ClInclude Include="ssPlayScene.h" />
     <ClInclude Include="ssProgressbar.h" />

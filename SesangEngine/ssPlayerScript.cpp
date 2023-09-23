@@ -25,7 +25,8 @@
 #include "ssEffectScript.h"
 #include "ssItem.h"
 #include "ssItemScript.h"
-
+#include "ssPistolBulletScript.h"
+#include "ssPlayerPistolBullet.h"
 
 namespace ss
 {
@@ -62,6 +63,7 @@ namespace ss
 		, mbRepeat(false)
 		, mAttackEffect(nullptr)
 		, mbAttack(false)
+		, mPistolBullet(nullptr)
 	{
 	}
 	PlayerScript::~PlayerScript()
@@ -117,7 +119,7 @@ namespace ss
 		//mAnimator->CompleteEvent(L"Player_D_Idle") = std::bind(&PlayerScript::Complete, this);
 
 
-		// 공격용 충돌체 
+		// 빈 공격용 충돌체 
 		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"PlayerAttackCollider");
 		mAttackColliderObj->Initialize();
 		mAttackColliderObj->AddComponent<PlayerAttackColScript>();
@@ -1854,7 +1856,7 @@ namespace ss
 						{
 						
 							// 총알 발사 , 이펙트 구현 
-							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
+						    if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
 							{
 								CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 
@@ -1874,6 +1876,23 @@ namespace ss
 
 									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
 
+									if (!mbAttack)
+									{
+										mbAttack = true;
+
+										Vector3 BulletPos = Vector3(mTransform->GetPosition().x + 55.f, mTransform->GetPosition().y + 8.f, mTransform->GetPosition().z);
+
+										// 총알 발사
+										mPistolBullet = object::Instantiate<PlayerPistolBullet>(BulletPos, eLayerType::Collision, L"Pistolbullet_Big_ObjR");
+										mPistolBullet->AddComponent<PistolBulletScript>();
+
+									
+
+									}
+
+
+
+
 								}
 
 
@@ -1889,6 +1908,12 @@ namespace ss
 						
  								    effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
 								}
+
+							}
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
+							{
+								mbAttack = false;
 
 							}
 
@@ -2422,6 +2447,16 @@ namespace ss
 
 							mAnimator->PlayAnimation(L"Player_P_OverLoadingR", false);
 
+							// 공격용 충돌체 
+							Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+							mAttackCol->SetSize(Vector2(100.f, 100.f));
+							mAttackCol->SetCenter(Vector2(8.f, 2.f));
+							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+
+
+
 							if (Input::GetKeyDown(eKeyCode::Z))
 							{
 
@@ -2451,6 +2486,15 @@ namespace ss
 
 							mAnimator->PlayAnimation(L"Player_P_OverLoadingR", false);
 
+
+							// 공격용 충돌체 
+							Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+							mAttackCol->SetSize(Vector2(100.f, 100.f));
+							mAttackCol->SetCenter(Vector2(8.f, 2.f));
+							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+
 						}
 
 
@@ -2467,6 +2511,15 @@ namespace ss
 							mAnimator->SetAgainAttack(false);
 
 							mAnimator->PlayAnimation(L"Player_P_OverLoadingL", false);
+
+							// 공격용 충돌체 
+							Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+							mAttackCol->SetSize(Vector2(100.f, 100.f));
+							mAttackCol->SetCenter(Vector2(8.f, 2.f));
+							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+
 
 							if (Input::GetKeyDown(eKeyCode::Z))
 							{
@@ -2499,10 +2552,18 @@ namespace ss
 
 							mAnimator->PlayAnimation(L"Player_P_OverLoadingL", false);
 
+
+							// 공격용 충돌체 
+							Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+							mAttackCol->SetSize(Vector2(100.f, 100.f));
+							mAttackCol->SetCenter(Vector2(8.f, 2.f));
+							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+
+
 						}
 
-
-						
 					}
 				}
 
@@ -2522,6 +2583,8 @@ namespace ss
 
 				 else if (mWeaponType == eWeaponType::PISTOL)
 				 {
+					 mAttackColliderObj->RemoveComponent<Collider2D>();
+
 					 if (mPrevDir.x > 0)
 						 mAnimator->PlayAnimation(L"Player_P_OverLoadEndR", false);
 					 else
@@ -2545,6 +2608,7 @@ namespace ss
 
 				else if (mWeaponType == eWeaponType::GAUNTLET)
 				{
+
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_B_DieR", true);
 					else

@@ -15,7 +15,7 @@ namespace ss
 	{
 		tr = GetComponent<Transform>();
 
-		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+
 
 		GameObject::Initialize();
 

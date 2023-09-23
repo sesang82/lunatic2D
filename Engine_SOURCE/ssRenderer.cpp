@@ -1267,6 +1267,39 @@ namespace renderer
 		 }
 
 
+		 // Bullet 종류 큰거
+		 {
+
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Pistol_BulletBig", L"..\\Resources\\Texture\\Player\\Pistol\\Weapon_Pistol_Object_BigBullet.png");
+
+			 // == Material 생성(위에서 만든 shader와 texture를 이용)
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Pistol_BulletBigMtrl", spriteMateiral);
+
+		 }
+
+
+		 {
+
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Pistol_BulletSmall", L"..\\Resources\\Texture\\Player\\Pistol\\Weapon_Pistol_Object_Bullet.png");
+
+			 // == Material 생성(위에서 만든 shader와 texture를 이용)
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Pistol_BulletSmallMtrl", spriteMateiral);
+
+		 }
+
+
 #pragma endregion 
 
 

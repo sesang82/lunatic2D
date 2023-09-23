@@ -98,6 +98,12 @@ namespace ss
         class Transform* mAttackColTr;
         class Collider2D* mAttackCol;
 
+        // 총알용
+        class PlayerPistolBullet* mPistolBullet;
+        class Transform* mBulletTr;
+        class Collider2D* mBulletCol;
+
+
         // 방어용 충돌체 
         class AttackCollider*   mGuardColObj;
         class Transform*        mGuardColTr;
