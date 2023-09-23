@@ -38,8 +38,8 @@ namespace ss
 		mCol = AddComponent<Collider2D>();
 		mCol->SetName(L"colHit_player");
 		mCol->SetType(eColliderType::Rect);
-		mCol->SetSize(Vector2(0.3f, 0.8f));
-		mCol->SetCenter(Vector2(-6.f, 2.f));
+		mCol->SetSize(Vector2(0.03f, 0.07f));
+		mCol->SetCenter(Vector2(-6.f, 8.f));
 
 
 		MeshRenderer* mr = AddComponent<MeshRenderer>();

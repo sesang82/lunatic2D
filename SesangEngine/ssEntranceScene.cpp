@@ -240,7 +240,7 @@ namespace ss
 	void EntranceScene::OnEnter()
 	{
 		renderer::mainCamera = mCamera;
-		mCamera->SetSize(4.3f);
+		mCamera->SetSize(2.3f);
 
 		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 		camerscript->SetTarget(mPlayer);
