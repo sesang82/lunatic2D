@@ -3,7 +3,7 @@
 #include "ssCollider2D.h"
 #include "ssMeshRenderer.h"
 #include "ssResources.h"
-
+#include "ssTime.h"
 
 namespace ss
 {
@@ -35,7 +35,8 @@ namespace ss
 
 
 
-		if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR")
+		if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
+			|| GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
 		{
 			mMr->SetMaterial(Resources::Find<Material>(L"Pistol_BulletBigMtrl"));
 			mTransform->SetScale(Vector3(12.f, 5.f, 0.f));;
@@ -46,7 +47,8 @@ namespace ss
 
 
 		else if 
-			(GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
+			(GetOwner()->GetName() == L"Pistolbullet_Small_ObjR"
+				|| GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
 		{
 			mMr->SetMaterial(Resources::Find<Material>(L"Pistol_BulletSmallMtrl"));
 			mTransform->SetScale(Vector3(9.f, 3.f, 0.f));;
@@ -60,6 +62,50 @@ namespace ss
 	}
 	void PistolBulletScript::Update()
 	{
+
+
+		if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR")
+		{
+			Vector3 BulletPos = mTransform->GetPosition();
+
+			BulletPos.x += 1.f * mSpeed * Time::DeltaTime();
+
+			mTransform->SetPosition(BulletPos);
+		}
+
+		else if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
+			{
+				Vector3 BulletPos = mTransform->GetPosition();
+
+				BulletPos.x += -1.f * mSpeed * Time::DeltaTime();
+
+				mTransform->SetPosition(BulletPos);
+			}
+
+		else if
+			(GetOwner()->GetName() == L"Pistolbullet_Small_ObjR")
+		{
+			Vector3 BulletPos = mTransform->GetPosition();
+
+			BulletPos.x += 1.f * mSpeed * Time::DeltaTime();
+
+			mTransform->SetPosition(BulletPos);
+		}
+
+
+		else if
+			(GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
+		{
+			Vector3 BulletPos = mTransform->GetPosition();
+
+			BulletPos.x += -1.f * mSpeed * Time::DeltaTime();
+
+			mTransform->SetPosition(BulletPos);
+		}
+
+
+
+	}
 
 
 		//StoneEyeScript* monScript = mOriginOwner->GetComponent<StoneEyeScript>();
@@ -84,7 +130,7 @@ namespace ss
 		//	mTransform->SetPosition(ArrowPos);
 		//}
 
-	}
+	
 	void PistolBulletScript::OnCollisionEnter(Collider2D* other)
 	{
 

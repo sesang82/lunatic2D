@@ -31,7 +31,7 @@
 namespace ss
 {
 	PlayerScript::PlayerScript()
-		: mSpeed(200.0f)
+		: mSpeed(50.0f)
 		, mCurState(ePlayerState::IDLE)
 		, mVelocity(1.f, 1.f)
 		, mJumpHeight(65.0f)
@@ -1883,13 +1883,14 @@ namespace ss
 										Vector3 BulletPos = Vector3(mTransform->GetPosition().x + 55.f, mTransform->GetPosition().y + 8.f, mTransform->GetPosition().z);
 
 										// ÃÑ¾Ë ¹ß»ç
-										mPistolBullet = object::Instantiate<PlayerPistolBullet>(BulletPos, eLayerType::Collision, L"Pistolbullet_Big_ObjR");
+										mPistolBullet = object::Instantiate<PlayerPistolBullet>(BulletPos, eLayerType::Collision, L"Pistolbullet_Small_ObjR");
 										mPistolBullet->AddComponent<PistolBulletScript>();
+										
 
 									
 
 									}
-
+								
 
 
 
@@ -1906,7 +1907,20 @@ namespace ss
 									EffectScript* effectscript = mAttackEffect->AddComponent<EffectScript>();
 							
 						
- 								    effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+									if (!mbAttack)
+									{
+										mbAttack = true;
+
+										Vector3 BulletPos = Vector3(mTransform->GetPosition().x - 55.f, mTransform->GetPosition().y + 8.f, mTransform->GetPosition().z);
+
+										// ÃÑ¾Ë ¹ß»ç
+										mPistolBullet = object::Instantiate<PlayerPistolBullet>(BulletPos, eLayerType::Collision, L"Pistolbullet_Small_ObjL");
+										mPistolBullet->AddComponent<PistolBulletScript>();
+
+
+
+
+									}
 								}
 
 							}
@@ -1949,7 +1963,7 @@ namespace ss
 								mbAttack = true;
 
 
-								if (mPrevDir.x > 0)
+								if (mPrevDir.x > 0 && mbAttack)
 								{
 
 									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x + 50.f, mTransform->GetPosition().y, mTransform->GetPosition().z);
@@ -1961,10 +1975,18 @@ namespace ss
 
 									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
 
+
+									// ÃÑ¾Ë ¹ß»ç 
+									Vector3 BulletPos = Vector3(mTransform->GetPosition().x + 55.f, mTransform->GetPosition().y + 8.f, mTransform->GetPosition().z);
+
+									mPistolBullet = object::Instantiate<PlayerPistolBullet>(BulletPos, eLayerType::Collision, L"Pistolbullet_Big_ObjR");
+									mPistolBullet->AddComponent<PistolBulletScript>();
+
 								}
 
+								// ¿ÞÂÊ
 
-								else
+								else if(mPrevDir.x < 0 && mbAttack)
 								{
 									Vector3 PlayerPos = Vector3(mTransform->GetPosition().x - 50.f, mTransform->GetPosition().y, mTransform->GetPosition().z);
 
@@ -1974,6 +1996,14 @@ namespace ss
 									EffectScript* effectscript = mAttackEffect->AddComponent<EffectScript>();
 				
 									effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+
+
+									// ÃÑ¾Ë ¹ß»ç 
+									Vector3 BulletPos = Vector3(mTransform->GetPosition().x - 55.f, mTransform->GetPosition().y + 8.f, mTransform->GetPosition().z);
+
+									mPistolBullet = object::Instantiate<PlayerPistolBullet>(BulletPos, eLayerType::Collision, L"Pistolbullet_Big_ObjL");
+									mPistolBullet->AddComponent<PistolBulletScript>();
 								}
 
 
