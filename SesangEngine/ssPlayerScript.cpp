@@ -2312,6 +2312,15 @@ namespace ss
 
 							effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
 
+
+							
+							Vector3 BulletPos = Vector3(mTransform->GetPosition().x + 55.f, mTransform->GetPosition().y + 8.f, mTransform->GetPosition().z);
+
+							// ÃÑ¾Ë ¹ß»ç
+							mPistolBullet = object::Instantiate<PlayerPistolBullet>(BulletPos, eLayerType::Collision, L"Pistolbullet_Big_ObjR");
+							mPistolBullet->AddComponent<PistolBulletScript>();
+
+
 						}
 
 						else if (mPrevDir.x < 0 && !mbspAttack)
@@ -2326,6 +2335,14 @@ namespace ss
 							EffectScript* effectscript = mAttackEffect->AddComponent<EffectScript>();
 
 							effectscript->SetOriginOwner((Player*)mTransform->GetOwner());
+
+
+
+							Vector3 BulletPos = Vector3(mTransform->GetPosition().x - 55.f, mTransform->GetPosition().y + 8.f, mTransform->GetPosition().z);
+
+							// ÃÑ¾Ë ¹ß»ç
+							mPistolBullet = object::Instantiate<PlayerPistolBullet>(BulletPos, eLayerType::Collision, L"Pistolbullet_Big_ObjL");
+							mPistolBullet->AddComponent<PistolBulletScript>();
 						}
 
 						CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
@@ -2336,10 +2353,38 @@ namespace ss
 					else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3
 						|| mAnimator->GetCurActiveAnimation()->GetIndex() == 11)
 					{
-						mbspAttack = false;
+
+						if (mPrevDir.x > 0 && !mbAttack)
+						{
+							mbAttack = true;
+
+							Vector3 BulletPos = Vector3(mTransform->GetPosition().x + 55.f, mTransform->GetPosition().y + 8.f, mTransform->GetPosition().z);
+
+							// ÃÑ¾Ë ¹ß»ç
+							mPistolBullet = object::Instantiate<PlayerPistolBullet>(BulletPos, eLayerType::Collision, L"Pistolbullet_Small_ObjR");
+							mPistolBullet->AddComponent<PistolBulletScript>();
+						}
+
+						else if (mPrevDir.x < 0 && !mbAttack)
+						{
+							mbAttack = true;
+
+							Vector3 BulletPos = Vector3(mTransform->GetPosition().x - 55.f, mTransform->GetPosition().y + 8.f, mTransform->GetPosition().z);
+
+							// ÃÑ¾Ë ¹ß»ç
+							mPistolBullet = object::Instantiate<PlayerPistolBullet>(BulletPos, eLayerType::Collision, L"Pistolbullet_Small_ObjL");
+							mPistolBullet->AddComponent<PistolBulletScript>();
+						}
+
+						
 					}
 
-
+					else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4
+						|| mAnimator->GetCurActiveAnimation()->GetIndex() == 12)
+					{
+						mbspAttack = false;
+						mbAttack = false;
+					}
 					
 					if (mPrevDir.x > 0)
 						mAnimator->PlayAnimation(L"Player_P_spAttackR", false);
