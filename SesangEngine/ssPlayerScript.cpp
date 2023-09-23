@@ -109,6 +109,12 @@ namespace ss
 		mAnimator->EndEvent(L"Player_S_GuardR") = std::bind(&PlayerScript::GuardEnd, this);
 		mAnimator->EndEvent(L"Player_S_GuardL") = std::bind(&PlayerScript::GuardEnd, this);
 
+		mAnimator->EndEvent(L"Player_P_GuardR") = std::bind(&PlayerScript::GuardEnd, this);
+		mAnimator->EndEvent(L"Player_P_GuardL") = std::bind(&PlayerScript::GuardEnd, this);
+
+		mAnimator->EndEvent(L"Player_G_GuardR") = std::bind(&PlayerScript::GuardEnd, this);
+		mAnimator->EndEvent(L"Player_G_GuardL") = std::bind(&PlayerScript::GuardEnd, this);
+
 	
 
 		// ==== 플레이어 클래스에 화살버전 guard는 안 만들었음. 추가해놓고 이거 주석 풀기 
@@ -547,8 +553,8 @@ namespace ss
 
 			if (mCurDir.x > 0)
 			{
-				mGuardCol->SetSize(Vector2(2.f, 15.f));
-				mGuardCol->SetCenter(Vector2(13.f, 3.f));
+				mGuardCol->SetSize(Vector2(4.f, 20.f));
+				mGuardCol->SetCenter(Vector2(25.f, 3.f));
 
 				// Guard용 이펙트
 				mGuardEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"PlayerGuardEffectObjR");
@@ -557,8 +563,8 @@ namespace ss
 
 			else
 			{
-				mGuardCol->SetSize(Vector2(2.f, 15.f));
-				mGuardCol->SetCenter(Vector2(-13.5f, 3.f));
+				mGuardCol->SetSize(Vector2(4.f, 20.f));
+				mGuardCol->SetCenter(Vector2(-17.5f, 3.f));
 
 				// Guard용 이펙트
 				mGuardEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"PlayerGuardEffectObjL");
@@ -711,8 +717,8 @@ namespace ss
 
 			if (mCurDir.x > 0)
 			{
-				mGuardCol->SetSize(Vector2(2.f, 15.f));
-				mGuardCol->SetCenter(Vector2(8.f, 3.f));
+				mGuardCol->SetSize(Vector2(4.f, 20.f));
+				mGuardCol->SetCenter(Vector2(25.f, 3.f));
 
 				// Guard용 이펙트
 				mGuardEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"PlayerGuardEffectObjR");
@@ -721,8 +727,8 @@ namespace ss
 
 			else
 			{
-				mGuardCol->SetSize(Vector2(2.f, 15.f));
-				mGuardCol->SetCenter(Vector2(-8.f, 3.f));
+				mGuardCol->SetSize(Vector2(4.f, 20.f));
+				mGuardCol->SetCenter(Vector2(-17.5f, 3.f));
 
 				// Guard용 이펙트
 				mGuardEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"PlayerGuardEffectObjL");
@@ -1004,6 +1010,7 @@ namespace ss
 		// 애니메이션 재생이 끝나면 
 		if (mbHitting && mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
+		
 			ChangeState(ePlayerState::IDLE);
 			mbHitting = false;
 		}

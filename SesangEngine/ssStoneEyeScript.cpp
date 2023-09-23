@@ -547,8 +547,9 @@ namespace ss
 					}
 				}
 
+				mAttackColliderObj->RemoveComponent<Collider2D>();
 
-				else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 
@@ -562,12 +563,13 @@ namespace ss
 					}
 				}
 			
+				mAttackColliderObj->RemoveComponent<Collider2D>();
 
-				else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 
-					mAttackCol->SetSize(Vector2(45.f, 38.f));
+					mAttackCol->SetSize(Vector2(30.f, 38.f));
 					mAttackCol->SetCenter(Vector2(24.f, -8.f));
 
 					// 대쉬 중엔 아예 충돌 안되게 해버림 
@@ -600,6 +602,8 @@ namespace ss
 					}
 				}
 
+				mAttackColliderObj->RemoveComponent<Collider2D>();
+
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
@@ -612,6 +616,9 @@ namespace ss
 						mAttackColliderObj->RemoveComponent<Collider2D>();
 					}
 				}
+
+
+				mAttackColliderObj->RemoveComponent<Collider2D>();
 
 				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
 				{
@@ -658,9 +665,8 @@ namespace ss
 	void StoneEyeScript::NearAttackEnd()
 	{
 		mbNearAttack = false;
-		mAttackColliderObj->RemoveComponent<Collider2D>();
 
-		ChangeState(eMonsterState::IDLE);
+		ChangeState(eMonsterState::MOVE);
 
 
 	}
