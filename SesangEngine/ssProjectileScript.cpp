@@ -39,50 +39,53 @@ namespace ss
 		StoneEyeScript* monScript = mOriginOwner->GetComponent<StoneEyeScript>();
 		CharacterState* StoneEyeState = mOriginOwner->GetComponent<CharacterState>();
 
-		if (StoneEyeState->GetCurrentHP() > 0.f)
+		if (nullptr != StoneEyeState)
 		{
-		Vector3 PlayerDir = monScript->GetCurDir();
-		Vector3 ArrowPos = mTransform->GetPosition();
-
-			if (mIsGuard)
+			if (StoneEyeState->GetCurrentHP() > 0.f)
 			{
+				Vector3 PlayerDir = monScript->GetCurDir();
+				Vector3 ArrowPos = mTransform->GetPosition();
 
-				if (GetOwner()->GetName() == L"StoneEyeFarObjR")
+				if (mIsGuard)
 				{
-					// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
-					ArrowPos.x += -1.f * mSpeed * Time::DeltaTime();
+
+					if (GetOwner()->GetName() == L"StoneEyeFarObjR")
+					{
+						// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
+						ArrowPos.x += -1.f * mSpeed * Time::DeltaTime();
+					}
+
+					else if (GetOwner()->GetName() == L"StoneEyeFarObjL")
+					{
+						// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
+						ArrowPos.x += 1.f * mSpeed * Time::DeltaTime();
+					}
+
+					mTransform->SetPosition(ArrowPos);
+
 				}
 
-				else if (GetOwner()->GetName() == L"StoneEyeFarObjL")
+
+				else
 				{
-					// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
-					ArrowPos.x += 1.f * mSpeed * Time::DeltaTime();
+					if (GetOwner()->GetName() == L"StoneEyeFarObjR")
+					{
+						// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
+						ArrowPos.x += 1.f * mSpeed * Time::DeltaTime();
+					}
+
+					else if (GetOwner()->GetName() == L"StoneEyeFarObjL")
+					{
+						// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
+						ArrowPos.x += -1.f * mSpeed * Time::DeltaTime();
+					}
+
+					mTransform->SetPosition(ArrowPos);
+
 				}
 
-				mTransform->SetPosition(ArrowPos);
 
 			}
-
-
-			else
-			{
-				if (GetOwner()->GetName() == L"StoneEyeFarObjR")
-				{
-					// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
-					ArrowPos.x += 1.f * mSpeed * Time::DeltaTime();
-				}
-
-				else if (GetOwner()->GetName() == L"StoneEyeFarObjL")
-				{
-					// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
-					ArrowPos.x += -1.f * mSpeed * Time::DeltaTime();
-				}
-
-				mTransform->SetPosition(ArrowPos);
-
-			}
-
-		
 		}
 
 

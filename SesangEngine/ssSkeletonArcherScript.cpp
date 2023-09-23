@@ -137,7 +137,7 @@ namespace ss
 		mNearCol = mNearRangeColObj->GetComponent<Collider2D>();
 
 
-		mNearCol->SetSize(Vector2(130.f, 20.f));
+		mNearCol->SetSize(Vector2(80.f, 20.f));
 		mNearCol->SetCenter(Vector2(-1.f, 0.2f));
 
 
@@ -159,6 +159,10 @@ namespace ss
 		mFarCol->SetCenter(Vector2(0.f, 0.2f));
 
 
+
+		mAnimator->CompleteEvent(L"Archer_NearAttackR") = std::bind(&SkeletonArcherScript::NearAttackEnd, this);
+
+		mAnimator->CompleteEvent(L"Archer_NearAttackL") = std::bind(&SkeletonArcherScript::NearAttackEnd, this);
 
 
 	}
@@ -430,13 +434,8 @@ namespace ss
 						mAttackColliderObj->RemoveComponent<Collider2D>();
 					}
 				}
-
-
-				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
-				{
-					mAttackColliderObj->RemoveComponent<Collider2D>();
-
-				}
+				
+				mAttackColliderObj->RemoveComponent<Collider2D>();
 
 
 				mAnimator->PlayAnimation(L"Archer_NearAttackR", true);
@@ -460,16 +459,22 @@ namespace ss
 					}
 				}
 
-				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
-				{
-					mAttackColliderObj->RemoveComponent<Collider2D>();
+				mAttackColliderObj->RemoveComponent<Collider2D>();
 
-				}
-
+				
 				mAnimator->PlayAnimation(L"Archer_NearAttackL", true);
 
 			}
 		}
+
+
+	}
+	void SkeletonArcherScript::NearAttackEnd()
+	{
+
+		mbNearAttack = false;
+
+		ChangeState(eMonsterState::MOVE);
 
 
 	}
@@ -507,6 +512,8 @@ namespace ss
 						mArrowTr = mArrowObj->GetComponent<Transform>();
 						mArrowTr->SetScale(Vector3(-25.f, 8.f, 0.f));
 					}
+
+
 					m_fTime = 0.0f;
 
 				}

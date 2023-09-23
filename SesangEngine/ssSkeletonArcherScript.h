@@ -83,6 +83,7 @@ namespace ss
         void Guard();
 
         void NearAttack();
+        void NearAttackEnd();
         void FarAttack();
 
         void Dead();
@@ -91,6 +92,7 @@ namespace ss
 
         void FarAttackEnd();
         void StunEnd();
+        
 
 
     public:

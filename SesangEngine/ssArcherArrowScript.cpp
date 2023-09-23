@@ -40,24 +40,55 @@ namespace ss
 		SkeletonArcherScript* monScript = mOriginOwner->GetComponent<SkeletonArcherScript>();
 		CharacterState* StoneEyeState = mOriginOwner->GetComponent<CharacterState>();
 
-		if (StoneEyeState->GetCurrentHP() > 0.f)
-		{
-			Vector3 PlayerDir = monScript->GetCurDir();
-			Vector3 ArrowPos = mTransform->GetPosition();
 
-			if (mIsGuard)
+		if(nullptr != StoneEyeState)
+		{ 
+			if (StoneEyeState->GetCurrentHP() > 0.f)
 			{
-				// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
-				ArrowPos.x += (PlayerDir.x == 1.0f ? -1 : 1) * mSpeed * Time::DeltaTime();
-			}
-			else
-			{
-				// 정상적인 움직임
-				ArrowPos.x += (PlayerDir.x == 1.0f ? 1 : -1) * mSpeed * Time::DeltaTime();
-			}
+				Vector3 PlayerDir = monScript->GetCurDir();
+				Vector3 ArrowPos = mTransform->GetPosition();
 
-			mTransform->SetPosition(ArrowPos);
+
+				if (mIsGuard)
+				{
+
+					if (GetOwner()->GetName() == L"ArcherArrowObj_R")
+					{
+						// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
+						ArrowPos.x += -1.f * mSpeed * Time::DeltaTime();
+					}
+
+					else if (GetOwner()->GetName() == L"ArcherArrowObj_L")
+					{
+						// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
+						ArrowPos.x += 1.f * mSpeed * Time::DeltaTime();
+					}
+
+					mTransform->SetPosition(ArrowPos);
+
+				}
+
+
+				else
+				{
+					if (GetOwner()->GetName() == L"ArcherArrowObj_R")
+					{
+						// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
+						ArrowPos.x += 1.f * mSpeed * Time::DeltaTime();
+					}
+
+					else if (GetOwner()->GetName() == L"ArcherArrowObj_L")
+					{
+						// 충돌이 발생했을 경우, 원래의 방향과 반대로 움직입니다.
+						ArrowPos.x += -1.f * mSpeed * Time::DeltaTime();
+					}
+
+					mTransform->SetPosition(ArrowPos);
+
+				}
+			}
 		}
+		
 
 
 

@@ -36,11 +36,10 @@ namespace ss
 
 		}
 	}
+	
 	void ArcherNearRangeScript::OnCollisionStay(Collider2D* other)
 	{
-	}
-	void ArcherNearRangeScript::OnCollisionExit(Collider2D* other)
-	{
+
 		if (other->GetOwner()->GetName() == L"Player")
 		{
 			SkeletonArcherScript* Archerscript = mOwner->GetComponent<SkeletonArcherScript>();
@@ -48,10 +47,13 @@ namespace ss
 			if (Archerscript->mCurState != ss::eMonsterState::STUN)
 			{
 				SkeletonArcherScript* Archerscript = mOwner->GetComponent<SkeletonArcherScript>();
-				Archerscript->mCurState = ss::eMonsterState::FARATTACK;
-				Archerscript->IsNearAttack(false);
+				Archerscript->mCurState = ss::eMonsterState::NEARATTACK;
+				Archerscript->IsNearAttack(true);
 			}
 		}
+	}
+	void ArcherNearRangeScript::OnCollisionExit(Collider2D* other)
+	{
 
 	}
 }
