@@ -53,8 +53,13 @@ namespace ss
 
 
 		// 시간이 지나면 삭제 
-		if(mTime >= 1.6f)
+		if (mTime >= 1.6f)
+		{
+			if (GetState() == eState::Dead)
+				return;
+
 			SetState(eState::Dead);
+		}
 
 
 		Bullet::Update();

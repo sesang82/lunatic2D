@@ -139,6 +139,13 @@ namespace ss
 
 
 
+
+		mAnimator->CompleteEvent(L"StoneEye_NearAttackR") = std::bind(&StoneEyeScript::NearAttackEnd, this);
+
+		mAnimator->CompleteEvent(L"StoneEye_NearAttackL") = std::bind(&StoneEyeScript::NearAttackEnd, this);
+
+
+
 	}
 
 
@@ -541,7 +548,7 @@ namespace ss
 				}
 
 
-				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+				else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 
@@ -556,7 +563,7 @@ namespace ss
 				}
 			
 
-				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+				else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 
@@ -569,16 +576,11 @@ namespace ss
 						mAttackColliderObj->RemoveComponent<Collider2D>();
 					}
 				}
-	
 
-				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 11)
-				{
-					mAttackColliderObj->RemoveComponent<Collider2D>();
-
-				}
 
 				mAnimator->PlayAnimation(L"StoneEye_NearAttackR", true);
-				
+
+		
 				
 			}
 
@@ -624,13 +626,11 @@ namespace ss
 					}
 				}
 
-				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 11)
-				{
-					mAttackColliderObj->RemoveComponent<Collider2D>();
-
-				}
 
 				mAnimator->PlayAnimation(L"StoneEye_NearAttackL", true);
+
+
+
 		
 			}
 		}
@@ -655,6 +655,16 @@ namespace ss
 		//}
 	}
 
+	void StoneEyeScript::NearAttackEnd()
+	{
+		mbNearAttack = false;
+		mAttackColliderObj->RemoveComponent<Collider2D>();
+
+		ChangeState(eMonsterState::IDLE);
+
+
+	}
+
 	void StoneEyeScript::FarAttack()
 	{
 
@@ -676,7 +686,7 @@ namespace ss
 					{
 						// 발사체 위치 조절 
 						mCurPos += Vector3(8.f, -2.5f, 0.f);
-						mArrowObj = object::Instantiate<StoneEyeProjectile>(mCurPos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
+						mArrowObj = object::Instantiate<StoneEyeProjectile>(mCurPos, eLayerType::Mon_Bullet, L"StoneEyeFarObjR");
 						mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
 				
 				
@@ -687,7 +697,7 @@ namespace ss
 						// 발사체 위치 조절 
 						mCurPos -= Vector3(75.f, 2.5f, 0.f);
 
-						mArrowObj = object::Instantiate<StoneEyeProjectile>(mCurPos, eLayerType::Mon_Bullet, L"StoneEyeFarObj");
+						mArrowObj = object::Instantiate<StoneEyeProjectile>(mCurPos, eLayerType::Mon_Bullet, L"StoneEyeFarObjL");
 						mArrowObj->GetComponent<ProjectileScript>()->SetOriginOwner(mTransform->GetOwner());
 						mArrowTr = mArrowObj->GetComponent<Transform>();
 						mArrowTr->SetScale(Vector3(- 25.f, 10.f, 0.f));

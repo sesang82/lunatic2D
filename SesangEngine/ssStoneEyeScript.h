@@ -95,6 +95,8 @@ namespace ss
         void Guard();
 
         void NearAttack();
+        void NearAttackEnd();
+
         void FarAttack();
 
         void Dead();
