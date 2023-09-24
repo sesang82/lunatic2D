@@ -198,28 +198,28 @@ namespace ss
 
 
 		{
-			// 해골 Lizard (근접 공격만 하는 애)
-			Monster* Liazrd = object::Instantiate<Monster>(eLayerType::Monster, L"Lizard");
-			Liazrd->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-			Transform* eyetr = Liazrd->GetComponent<Transform>();
-			eyetr->SetPosition(Vector3(-50.f, 185.f, 500.f));
+			//// 해골 Lizard (근접 공격만 하는 애)
+			//Monster* Liazrd = object::Instantiate<Monster>(eLayerType::Monster, L"Lizard");
+			//Liazrd->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+			//Transform* eyetr = Liazrd->GetComponent<Transform>();
+			//eyetr->SetPosition(Vector3(-50.f, 185.f, 500.f));
 		
 
 
-			SkeletonLizardScript* ArcherScript = Liazrd->AddComponent<SkeletonLizardScript>();
-			ArcherScript->SetFirstPos(eyetr->GetPosition());
+			//SkeletonLizardScript* ArcherScript = Liazrd->AddComponent<SkeletonLizardScript>();
+			//ArcherScript->SetFirstPos(eyetr->GetPosition());
 
 
-			// ===== hp틀 그냥 넣지 말기 
-			// 몬스터 HP (UI로 넣지말기. 그럼 UI카메라에 의해 플레이어 따라다니는 것처럼 움직임) 
-			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::Etc, L"LizardHP");
-			stoneHP->SetParent(Liazrd);
+			//// ===== hp틀 그냥 넣지 말기 
+			//// 몬스터 HP (UI로 넣지말기. 그럼 UI카메라에 의해 플레이어 따라다니는 것처럼 움직임) 
+			//Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::Etc, L"LizardHP");
+			//stoneHP->SetParent(Liazrd);
 
 
-			Transform* stonehptr = stoneHP->GetComponent<Transform>();
-			stonehptr->SetPosition(Vector3(-15.f, 25.f, 500.f));
+			//Transform* stonehptr = stoneHP->GetComponent<Transform>();
+			//stonehptr->SetPosition(Vector3(-15.f, 25.f, 500.f));
 
-			stoneHP->Initialize();
+			//stoneHP->Initialize();
 
 		}
 
@@ -256,30 +256,30 @@ namespace ss
 
 		}
 
-		//{
-		//	// 미니 wolf 몬스터 
-		//	Monster* Wolf = object::Instantiate<Monster>(eLayerType::Monster, L"WolfObj");
-		//	Wolf->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-		//	
-		//	
-		//	Transform* eyetr = Wolf->GetComponent<Transform>();
-		//	eyetr->SetPosition(Vector3(10.f, 185.f, 500.f));
-		//	//eyetr->SetPosition(Vector3(-350.f, -340.f, 500.f));
+		{
+			// 미니 wolf 몬스터 
+			Monster* Wolf = object::Instantiate<Monster>(eLayerType::Monster, L"WolfObj");
+			Wolf->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+			
+			
+			Transform* eyetr = Wolf->GetComponent<Transform>();
+			eyetr->SetPosition(Vector3(10.f, 185.f, 500.f));
+			//eyetr->SetPosition(Vector3(-350.f, -340.f, 500.f));
 
-		//	WolfScript* wolfScript = Wolf->AddComponent<WolfScript>();
-		//	wolfScript->SetFirstPos(eyetr->GetPosition());
+			WolfScript* wolfScript = Wolf->AddComponent<WolfScript>();
+			wolfScript->SetFirstPos(eyetr->GetPosition());
 
-		//	// ===== hp틀 그냥 넣지 말기 
-		//	// 몬스터 HP (UI로 넣지말기. 그럼 UI카메라에 의해 플레이어 따라다니는 것처럼 움직임) 
-		//	Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::Etc, L"WolfHP");
-		//	stoneHP->SetParent(Wolf);
-		//
-		//	Transform* stonehptr = stoneHP->GetComponent<Transform>();
-		//	stonehptr->SetPosition(Vector3(7.f, 25.f, 500.f));
+			// ===== hp틀 그냥 넣지 말기 
+			// 몬스터 HP (UI로 넣지말기. 그럼 UI카메라에 의해 플레이어 따라다니는 것처럼 움직임) 
+			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::Etc, L"WolfHP");
+			stoneHP->SetParent(Wolf);
+		
+			Transform* stonehptr = stoneHP->GetComponent<Transform>();
+			stonehptr->SetPosition(Vector3(7.f, 25.f, 500.f));
 
-		//	stoneHP->Initialize();
+			stoneHP->Initialize();
 
-		//}
+		}
 
 		
 		//	// Zombi 몬스터 (해당 씬에는 더 이상 둘 곳이 없어서 보류)

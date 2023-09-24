@@ -101,7 +101,7 @@ namespace ss
 		//충돌체는 여기서 바로 넣지 말고 해당 인덱스 때 넣었다가 빼는 식으로 하기 
 		mAttackColliderObj = object::Instantiate<AttackCollider>(mTransform->GetPosition(), eLayerType::Collision, L"WoodAttackColObj");
 		mAttackColliderObj->Initialize();
-		//mAttackColliderObj->AddComponent<LizardColScript>();
+	
 
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
 

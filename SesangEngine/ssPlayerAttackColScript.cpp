@@ -60,6 +60,7 @@ namespace ss
 
 			else if (stone->GetCurrentHP() <= 0.f)
 			{
+				
 				script->ChangeState(eMonsterState::DEAD);
 			}
 

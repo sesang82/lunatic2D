@@ -300,17 +300,16 @@ namespace ss
 			float fSpeed = m_tMonsterInfo.m_fSpeed + 150.f; // 추적 중일 땐 더 빠르게 추적하게 함 
 
 
+	
+
+			MonsterPos.x += vMonToPlayer.x * fSpeed * Time::DeltaTime();
+
 			
-			{
 
-				MonsterPos.x += vMonToPlayer.x * fSpeed * Time::DeltaTime();
+
+			mTransform->SetPosition(MonsterPos);
 
 			
-
-
-				mTransform->SetPosition(MonsterPos);
-
-			}
 		}
 
 	

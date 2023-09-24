@@ -298,7 +298,8 @@ namespace ss
 		}
 
 		// 몬스터 근접 공격 
-		else if (L"WoodAttackColObj" == other->GetOwner()->GetName())
+		else if (L"WoodAttackColObj" == other->GetOwner()->GetName()
+			|| L"WolfAttackColObj" == other->GetOwner()->GetName())
 		{			
 			// 대쉬 중엔 공격 무력화 
 			if (!mbDash)

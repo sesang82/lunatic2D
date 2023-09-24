@@ -34,10 +34,10 @@ namespace ss
 		, mVelocity(Vector2::Zero)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
-		m_tMonsterInfo.m_fDetectRange = 200.f;
+		m_tMonsterInfo.m_fDetectRange = 150.f;
 
-		m_tMonsterInfo.m_fNearAttackRange = 50.f;
-		m_tMonsterInfo.m_fFarAttackRange = 100.f;
+		m_tMonsterInfo.m_fNearAttackRange = 80.f;
+		m_tMonsterInfo.m_fFarAttackRange = 110.f;
 
 		m_tMonsterInfo.m_fCoolDown = 0.5f;
 	}
@@ -116,7 +116,7 @@ namespace ss
 
 		//==== 근접 공격 특정 인덱스 충돌체 
 		//충돌체는 여기서 바로 넣지 말고 해당 인덱스 때 넣었다가 빼는 식으로 하기 
-		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"WolfAttackColObj");
+		mAttackColliderObj = object::Instantiate<AttackCollider>(mTransform->GetPosition(), eLayerType::Collision, L"WolfAttackColObj");
 		mAttackColliderObj->Initialize();
 		//mAttackColliderObj->AddComponent<LizardColScript>();
 
@@ -265,26 +265,28 @@ namespace ss
 		vDir.z = 0;
 		float distance = vDir.Length();
 
-
-		if (distance < m_tMonsterInfo.m_fNearAttackRange)
+		// 근접 공격 범위 내에 플레이어가 있으면 NearAttack 상태로 전환
+		if (distance - 0.2f < m_tMonsterInfo.m_fNearAttackRange && mCurDir.x > 0)
 		{
 			ChangeState(eMonsterState::NEARATTACK);
+			return; // 이 함수에서 추가적인 처리를 중지합니다.
+		}
+
+		// 플레이어와 겹친 상태로 공격하는거 방지 
+		else if (distance - 0.2f < m_tMonsterInfo.m_fNearAttackRange && mCurDir.x < 0)
+		{
+			ChangeState(eMonsterState::NEARATTACK);
+			return; // 이 함수에서 추가적인 처리를 중지합니다.
 		}
 
 
-
-		else if (distance < m_tMonsterInfo.m_fFarAttackRange)
+		// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환
+		if (distance > m_tMonsterInfo.m_fNearAttackRange && distance < m_tMonsterInfo.m_fFarAttackRange)
 		{
 			ChangeState(eMonsterState::FARATTACK);
+			return;
 		}
 
-
-		// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환 
-		else if (distance <= m_tMonsterInfo.m_fDetectRange)
-		{
-			// 플레이어가 탐지 범위 내에 있지만 근접 공격 범위 밖에 있으면 이동 상태로 전환
-			ChangeState(eMonsterState::MOVE);
-		}
 
 
 	}
@@ -302,19 +304,26 @@ namespace ss
 
 
 		// 근접 공격 범위 내에 플레이어가 있으면 NearAttack 상태로 전환
-		if (distance < m_tMonsterInfo.m_fNearAttackRange)
+		if (distance - 0.2f < m_tMonsterInfo.m_fNearAttackRange && mCurDir.x > 0)
 		{
 			ChangeState(eMonsterState::NEARATTACK);
-			return; // 밑에 run관련 작동 안되도록 
+			return; // 이 함수에서 추가적인 처리를 중지합니다.
 		}
 
-
-		// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환
-		else if (distance < m_tMonsterInfo.m_fFarAttackRange)
+		// 플레이어와 겹친 상태로 공격하는거 방지 
+		else if (distance - 0.2f < m_tMonsterInfo.m_fNearAttackRange && mCurDir.x < 0)
 		{
-			ChangeState(eMonsterState::FARATTACK);
-			return;
+			ChangeState(eMonsterState::NEARATTACK);
+			return; // 이 함수에서 추가적인 처리를 중지합니다.
 		}
+
+
+		//// 먼거리 공격 범위 내에 플레이어가 있으면 FarAttack 상태로 전환
+		//if (distance > m_tMonsterInfo.m_fNearAttackRange && distance < m_tMonsterInfo.m_fFarAttackRange)
+		//{
+		//	ChangeState(eMonsterState::FARATTACK);
+		//	return;
+		//}
 
 
 		// ======================= tracer
@@ -412,6 +421,25 @@ namespace ss
 	}
 	void WolfScript::Hit()
 	{
+		if (!mbHit)
+		{
+			mbHit = true;
+
+			if (mCurDir.x > 0)
+			{
+				mAnimator->PlayAnimation(L"Wolf_HitR", false);
+			}
+
+			else
+			{
+				mAnimator->PlayAnimation(L"Wolf_HitL", false);
+			}
+		}
+
+		if (mbHit && mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			ChangeState(eMonsterState::IDLE);
+		}
 	}
 	void WolfScript::NearAttack()
 	{
@@ -420,6 +448,8 @@ namespace ss
 		float distance = (PlayerPos - MonsterPos).Length();
 
 		m_fTime += Time::DeltaTime();
+
+		PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
 
 
 		// 연이어 공격 애니메이션 재생하지 않고, 쿨타임 시간만큼 기다렸다가 공격 
@@ -445,10 +475,46 @@ namespace ss
 			m_fTime = 0.0f;
 		}
 
+		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+		{
+			if (mCurDir.x > 0)
+			{
 
-		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
+				mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+				mAttackCol->SetSize(Vector2(60.f, 30.f));
+				mAttackCol->SetCenter(Vector2(20.f, -5.f));
+
+				// 대쉬 중엔 아예 충돌 안되게 해버림 
+				if (playerScript->IsDash())
+				{
+					mAttackColliderObj->RemoveComponent<Collider2D>();
+
+
+				}
+			}
+
+			else if (mCurDir.x < 0)
+			{
+				mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+				mAttackCol->SetSize(Vector2(60.f, 30.f));
+				mAttackCol->SetCenter(Vector2(-15.f, -5.f));
+
+				// 대쉬 중엔 아예 충돌 안되게 해버림 
+				if (playerScript->IsDash())
+				{
+					mAttackColliderObj->RemoveComponent<Collider2D>();
+
+
+				}
+			}
+		}
+
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
 		{
 			mbNearAttacking = false;
+			mAttackColliderObj->RemoveComponent<Collider2D>();
 		}
 
 
@@ -570,6 +636,21 @@ namespace ss
 
 		if (!mbFarAttacking && mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
+			Vector3 MonsterPos = mTransform->GetPosition();
+			Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+
+			// 몬스터와 플레이어 간의 거리를 구함 
+			Vector3 vDir = MonsterPos - PlayerPos;
+			vDir.z = 0;
+			float distance = vDir.Length();
+
+			if (distance - 0.2f < m_tMonsterInfo.m_fNearAttackRange)
+			{
+				ChangeState(eMonsterState::NEARATTACK);
+				return;
+			}
+
+			else
 			ChangeState(eMonsterState::IDLE);
 		}
 
@@ -577,6 +658,26 @@ namespace ss
 	}
 	void WolfScript::Dead()
 	{
+
+		if (mCurDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"Wolf_DieR", false);
+
+		}
+
+		else
+		{
+			mAnimator->PlayAnimation(L"Wolf_DieL", false);
+		}
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			mAttackColliderObj->SetState(GameObject::eState::Dead);
+
+
+			GetOwner()->SetState(GameObject::eState::Dead);
+		}
 	}
 	void WolfScript::Animation()
 	{

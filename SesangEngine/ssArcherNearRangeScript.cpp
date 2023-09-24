@@ -27,7 +27,7 @@ namespace ss
 			SkeletonArcherScript* Archerscript = mOwner->GetComponent<SkeletonArcherScript>();
 
 			// stun상태일 시 공격하지 않아야하므로 
-			if (Archerscript->mCurState != ss::eMonsterState::STUN)
+			if (Archerscript->mCurState != ss::eMonsterState::STUN && Archerscript->mCurState != ss::eMonsterState::DEAD)
 			{
 				Archerscript->mCurState = ss::eMonsterState::NEARATTACK;
 
@@ -44,7 +44,7 @@ namespace ss
 		{
 			SkeletonArcherScript* Archerscript = mOwner->GetComponent<SkeletonArcherScript>();
 
-			if (Archerscript->mCurState != ss::eMonsterState::STUN)
+			if (Archerscript->mCurState != ss::eMonsterState::STUN && Archerscript->mCurState != ss::eMonsterState::DEAD)
 			{
 				SkeletonArcherScript* Archerscript = mOwner->GetComponent<SkeletonArcherScript>();
 				Archerscript->mCurState = ss::eMonsterState::NEARATTACK;
