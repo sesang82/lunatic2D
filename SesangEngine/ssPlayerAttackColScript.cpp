@@ -10,6 +10,9 @@
 #include "ssSkeletonArcherScript.h"
 #include "ssSkeletonLizardScript.h"
 #include "ssBigWolfScript.h"
+#include "ssWoodGolemScript.h"
+#include "ssWolfScript.h"
+
 
 namespace ss
 {
@@ -85,6 +88,50 @@ namespace ss
 
 		}
 	
+		else if (L"WoodGolemObj" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			WoodGolemScript* script = other->GetOwner()->GetComponent<WoodGolemScript>();
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+		}
+
+		else if (L"WolfObj" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			WolfScript* script = other->GetOwner()->GetComponent<WolfScript>();
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+		}
+
 
 		else if (L"Lizard" == other->GetOwner()->GetName())
 		{
@@ -107,6 +154,28 @@ namespace ss
 
 
 		}
+
+		else if (L"ZombiObj" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			SkeletonLizardScript* script = other->GetOwner()->GetComponent<SkeletonLizardScript>();
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+			}
 
 
 		else if (L"B_WolfObj" == other->GetOwner()->GetName())

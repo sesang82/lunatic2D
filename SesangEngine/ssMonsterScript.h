@@ -69,6 +69,7 @@ namespace ss
 	{
 		friend class StoneNearRangeScript;
 		friend class ArcherNearRangeScript;
+		friend class GolemNearRangeScript;
 
 	
 	

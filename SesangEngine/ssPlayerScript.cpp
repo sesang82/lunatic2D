@@ -296,6 +296,22 @@ namespace ss
 			mMonster->GetComponent<BigWolfScript>()->ChangeState(eWolfBossState::STOM_START);
 	
 		}
+
+		// 몬스터 근접 공격 
+		else if (L"WoodAttackColObj" == other->GetOwner()->GetName())
+		{			
+			// 대쉬 중엔 공격 무력화 
+			if (!mbDash)
+			{
+				mState->SetCurrentHP(mState->GetCurrentHP() - 10);
+
+				// 공격 당했을 시 HIT 상태로 변경 
+				ChangeState(ePlayerState::HIT);
+
+			}
+
+		}
+		
 	
 
 

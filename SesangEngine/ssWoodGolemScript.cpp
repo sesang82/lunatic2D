@@ -70,7 +70,7 @@ namespace ss
 		mAnimator->Create(L"Wood_RunL", Image2, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 10, Vector2(111.f, 83.f), Vector2(23.f, 0.f), 0.1f, true);
 
 		mAnimator->Create(L"Wood_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f), Vector2::Zero, 0.08f);
-		mAnimator->Create(L"Wood_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f), Vector2(23.f, 0.f), 0.08f, true);
+		mAnimator->Create(L"Wood_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f), Vector2(30.f, 0.f), 0.08f, true);
 
 		mAnimator->Create(L"Wood_FarAttackR", Image4, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f));
 		mAnimator->Create(L"Wood_FarAttackL", Image4, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 13, Vector2(111.f, 83.f), Vector2(23.f, 0.f), 0.1f, true);
@@ -99,7 +99,7 @@ namespace ss
 
 		//==== 근접 공격 특정 인덱스 충돌체 
 		//충돌체는 여기서 바로 넣지 말고 해당 인덱스 때 넣었다가 빼는 식으로 하기 
-		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"WoodAttackColObj");
+		mAttackColliderObj = object::Instantiate<AttackCollider>(mTransform->GetPosition(), eLayerType::Collision, L"WoodAttackColObj");
 		mAttackColliderObj->Initialize();
 		//mAttackColliderObj->AddComponent<LizardColScript>();
 
@@ -358,33 +358,71 @@ namespace ss
 		
 		// 연이어 공격 애니메이션 재생하지 않고, 쿨타임 시간만큼 기다렸다가 공격 
 
+		PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
 
 		if (m_fTime >= m_tMonsterInfo.m_fCoolDown && !mbNearAttacking)
 		{
 			mbNearAttacking = true;
 
+			if (mCurDir.x > 0)
+			{
+				mAnimator->PlayAnimation(L"Wood_NearAttackR", false);
 
-				if (mCurDir.x > 0)
-				{
-					mAnimator->PlayAnimation(L"Wood_NearAttackR", false);
+			}
 
-				}
-
-				else
-				{
-					mAnimator->PlayAnimation(L"Wood_NearAttackL", false);
-				}
+			else
+			{
+				mAnimator->PlayAnimation(L"Wood_NearAttackL", false);
+			}
 
 			
 			m_fTime = 0.0f;
 		}
 
+	
+		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
+		{
+			if (mCurDir.x > 0)
+			{
+				mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 
-		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 12)
+				mAttackCol->SetSize(Vector2(50.f, 30.f));
+				mAttackCol->SetCenter(Vector2(20.f, -30.f));
+
+				// 대쉬 중엔 아예 충돌 안되게 해버림 
+				if (playerScript->IsDash())
+				{
+					mAttackColliderObj->RemoveComponent<Collider2D>();
+				}
+
+			}
+
+			else
+			{
+				mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+
+				mAttackCol->SetSize(Vector2(50.f, 30.f));
+				mAttackCol->SetCenter(Vector2(-32.f, -30.f));
+
+				// 대쉬 중엔 아예 충돌 안되게 해버림 
+				if (playerScript->IsDash())
+				{
+					mAttackColliderObj->RemoveComponent<Collider2D>();
+				}
+			}
+
+		}
+
+
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+		{
+			mAttackColliderObj->RemoveComponent<Collider2D>();
+		}
+
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 12)
 		{
 			mbNearAttacking = false;
 		}
-
 
 		if (!mbNearAttacking && mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
@@ -461,6 +499,25 @@ namespace ss
 	}
 	void WoodGolemScript::Dead()
 	{
+		if (mCurDir.x > 0)
+		{
+			mAnimator->PlayAnimation(L"Wood_DieR", false);
+
+		}
+
+		else
+		{
+			mAnimator->PlayAnimation(L"Wood_DieL", false);
+		}
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			mAttackColliderObj->SetState(GameObject::eState::Dead);
+
+			GetOwner()->SetState(GameObject::eState::Dead);
+		}
+
 	}
 	void WoodGolemScript::Animation()
 	{
