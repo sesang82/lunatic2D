@@ -111,8 +111,8 @@ namespace ss
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
 
 
-		mAnimator->StartEvent(L"Lizard_NearAttackR") = std::bind(&SkeletonLizardScript::NearAttackStart, this);
-		mAnimator->StartEvent(L"Lizard_NearAttackL") = std::bind(&SkeletonLizardScript::NearAttackStart, this);
+		mAnimator->EndEvent(L"Lizard_NearAttackR") = std::bind(&SkeletonLizardScript::NearAttackEnd, this);
+		mAnimator->EndEvent(L"Lizard_NearAttackL") = std::bind(&SkeletonLizardScript::NearAttackEnd, this);
 
 
 	}
@@ -253,18 +253,18 @@ namespace ss
 
 
 		// 근접 공격 범위 내에 플레이어가 있으면 NearAttack 상태로 전환
-		if (distance < m_tMonsterInfo.m_fNearAttackRange)// && mCurDir.x > 0)
+		if (distance < m_tMonsterInfo.m_fNearAttackRange && mCurDir.x > 0)
 		{
 			ChangeState(eMonsterState::NEARATTACK);
 			return; // 이 함수에서 추가적인 처리를 중지합니다.
 		}
 
-		//// 플레이어와 겹친 상태로 공격하는거 방지 
-		//else if (distance - 50.f < m_tMonsterInfo.m_fNearAttackRange && mCurDir.x < 0)
-		//{
-		//	ChangeState(eMonsterState::NEARATTACK);
-		//	return; // 이 함수에서 추가적인 처리를 중지합니다.
-		//}
+		// 플레이어와 겹친 상태로 공격하는거 방지 
+		else if (distance - 50.f < m_tMonsterInfo.m_fNearAttackRange && mCurDir.x < 0)
+		{
+			ChangeState(eMonsterState::NEARATTACK);
+			return; // 이 함수에서 추가적인 처리를 중지합니다.
+		}
 
 
 
@@ -496,7 +496,7 @@ namespace ss
 
 	}
 
-	void SkeletonLizardScript::NearAttackStart()
+	void SkeletonLizardScript::NearAttackEnd()
 	{
 
 		mAttackColliderObj->RemoveComponent<Collider2D>();

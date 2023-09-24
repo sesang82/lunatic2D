@@ -54,7 +54,7 @@ namespace ss
 			}
 		}
 
-		if (other->GetName() == L"PlayerGuardCol")
+		else if (other->GetName() == L"PlayerGuardCol")
 		{
 
 			// 스톤아이의 상태를 stun으로 만들기 (스톤아이 근접 충돌체랑 가드 충돌체랑 넘 차이나서

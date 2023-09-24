@@ -547,37 +547,12 @@ namespace ss
 					}
 				}
 
-				mAttackColliderObj->RemoveComponent<Collider2D>();
-
-				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+				else if(mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
 				{
-					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-
-					mAttackCol->SetSize(Vector2(30.f, 38.f));
-					mAttackCol->SetCenter(Vector2(24.f, -8.f));
-
-					// 대쉬 중엔 아예 충돌 안되게 해버림 
-					if (playerScript->IsDash())
-					{
-						mAttackColliderObj->RemoveComponent<Collider2D>();
-					}
+					mAttackColliderObj->RemoveComponent<Collider2D>();
 				}
-			
-				mAttackColliderObj->RemoveComponent<Collider2D>();
+				
 
-				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
-				{
-					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-
-					mAttackCol->SetSize(Vector2(30.f, 38.f));
-					mAttackCol->SetCenter(Vector2(24.f, -8.f));
-
-					// 대쉬 중엔 아예 충돌 안되게 해버림 
-					if (playerScript->IsDash())
-					{
-						mAttackColliderObj->RemoveComponent<Collider2D>();
-					}
-				}
 
 
 				mAnimator->PlayAnimation(L"StoneEye_NearAttackR", true);
@@ -602,36 +577,13 @@ namespace ss
 					}
 				}
 
-				mAttackColliderObj->RemoveComponent<Collider2D>();
-
-				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
+				else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
 				{
-					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-					mAttackCol->SetSize(Vector2(45.f, 38.f));
-					mAttackCol->SetCenter(Vector2(-90.f, -8.f));
-
-					// 대쉬 중엔 아예 충돌 안되게 해버림 
-					if (playerScript->IsDash())
-					{
-						mAttackColliderObj->RemoveComponent<Collider2D>();
-					}
+					mAttackColliderObj->RemoveComponent<Collider2D>();
 				}
 
 
-				mAttackColliderObj->RemoveComponent<Collider2D>();
-
-				if (mAnimator->GetCurActiveAnimation()->GetIndex() == 10)
-				{
-					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-					mAttackCol->SetSize(Vector2(45.f, 38.f));
-					mAttackCol->SetCenter(Vector2(-90.f, -8.f));
-					
-					// 대쉬 중엔 아예 충돌 안되게 해버림 
-					if (playerScript->IsDash())
-					{
-						mAttackColliderObj->RemoveComponent<Collider2D>();
-					}
-				}
+				//mAttackColliderObj->RemoveComponent<Collider2D>();
 
 
 				mAnimator->PlayAnimation(L"StoneEye_NearAttackL", true);
