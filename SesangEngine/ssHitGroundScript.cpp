@@ -9,10 +9,14 @@
 #include "ssWolfScript.h"
 #include "ssZombieScript.h"
 #include "ssBigWolfScript.h"
+#include "ssPlayerScript.h"
+#include "ssGameState.h"
+#include "ssCharacterState.h"
 
 namespace ss
 {
 	HitGroundScript::HitGroundScript()
+		: mCol(nullptr)
 	{
 	}
 	HitGroundScript::~HitGroundScript()
@@ -23,6 +27,8 @@ namespace ss
 		MeshRenderer* mr = GetOwner()->GetComponent<MeshRenderer>();
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
+
+
 		// 일단 이렇게 한 이유는 hit ground의 크기가 다를 수도 있어서 일단 이렇게 해놨는데 나중에 그럴 필요없으면 리팩토링 하기
 		if (GetOwner()->GetName() == L"WoodHitGroundObj"
 			|| GetOwner()->GetName() == L"WolfHitGroundObj"
@@ -30,6 +36,9 @@ namespace ss
 		{
 			mr->SetMaterial(Resources::Find<Material>(L"hitGroundMtrl"));			
 			tr->SetScale(Vector3(34.f, 39.f, 0.f));
+
+		
+
 		}
 
 		else if (GetOwner()->GetName() == L"StomingHitGroundObj")
@@ -64,13 +73,21 @@ namespace ss
 		Animator* anim = mMonster->GetComponent<Animator>();
 
 		//if (SceneManager::GetActiveScene()->GetName() == L"Stage1Scene")
-		if(GetOwner()->GetName() == L"WoodHitGroundObj")
+		
+		
+	  if(GetOwner()->GetName() == L"WoodHitGroundObj")
 		{
 			WoodGolemScript* script = mMonster->GetComponent<WoodGolemScript>();
 			bool paunched = script->IsPaunched();
-		
-				
-			if (paunched && anim->GetCurActiveAnimation()->GetIndex() == 7)
+			
+			if (paunched && anim->GetCurActiveAnimation()->GetIndex() == 6)
+			{
+				mCol = GetOwner()->AddComponent<Collider2D>();
+				mCol->SetSize(Vector2(1.f, 0.5f));
+				mCol->SetCenter(Vector2(0.f, -12.f));
+			}
+
+			else if (paunched && anim->GetCurActiveAnimation()->GetIndex() == 7)
 			{
 				script->SetPaunched(false);
 				GetOwner()->SetState(GameObject::eState::Dead);
@@ -174,6 +191,31 @@ namespace ss
 	}
 	void HitGroundScript::OnCollisionEnter(Collider2D* other)
 	{
+		if (GetOwner()->GetName() == L"WoodHitGroundObj"
+			|| GetOwner()->GetName() == L"WolfHitGroundObj"
+			|| GetOwner()->GetName() == L"ZombieHitGroundObj")
+		{
+
+			if (other->GetName() == L"colHit_player")
+			{
+				PlayerScript* script = other->GetOwner()->GetComponent<PlayerScript>();
+				bool bDash = script->IsDash();
+
+				// 대쉬 중엔 공격 무력화 
+				if (!bDash)
+				{
+					CharacterState* State = GameState::GetInst().GetState(L"Player");
+					State->SetCurrentHP(State->GetCurrentHP() - 10);
+
+					// 공격 당했을 시 HIT 상태로 변경 
+					script->ChangeState(ePlayerState::HIT);
+
+
+				}
+			}
+
+
+		}
 	}
 	void HitGroundScript::OnCollisionStay(Collider2D* other)
 	{

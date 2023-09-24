@@ -170,6 +170,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ssGolemFarRangeScript.cpp" />
+    <ClCompile Include="ssGolemNearRangeScript.cpp" />
     <ClCompile Include="ssItem.cpp" />
     <ClCompile Include="ssItemScript.cpp" />
     <ClCompile Include="ssParalloxScript.cpp" />
@@ -243,6 +245,8 @@
     <ClCompile Include="ssZombieScript.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ssGolemFarRangeScript.h" />
+    <ClInclude Include="ssGolemNearRangeScript.h" />
     <ClInclude Include="ssItem.h" />
     <ClInclude Include="ssItemScript.h" />
     <ClInclude Include="ssParalloxScript.h" />

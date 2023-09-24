@@ -1277,7 +1277,7 @@ namespace renderer
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(spriteShader);
 			 spriteMateiral->SetTexture(texture);
-			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			 Resources::Insert(L"Pistol_BulletBigMtrl", spriteMateiral);
 
@@ -1293,7 +1293,7 @@ namespace renderer
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(spriteShader);
 			 spriteMateiral->SetTexture(texture);
-			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			 Resources::Insert(L"Pistol_BulletSmallMtrl", spriteMateiral);
 

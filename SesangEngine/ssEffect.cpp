@@ -31,6 +31,8 @@ namespace ss
 
 		Animator* ani = AddComponent<Animator>();
 
+	
+
 
 		// === 
 		// 		// 각 충돌체 크기는 달라지는게 있다면 fsm에서 각각 조정해주기 

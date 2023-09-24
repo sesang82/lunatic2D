@@ -434,7 +434,9 @@ namespace ss
 		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1 && !mbPaunched && isGround)
 		{
 
-			mHitGround = object::Instantiate<Effect>(PlayerPos, eLayerType::Effect, L"WoodHitGroundObj");
+			PlayerPos.y += -3.f;
+
+			mHitGround = object::Instantiate<Effect>(PlayerPos, eLayerType::Collision, L"WoodHitGroundObj");
 
 			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
 			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
@@ -443,15 +445,6 @@ namespace ss
 		}
 
 
-
-		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 6)
-		{
-
-			// 공격용 충돌체가 나간다. 플레이어 포즈에. 3 인덱스에서 띄워준 playerpos값 담아서 쓰기 
-
-
-
-		}
 
 
 		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 12) // end event 호출 안되서 대신 씀 

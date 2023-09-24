@@ -1,15 +1,16 @@
 #pragma once
 #include "ssScript.h"
 
-
 namespace ss
 {
-    class HitGroundScript :
+
+
+    class GolemFarRangeScript :
         public Script
     {
     public:
-        HitGroundScript();
-        ~HitGroundScript();
+        GolemFarRangeScript();
+        ~GolemFarRangeScript();
 
     public:
         virtual void Initialize() override;
@@ -19,14 +20,14 @@ namespace ss
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
 
+
     private:
-        class Monster* mMonster; // 몬스터의 애니메이션 인덱스 정보 땜에 만들어둠 
-        class Collider2D* mCol;
+        GameObject* mOwner;
+
 
     public:
-        void SetMonsterOwner(Monster* monster) { mMonster = monster; }
 
+        void SetOwner(GameObject* _object) { mOwner = _object; }
     };
+
 }
-
-
