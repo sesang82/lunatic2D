@@ -44,7 +44,7 @@ namespace ss
 	{
 		MonsterScript::Initialize();
 
-		mTransform->SetScale(Vector3(96.f, 48.f, 1.f)); // backsize랑 스케일값 동일하게 주기. 
+		mTransform->SetScale(Vector3(160.f, 48.f, 1.f)); // backsize랑 스케일값 동일하게 주기. 
 
 
 		//
@@ -69,23 +69,23 @@ namespace ss
 		// 플레이어 애니메이션은 좀 특수하므로, 무기 별로 오프셋 값 다르게 주되 백사이즈는	 동일하게 주기. (사이즈 값은 틀려도 됨) 
 		// 애니메이션 나중에 플레이어 다 완성되면 
 		//  LT, 1프레임 사를 사이즈, 자를 갯수(1부터 시작해서 세기), 백사이즈, 오프셋
-		mAnimator->Create(L"Lizard_IdleR", Image1, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(96.f, 48.f));
-		mAnimator->Create(L"Lizard_IdleL", Image1, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(96.f, 48.f), Vector2(33.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Lizard_IdleR", Image1, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(160.f, 48.f));
+		mAnimator->Create(L"Lizard_IdleL", Image1, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(160.f, 48.f), Vector2(33.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Lizard_RunR", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f));
-		mAnimator->Create(L"Lizard_RunL", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(33.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Lizard_RunR", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(160.f, 48.f));
+		mAnimator->Create(L"Lizard_RunL", Image2, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(160.f, 48.f), Vector2(33.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Lizard_HitR", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2::Zero, 0.2f);
-		mAnimator->Create(L"Lizard_HitL", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(96.f, 48.f), Vector2(33.f, 0.f), 0.2f, true);
+		mAnimator->Create(L"Lizard_HitR", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(160.f, 48.f), Vector2::Zero, 0.2f);
+		mAnimator->Create(L"Lizard_HitL", Image4, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 1, Vector2(160.f, 48.f), Vector2(33.f, 0.f), 0.2f, true);
 
-		mAnimator->Create(L"Lizard_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2::Zero, 0.08f);
-		mAnimator->Create(L"Lizard_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(96.f, 48.f), Vector2(33.f, 0.f), 0.08f, true);
+		mAnimator->Create(L"Lizard_NearAttackR", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(160.f, 48.f), Vector2::Zero, 0.08f);
+		mAnimator->Create(L"Lizard_NearAttackL", Image3, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 8, Vector2(160.f, 48.f), Vector2(33.f, 0.f), 0.08f, true);
 
-		mAnimator->Create(L"Lizard_StunR", Image5, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(96.f, 48.f));
-		mAnimator->Create(L"Lizard_StunL", Image5, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(96.f, 48.f), Vector2(33.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Lizard_StunR", Image5, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(160.f, 48.f));
+		mAnimator->Create(L"Lizard_StunL", Image5, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 7, Vector2(160.f, 48.f), Vector2(33.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Lizard_DieR", Image6, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 12, Vector2(96.f, 48.f));
-		mAnimator->Create(L"Lizard_DieL", Image6, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 12, Vector2(96.f, 48.f), Vector2(33.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Lizard_DieR", Image6, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 12, Vector2(160.f, 48.f));
+		mAnimator->Create(L"Lizard_DieL", Image6, Vector2(0.f, 0.f), Vector2(96.f, 48.f), 12, Vector2(160.f, 48.f), Vector2(33.f, 0.f), 0.1f, true);
 
 		// 일단 Idle 상태는 나중으로 만들기 
 		// ======
@@ -97,7 +97,7 @@ namespace ss
 		// ===== 기본 충돌체 Hit 받는 용도 
 		mCollider->SetName(L"lizard_HitCol");
 		mCollider->SetType(eColliderType::Rect);
-		
+
 		mCollider->SetSize(Vector2(0.2f, 0.7f));
 		mCollider->SetCenter(Vector2(-17.f, -0.f));
 
@@ -109,7 +109,15 @@ namespace ss
 		mAttackColliderObj->AddComponent<LizardColScript>();
 
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
+
+
+		mAnimator->StartEvent(L"Lizard_NearAttackR") = std::bind(&SkeletonLizardScript::NearAttackStart, this);
+		mAnimator->StartEvent(L"Lizard_NearAttackL") = std::bind(&SkeletonLizardScript::NearAttackStart, this);
+
+
 	}
+
+
 	void SkeletonLizardScript::Update()
 	{
 		// 이동->상태변환->애니메이션
@@ -120,15 +128,15 @@ namespace ss
 
 		// 공격 중일 때는 위치 고정시키기 위해서 (몬스터가 플레이어의 위치가 변경되면 애니메이션이 리셋되는 현상 방지)
 			// 방향의 기준을 잡아준다. (몬스터의 위치 값보다 X값이 크면 오른쪽이므로  1, 왼쪽에 있으면 -1)
-			if (playerPos.x >= mTransform->GetPosition().x)
-			{
-				mCurDir.x = 1.0f;
-			}
-			else
-			{
-				mCurDir.x = -1.0f;
-			}
-	
+		if (playerPos.x >= mTransform->GetPosition().x)
+		{
+			mCurDir.x = 1.0f;
+		}
+		else
+		{
+			mCurDir.x = -1.0f;
+		}
+
 
 
 		switch (mCurState)
@@ -160,7 +168,7 @@ namespace ss
 		case ss::eMonsterState::HIT:
 			Hit();
 			break;
-			
+
 		case ss::eMonsterState::NEARATTACK:
 			NearAttack();
 			break;
@@ -196,7 +204,7 @@ namespace ss
 	void SkeletonLizardScript::Idle()
 	{
 		mbNearAttacking = false;
-	
+
 		mbHit = false;
 
 		if (mCurDir.x > 0)
@@ -244,14 +252,22 @@ namespace ss
 		float distance = vDir.Length();
 
 
-
-
 		// 근접 공격 범위 내에 플레이어가 있으면 NearAttack 상태로 전환
-		if (distance < m_tMonsterInfo.m_fNearAttackRange)
+		if (distance < m_tMonsterInfo.m_fNearAttackRange)// && mCurDir.x > 0)
 		{
 			ChangeState(eMonsterState::NEARATTACK);
 			return; // 이 함수에서 추가적인 처리를 중지합니다.
 		}
+
+		//// 플레이어와 겹친 상태로 공격하는거 방지 
+		//else if (distance - 50.f < m_tMonsterInfo.m_fNearAttackRange && mCurDir.x < 0)
+		//{
+		//	ChangeState(eMonsterState::NEARATTACK);
+		//	return; // 이 함수에서 추가적인 처리를 중지합니다.
+		//}
+
+
+
 
 
 		// ======================= tracer
@@ -279,16 +295,25 @@ namespace ss
 			Vector3 vMonToPlayer = PlayerPos - MonsterPos; // 왜 여긴 플레이어부터 빼는지 gpt에게 물어보기
 			vMonToPlayer.z = 0;
 			vMonToPlayer.Normalize();
+			
 
-			float fSpeed = m_tMonsterInfo.m_fSpeed + 200.f; // 추적 중일 땐 더 빠르게 추적하게 함 
-
-			// 몬스터의 위치를 플레이어 방향으로 이동시킨다.
-			MonsterPos.x += vMonToPlayer.x * fSpeed * Time::DeltaTime();
-
-			mTransform->SetPosition(MonsterPos);
+			float fSpeed = m_tMonsterInfo.m_fSpeed + 150.f; // 추적 중일 땐 더 빠르게 추적하게 함 
 
 
+			
+			{
+
+				MonsterPos.x += vMonToPlayer.x * fSpeed * Time::DeltaTime();
+
+			
+
+
+				mTransform->SetPosition(MonsterPos);
+
+			}
 		}
+
+	
 
 		// 탐지 거리를 벗어나면 초기 위치로 돌아간다. 
 		else if (vDir.Length() > m_tMonsterInfo.m_fDetectRange)
@@ -296,12 +321,12 @@ namespace ss
 
 			if (mDir.x > 0)
 			{
-				mAnimator->PlayAnimation(L"Lizard_RunR", true);
+				mAnimator->PlayAnimation(L"Lizard_IdleR", true);
 			}
 
 			else
 			{
-				mAnimator->PlayAnimation(L"Lizard_RunL", true);
+				mAnimator->PlayAnimation(L"Lizard_IdleL", true);
 			}
 
 
@@ -395,8 +420,8 @@ namespace ss
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 
-					mAttackCol->SetSize(Vector2(23.f, 30.f));
-					mAttackCol->SetCenter(Vector2(20.f, -5.f));
+					mAttackCol->SetSize(Vector2(60.f, 30.f));
+					mAttackCol->SetCenter(Vector2(10.f, -5.f));
 
 					mbNearAttacking = false;
 
@@ -404,8 +429,12 @@ namespace ss
 					if (playerScript->IsDash())
 					{
 						mAttackColliderObj->RemoveComponent<Collider2D>();
+
+
 					}
+
 				}
+
 			}
 
 
@@ -415,8 +444,8 @@ namespace ss
 				{
 					mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 
-					mAttackCol->SetSize(Vector2(23.f, 30.f));
-					mAttackCol->SetCenter(Vector2(20.f, -5.f));
+					mAttackCol->SetSize(Vector2(60.f, 30.f));
+					mAttackCol->SetCenter(Vector2(-50.f, -5.f));
 
 					mbNearAttacking = false;
 
@@ -426,7 +455,12 @@ namespace ss
 						mAttackColliderObj->RemoveComponent<Collider2D>();
 					}
 				}
+
+		
 			}
+
+		
+
 
 			m_fTime += Time::DeltaTime();
 
@@ -460,6 +494,12 @@ namespace ss
 
 		
 
+	}
+
+	void SkeletonLizardScript::NearAttackStart()
+	{
+
+		mAttackColliderObj->RemoveComponent<Collider2D>();
 	}
 
 	
