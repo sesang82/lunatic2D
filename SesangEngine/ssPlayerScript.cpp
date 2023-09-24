@@ -1014,6 +1014,7 @@ namespace ss
 		
 		// hit 상태 즉시 제자리에 멈춰있도록 속도 0으로 만듦
 		mRigidbody->SetVelocity(Vector2(0.f, 0.f));
+		mAttackColliderObj->RemoveComponent<Collider2D>();
 
 		if (!mbHitting)
 		{
@@ -1660,16 +1661,22 @@ namespace ss
 					{
 					
 						
-					
 
-						if (mAttackCount == 1)
+
+						 if (mAttackCount == 1)
 						{
-							mAttackColliderObj->RemoveComponent<Collider2D>();
+					
 
 							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 							camera->StartShake(0.01f, 0.05f);
 
-							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
+
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
+							{
+								mAttackColliderObj->RemoveComponent<Collider2D>();
+							}
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
 								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
 							{
 							
@@ -1692,6 +1699,14 @@ namespace ss
 							}
 
 
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 5)
+							{
+								mAttackColliderObj->RemoveComponent<Collider2D>();
+							}
+
+
+
 							if (mPrevDir.x > 0)
 								mAnimator->PlayAnimation(L"Player_G_Attack1R", false);
 							else
@@ -1701,8 +1716,7 @@ namespace ss
 						else if (mAttackCount == 2)
 						{
 
-							mAttackColliderObj->RemoveComponent<Collider2D>();
-
+	
 							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 							camera->StartShake(0.01f, 0.05f);
 
@@ -1725,6 +1739,12 @@ namespace ss
 								}
 							}
 
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
+							{
+								mAttackColliderObj->RemoveComponent<Collider2D>();
+							}
+
+
 							if (mPrevDir.x > 0)
 								mAnimator->PlayAnimation(L"Player_G_Attack2R", false);
 							else
@@ -1735,7 +1755,6 @@ namespace ss
 
 						else if (mAttackCount == 3)
 						{
-							mAttackColliderObj->RemoveComponent<Collider2D>();
 
 							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 							camera->StartShake(0.03f, 0.15f);
@@ -1757,6 +1776,11 @@ namespace ss
 									mAttackCol->SetSize(Vector2(34.f, 40.f));
 									mAttackCol->SetCenter(Vector2(-6.f, 2.f));
 								}
+							}
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3)
+							{
+								mAttackColliderObj->RemoveComponent<Collider2D>();
 							}
 
 							if (mPrevDir.x > 0)

@@ -210,14 +210,8 @@ namespace ss
 	}
 	void PlayerAttackColScript::OnCollisionExit(Collider2D* other)
 	{
-		if(L"StoneEye" == other->GetOwner()->GetName())
-		{
-
-
-			StoneEyeScript* script = other->GetOwner()->GetComponent<StoneEyeScript>();
-			script->ChangeState(eMonsterState::HIT);
-
-		}
+		
+		
 
 
 
