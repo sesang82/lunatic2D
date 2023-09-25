@@ -510,6 +510,11 @@ namespace ss
 			{
 				mCurState = eMonsterState::FARATTACK;
 			}
+
+			else
+			{
+				mCurState = eMonsterState::FARATTACK;
+			}
 		}
 
 	}

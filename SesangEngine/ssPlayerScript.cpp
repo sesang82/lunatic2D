@@ -128,7 +128,8 @@ namespace ss
 		// 빈 공격용 충돌체 
 		mAttackColliderObj = object::Instantiate<AttackCollider>(eLayerType::Collision, L"PlayerAttackCollider");
 		mAttackColliderObj->Initialize();
-		mAttackColliderObj->AddComponent<PlayerAttackColScript>();
+		PlayerAttackColScript* colScript = mAttackColliderObj->AddComponent<PlayerAttackColScript>();
+		colScript->SetOriginOwner(mTransform->GetOwner());
 			
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
 	
@@ -312,6 +313,11 @@ namespace ss
 			}
 
 		}
+
+
+
+
+
 		
 	
 

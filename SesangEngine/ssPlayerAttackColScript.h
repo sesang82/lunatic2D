@@ -28,6 +28,13 @@ namespace ss
         class Player* mPlayer;
         class StoneEye* mStoneEye;
 
+
+    private:
+        class GameObject* mOwnerObj; // 플레이어 스크립트 내용 써먹기 위해서 만들어둠 
+
+    public:
+        void SetOriginOwner(GameObject* Obj) { mOwnerObj = Obj; }
+
     };
 
 }

@@ -166,6 +166,7 @@ namespace ss
         Vector3 GetCurDir() { return mCurDir; }
 
         ePlayerState GetState() { return mCurState; }
+        eWeaponType GetWeapon() { return mWeaponType; }
 
         Vector2 GetPrevColSize() { return mPrevColSize; }
         Vector2 GetPrevColCenter() { return mPrevColCeter; }

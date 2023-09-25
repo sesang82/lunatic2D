@@ -4,6 +4,19 @@
 #include "ssMeshRenderer.h"
 #include "ssResources.h"
 #include "ssTime.h"
+#include "ssGameObject.h"
+#include "ssPlayerScript.h"
+#include "ssPlayer.h"
+#include "ssScene.h"
+#include "ssSceneManager.h"
+#include "ssGameState.h"
+#include "ssStoneEye.h"
+#include "ssStoneEyeScript.h"
+#include "ssSkeletonArcherScript.h"
+#include "ssSkeletonLizardScript.h"
+#include "ssBigWolfScript.h"
+#include "ssWoodGolemScript.h"
+#include "ssWolfScript.h"
 
 namespace ss
 {
@@ -134,7 +147,277 @@ namespace ss
 	void PistolBulletScript::OnCollisionEnter(Collider2D* other)
 	{
 
-	
+
+		if (L"StoneEye" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			StoneEyeScript* script = other->GetOwner()->GetComponent<StoneEyeScript>();
+
+
+
+				if (stone->GetCurrentHP() > 0.f)
+				{
+
+					if (GetOwner()->GetName() == L"Pistolbullet_Small_ObjR"
+						|| GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
+					{
+						stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+						GetOwner()->SetState(GameObject::eState::Dead);
+					}
+
+					else if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
+						|| GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
+					{
+						stone->SetCurrentHP(stone->GetCurrentHP() - 20);
+						GetOwner()->SetState(GameObject::eState::Dead);
+					}
+
+					script->ChangeState(eMonsterState::HIT);
+				}
+			
+
+			 else if (stone->GetCurrentHP() <= 0.f)
+			{
+
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+		}
+
+		else if (L"Archer" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			SkeletonArcherScript* script = other->GetOwner()->GetComponent<SkeletonArcherScript>();
+
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				if (GetOwner()->GetName() == L"Pistolbullet_Small_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
+				{
+					stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				else if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
+				{
+					stone->SetCurrentHP(stone->GetCurrentHP() - 20);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+
+
+		}
+
+		else if (L"WoodGolemObj" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			WoodGolemScript* script = other->GetOwner()->GetComponent<WoodGolemScript>();
+
+
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				if (GetOwner()->GetName() == L"Pistolbullet_Small_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
+				{
+					stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				else if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
+				{
+					stone->SetCurrentHP(stone->GetCurrentHP() - 20);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+
+		}
+
+		else if (L"WolfObj" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			WolfScript* script = other->GetOwner()->GetComponent<WolfScript>();
+
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				if (GetOwner()->GetName() == L"Pistolbullet_Small_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
+				{
+					stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				else if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
+				{
+					stone->SetCurrentHP(stone->GetCurrentHP() - 20);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+
+
+		}
+
+
+		else if (L"Lizard" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			SkeletonLizardScript* script = other->GetOwner()->GetComponent<SkeletonLizardScript>();
+
+
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				if (GetOwner()->GetName() == L"Pistolbullet_Small_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
+				{
+					stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				else if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
+				{
+					stone->SetCurrentHP(stone->GetCurrentHP() - 20);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+
+
+		}
+
+		else if (L"ZombiObj" == other->GetOwner()->GetName())
+		{
+			CharacterState* stone = other->GetOwner()->GetComponent<CharacterState>();
+			SkeletonLizardScript* script = other->GetOwner()->GetComponent<SkeletonLizardScript>();
+
+
+
+			if (stone->GetCurrentHP() > 0.f)
+			{
+
+				if (GetOwner()->GetName() == L"Pistolbullet_Small_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
+				{
+					stone->SetCurrentHP(stone->GetCurrentHP() - 10);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				else if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
+				{
+					stone->SetCurrentHP(stone->GetCurrentHP() - 20);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+
+			else if (stone->GetCurrentHP() <= 0.f)
+			{
+
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+
+
+		}
+
+
+		else if (L"B_WolfObj" == other->GetOwner()->GetName())
+		{
+
+			CharacterState* B_wolf = other->GetOwner()->GetComponent<CharacterState>();
+			BigWolfScript* script = other->GetOwner()->GetComponent<BigWolfScript>();
+
+
+
+			if (B_wolf->GetCurrentHP() > 0.f)
+			{
+
+				if (GetOwner()->GetName() == L"Pistolbullet_Small_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
+				{
+					B_wolf->SetCurrentHP(B_wolf->GetCurrentHP() - 10);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				else if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
+				{
+					B_wolf->SetCurrentHP(B_wolf->GetCurrentHP() - 20);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				script->ChangeState(eMonsterState::HIT);
+			}
+
+
+			else if (B_wolf->GetCurrentHP() <= 0.f)
+			{
+
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+
+
+		}
 
 
 	}

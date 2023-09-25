@@ -7,7 +7,7 @@ namespace ss
 {
 	// ===== static 초기화
 	Scene* SceneManager::mActiveScene = nullptr;
-	eWeaponType SceneManager::WeaponInfo = eWeaponType::GAUNTLET;
+	eWeaponType SceneManager::WeaponInfo = eWeaponType::PISTOL;
 
 
 	// 씬 모아두는 map
