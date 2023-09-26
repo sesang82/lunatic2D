@@ -69,6 +69,14 @@ namespace ss
 			mPosOffset = 100.f;
 		}
 
+		if (SceneManager::GetSceneByName(L"Boss2Scene"))
+		{
+			cameraOffset.leftOffset = 800.0f;
+			cameraOffset.rightOffset = 800.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
+			someOffset = 300.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mPosOffset = 100.f;
+		}
+
 		 float what = cameraOffset.leftOffset;
 		 float what2 = cameraOffset.rightOffset;
 

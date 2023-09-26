@@ -2602,7 +2602,127 @@ namespace renderer
 #pragma endregion 
 
 
+#pragma region Boss [Goddness]
 
+
+		 // ======================================
+		 // BackGround
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_BG_0",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Background\\BG_2_0.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_BG_0_Mtrl", spriteMateiral);
+
+		 }
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_BG_1",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Background\\BG_2_1.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_BG_1_Mtrl", spriteMateiral);
+
+		 }
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_BG_2",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Background\\BG_2_2.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+
+			 Resources::Insert(L"Boss2_BG_2_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_BG_3",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Background\\BG_2_Object_28.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+
+			 Resources::Insert(L"Boss2_BG_3_Mtrl", spriteMateiral);
+
+		 }
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_BG_4",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Background\\BG_2_3.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+
+			 Resources::Insert(L"Boss2_BG_4_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_Tile",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\tile2.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+
+			 Resources::Insert(L"Boss2_Tile_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // ============================================
+		 // >> Idle
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Lizard_Die",
+					 L"..\\Resources\\Texture\\Monster\\SkeletonLizard\\Die\\Die.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Lizard_DieMtrl", spriteMateiral);
+
+		 }
+
+
+
+#pragma endregion 
 
 
 

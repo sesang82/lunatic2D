@@ -74,7 +74,12 @@ namespace ss
 			|| GetOwner()->GetName() == L"BG_Tree1"
 			|| GetOwner()->GetName() == L"BG_Tree2"
 			|| GetOwner()->GetName() == L"BG_Tree3"
-			|| GetOwner()->GetName() == L"BG_Tree4")
+			|| GetOwner()->GetName() == L"BG_Tree4"
+			|| GetOwner()->GetName() == L"BG_BackGround_0"
+			|| GetOwner()->GetName() == L"BG_BackGround_1"
+			|| GetOwner()->GetName() == L"BG_BackGround_2"
+			|| GetOwner()->GetName() == L"BG_BackGround_3"
+			|| GetOwner()->GetName() == L"BG_BackGround_4")
 		{
 
 			// 배경 레이어 새 위치 계산 (배경 레이어들 속도는 

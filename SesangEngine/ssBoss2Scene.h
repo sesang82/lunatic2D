@@ -18,6 +18,13 @@ namespace ss
 
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
+
+
+	private:
+		Camera* mCamera;
+		class Monster* mBoss1;
+		class Player* mPlayer;
+
     };
 }
 
