@@ -241,7 +241,12 @@ namespace ss
 
 
 		mPrevState = mCurState;
-		mPrevDir = mCurDir;
+
+		if (mCurState != eMonsterState::DEAD)
+		{
+			mPrevDir = mCurDir;
+		}
+
 
 
 	}
@@ -389,11 +394,21 @@ namespace ss
 	void SkeletonArcherScript::Hit()
 	{
 		// 방향대로 애니메이션을 재생한다. 
+		Vector3 monsterPos = mTransform->GetPosition();
+
 		if (mCurDir.x > 0)
+		{
+			mRigidbody->AddForce(Vector2(-0.07f, 0.f));
+			mTransform->SetPosition(Vector3(monsterPos.x - 0.005f, monsterPos.y, monsterPos.z));
 			mAnimator->PlayAnimation(L"Archer_HitR", false);
+		}
 
 		else
+		{
+			mRigidbody->AddForce(Vector2(0.07f, 0.f));
+			mTransform->SetPosition(Vector3(monsterPos.x + 0.005f, monsterPos.y, monsterPos.z));
 			mAnimator->PlayAnimation(L"Archer_HitL", false);
+		}
 
 
 		// 애니메이션 재생이 끝나면 
@@ -545,7 +560,7 @@ namespace ss
 	}
 	void SkeletonArcherScript::Dead()
 	{
-		if (mCurDir.x > 0)
+		if (mPrevDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Archer_DieR", false);
 
@@ -564,6 +579,12 @@ namespace ss
 			mFarRangeColObj->SetState(GameObject::eState::Dead);
 
 			GetOwner()->SetState(GameObject::eState::Dead);
+
+
+			if (mPrevState == eMonsterState::FARATTACK)
+			{
+				mArrowObj->SetState(GameObject::eState::Dead);
+			}
 		}
 	}
 	void SkeletonArcherScript::Animation()

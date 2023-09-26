@@ -56,6 +56,7 @@ namespace ss
 
 				
 				script->ChangeState(eMonsterState::HIT);
+
 			}
 
 			else if (stone->GetCurrentHP() <= 0.f)

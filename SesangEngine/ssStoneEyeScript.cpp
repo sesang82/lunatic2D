@@ -219,7 +219,12 @@ namespace ss
 
 
 		mPrevState = mCurState;
-		mPrevDir = mCurDir;
+
+		if (mCurState != eMonsterState::DEAD)
+		{
+			mPrevDir = mCurDir;
+		}
+
 
 	}
 	void StoneEyeScript::LateUpdate()
@@ -490,12 +495,31 @@ namespace ss
 
 	void StoneEyeScript::Hit()
 	{
+
+		
+		Vector3 monsterPos = mTransform->GetPosition();
+
 		// 방향대로 애니메이션을 재생한다. 
 		if (mCurDir.x > 0)
+		{
+			mRigidbody->AddForce(Vector2(-0.07f, 0.f));
+
 			mAnimator->PlayAnimation(L"StoneEye_HitR", false);
 
+			mTransform->SetPosition(Vector3(monsterPos.x - 0.005f, monsterPos.y, monsterPos.z));
+		}
+
 		else
+		{
+			mRigidbody->AddForce(Vector2(0.07f, 0.f));
+
+			mTransform->SetPosition(Vector3(monsterPos.x + 0.005f, monsterPos.y, monsterPos.z));
+
 			mAnimator->PlayAnimation(L"StoneEye_HitL", false);
+
+
+		
+		}
 
 
 		// 애니메이션 재생이 끝나면 
@@ -504,6 +528,8 @@ namespace ss
 			if (mbNearAttack)
 			{
 				mCurState = eMonsterState::NEARATTACK;
+
+
 			}
 
 			else if (mbFarAttack)
@@ -623,7 +649,7 @@ namespace ss
 	{
 		mbNearAttack = false;
 
-		ChangeState(eMonsterState::MOVE);
+	
 
 
 	}
@@ -694,7 +720,7 @@ namespace ss
 	void StoneEyeScript::Dead()
 	{
 
-		if (mCurDir.x > 0)
+		if (mPrevDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"StoneEye_DieR", false);
 			mCollider->SetSize(Vector2(0.19f, 0.33f));
@@ -715,6 +741,11 @@ namespace ss
 			mNearRangeColObj->SetState(GameObject::eState::Dead);
 			mAttackColliderObj->SetState(GameObject::eState::Dead);
 			mFarRangeColObj->SetState(GameObject::eState::Dead);
+
+			if (mPrevState == eMonsterState::FARATTACK)
+			{
+				mArrowObj->SetState(GameObject::eState::Dead);
+			}
 
 			GetOwner()->SetState(GameObject::eState::Dead);
 		}

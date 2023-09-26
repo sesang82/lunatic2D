@@ -44,7 +44,7 @@ namespace ss
 
         Vector3                 mLandingPos; // 플레이어에게 점프해서 착지할 플레이어의 위치
         Vector2                 mJumpDir; // 점프할 방향
-        
+
         Vector2                 mVelocity; // 점프할때 쓸 속도
 
 
@@ -71,6 +71,7 @@ namespace ss
         void Hit();
 
         void NearAttack();
+        void NearAttackEnd();
         void FarAttack();
 
         void Dead();

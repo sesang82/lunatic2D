@@ -48,6 +48,7 @@ namespace ss
         bool                    mbNearAttacking;
         bool                    mbFarAttacking;
         bool                    mbHit;
+        bool                    mIsDead;
         bool                    mbPaunched; // Paunched 이미지 계속 업데이트 도는거 막기 위한 용도 
 
 

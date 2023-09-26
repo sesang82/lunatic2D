@@ -24,6 +24,7 @@ namespace ss
 		, mbFarAttacking(false)
 		, mbHit(false)
 		, mbPaunched(false)
+		, mIsDead(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 50.f;
 		m_tMonsterInfo.m_fNearAttackRange = 110.f;
@@ -81,7 +82,7 @@ namespace ss
 		mAnimator->Create(L"Wood_StunR", Image6, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 4, Vector2(111.f, 83.f));
 		mAnimator->Create(L"Wood_StunL", Image6, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 4, Vector2(111.f, 83.f), Vector2(23.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Wood_DieR", Image7, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 9, Vector2(111.f, 83.f));
+		mAnimator->Create(L"Wood_DieR", Image7, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 9, Vector2(111.f, 83.f), Vector2(-20.f, 0.f));
 		mAnimator->Create(L"Wood_DieL", Image7, Vector2(0.f, 0.f), Vector2(111.f, 83.f), 9, Vector2(111.f, 83.f), Vector2(5.f, 0.f), 0.1f, true);
 
 		// ======
@@ -119,8 +120,10 @@ namespace ss
 			// 방향의 기준을 잡아준다. (몬스터의 위치 값보다 X값이 크면 오른쪽이므로  1, 왼쪽에 있으면 -1)
 		if (playerPos.x >= mTransform->GetPosition().x)
 		{
+
 			mCurDir.x = 1.0f;
 		}
+
 		else
 		{
 			mCurDir.x = -1.0f;
@@ -173,7 +176,12 @@ namespace ss
 
 
 		mPrevState = mCurState;
-		mPrevDir = mCurDir;
+
+		if (mCurState != eMonsterState::DEAD)
+		{
+			mPrevDir = mCurDir;
+		}
+
 	}
 	void WoodGolemScript::LateUpdate()
 	{
@@ -328,14 +336,26 @@ namespace ss
 		if (!mbHit)
 		{
 			mbHit = true;
+			
+
+			if (nullptr != mAttackColliderObj)
+			{
+				mAttackColliderObj->RemoveComponent<Collider2D>();
+			}
+
+			Vector3 monsterPos = mTransform->GetPosition();
 
 			if (mCurDir.x > 0)
 			{
+				mRigidbody->AddForce(Vector2(-5.f, 0.f));
+				mTransform->SetPosition(Vector3(monsterPos.x - 2.f, monsterPos.y, monsterPos.z));
 				mAnimator->PlayAnimation(L"Wood_HitR", false);
 			}
 
 			else
 			{
+				mRigidbody->AddForce(Vector2(5.f, 0.f));
+				mTransform->SetPosition(Vector3(monsterPos.x + 2.f, monsterPos.y, monsterPos.z));
 				mAnimator->PlayAnimation(L"Wood_HitL", false);
 			}
 		}
@@ -499,21 +519,30 @@ namespace ss
 	}
 	void WoodGolemScript::Dead()
 	{
-		if (mCurDir.x > 0)
+		
+
+		if (mPrevDir.x > 0)
 		{
+			
 			mAnimator->PlayAnimation(L"Wood_DieR", false);
 
 		}
 
-		else
+		else if (mPrevDir.x < 0)
 		{
+			
 			mAnimator->PlayAnimation(L"Wood_DieL", false);
 		}
 
 		// 애니메이션 재생이 끝나면 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
-			mAttackColliderObj->SetState(GameObject::eState::Dead);
+			
+
+			if (mPrevState == eMonsterState::NEARATTACK && mAttackColliderObj != nullptr)
+			{
+				mAttackColliderObj->SetState(GameObject::eState::Dead);
+			}
 
 			GetOwner()->SetState(GameObject::eState::Dead);
 		}

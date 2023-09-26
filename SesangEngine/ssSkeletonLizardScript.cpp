@@ -180,7 +180,12 @@ namespace ss
 
 
 		mPrevState = mCurState;
-		mPrevDir = mCurDir;
+
+		if (mCurState != eMonsterState::DEAD)
+		{
+			mPrevDir = mCurDir;
+		}
+
 	}
 	void SkeletonLizardScript::LateUpdate()
 	{
@@ -380,13 +385,24 @@ namespace ss
 		{
 			mbHit = true;
 
+			if (nullptr != mAttackColliderObj)
+			{
+				mAttackColliderObj->RemoveComponent<Collider2D>();
+			}
+
+			Vector3 monsterPos = mTransform->GetPosition();
+
 			if (mCurDir.x > 0)
 			{
+				mRigidbody->AddForce(Vector2(-2.f, 0.f));
+				mTransform->SetPosition(Vector3(monsterPos.x - 2.f, monsterPos.y, monsterPos.z));
 				mAnimator->PlayAnimation(L"Lizard_HitR", false);
 			}
 
 			else
 			{
+				mRigidbody->AddForce(Vector2(2.f, 0.f));
+				mTransform->SetPosition(Vector3(monsterPos.x + 2.f, monsterPos.y, monsterPos.z));
 				mAnimator->PlayAnimation(L"Lizard_HitL", false);
 			}
 		}
@@ -505,7 +521,7 @@ namespace ss
 
 	void SkeletonLizardScript::Dead()
 	{
-		if (mCurDir.x > 0)
+		if (mPrevDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Lizard_DieR", false);
 
