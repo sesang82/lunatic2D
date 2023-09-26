@@ -451,7 +451,16 @@ namespace ss
 		}
 
 
+		// 충돌체 (다음 씬 넘어가는)
+		{
+			Platform* col_Door = object::Instantiate<Platform>(eLayerType::Collision, L"L_Stage1_col_Door");
+			col_Door->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
+			Transform* tr = col_Door->GetComponent<Transform>();
+			tr->SetPosition(Vector3(320.f, 200.f, 500.f));
+			tr->SetScale(Vector3(40.f, 61.f, 1.f));
+
+		}
 	
 
 		// ======================================
@@ -531,12 +540,6 @@ namespace ss
 	}
 	void Stage1Scene::Update()
 	{
-		if (Input::GetKeyDown(eKeyCode::ENTER))
-		{
-
-			SceneManager::LoadScene(L"Boss1Scene");
-		}
-
 
 		Scene::Update();
 	}

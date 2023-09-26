@@ -519,7 +519,10 @@ namespace ss
 	}
 	void WoodGolemScript::Dead()
 	{
+	
+		mAttackColliderObj->SetState(GameObject::eState::Dead);
 		
+
 
 		if (mPrevDir.x > 0)
 		{
@@ -539,10 +542,7 @@ namespace ss
 		{
 			
 
-			if (mPrevState == eMonsterState::NEARATTACK && mAttackColliderObj != nullptr)
-			{
-				mAttackColliderObj->SetState(GameObject::eState::Dead);
-			}
+			
 
 			GetOwner()->SetState(GameObject::eState::Dead);
 		}

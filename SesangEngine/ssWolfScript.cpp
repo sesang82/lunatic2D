@@ -195,7 +195,7 @@ namespace ss
 
 		mPrevState = mCurState;
 
-		if (mCurState != eMonsterState::DEAD || mCurState != eMonsterState::FARATTACK)
+		if (mCurState != eMonsterState::DEAD)
 		{
 			mPrevDir = mCurDir;
 		}

@@ -288,7 +288,12 @@ namespace ss
 	
 		else if (L"L_col_Door" == other->GetOwner()->GetName())
 		{
-			SceneManager::LoadScene(L"Stage1Scene");
+			SceneManager::LoadScene(L"EntranceScene");
+		}
+
+		else if (L"L_Stage1_col_Door" == other->GetOwner()->GetName())
+		{
+			SceneManager::LoadScene(L"Boss1Scene");
 		}
 
 		else if (L"col_startBoss1StageObj" == other->GetOwner()->GetName())

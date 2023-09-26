@@ -113,11 +113,6 @@ namespace ss
 	}
 	void EntryScene::Update()
 	{
-		if (Input::GetKeyDown(eKeyCode::ENTER))
-		{
-
-			SceneManager::LoadScene(L"Stage1Scene");
-		}
 
 		BaseScene::Update();
 	}
