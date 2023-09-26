@@ -5,12 +5,12 @@
 namespace ss
 {
 
-    class GoddessScript :
+    class GoddnessScript :
         public MonsterScript
     {
     public:
-        GoddessScript();
-        virtual ~GoddessScript();
+        GoddnessScript();
+        virtual ~GoddnessScript();
 
     public:
         virtual void Initialize() override;

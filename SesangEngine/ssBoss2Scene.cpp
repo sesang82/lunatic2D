@@ -55,7 +55,7 @@ namespace ss
 
 		Transform* Playertr = mPlayer->GetComponent<Transform>();
 		//Playertr->SetPosition(Vector3(-450.f, -298.0f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
-		Playertr->SetPosition(Vector3(-330.f, -208.0f, 500.f));
+		Playertr->SetPosition(Vector3(-290.f, -208.0f, 500.f));
 		PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
 		playerScript->SetMonster(mBoss1);
 
@@ -191,6 +191,56 @@ namespace ss
 
 			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 700.f));
 			bg->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 1.0f));
+
+		}
+
+		// 횃불
+
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire1");
+			bg->Initialize();
+
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Fire_Base_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(-243.f, 0.f, 700.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
+
+		}
+
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire2");
+			bg->Initialize();
+
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Fire_Base_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(-81.f, 0.f, 700.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
+
+		}
+
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire3");
+			bg->Initialize();
+
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Fire_Base_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(81.f, 0.f, 700.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
+
+		}
+
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire4");
+			bg->Initialize();
+
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Fire_Base_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(243.f, 0.f, 700.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
 
 		}
 

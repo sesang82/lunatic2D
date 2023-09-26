@@ -2703,6 +2703,76 @@ namespace renderer
 
 		 }
 
+		 // 閥災
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Fire_Base",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Fire\\Base Edit.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+
+			 Resources::Insert(L"Fire_Base_Mtrl", spriteMateiral);
+
+		 }
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Fire_turnonstart",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Fire\\TurnOnStart.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+
+			 Resources::Insert(L"Fire_turnonstart_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Fire_turnon",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Fire\\TurnOn.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+
+			 Resources::Insert(L"Fire_turnon_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Fire_turnoff",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Fire\\TurnOff.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+
+			 Resources::Insert(L"Fire_turnoff_Mtrl", spriteMateiral);
+
+		 }
+
+
+
 
 		 // ============================================
 		 // >> Idle

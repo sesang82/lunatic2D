@@ -203,7 +203,7 @@
     <ClCompile Include="ssCharacterState.cpp" />
     <ClCompile Include="ssEntranceScene.cpp" />
     <ClCompile Include="ssEntryScene.cpp" />
-    <ClCompile Include="ssGoddessScript.cpp" />
+    <ClCompile Include="ssGoddnessScript.cpp" />
     <ClCompile Include="ssGridScript.cpp" />
     <ClCompile Include="ssGroundScript.cpp" />
     <ClCompile Include="ssIdleState.cpp" />
@@ -278,7 +278,7 @@
     <ClInclude Include="ssCharacterState.h" />
     <ClInclude Include="ssEntranceScene.h" />
     <ClInclude Include="ssEntryScene.h" />
-    <ClInclude Include="ssGoddessScript.h" />
+    <ClInclude Include="ssGoddnessScript.h" />
     <ClInclude Include="ssGridScript.h" />
     <ClInclude Include="ssGroundScript.h" />
     <ClInclude Include="ssIdleState.h" />

@@ -101,7 +101,7 @@
     <ClCompile Include="ssBigWolfScript.cpp">
       <Filter>Contents\Script\Character\Monster\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="ssGoddessScript.cpp">
+    <ClCompile Include="ssGoddnessScript.cpp">
       <Filter>Contents\Script\Character\Monster\Boss</Filter>
     </ClCompile>
     <ClCompile Include="ssStage1Scene.cpp">
@@ -519,7 +519,7 @@
     <ClInclude Include="ssBigWolfScript.h">
       <Filter>Contents\Script\Character\Monster\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="ssGoddessScript.h">
+    <ClInclude Include="ssGoddnessScript.h">
       <Filter>Contents\Script\Character\Monster\Boss</Filter>
     </ClInclude>
     <ClInclude Include="ssStage1Scene.h">
