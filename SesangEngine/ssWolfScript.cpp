@@ -439,14 +439,14 @@ namespace ss
 
 			if (mCurDir.x > 0)
 			{
-				mRigidbody->AddForce(Vector2(-2.f, 0.f));
+				mRigidbody->AddForce(Vector2(-3.f, 0.f));
 				mTransform->SetPosition(Vector3(monsterPos.x - 2.f, monsterPos.y, monsterPos.z));
 				mAnimator->PlayAnimation(L"Wolf_HitR", false);
 			}
 
 			else
 			{
-				mRigidbody->AddForce(Vector2(2.f, 0.f));
+				mRigidbody->AddForce(Vector2(3.f, 0.f));
 				mTransform->SetPosition(Vector3(monsterPos.x + 2.f, monsterPos.y, monsterPos.z));
 				mAnimator->PlayAnimation(L"Wolf_HitL", false);
 			}

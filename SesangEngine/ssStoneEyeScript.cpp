@@ -496,7 +496,8 @@ namespace ss
 	void StoneEyeScript::Hit()
 	{
 
-		
+		mAttackColliderObj->RemoveComponent<Collider2D>();
+
 		Vector3 monsterPos = mTransform->GetPosition();
 
 		// 방향대로 애니메이션을 재생한다. 

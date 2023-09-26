@@ -47,7 +47,7 @@ namespace ss
 
 	void ParalloxScript::Update()
 	{
-		Transform* Playertr = mPlayer->GetComponent<Transform>();
+		Transform* Cameratr = renderer::mainCamera->GetOwner()->GetComponent<Transform>();
 
 		Transform* Layertr = GetOwner()->GetComponent<Transform>();
 
@@ -56,18 +56,18 @@ namespace ss
 
 		if (mFirst) // 플레이어의 처음 위치 
 		{
-			mPlayerPrePos = Playertr->GetPosition();
+			mCameraPrePos = Cameratr->GetPosition();
 			mFirst = true; 
 		}
 		
 		
 		// 플레이어의 실시간 위치 
-		mPlayerCurPos = Playertr->GetPosition();
+		mCameraCurPos = Cameratr->GetPosition();
 		
 
 
 		// 움직임 계산
-		Vector3 characterMovement = mPlayerCurPos - mPlayerPrePos;
+		Vector3 characterMovement = mCameraCurPos - mCameraPrePos;
 
 
 		if (GetOwner()->GetName() == L"BG_Moon"
@@ -81,8 +81,8 @@ namespace ss
 			// (가장 먼 배경은 최대 1로, 가장 가까운건 최소 0에 가깝게)) 
 			Vector3 LayerNewPos = Layertr->GetPosition();
 
-			LayerNewPos.x += (mPlayerCurPos.x - mPlayerPrePos.x) * mSpeed.x;
-			LayerNewPos.y += (mPlayerCurPos.y - mPlayerPrePos.y) * mSpeed.y;
+			LayerNewPos.x += (mCameraCurPos.x - mCameraPrePos.x) * mSpeed.x;
+			LayerNewPos.y += (mCameraCurPos.y - mCameraPrePos.y) * mSpeed.y;
 
 			// 새 위치가 경계 값을 넘어가지 않도록 체크
 			LayerNewPos.x = (std::max)(mMinX, (std::min)(mMaxX, LayerNewPos.x));
@@ -103,7 +103,7 @@ namespace ss
 
 
 		// 실시간 위치 구한 후, 이전 위치 실시간 갱신 
-		mPlayerPrePos = mPlayerCurPos;
+		mCameraPrePos = mCameraCurPos;
 
 	}
 

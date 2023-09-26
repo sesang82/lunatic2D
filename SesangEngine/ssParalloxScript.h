@@ -24,8 +24,8 @@ namespace ss
         class Player* mPlayer; // 몬스터의 애니메이션 인덱스 정보 땜에 만들어둠 
 
         Vector2 mTextureOffset;
-        Vector3 mPlayerPrePos;
-        Vector3 mPlayerCurPos;
+        Vector3 mCameraPrePos;
+        Vector3 mCameraCurPos;
 
         bool    mFirst;
         Vector2   mSpeed;
