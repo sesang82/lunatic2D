@@ -471,6 +471,8 @@ namespace renderer
 		Resources::Insert(L"BossAnimMtrl", material);
 
 
+
+
 		material = std::make_shared<Material>();
 		material->SetShader(BossShader);
 		material->SetRenderingMode(eRenderingMode::Transparent);
@@ -2778,19 +2780,92 @@ namespace renderer
 		 // >> Idle
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Lizard_Die",
-					 L"..\\Resources\\Texture\\Monster\\SkeletonLizard\\Die\\Die.png");
+				 = Resources::Load<Texture>(L"Boss2-1_Idle",
+					 L"..\\Resources\\Texture\\Boss\\Phase1\\Idle-eidt.png");
 
 			 // === Material 持失
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
 
-			 Resources::Insert(L"Lizard_DieMtrl", spriteMateiral);
+			 Resources::Insert(L"1_Idle_Mtrl", spriteMateiral);
 
 		 }
 
+		 // >> Stomp
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2-1_Stomp",
+					 L"..\\Resources\\Texture\\Boss\\Phase1\\Stomp.png");
 
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss2-1_Stomp_Mtrl", spriteMateiral);
+
+		 }
+
+		 // >> Energyball Start
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2-1_EnergyballStart",
+					 L"..\\Resources\\Texture\\Boss\\Phase1\\Energyball_Ready.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss2-1_Stomp_Mtrl", spriteMateiral);
+
+		 }
+
+		 // >> Energyball End
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2-1_EnergyballEnd",
+					 L"..\\Resources\\Texture\\Boss\\Phase1\\Energyball_End.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Boss2-1_Stomp_Mtrl", spriteMateiral);
+
+		 }
+
+		 // >> Die
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2-1_Die",
+					 L"..\\Resources\\Texture\\Boss\\Phase1\\Phase1_Die.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"Phase1_Die_Mtrl", spriteMateiral);
+
+		 }
+
+		 // >> stomp effect
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2-1_stompEffect",
+					 L"..\\Resources\\Texture\\Boss\\Phase1\\Phase1_Die.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+
+			 Resources::Insert(L"1_stompEffect_Mtrl", spriteMateiral);
+
+		 }
 
 #pragma endregion 
 

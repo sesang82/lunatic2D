@@ -22,6 +22,7 @@
 #include "ssCollisionManager.h"
 #include "ssProgressbar.h"
 #include "ssEffect.h"
+#include "ssGoddnessScript.h"
 
 namespace ss
 {
@@ -38,15 +39,15 @@ namespace ss
 
 
 		//// 보스
-		//mBoss1 = object::Instantiate<Monster>(eLayerType::Boss, L"B_WolfObj");
-		//mBoss1->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		mBoss1 = object::Instantiate<Monster>(eLayerType::Boss, L"B_GodObj");
+		mBoss1->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
 
-		//Transform* eyetr = mBoss1->GetComponent<Transform>();
-		//eyetr->SetPosition(Vector3(10.f, -183.f, 500.f)); // -10
+		Transform* eyetr = mBoss1->GetComponent<Transform>();
+		eyetr->SetPosition(Vector3(10.f, -183.f, 500.f)); // -10
 
-		//BigWolfScript* wolfScript = mBoss1->AddComponent<BigWolfScript>();
-		//wolfScript->SetFirstPos(eyetr->GetPosition());
+		GoddnessScript* wolfScript = mBoss1->AddComponent<GoddnessScript>();
+		wolfScript->SetFirstPos(eyetr->GetPosition());
 
 
 		//캐릭터
@@ -54,13 +55,12 @@ namespace ss
 		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
 		Transform* Playertr = mPlayer->GetComponent<Transform>();
-		//Playertr->SetPosition(Vector3(-450.f, -298.0f, 500.f)); // 이건 플레이어의 처음 위치임 ... 
 		Playertr->SetPosition(Vector3(-290.f, -208.0f, 500.f));
 		PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
 		playerScript->SetMonster(mBoss1);
 
 
-		//wolfScript->SetPlayer(mPlayer);
+		wolfScript->SetPlayer(mPlayer);
 
 
 
@@ -275,36 +275,36 @@ namespace ss
 		}
 
 
-		//// 보스 HP Frame
-		//{
-		//	GameObject* bg = new GameObject();
-		//	AddGameObject(eLayerType::UI, bg);
-		//	// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
-		//	MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"BossHpFrameMtrl"));
+		// 보스 HP Frame
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"BossHpFrameMtrl"));
 
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 198.f, 300.f));
-		//	//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(266.f, 28.f, 1.f));
-		//	bg->SetName(L"BossHPFrame");
-
-
-		//	mBoss1->GetComponent<MonsterScript>()->SetUI(bg);
-		//}
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 198.f, 300.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(266.f, 28.f, 1.f));
+			bg->SetName(L"BossHPFrame");
 
 
-		//// 보스 hp바
-		//{
-		//	Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"Boss_Bar");
-		//	stoneHP->SetOwner(mBoss1);
+			mBoss1->GetComponent<MonsterScript>()->SetUI(bg);
+		}
 
-		//	Transform* stonehptr = stoneHP->GetComponent<Transform>();
-		//	stonehptr->SetPosition(Vector3(0.f, 196.f, 250.f));
 
-		//	stoneHP->Initialize();
+		// 보스 hp바
+		{
+			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"Boss_Bar");
+			stoneHP->SetOwner(mBoss1);
 
-		//}
+			Transform* stonehptr = stoneHP->GetComponent<Transform>();
+			stonehptr->SetPosition(Vector3(0.f, 196.f, 250.f));
+
+			stoneHP->Initialize();
+
+		}
 
 		//플레이어 오버로드 바
 		{
@@ -369,29 +369,29 @@ namespace ss
 		// ===== 충돌체
 		// 몬스터 소환하는 충돌체
 
-		//Platform* col_Spawn = object::Instantiate<Platform>(eLayerType::Collision, L"col_SpawnBoss2");
-		//col_Spawn->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		Platform* col_Spawn = object::Instantiate<Platform>(eLayerType::Collision, L"col_SpawnBoss2");
+		col_Spawn->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
-		//Transform* tr = col_Spawn->GetComponent<Transform>();
-		//tr->SetPosition(Vector3(-400.f, -298.0f, 500.f));
-		//tr->SetScale(Vector3(20.f, 20.f, 1.f));
+		Transform* tr = col_Spawn->GetComponent<Transform>();
+		tr->SetPosition(Vector3(-400.f, -298.0f, 500.f));
+		tr->SetScale(Vector3(20.f, 20.f, 1.f));
 
-		//TriggerScript* script = col_Spawn->AddComponent<TriggerScript>();
-		//script->SetMonster(mBoss1);
-		//script->SetPlayer(mPlayer);
+		TriggerScript* script = col_Spawn->AddComponent<TriggerScript>();
+		script->SetMonster(mBoss1);
+		script->SetPlayer(mPlayer);
 
 
 
-		//// 보스 패턴 시작하는 충돌체 
+		// 보스 패턴 시작하는 충돌체 
 
-		//Platform* col_startBoss = object::Instantiate<Platform>(eLayerType::Collision, L"col_startBoss1StageObj");
-		//col_startBoss->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		Platform* col_startBoss = object::Instantiate<Platform>(eLayerType::Collision, L"col_startBoss1StageObj");
+		col_startBoss->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
-		//Transform* spawntr = col_startBoss->GetComponent<Transform>();
-		//spawntr->SetPosition(Vector3(-200.f, -298.0f, 500.f));
-		//spawntr->SetScale(Vector3(20.f, 20.f, 1.f));
+		Transform* spawntr = col_startBoss->GetComponent<Transform>();
+		spawntr->SetPosition(Vector3(-200.f, -298.0f, 500.f));
+		spawntr->SetScale(Vector3(20.f, 20.f, 1.f));
 
-		//playerScript->SetBossStartColObj(col_startBoss);
+		playerScript->SetBossStartColObj(col_startBoss);
 
 
 
