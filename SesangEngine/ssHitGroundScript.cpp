@@ -64,6 +64,13 @@ namespace ss
 		}
 
 
+		else if (GetOwner()->GetName() == L"StompHitGroundObj") // 이거 이미지 만들어야함 
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"stompHitGroundt_Mtrl"));
+			tr->SetScale(Vector3(141.f, 32.f, 0.f));
+
+		}
+
 
 	}
 	void HitGroundScript::Update()
@@ -184,6 +191,30 @@ namespace ss
 
 			}
 		}
+
+		else if (GetOwner()->GetName() == L"StompHitGroundObj")
+		{
+		/*	BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
+
+			if (nullptr != script)
+			{
+				bool howling = script->IsHowling();
+
+				eWolfBossState state = script->GetCurWolfState();
+
+
+				if (howling && script->GetCurWolfState() == eWolfBossState::HOWLING_END)
+				{
+					script->SetHowling(false);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+			}*/
+		}
+
+
+
+
 
 
 

@@ -231,7 +231,7 @@ namespace ss
 
 		Transform* eyetr = mBoss1->GetComponent<Transform>();
 		//eyetr->SetPosition(Vector3(0.f, -20.f, 500.f)); //  석상 위에 올라가 있을 때 위치
-		eyetr->SetPosition(Vector3(0.f, -70.f, 500.f));
+		eyetr->SetPosition(Vector3(0.f, -87.f, 500.f));
 
 		GoddnessScript* wolfScript = mBoss1->AddComponent<GoddnessScript>();
 		wolfScript->SetFirstPos(eyetr->GetPosition());

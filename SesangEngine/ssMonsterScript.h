@@ -48,7 +48,9 @@ namespace ss
 	enum class eBoss2_Phase1
 	{
 		IDLE,
-		STOMP,
+		STOMP_READY,
+		STOMP_ING,
+		STOMP_END,
 		ENERGYBALL_READY,
 		ENERGYBALL_ING,
 		ENERGYBALL_END,

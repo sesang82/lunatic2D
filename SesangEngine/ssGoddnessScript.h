@@ -34,9 +34,17 @@ namespace ss
         Vector3					mDir; // 어슬렁거리는 move상태일때만 사용할 거 
         Vector3					mCurDir; // 거리값으로 계산해낸 방향 
 
+        int miStompCount;
+        bool mbStomp;
+    
+
 
         eBossType mBossType;
         class Player* mPlayer;
+
+
+        // ==== 이펙트
+        class Effect* mHitGround;
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 
@@ -44,7 +52,9 @@ namespace ss
 
         void Hit();
 
-        void Stomp();
+        void Stomp_Ready();
+        void Stomp_Ing();
+        void Stomp_End();
 
         void Energyball_Start();
         void Energyball_ing();

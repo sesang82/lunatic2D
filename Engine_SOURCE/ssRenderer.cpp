@@ -2873,6 +2873,22 @@ namespace renderer
 
 		 }
 
+		 // >> stomp hit Effect 141 32
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"stompHitGround",
+					 L"..\\Resources\\Texture\\Boss\\StompHIt.png");
+
+			 // === Material 생성
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"stompHitGroundt_Mtrl", spriteMateiral);
+
+		 }
+
 		 // 바람 불 때 막는 용도 14 26 132
 		 {
 			 std::shared_ptr<Texture> texture

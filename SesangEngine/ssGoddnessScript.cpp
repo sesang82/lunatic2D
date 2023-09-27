@@ -22,6 +22,8 @@
 namespace ss
 {
 	GoddnessScript::GoddnessScript()
+		: miStompCount(0)
+		, mbStomp(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -58,18 +60,17 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image6 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Die");
 	
 		// ==== 1페이즈 석상 
-		/*mAnimator->Create(L"Boss_Goddness_Idle", Image1, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 2, Vector2(269.f, 308.f));
+		mAnimator->Create(L"Boss_Goddness_Idle", Image1, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 2, Vector2(269.f, 308.f));
 		mAnimator->Create(L"Boss_Goddness_Stomp", Image2, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 4, Vector2(269.f, 308.f));
 		mAnimator->Create(L"Boss_Goddness_EnergyballStart", Image3, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 11, Vector2(269.f, 308.f));
-		mAnimator->Create(L"Boss_Goddness_EnergyballEnd", Image4, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 4, Vector2(269.f, 308.f));
-		mAnimator->Create(L"Boss_Goddness_Die", Image5, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 22, Vector2(269.f, 308.f));*/
+		mAnimator->Create(L"Boss_Goddness_EnergyballEnd", Image4, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 5, Vector2(269.f, 308.f));
+		mAnimator->Create(L"Boss_Goddness_Die", Image5, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 22, Vector2(269.f, 308.f));
 
 
 		// ==== 2페이즈 신
-		mAnimator->Create(L"test", Image6, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 43, Vector2(269.f, 276.f), Vector2::Zero);
+	
 
-		mAnimator->PlayAnimation(L"test", true);
-
+		mAnimator->PlayAnimation(L"Boss_Goddness_Idle", true); // trigger 완성하면 지우기 
 		// ======
 	// 애니메이션 방향에 관한 기준	을 잡아준다.
 
@@ -117,10 +118,18 @@ namespace ss
 				Idle();
 				break;
 
-			case ss::eBoss2_Phase1::STOMP:
-				Stomp();
+			case ss::eBoss2_Phase1::STOMP_READY:
+				Stomp_Ready();
 				break;
 
+			case ss::eBoss2_Phase1::STOMP_ING:
+				Stomp_Ing();
+				break;
+
+			case ss::eBoss2_Phase1::STOMP_END:
+				Stomp_End();
+				break;
+			
 			case ss::eBoss2_Phase1::ENERGYBALL_READY:
 				Energyball_Start();
 				break;
@@ -235,13 +244,113 @@ namespace ss
 
 	void GoddnessScript::Idle()
 	{
+		// 랜덤으로 상태를 변경한다. 
+
+
+
+		// 랜덤 숫자가 stomp Ready에 해당하는거라면 상태를 바꾸기 전에 아래와 같은 사항을 추가해준다.
+		// 카메라가 플레이어 쪽으로 점점 더 확대된다. (stomp 패턴 암시) 
+		m_fTime += Time::DeltaTime();
+
+		if (m_fTime > 3.f) // 임시로 해둠 
+		{
+			ChangeState(eBoss2_Phase1::STOMP_READY);
+			mPrevBoss2_Phase1_State = eBoss2_Phase1::IDLE;
+
+			m_fTime = 0.f;
+		}
+
+
+
+
+		// 만약에 에너지볼 상태로 넘어간다면 
+		// 이전 상태가 stomp 상태였다면 일단 가운데로 위치를 옮긴다.
+		// 그게 아니라면 씬에 배치했던 첫 위치에서 위로 조금만 위치를 올린다.
+		// 그 다음에 상태를 전환한다. 
+
+
+
 	}
 	void GoddnessScript::Hit()
 	{
 	}
-	void GoddnessScript::Stomp()
+	void GoddnessScript::Stomp_Ready()
+	{
+
+		// 확대됐던 카메라가 stomp 애니메이션 첫 인덱스에 다시 원래 사이즈인 2.3값으로 돌아온다. 
+
+		// 잠시 애니메이션 재생을 멈춘다. (0인덱스에 머무르게), 양 옆에 벽에 가시가 나온다.
+		 
+		 
+		// 벽에 가시가 다 나오면 플레이어의 위치 위에 떠있는다 (체감상 2초 정도?)
+		bool isGround = mPlayer->GetComponent<Rigidbody2D>()->IsGround();
+
+		if (!mbStomp && isGround)
+		{
+			// hit ground를 띄운다. 
+			// hit ground 쪽으로 이동한다.
+		
+			Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+
+
+			// hit ground를 띄운다.
+			mHitGround = object::Instantiate<Effect>(Vector3(PlayerPos.x, PlayerPos.y - 20.f, PlayerPos.z), eLayerType::Collision, L"StompHitGroundObj");
+
+			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
+			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
+
+			mbStomp = true; 
+
+
+
+
+
+			//Vector3 MonsterPos = mTransform->GetPosition();
+		
+			//Vector3 direction = PlayerPos - MonsterPos; // 플레이어와 몬스터 사이의 방향 벡터
+			//float distance = direction.Length();
+			//direction.Normalize(); // 방향만을 위해 벡터 정규화
+
+			//// 이동할 거리 계산 (원하는 속도나 프레임당 이동할 거리를 설정)
+			//float moveAmount = 50 * Time::DeltaTime();
+
+			//// 실제 이동 벡터 계산
+			//Vector3 moveVector = direction * moveAmount;
+
+			//// 위치 업데이트
+			//MonsterPos += moveVector;
+
+			//mTransform->SetPosition(MonsterPos);
+
+		}
+
+		// 2초가 지나면 연달아 3번 그 위치에 도장찍듯이 떨어진다. 
+
+		// 3번 횟수 때는 바닥에 붙어있는 상태로 유지한다. 몇 초 후에, 플레이어의 위치를 다시 체크한다.
+
+		//몇 초가 지나면 연달아 3번 또 찍는다.
+
+		// 이 패턴이 4번 지속되면 Idle 상태로 돌아간다.
+
+
+
+
+
+
+
+
+
+		mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
+
+
+	}
+	void GoddnessScript::Stomp_Ing()
 	{
 	}
+	void GoddnessScript::Stomp_End()
+	{
+	}
+
 	void GoddnessScript::Energyball_Start()
 	{
 	}
