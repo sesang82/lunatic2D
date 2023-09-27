@@ -35,12 +35,15 @@ namespace ss
 
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 
-		if (GetName() == L"Boss_Bar")
+		if (GetName() == L"Boss_Bar"
+			|| GetName() == L"Boss_Bar2")
 		{
 			mr->SetMaterial(Resources::Find<Material>(L"BossHPBarMtrl"));
 			mTransform->SetScale(Vector3(260.f, 6.f, 1.f));
 			mWidth = 260.f;
 		}
+
+
 
 
 		else if (GetName() == L"overloadBar")
@@ -98,6 +101,23 @@ namespace ss
 			// 체력바의 위치 설정
 			mTransform->SetPosition(pos);
 
+		}
+
+		else if (mOwner->GetName() == L"B_GodObj")
+		{
+			// 체력바 스케일 설정 
+			mTransform->SetScale(Vector3(CurHPWidth, 6, 1.f));
+
+			Vector3 Scale = mTransform->GetScale();
+
+			// 체력바의 왼쪽 끝 위치를 계산 (x 위치에 왼쪽 끝으로 이동)
+			Vector2 leftTop = mTransform->GetWorldLeftTop();
+
+			leftTop.x = -130.f;
+			pos.x = leftTop.x + (Scale.x * 0.5f);
+
+			// 체력바의 위치 설정
+			mTransform->SetPosition(pos);
 		}
 
 

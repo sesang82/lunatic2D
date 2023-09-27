@@ -296,11 +296,11 @@ namespace ss
 
 		// º¸½º hp¹Ù
 		{
-			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"Boss_Bar");
+			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::UI, L"Boss_Bar2");
 			stoneHP->SetOwner(mBoss1);
 
 			Transform* stonehptr = stoneHP->GetComponent<Transform>();
-			stonehptr->SetPosition(Vector3(0.f, 196.f, 250.f));
+			stonehptr->SetPosition(Vector3(-50.f, 196.f, 250.f));
 
 			stoneHP->Initialize();
 
