@@ -105,9 +105,122 @@ namespace ss
 	}
 	void GoddnessScript::Update()
 	{
-		MonsterScript::Update();
+
+		// 이동->상태변환->애니메이션
+
+
+		if (mBossType == eBossType::STATUE)
+		{
+			switch (mCurBoss2_Phase1_State)
+			{
+			case ss::eBoss2_Phase1::IDLE:
+				Idle();
+				break;
+
+			case ss::eBoss2_Phase1::STOMP:
+				Stomp();
+				break;
+
+			case ss::eBoss2_Phase1::ENERGYBALL_READY:
+				Energyball_Start();
+				break;
+
+			case ss::eBoss2_Phase1::ENERGYBALL_ING:
+				Energyball_ing();
+				break;
+
+			case ss::eBoss2_Phase1::ENERGYBALL_END:
+				Energyball_End();
+				break;
+
+			case ss::eBoss2_Phase1::WIND:
+				break;
+
+			case ss::eBoss2_Phase1::DIE:
+				Dead();
+				break;
+
+			}
+
+		}
+
+		else
+		{
+			switch (mCurBoss2_Phase2_State)
+			{
+			case ss::eBoss2_Phase2::INTRO:
+				break;
+
+			case ss::eBoss2_Phase2::INTRO_END:
+				break;
+
+			case ss::eBoss2_Phase2::IDLE:
+				break;
+
+			case ss::eBoss2_Phase2::MOVE_FRONT:
+				break;
+
+			case ss::eBoss2_Phase2::MOVE_BACK:
+				break;
+
+			case ss::eBoss2_Phase2::DIAGONAL_ATTACK_DIAGONAL:
+				break;
+
+			case ss::eBoss2_Phase2::DIAGONAL_ATTACK_VERTICAL:
+				break;
+
+			case ss::eBoss2_Phase2::ENERGYBALL_START:
+				break;
+
+			case ss::eBoss2_Phase2::ENERGYBALL_ING:
+				break;
+
+			case ss::eBoss2_Phase2::ENERGYBALL_END:
+				break;
+
+			case ss::eBoss2_Phase2::COUNTER_START:
+				break;
+
+			case ss::eBoss2_Phase2::COUNTER_ING:
+				break;
+
+			case ss::eBoss2_Phase2::COUNTER_END:
+				break;
+
+			case ss::eBoss2_Phase2::COUNTER_HIT:
+				break;
+
+			case ss::eBoss2_Phase2::GROUNDSPEAR:
+				break;
+
+			case ss::eBoss2_Phase2::SHIELDBEAM_START:
+				break;
+
+			case ss::eBoss2_Phase2::SHIELDBEAM_ING:
+				break;
+
+			case ss::eBoss2_Phase2::SHIELDBEAM_END:
+				break;
+
+			case ss::eBoss2_Phase2::SUMMONSPEAR:
+				break;
+
+			case ss::eBoss2_Phase2::HIT:
+				break;
+
+			case ss::eBoss2_Phase2::DIE:
+				break;
+
+			}
+
+
+		}
+
+		mPrevState = mCurState;
+		mPrevDir = mCurDir;
 
 	}
+
 	void GoddnessScript::OnCollisionEnter(Collider2D* other)
 	{
 	}
@@ -117,9 +230,9 @@ namespace ss
 	void GoddnessScript::OnCollisionExit(Collider2D* other)
 	{
 	}
-	void GoddnessScript::Spawn()
-	{
-	}
+
+
+
 	void GoddnessScript::Idle()
 	{
 	}
@@ -132,13 +245,17 @@ namespace ss
 	void GoddnessScript::Energyball_Start()
 	{
 	}
+	void GoddnessScript::Energyball_ing()
+	{
+	}
 	void GoddnessScript::Energyball_End()
+	{
+	}
+	void GoddnessScript::Wind_Ready()
 	{
 	}
 	void GoddnessScript::Dead()
 	{
 	}
-	void GoddnessScript::Animation()
-	{
-	}
+
 }

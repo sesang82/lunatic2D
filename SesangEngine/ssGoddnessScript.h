@@ -8,7 +8,7 @@ namespace ss
 
     enum class eBossType
     {
-        STATUES,
+        STATUE,
         GODDNESS,
     };
 
@@ -40,7 +40,6 @@ namespace ss
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 
-        void Spawn();
         void Idle();
 
         void Hit();
@@ -48,11 +47,14 @@ namespace ss
         void Stomp();
 
         void Energyball_Start();
-        void Energyball_End(); 
+        void Energyball_ing();
+        void Energyball_End();
+
+        void Wind_Ready();
 
         void Dead();
 
-        void Animation();
+
 
 
 
@@ -66,3 +68,5 @@ namespace ss
 
     };
 }
+
+

@@ -15,7 +15,7 @@ namespace ss
 		LADING,
 		STUN,
 		HIT,
-		HIT_AFTER,	
+		HIT_AFTER,
 		GUARD,
 		NEARATTACK,
 		NEARATTACK_AFTER,
@@ -45,6 +45,41 @@ namespace ss
 		END
 	};
 
+	enum class eBoss2_Phase1
+	{
+		IDLE,
+		STOMP,
+		ENERGYBALL_READY,
+		ENERGYBALL_ING,
+		ENERGYBALL_END,
+		WIND,
+		DIE,
+	};
+
+	enum class eBoss2_Phase2
+	{
+		INTRO,
+		INTRO_END,
+		IDLE,
+		MOVE_FRONT,
+		MOVE_BACK,
+		DIAGONAL_ATTACK_DIAGONAL,
+		DIAGONAL_ATTACK_VERTICAL,
+		ENERGYBALL_START,
+		ENERGYBALL_ING,
+		ENERGYBALL_END,
+		COUNTER_START,
+		COUNTER_ING,
+		COUNTER_END,
+		COUNTER_HIT,
+		GROUNDSPEAR,
+		SHIELDBEAM_START,
+		SHIELDBEAM_ING,
+		SHIELDBEAM_END,
+		SUMMONSPEAR,
+		HIT,
+		DIE,
+	};
 
 
 	// hp나 그런거는 state 스크립트 갖다붙이기
@@ -71,20 +106,20 @@ namespace ss
 		friend class ArcherNearRangeScript;
 		friend class GolemNearRangeScript;
 
-	
-	
-    public:
-        MonsterScript();
-        virtual ~MonsterScript();
 
-    public:
-        virtual void Initialize() override;
-        virtual void Update() override;
+
+	public:
+		MonsterScript();
+		virtual ~MonsterScript();
+
+	public:
+		virtual void Initialize() override;
+		virtual void Update() override;
 		virtual void LateUpdate() override;
 
-        virtual void OnCollisionEnter(Collider2D* other) override;
-        virtual void OnCollisionStay(Collider2D* other) override;
-        virtual void OnCollisionExit(Collider2D* other) override;
+		virtual void OnCollisionEnter(Collider2D* other) override;
+		virtual void OnCollisionStay(Collider2D* other) override;
+		virtual void OnCollisionExit(Collider2D* other) override;
 
 
 
@@ -93,17 +128,17 @@ namespace ss
 		eWolfBossState m_eWolfBossState;
 
 
-		class FSM*			 mFSM;
+		class FSM* mFSM;
 
-		class Animator*			mAnimator;
-		class Rigidbody2D*		mRigidbody;
-		class Transform*		mTransform;
-		class Collider2D*		mCollider;
-		class MeshRenderer*		mMeshRenderer;
-		class CharacterState*	mCharacterState;
-		
-		class Player*			mPlayer;
-		class GameObject*       mBossHPFrame;
+		class Animator* mAnimator;
+		class Rigidbody2D* mRigidbody;
+		class Transform* mTransform;
+		class Collider2D* mCollider;
+		class MeshRenderer* mMeshRenderer;
+		class CharacterState* mCharacterState;
+
+		class Player* mPlayer;
+		class GameObject* mBossHPFrame;
 		//class Monster*			mMonster;
 
 		Vector3					mPrevDir;
@@ -114,6 +149,12 @@ namespace ss
 
 		eWolfBossState			 mCurWolfBossState;
 		eWolfBossState			 mPrevWolfBossState;
+
+		eBoss2_Phase1           mCurBoss2_Phase1_State;
+		eBoss2_Phase1           mPrevBoss2_Phase1_State;
+
+		eBoss2_Phase2           mCurBoss2_Phase2_State;
+		eBoss2_Phase2           mPrevBoss2_Phase2_State;
 
 		Vector2					mOringinColSize;
 		Vector2					mOringinColCeter;
@@ -148,12 +189,12 @@ namespace ss
 			m_pTarget = _pPlayer;
 		}
 
-		virtual void ChangeState(eMonsterState state) 
-		{ 
+		virtual void ChangeState(eMonsterState state)
+		{
 			if (mCurState == state)
 				return;
 
-			mCurState = state; 
+			mCurState = state;
 		}
 
 		virtual eMonsterState GetPrevState() { return mPrevState; }
@@ -171,14 +212,37 @@ namespace ss
 		virtual eWolfBossState GetCurWolfState() { return mCurWolfBossState; }
 
 
+		virtual void ChangeState(eBoss2_Phase1 state)
+		{
+			if (mCurBoss2_Phase1_State == state)
+				return;
+
+			mCurBoss2_Phase1_State = state;
+		}
+
+		virtual void ChangeState(eBoss2_Phase2 state)
+		{
+			if (mCurBoss2_Phase2_State == state)
+				return;
+
+			mCurBoss2_Phase2_State = state;
+		}
+
+
+		virtual eBoss2_Phase1 GetPrevBoss2_Phase1_State() { return mPrevBoss2_Phase1_State; }
+		virtual eBoss2_Phase1 GetCurBoss2_Phase1_State() { return mCurBoss2_Phase1_State; }
+
+		virtual eBoss2_Phase2 GetPrevBoss2_Phase2_State() { return mPrevBoss2_Phase2_State; }
+		virtual eBoss2_Phase2 GetCurBoss2_Phase2_State() { return mCurBoss2_Phase2_State; }
+
+
+
 		virtual void SetHit(bool hit) { mHit = hit; }
 		bool GetHit() { return mHit; }
 
 
 		void SetUI(GameObject* ui) { mBossHPFrame = ui; }
-		GameObject* GetUI() { return mBossHPFrame;}
+		GameObject* GetUI() { return mBossHPFrame; }
 
 	};
 }
-
-
