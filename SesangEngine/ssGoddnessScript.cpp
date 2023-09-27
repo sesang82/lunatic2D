@@ -55,7 +55,7 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image5 = Resources::Find<ss::graphics::Texture>(L"Boss2-1_Die");
 
 
-		std::shared_ptr<ss::graphics::Texture> Image6 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_MoveBack");
+		std::shared_ptr<ss::graphics::Texture> Image6 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Die");
 	
 		// ==== 1페이즈 석상 
 		/*mAnimator->Create(L"Boss_Goddness_Idle", Image1, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 2, Vector2(269.f, 308.f));
@@ -66,7 +66,7 @@ namespace ss
 
 
 		// ==== 2페이즈 신
-		mAnimator->Create(L"test", Image6, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f), Vector2::Zero);
+		mAnimator->Create(L"test", Image6, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 43, Vector2(269.f, 276.f), Vector2::Zero);
 
 		mAnimator->PlayAnimation(L"test", true);
 

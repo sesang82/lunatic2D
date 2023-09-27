@@ -2873,6 +2873,23 @@ namespace renderer
 
 		 }
 
+		 // 官恩 阂 锭 阜绰 侩档 14 26 132
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_GroundWind",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\Phase2\\Ground\\Wind\\GroundWind.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_GroundWind_Mtrl", spriteMateiral);
+
+		 }
+
+
 
 		 // ========== 俊呈瘤杭
 		 // >> Energy Ball Big (菩傅x) : 弧埃芭 
@@ -3189,7 +3206,7 @@ namespace renderer
 		 // Common Ready 8 269 276 
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_DiagonalAttack_Ready",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\DiagonalAttack\\Common_Ready.png");
 
 			 // === Material 积己
@@ -3198,7 +3215,7 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_DiagonalAttack_Ready_Mtrl", spriteMateiral);
 
 		 }
 
@@ -3207,7 +3224,7 @@ namespace renderer
 		 // Vertical 4 
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_DiagonalAttack_Vertical",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\DiagonalAttack\\Vertical\\Verctical.png");
 
 			 // === Material 积己
@@ -3216,14 +3233,14 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_DiagonalAttack_Vertical_Mtrl", spriteMateiral);
 
 		 }
 
 		 // Diagonal 4
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_DiagonalAttack_Diagonal",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\DiagonalAttack\\Diagonal\\Diagonal.png");
 
 			 // === Material 积己
@@ -3232,7 +3249,7 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_DiagonalAttack_Diagonal_Mtrl", spriteMateiral);
 
 		 }
 
@@ -3241,7 +3258,7 @@ namespace renderer
 		  // Start 10
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_Energyball_Start",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\EnergyBall\\Ready\\Energyball_Start.png");
 
 			 // === Material 积己
@@ -3250,14 +3267,14 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_Energyball_Start_Mtrl", spriteMateiral);
 
 		 }
 
 		 // -ing 6
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_Energyballing",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\EnergyBall\\Energing.png");
 
 			 // === Material 积己
@@ -3266,7 +3283,7 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_Energyballing_Mtrl", spriteMateiral);
 
 		 }
 
@@ -3274,7 +3291,7 @@ namespace renderer
 		 // End 3
 		 { 
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_Energyball_End",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\EnergyBall\\End\\Energyball_End.png");
 
 			 // === Material 积己
@@ -3283,7 +3300,7 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_Energyball_End_Mtrl", spriteMateiral);
 
 		 }
 
@@ -3291,7 +3308,7 @@ namespace renderer
 		 // 18
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_GroundSpearPeople",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\GroundSpear\\GroundSpear.png");
 
 			 // === Material 积己
@@ -3300,7 +3317,7 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_GroundSpearPeople_Mtrl", spriteMateiral);
 
 		 }
 
@@ -3308,7 +3325,7 @@ namespace renderer
 		// Ready 15
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_ShiledBeam_Ready",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\ShieldBeam\\ShiledBeamReady.png");
 
 			 // === Material 积己
@@ -3317,14 +3334,14 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_ShiledBeam_Ready_Mtrl", spriteMateiral);
 
 		 }
 
 		 // ing 10 
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_ShiledBeam_ing",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\ShieldBeam\\ShiledBeam.png");
 
 			 // === Material 积己
@@ -3333,14 +3350,14 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_ShiledBeam_ing_Mtrl", spriteMateiral);
 
 		 }
 
 		 // End 9
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_ShiledBeam_End",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\ShieldBeam\\ShiledBeam_End.png");
 
 			 // === Material 积己
@@ -3349,7 +3366,7 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_ShiledBeam_End_Mtrl", spriteMateiral);
 
 		 }
 
@@ -3358,7 +3375,7 @@ namespace renderer
 	     // 17
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_SummonSpear",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\SummonSpear\\Summon_Spear.png");
 
 			 // === Material 积己
@@ -3367,7 +3384,7 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_SummonSpear_Mtrl", spriteMateiral);
 
 		 }
 
@@ -3376,7 +3393,7 @@ namespace renderer
 		// 43
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+				 = Resources::Load<Texture>(L"Boss2_2_Die",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Die\\Die.png");
 
 			 // === Material 积己
@@ -3385,7 +3402,7 @@ namespace renderer
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_2_Die_Mtrl", spriteMateiral);
 
 		 }
 
@@ -3459,25 +3476,6 @@ namespace renderer
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			 Resources::Insert(L"Boss2_GroundFloatform_Mtrl", spriteMateiral);
-
-		 }
-
-
-
-
-		 // 官恩 阂 锭 阜绰 侩档 14 26 132
-		 {
-			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_GroundWind",
-					 L"..\\Resources\\Texture\\Boss\\\Goddness\\Phase2\\Ground\\Wind\\GroundWind.png");
-
-			 // === Material 积己
-			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			 spriteMateiral->SetShader(AnimShader);
-			 spriteMateiral->SetTexture(texture);
-			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
-
-			 Resources::Insert(L"Boss2_GroundWind_Mtrl", spriteMateiral);
 
 		 }
 
