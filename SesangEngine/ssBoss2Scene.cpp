@@ -38,34 +38,11 @@ namespace ss
 
 
 
-		//// 보스
-		mBoss1 = object::Instantiate<Monster>(eLayerType::Boss, L"B_GodObj");
-		mBoss1->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-
-
-		Transform* eyetr = mBoss1->GetComponent<Transform>();
-		eyetr->SetPosition(Vector3(10.f, -183.f, 500.f)); // -10
-
-		GoddnessScript* wolfScript = mBoss1->AddComponent<GoddnessScript>();
-		wolfScript->SetFirstPos(eyetr->GetPosition());
-
-
-		//캐릭터
-		mPlayer = object::Instantiate<Player>(eLayerType::Player, L"Player");
-		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-
-		Transform* Playertr = mPlayer->GetComponent<Transform>();
-		Playertr->SetPosition(Vector3(-290.f, -208.0f, 500.f));
-		PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
-		playerScript->SetMonster(mBoss1);
-
-
-		wolfScript->SetPlayer(mPlayer);
 
 
 
-		// ====== 배경
-		// 둥근 달
+		//// ====== 배경
+		//// 둥근 달
 
 		Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_BackGround_0");
 		bg->Initialize();
@@ -245,6 +222,34 @@ namespace ss
 		}
 
 
+
+		// ==== 캐릭터
+			//// 보스
+		mBoss1 = object::Instantiate<Monster>(eLayerType::Boss, L"B_GodObj");
+		mBoss1->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+		Transform* eyetr = mBoss1->GetComponent<Transform>();
+		//eyetr->SetPosition(Vector3(0.f, -20.f, 500.f)); //  석상 위에 올라가 있을 때 위치
+		eyetr->SetPosition(Vector3(0.f, -70.f, 500.f));
+
+		GoddnessScript* wolfScript = mBoss1->AddComponent<GoddnessScript>();
+		wolfScript->SetFirstPos(eyetr->GetPosition());
+
+
+		//캐릭터
+		mPlayer = object::Instantiate<Player>(eLayerType::Player, L"Player");
+		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+		Transform* Playertr = mPlayer->GetComponent<Transform>();
+		Playertr->SetPosition(Vector3(-290.f, -208.0f, 500.f));
+		PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
+		playerScript->SetMonster(mBoss1);
+
+
+		wolfScript->SetPlayer(mPlayer);
+
+
 		//==== UI
 //플레이어 UI Frame
 		{
@@ -366,32 +371,32 @@ namespace ss
 		}
 
 
-		// ===== 충돌체
-		// 몬스터 소환하는 충돌체
+		//// ===== 충돌체
+		//// 몬스터 소환하는 충돌체
 
-		Platform* col_Spawn = object::Instantiate<Platform>(eLayerType::Collision, L"col_SpawnBoss2");
-		col_Spawn->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		//Platform* col_Spawn = object::Instantiate<Platform>(eLayerType::Collision, L"col_SpawnBoss2");
+		//col_Spawn->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
-		Transform* tr = col_Spawn->GetComponent<Transform>();
-		tr->SetPosition(Vector3(-400.f, -298.0f, 500.f));
-		tr->SetScale(Vector3(20.f, 20.f, 1.f));
+		//Transform* tr = col_Spawn->GetComponent<Transform>();
+		//tr->SetPosition(Vector3(-240.f, -150.0f, 500.f));
+		//tr->SetScale(Vector3(20.f, 20.f, 1.f));
 
-		TriggerScript* script = col_Spawn->AddComponent<TriggerScript>();
-		script->SetMonster(mBoss1);
-		script->SetPlayer(mPlayer);
+		//TriggerScript* script = col_Spawn->AddComponent<TriggerScript>();
+		//script->SetMonster(mBoss1);
+		//script->SetPlayer(mPlayer);
 
 
 
-		// 보스 패턴 시작하는 충돌체 
+		//// 보스 패턴 시작하는 충돌체 
 
-		Platform* col_startBoss = object::Instantiate<Platform>(eLayerType::Collision, L"col_startBoss1StageObj");
-		col_startBoss->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+		//Platform* col_startBoss = object::Instantiate<Platform>(eLayerType::Collision, L"col_startBoss1StageObj");
+		//col_startBoss->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
-		Transform* spawntr = col_startBoss->GetComponent<Transform>();
-		spawntr->SetPosition(Vector3(-200.f, -298.0f, 500.f));
-		spawntr->SetScale(Vector3(20.f, 20.f, 1.f));
+		//Transform* spawntr = col_startBoss->GetComponent<Transform>();
+		//spawntr->SetPosition(Vector3(-200.f, -298.0f, 500.f));
+		//spawntr->SetScale(Vector3(20.f, 20.f, 1.f));
 
-		playerScript->SetBossStartColObj(col_startBoss);
+		//playerScript->SetBossStartColObj(col_startBoss);
 
 
 

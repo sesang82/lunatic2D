@@ -2781,14 +2781,15 @@ namespace renderer
 		 {
 			 std::shared_ptr<Texture> texture
 				 = Resources::Load<Texture>(L"Boss2-1_Idle",
-					 L"..\\Resources\\Texture\\Boss\\Phase1\\Idle-eidt.png");
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase1\\Idle-eidt.png");
 
 			 // === Material 积己
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"1_Idle_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2-1_Idle_Mtrl", spriteMateiral);
 
 		 }
 
@@ -2796,12 +2797,13 @@ namespace renderer
 		 {
 			 std::shared_ptr<Texture> texture
 				 = Resources::Load<Texture>(L"Boss2-1_Stomp",
-					 L"..\\Resources\\Texture\\Boss\\Phase1\\Stomp.png");
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase1\\Stomp.png");
 
 			 // === Material 积己
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			 Resources::Insert(L"Boss2-1_Stomp_Mtrl", spriteMateiral);
 
@@ -2811,12 +2813,13 @@ namespace renderer
 		 {
 			 std::shared_ptr<Texture> texture
 				 = Resources::Load<Texture>(L"Boss2-1_EnergyballStart",
-					 L"..\\Resources\\Texture\\Boss\\Phase1\\Energyball_Ready.png");
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase1\\Energyball_Ready.png");
 
 			 // === Material 积己
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			 Resources::Insert(L"Boss2-1_Stomp_Mtrl", spriteMateiral);
 
@@ -2826,12 +2829,13 @@ namespace renderer
 		 {
 			 std::shared_ptr<Texture> texture
 				 = Resources::Load<Texture>(L"Boss2-1_EnergyballEnd",
-					 L"..\\Resources\\Texture\\Boss\\Phase1\\Energyball_End.png");
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase1\\Energyball_End.png");
 
 			 // === Material 积己
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			 Resources::Insert(L"Boss2-1_Stomp_Mtrl", spriteMateiral);
 
@@ -2841,12 +2845,13 @@ namespace renderer
 		 {
 			 std::shared_ptr<Texture> texture
 				 = Resources::Load<Texture>(L"Boss2-1_Die",
-					 L"..\\Resources\\Texture\\Boss\\Phase1\\Phase1_Die.png");
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase1\\Phase1_Die.png");
 
 			 // === Material 积己
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			 Resources::Insert(L"Phase1_Die_Mtrl", spriteMateiral);
 
@@ -2856,14 +2861,656 @@ namespace renderer
 		 {
 			 std::shared_ptr<Texture> texture
 				 = Resources::Load<Texture>(L"Boss2-1_stompEffect",
-					 L"..\\Resources\\Texture\\Boss\\Phase1\\Phase1_Die.png");
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase1\\Stomp_Effect.png");
 
 			 // === Material 积己
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"1_stompEffect_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2-1_stompEffect_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // ========== 俊呈瘤杭
+		 // >> Energy Ball Big (菩傅x) : 弧埃芭 
+		 // 家券
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_1_Energyball_B_noParrying_Spawn_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Big\\noParrying\\Spawn\\Spawn.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_1_Energyball_B_noParrying_Spawn_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // 惯荤
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_1_Energyball_B_noParrying_Energying_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Big\\noParrying\\Energying\\AfterSpawn.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_1_Energyball_B_noParrying_Energying_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+		 // >> Energy Ball Big (菩傅0) : 畴鄂芭
+		 // 家券
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_1_Energyball_B_Parrying_Spawn_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Big\\Parrying\\Spawn\\Spawn.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_1_Energyball_B_Parrying_Spawn_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+		 // 惯荤
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2-Boss2_1_Energyball_B_Parrying_Energying_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Big\\Parrying\\Energying\\AfterSpawn.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_1_Energyball_B_Parrying_Energying_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+		 // >> Energy Ball Small (菩傅x) : 弧埃芭
+		 // 家券
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_1_Energyball_S_noParrying_Spawn_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Small\\noParrying\\Spawn\\Spawn.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_1_Energyball_S_noParrying_Spawn_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+		 // 惯荤
+				
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_1_Energyball_S_noParrying_AfterSpawn_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Small\\noParrying\\AfterSpawn\\AfterSpawn.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_1_Energyball_S_noParrying_AfterSpawn_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+		 // >> Energy Ball Small (菩傅0) : 畴鄂芭
+		 // 家券
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_1_Energyball_S_Parrying_Spawn_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Small\\Parrying\\Spawn\\Spawn.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_1_Energyball_S_Parrying_Spawn_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+		 // 惯荤
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2-Boss2_1_Energyball_S_Parrying_AfterSpawn_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Small\\Parrying\\AfterSpawn\\AfterSpawn.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_1_Energyball_S_Parrying_AfterSpawn_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+
+
+
+
+		 // =============================================
+		 // 荤恩
+
+		 // Idle 8 269 276
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Idle",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Idle\\Idle.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Idle_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // Move 菊栏肺 6
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_MoveFront",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Run\\Forward\\Forward.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_MoveFront_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // Move 第肺 6
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_MoveBack",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Run\\Back\\Back.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_MoveBack_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // Hit 5 269 276
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Hit",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Hit\\Hit.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Hit_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // Intro 17 269 276
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Intro",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Intro\\Intro.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Intro_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // Intro End 8 269 276
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_IntroEnd",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Intro\\IntroEnd.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_IntroEnd_Mtrl", spriteMateiral);
+
+		 }
+
+
+
+		 // *** Counter
+		 // start 13 269 276
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Counter\\Start\\Counter_Start.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+		 // Countering 5 269 276
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Countering",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Counter\\Countering.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Countering_Mtrl", spriteMateiral);
+
+		 }
+
+		 // Counter_End 3 269 276
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_End",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Counter\\End\\Counter_End.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_End_Mtrl", spriteMateiral);
+
+		 }
+
+		 // Counter_Hit 5 269 276 (墨款磐吝俊 敲饭捞绢俊霸 傍拜 罐疽阑 版快) 
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Hit",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Counter\\Hit\\Counter_Hit.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Hit_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // *** DiagonalAttack
+		 // Common Ready 8 269 276 
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\DiagonalAttack\\Common_Ready.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+
+
+		 // Vertical 4 
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\DiagonalAttack\\Vertical\\Verctical.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+		 // Diagonal 4
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\DiagonalAttack\\Diagonal\\Diagonal.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // **** Energy ball
+		  // Start 10
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\EnergyBall\\Ready\\Energyball_Start.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+		 // -ing 6
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\EnergyBall\\Energing.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // End 3
+		 { 
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\EnergyBall\\End\\Energyball_End.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+		 // **** Ground Spear
+		 // 18
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\GroundSpear\\GroundSpear.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+		 // **** Shiled Beam
+		// Ready 15
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\ShieldBeam\\ShiledBeamReady.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+		 // ing 10 
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\ShieldBeam\\ShiledBeam.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+		 // End 9
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\ShieldBeam\\ShiledBeam_End.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // **** SummonSpear
+	     // 17
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\SummonSpear\\Summon_Spear.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // **** Die
+		// 43
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Counter_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Die\\Die.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Counter_Start_Mtrl", spriteMateiral);
+
+		 }
+
+
+
+		 // ========
+		 // 捞棋飘
+
+		 // Ground Sword 10 89 63
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_GroundSword_Effect",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\GroundSword\\GroundSword.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_GroundSword_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // **** sword 
+		 // base 89 38 1
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_Sword_base_Effect",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\base.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_Sword_base_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+		 // wall hit 89 38 4 (寒俊 何碟磨 锭)
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_Sword_wallHit_Effect",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\wallHit\\wallHit.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_Sword_wallHit_Effectt_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // *** Ground platform
+		 // 弊成 官蹿  12 100 24
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_GroundFloatform",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\Phase2\\Ground\\Groundplatform.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_GroundFloatform_Mtrl", spriteMateiral);
+
+		 }
+
+
+
+
+		 // 官恩 阂 锭 阜绰 侩档 14 26 132
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_GroundWind",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\Phase2\\Ground\\Wind\\GroundWind.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_GroundWind_Mtrl", spriteMateiral);
+
+		 }
+
+
+		 // 荤恩 殿 第俊 崔赴 捞棋飘 10 142 142
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_Back_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Effect\\BackEffect.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_Back_Effect_Mtrl", spriteMateiral);
+
+		 }
+
+		 // ground spear 顶俊 郴妨踩绰 芒 6 93 120
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_2_GroundSpear_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Effect\\GroundSpear\\GroundSpear.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_2_GroundSpear_Effect_Mtrl", spriteMateiral);
 
 		 }
 

@@ -186,29 +186,7 @@ namespace ss
 		
 		}
 
-		//// 나무 4 
-		//{
-		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree4");
-		//	bg->Initialize();
 
-		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree4Mtrl"));
-
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(20.f, -140.f, 650.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 589.f, 1.0f));
-		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
-		//	parallox->SetPlayer(mPlayer);
-		//	parallox->SetSpeed(Vector2(0.8f, 0.f));
-
-		//	parallox->SetMinX(-30.0f);
-		//	parallox->SetMaxX(10.0f);
-
-		//	parallox->SetMinY(-150.0f);
-		//	parallox->SetMaxY(-140.0f);
-
-
-		//	
-		//}
 
 		// 왼쪽 맨 횃불
 		{
@@ -296,7 +274,7 @@ namespace ss
 			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
 			MeshRenderer* mr = Fire->GetComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"WolfStatueMtrl"));
+			mr->SetMaterial(Resources::Find<Material>(L"Boss2-1_Idle_Mtrl"));
 
 			Fire->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.1f, 650.f));
 			Fire->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 1.0f));

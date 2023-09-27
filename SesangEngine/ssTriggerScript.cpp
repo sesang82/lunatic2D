@@ -63,15 +63,34 @@ namespace ss
 
 
 			// 레터박스에 띄울 글귀를 만든다.
-			mBossName = object::Instantiate<Background>(eLayerType::Grid, L"Boss1Name");
-			mBossName->Initialize();
 
-			Transform* nameTR = mBossName->GetComponent<Transform>();
-			nameTR->SetPosition(Vector3(0.f, -350.f, 100.f));
-			nameTR->SetScale(Vector3(74.f, 48.f, 1.f));
+			if (GetOwner()->GetName() == L"B_WolfObj")
+			{
+				mBossName = object::Instantiate<Background>(eLayerType::Grid, L"Boss1Name");
+				mBossName->Initialize();
 
-			MeshRenderer* nameMR = mBossName->GetComponent<MeshRenderer>();
-			nameMR->SetMaterial(Resources::Find<Material>(L"Boss1NameMtrl"));
+				Transform* nameTR = mBossName->GetComponent<Transform>();
+				nameTR->SetPosition(Vector3(0.f, -350.f, 100.f));
+				nameTR->SetScale(Vector3(74.f, 48.f, 1.f));
+
+				MeshRenderer* nameMR = mBossName->GetComponent<MeshRenderer>();
+				nameMR->SetMaterial(Resources::Find<Material>(L"Boss1NameMtrl"));
+
+			}
+
+			else if (GetOwner()->GetName() == L"B_GodObj")
+			{
+				mBossName = object::Instantiate<Background>(eLayerType::Grid, L"Boss2Name");
+				mBossName->Initialize();
+
+				Transform* nameTR = mBossName->GetComponent<Transform>();
+				nameTR->SetPosition(Vector3(0.f, -350.f, 100.f));
+				nameTR->SetScale(Vector3(74.f, 48.f, 1.f));
+
+				MeshRenderer* nameMR = mBossName->GetComponent<MeshRenderer>();
+				nameMR->SetMaterial(Resources::Find<Material>(L"Boss1NameMtrl")); // 이건 나중에 수정하기 
+
+			}
 
 
 			// UI카메라 (잠시 UI도 안나오게 끈다) 
@@ -83,9 +102,18 @@ namespace ss
 			MeshRenderer* Bossmr = mMonster->GetComponent<MeshRenderer>();
 			Bossmr->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
-			Animator* animator = mMonster->GetComponent<Animator>();
-			animator->PlayAnimation(L"Boss_Wolf_SpawnL", false);
 
+			if (GetOwner()->GetName() == L"B_WolfObj")
+			{
+				Animator* animator = mMonster->GetComponent<Animator>();
+				animator->PlayAnimation(L"Boss_Wolf_SpawnL", false);
+			}
+
+			else if (GetOwner()->GetName() == L"B_GodObj")
+			{
+				Animator* animator = mMonster->GetComponent<Animator>();
+				animator->PlayAnimation(L"Boss_Wolf_SpawnL", false);
+			}
 		
 		
 		}

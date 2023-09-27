@@ -40,19 +40,35 @@ namespace ss
 		mCharacterState->SetMaxHP(110.f);
 		mCharacterState->SetCurrentHP(110.f);
 
-		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
+	    mMeshRenderer->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		tr->SetScale(272.f, 271.f, 1.f);
+		tr->SetScale(269.f, 276.f, 1.f);
 
 
 
-		std::shared_ptr<ss::graphics::Texture> Image1 = Resources::Find<ss::graphics::Texture>(L"Boss_Wolf_Idle");
+		std::shared_ptr<ss::graphics::Texture> Image1 = Resources::Find<ss::graphics::Texture>(L"Boss2-1_Idle");
+		std::shared_ptr<ss::graphics::Texture> Image2 = Resources::Find<ss::graphics::Texture>(L"Boss2-1_Stomp");
+		std::shared_ptr<ss::graphics::Texture> Image3 = Resources::Find<ss::graphics::Texture>(L"Boss2-1_EnergyballStart");
+		std::shared_ptr<ss::graphics::Texture> Image4 = Resources::Find<ss::graphics::Texture>(L"Boss2-1_EnergyballEnd");
+		std::shared_ptr<ss::graphics::Texture> Image5 = Resources::Find<ss::graphics::Texture>(L"Boss2-1_Die");
 
-		mAnimator->Create(L"Boss_Wolf_IdleR", Image1, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f));
+
+		std::shared_ptr<ss::graphics::Texture> Image6 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_MoveBack");
+	
+		// ==== 1페이즈 석상 
+		/*mAnimator->Create(L"Boss_Goddness_Idle", Image1, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 2, Vector2(269.f, 308.f));
+		mAnimator->Create(L"Boss_Goddness_Stomp", Image2, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 4, Vector2(269.f, 308.f));
+		mAnimator->Create(L"Boss_Goddness_EnergyballStart", Image3, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 11, Vector2(269.f, 308.f));
+		mAnimator->Create(L"Boss_Goddness_EnergyballEnd", Image4, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 4, Vector2(269.f, 308.f));
+		mAnimator->Create(L"Boss_Goddness_Die", Image5, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 22, Vector2(269.f, 308.f));*/
 
 
+		// ==== 2페이즈 신
+		mAnimator->Create(L"test", Image6, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f), Vector2::Zero);
+
+		mAnimator->PlayAnimation(L"test", true);
 
 		// ======
 	// 애니메이션 방향에 관한 기준	을 잡아준다.
@@ -83,11 +99,14 @@ namespace ss
 		//mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
 
 
-		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+		// trigger 완성하면 이거 씌우기 
+		//mMeshRenderer->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 
 	}
 	void GoddnessScript::Update()
 	{
+		MonsterScript::Update();
+
 	}
 	void GoddnessScript::OnCollisionEnter(Collider2D* other)
 	{
