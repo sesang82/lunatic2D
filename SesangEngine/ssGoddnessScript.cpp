@@ -24,6 +24,7 @@ namespace ss
 	GoddnessScript::GoddnessScript()
 		: miStompCount(0)
 		, mbStomp(false)
+		, mStatueState(eStatueState::MOVING_DOWN)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -365,20 +366,16 @@ namespace ss
 	void GoddnessScript::Stomp_Ing()
 	{
 
-		eStatueState mStatueState = eStatueState::MOVING_DOWN;
-		int mStompCount = 0;
-
-
-
 
 		float StatuePosY = mTransform->GetPosition().y;
 		float HitGroundPosY = mHitGround->GetComponent<Transform>()->GetPosition().y;
 		float TargetPosY = 0.0f;
 
+		// 상태에 따른 목표 위치 설정
 		switch (mStatueState)
 		{
 		case eStatueState::MOVING_DOWN:
-			TargetPosY = HitGroundPosY;
+			TargetPosY = HitGroundPosY + 136.f; 
 			break;
 
 		case eStatueState::MOVING_UP:
@@ -387,37 +384,48 @@ namespace ss
 		}
 
 		float dirY = TargetPosY - StatuePosY;
-		float moveDistance = abs(dirY);  // y축의 움직일 거리
-		dirY = dirY > 0 ? 1.0f : -1.0f;  // 방향
+
+		float moveDistance = abs(dirY);
+		dirY = dirY > 0 ? 1.0f : -1.0f;
 
 		float moveSpeed = 150.0f;
 		float moveAmountY = dirY * moveSpeed * Time::DeltaTime();
 
-		StatuePosY += moveAmountY;
+		StatuePosY += moveAmountY; 
+
+
 		mTransform->SetPosition(Vector3(mTransform->GetPosition().x, StatuePosY, mTransform->GetPosition().z));
 
-		// 목표 위치에 도착했는지 체크
-		if (abs(StatuePosY - TargetPosY) < 30.0f) {  // 10.0f는 임의의 값. 원하는 값으로 조절하세요.
-			if (mStatueState == eStatueState::MOVING_DOWN) {
-				mStatueState = eStatueState::MOVING_UP;
-			}
-			else {
-				mStatueState = eStatueState::MOVING_DOWN;
-				mStompCount++;
-			}
-		}
 
-		if (mStompCount == 3) {
-			// 3번 움직였다면 원하는 동작을 수행하거나 상태를 변경하세요.
-			mStompCount = 0;  // 카운트 초기화
+		// 상태 전환 로직
+		if ((dirY > 0 && StatuePosY >= TargetPosY) || (dirY < 0 && StatuePosY <= TargetPosY)) 
+		{
+			if (mStatueState == eStatueState::MOVING_DOWN) 
+			{
+				mStatueState = eStatueState::MOVING_UP;
+				miStompCount++;
+
+			}
+
+			else 
+			{
+				mStatueState = eStatueState::MOVING_DOWN;
+			
+			}
+
+			ChangeState(eBoss2_Phase1::STOMP_ING);
 		}
-	
 	}
 
 
 
 	void GoddnessScript::Stomp_End()
 	{
+		/*if (mStatueState == eStatueState::MOVING_UP && miStompCount == 1)
+		{
+			ChangeState(eBoss2_Phase1::STOMP_ING);
+		}*/
+		
 	}
 
 	void GoddnessScript::Energyball_Start()

@@ -216,17 +216,11 @@ namespace ss
 
 		virtual void ChangeState(eBoss2_Phase1 state)
 		{
-			if (mCurBoss2_Phase1_State == state)
-				return;
-
 			mCurBoss2_Phase1_State = state;
 		}
 
 		virtual void ChangeState(eBoss2_Phase2 state)
 		{
-			if (mCurBoss2_Phase2_State == state)
-				return;
-
 			mCurBoss2_Phase2_State = state;
 		}
 
