@@ -41,7 +41,9 @@ namespace ss
         Vector3					mCurDir; // 거리값으로 계산해낸 방향 
 
         int miStompCount;
+        int miCompleteStompCount;
         bool mbStomp;
+        bool mTest;
     
 
 

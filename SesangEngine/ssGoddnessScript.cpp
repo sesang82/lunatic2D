@@ -23,7 +23,9 @@ namespace ss
 {
 	GoddnessScript::GoddnessScript()
 		: miStompCount(0)
+		, miCompleteStompCount(0)
 		, mbStomp(false)
+		, mTest(false)
 		, mStatueState(eStatueState::MOVING_DOWN)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
@@ -245,22 +247,58 @@ namespace ss
 
 	void GoddnessScript::Idle()
 	{
-		// 랜덤으로 상태를 변경한다. 
 
+
+		mAnimator->PlayAnimation(L"Boss_Goddness_Idle", true); 
+
+
+
+		// 랜덤으로 상태를 변경한다. 
+		int randomValue = rand() % 2; // 0 또는 1을 생성 (랜덤으로) 
 
 
 		// 랜덤 숫자가 stomp Ready에 해당하는거라면 상태를 바꾸기 전에 아래와 같은 사항을 추가해준다.
 		// 카메라가 플레이어 쪽으로 점점 더 확대된다. (stomp 패턴 암시) 
 		m_fTime += Time::DeltaTime();
 
-		if (m_fTime > 3.f) // 임시로 해둠 
+
+	
+		if (!mTest)
 		{
 			ChangeState(eBoss2_Phase1::STOMP_READY);
 			mPrevBoss2_Phase1_State = eBoss2_Phase1::IDLE;
 
 			m_fTime = 0.f;
+
+			mTest = true;
 		}
 
+		else if (mTest)
+		{
+			if (mPrevBoss2_Phase1_State == eBoss2_Phase1::STOMP_END)
+			{
+				// 석상이 중앙으로 이동한다. 
+				Vector3 StatuePos = mTransform->GetPosition();
+				Vector3 FirstPos = Vector3(0.f, -87.f, 500.f);
+
+
+				Vector3 TargetPos = Vector3(0.f, FirstPos.y + 67.f, FirstPos.z);
+
+
+				// 석상에서 목표 위치로의 방향 벡터를 계산합니다.
+				Vector3 dir = TargetPos - StatuePos;
+				float distance = dir.Length();  // 석상과 목표 위치 사이의 거리를 계산합니다.
+				dir.Normalize();  // 방향 벡터를 정규화합니다.
+
+
+				float moveSpeed = 150.0f;  // 원하는 속도 값을 설정하세요.
+
+				Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+				StatuePos += moveAmount;  // 현재 위치를 업데이트합니다.
+				mTransform->SetPosition(StatuePos);  // 업데이트된 위치를 설정합니다.
+			}
+		}
 
 
 
@@ -339,6 +377,7 @@ namespace ss
 			{
 				ChangeState(eBoss2_Phase1::STOMP_ING);
 				m_fTime = 0.0f;
+				mbStomp = false;
 			}
 
 		}
@@ -388,7 +427,7 @@ namespace ss
 		float moveDistance = abs(dirY);
 		dirY = dirY > 0 ? 1.0f : -1.0f;
 
-		float moveSpeed = 150.0f;
+		float moveSpeed = 250.0f;
 		float moveAmountY = dirY * moveSpeed * Time::DeltaTime();
 
 		StatuePosY += moveAmountY; 
@@ -403,6 +442,10 @@ namespace ss
 			if (mStatueState == eStatueState::MOVING_DOWN) 
 			{
 				mStatueState = eStatueState::MOVING_UP;
+
+				if (miStompCount == 3)
+					return;
+
 				miStompCount++;
 
 			}
@@ -413,7 +456,16 @@ namespace ss
 			
 			}
 
-			ChangeState(eBoss2_Phase1::STOMP_ING);
+			if (miStompCount == 3)
+			{
+				ChangeState(eBoss2_Phase1::STOMP_END);
+				mHitGround->SetState(GameObject::eState::Dead);
+			}
+
+			else
+			{
+				ChangeState(eBoss2_Phase1::STOMP_ING);
+			}
 		}
 	}
 
@@ -421,6 +473,43 @@ namespace ss
 
 	void GoddnessScript::Stomp_End()
 	{
+		// 카메라를 좀 더 확대시켜서 딜 타임임을 알려준다. 
+
+
+
+	    miStompCount = 0; // 0을 언제 초기화할지 좀 생각해보기 
+		mAnimator->PlayAnimation(L"Boss_Goddness_Idle", true); 
+
+		m_fTime += Time::DeltaTime();
+
+
+	
+		if (m_fTime > 2.0f)
+		{
+			// 상태가 바뀔 때 카메라를 다시 원래대로 돌려놓는다. 
+
+			if (miCompleteStompCount < 3)
+			{
+
+				ChangeState(eBoss2_Phase1::STOMP_READY);
+				++miCompleteStompCount;
+
+	
+			}
+
+			else if (miCompleteStompCount == 3)
+			{		
+				ChangeState(eBoss2_Phase1::IDLE);
+				mPrevBoss2_Phase1_State = eBoss2_Phase1::STOMP_END;
+			}
+			
+			m_fTime = 0.0f;
+
+		}
+	
+		
+		
+		
 		/*if (mStatueState == eStatueState::MOVING_UP && miStompCount == 1)
 		{
 			ChangeState(eBoss2_Phase1::STOMP_ING);
