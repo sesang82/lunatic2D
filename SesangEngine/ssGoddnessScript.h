@@ -44,6 +44,8 @@ namespace ss
         int miCompleteStompCount;
         bool mbStomp;
         bool mTest;
+
+        bool mbEnergySpawn;
     
 
 
@@ -54,6 +56,7 @@ namespace ss
 
         // ==== 이펙트
         class Effect* mHitGround;
+        class Energyball* mEngeryball;
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 

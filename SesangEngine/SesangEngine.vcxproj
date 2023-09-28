@@ -170,6 +170,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ssEnergyball.cpp" />
+    <ClCompile Include="ssEnergyballScript.cpp" />
     <ClCompile Include="ssGolemFarRangeScript.cpp" />
     <ClCompile Include="ssGolemNearRangeScript.cpp" />
     <ClCompile Include="ssItem.cpp" />
@@ -245,6 +247,8 @@
     <ClCompile Include="ssZombieScript.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ssEnergyball.h" />
+    <ClInclude Include="ssEnergyballScript.h" />
     <ClInclude Include="ssGolemFarRangeScript.h" />
     <ClInclude Include="ssGolemNearRangeScript.h" />
     <ClInclude Include="ssItem.h" />

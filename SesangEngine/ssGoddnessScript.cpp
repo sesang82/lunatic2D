@@ -18,6 +18,10 @@
 #include "ssRenderer.h"
 #include "ssGameState.h"
 #include "ssEffectScript.h"
+#include "ssEnergyball.h"
+#include "ssEnergyballScript.h"
+
+
 
 namespace ss
 {
@@ -26,6 +30,7 @@ namespace ss
 		, miCompleteStompCount(0)
 		, mbStomp(false)
 		, mTest(false)
+		, mbEnergySpawn(false)
 		, mStatueState(eStatueState::MOVING_DOWN)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
@@ -275,6 +280,7 @@ namespace ss
 
 		else if (!mTest && m_fTime > 3.0f)
 		{
+
 			//if (mPrevBoss2_Phase1_State == eBoss2_Phase1::STOMP_END) // 테스트 완료. 에너지볼 기능 구현되면 이거 다시 되살리기 
 			//{
 			//	// 석상이 중앙으로 이동한다. 
@@ -316,14 +322,21 @@ namespace ss
 
 				StatuePos.y += moveAmountY;
 				mTransform->SetPosition(StatuePos);
+
+			
 			}
 
+			
+			m_fTime += Time::DeltaTime();
 
+			if (m_fTime > 10.0f)
+			{
 
-			//ChangeState(eBoss2_Phase1::ENERGYBALL_READY);
-			mPrevBoss2_Phase1_State = eBoss2_Phase1::IDLE;
+				ChangeState(eBoss2_Phase1::ENERGYBALL_READY);
+				mPrevBoss2_Phase1_State = eBoss2_Phase1::IDLE;
 
-			//m_fTime = 0.f;
+				m_fTime = 0.f;
+			}
 
 
 
@@ -553,6 +566,22 @@ namespace ss
 
 	void GoddnessScript::Energyball_Start()
 	{
+
+		Vector3 StatuePos = mTransform->GetPosition();
+
+
+		if (!mbEnergySpawn)
+		{
+			mbEnergySpawn = true;
+			mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x, StatuePos.y - 20.f, 300.f), eLayerType::Collision, L"EnergyballObj");
+
+			EnergyballScript* script = mEngeryball->AddComponent<EnergyballScript>();
+
+		}
+	
+
+
+
 	}
 	void GoddnessScript::Energyball_ing()
 	{

@@ -101,9 +101,6 @@
     <ClCompile Include="ssBigWolfScript.cpp">
       <Filter>Contents\Script\Character\Monster\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="ssGoddnessScript.cpp">
-      <Filter>Contents\Script\Character\Monster\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="ssStage1Scene.cpp">
       <Filter>Contents\Load\Scene\Stage 1</Filter>
     </ClCompile>
@@ -217,6 +214,15 @@
     </ClCompile>
     <ClCompile Include="ssGolemFarRangeScript.cpp">
       <Filter>Contents\Script\Character\Monster\Base\General\Golem\col</Filter>
+    </ClCompile>
+    <ClCompile Include="ssGoddnessScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="ssEnergyballScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="ssEnergyball.cpp">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -418,6 +424,9 @@
     <Filter Include="Contents\GameObj\etc\Item">
       <UniqueIdentifier>{cd853916-1f6e-4161-b1b6-b82a15dd96c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Script\Character\Monster\Boss\Boss2">
+      <UniqueIdentifier>{b78d8026-2ac0-44d5-9ce1-e97c986bdcaa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoadScenes.h">
@@ -517,9 +526,6 @@
       <Filter>Contents\Script\Character\Monster\Base\General</Filter>
     </ClInclude>
     <ClInclude Include="ssBigWolfScript.h">
-      <Filter>Contents\Script\Character\Monster\Boss</Filter>
-    </ClInclude>
-    <ClInclude Include="ssGoddnessScript.h">
       <Filter>Contents\Script\Character\Monster\Boss</Filter>
     </ClInclude>
     <ClInclude Include="ssStage1Scene.h">
@@ -638,6 +644,15 @@
     </ClInclude>
     <ClInclude Include="ssGolemFarRangeScript.h">
       <Filter>Contents\Script\Character\Monster\Base\General\Golem\col</Filter>
+    </ClInclude>
+    <ClInclude Include="ssGoddnessScript.h">
+      <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="ssEnergyballScript.h">
+      <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="ssEnergyball.h">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
