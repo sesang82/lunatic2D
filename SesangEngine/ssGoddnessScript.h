@@ -12,6 +12,12 @@ namespace ss
         GODDNESS,
     };
 
+    enum class eStatueState 
+    {
+        MOVING_UP,
+        MOVING_DOWN
+    };
+
 
     class GoddnessScript :
         public MonsterScript
@@ -40,6 +46,7 @@ namespace ss
 
 
         eBossType mBossType;
+        eStatueState mStatueState;
         class Player* mPlayer;
 
 

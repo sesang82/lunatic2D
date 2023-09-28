@@ -281,6 +281,7 @@ namespace ss
 
 		// 잠시 애니메이션 재생을 멈춘다. (0인덱스에 머무르게), 양 옆에 벽에 가시가 나온다.
 		 
+		mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
 		 
 		// 벽에 가시가 다 나오면 플레이어의 위치 위에 떠있는다 (체감상 2초 정도?)
 		bool isGround = mPlayer->GetComponent<Rigidbody2D>()->IsGround();
@@ -302,27 +303,47 @@ namespace ss
 			mbStomp = true; 
 
 
+		}
+
+		if (nullptr != mHitGround)
+		{
+
+			// 석상이 대각선으로 이동한다. 
+			Vector3 StatuePos = mTransform->GetPosition();
+			Vector3 HitGroundPos = mHitGround->GetComponent<Transform>()->GetPosition();
 
 
+			Vector3 TargetPos = Vector3(HitGroundPos.x, HitGroundPos.y + 250.f, HitGroundPos.z);
 
-			//Vector3 MonsterPos = mTransform->GetPosition();
-		
-			//Vector3 direction = PlayerPos - MonsterPos; // 플레이어와 몬스터 사이의 방향 벡터
-			//float distance = direction.Length();
-			//direction.Normalize(); // 방향만을 위해 벡터 정규화
 
-			//// 이동할 거리 계산 (원하는 속도나 프레임당 이동할 거리를 설정)
-			//float moveAmount = 50 * Time::DeltaTime();
+			// 석상에서 목표 위치로의 방향 벡터를 계산합니다.
+			Vector3 dir = TargetPos - StatuePos;
+			float distance = dir.Length();  // 석상과 목표 위치 사이의 거리를 계산합니다.
+			dir.Normalize();  // 방향 벡터를 정규화합니다.
 
-			//// 실제 이동 벡터 계산
-			//Vector3 moveVector = direction * moveAmount;
 
-			//// 위치 업데이트
-			//MonsterPos += moveVector;
+			float moveSpeed = 250.0f;  // 원하는 속도 값을 설정하세요.
 
-			//mTransform->SetPosition(MonsterPos);
+			Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+			StatuePos += moveAmount;  // 현재 위치를 업데이트합니다.
+			mTransform->SetPosition(StatuePos);  // 업데이트된 위치를 설정합니다.
+
+			
+
+			m_fTime += Time::DeltaTime();
+			// 허공에 다다르면 상태를 바꾼다. 
+
+			if (m_fTime > 1.5f)
+			{
+				ChangeState(eBoss2_Phase1::STOMP_ING);
+				m_fTime = 0.0f;
+			}
 
 		}
+	
+
+
 
 		// 2초가 지나면 연달아 3번 그 위치에 도장찍듯이 떨어진다. 
 
@@ -334,19 +355,67 @@ namespace ss
 
 
 
+		
+		
 
 
-
-
-
-
-		mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
 
 
 	}
 	void GoddnessScript::Stomp_Ing()
 	{
+
+		eStatueState mStatueState = eStatueState::MOVING_DOWN;
+		int mStompCount = 0;
+
+
+
+
+		float StatuePosY = mTransform->GetPosition().y;
+		float HitGroundPosY = mHitGround->GetComponent<Transform>()->GetPosition().y;
+		float TargetPosY = 0.0f;
+
+		switch (mStatueState)
+		{
+		case eStatueState::MOVING_DOWN:
+			TargetPosY = HitGroundPosY;
+			break;
+
+		case eStatueState::MOVING_UP:
+			TargetPosY = HitGroundPosY + 250.f;
+			break;
+		}
+
+		float dirY = TargetPosY - StatuePosY;
+		float moveDistance = abs(dirY);  // y축의 움직일 거리
+		dirY = dirY > 0 ? 1.0f : -1.0f;  // 방향
+
+		float moveSpeed = 150.0f;
+		float moveAmountY = dirY * moveSpeed * Time::DeltaTime();
+
+		StatuePosY += moveAmountY;
+		mTransform->SetPosition(Vector3(mTransform->GetPosition().x, StatuePosY, mTransform->GetPosition().z));
+
+		// 목표 위치에 도착했는지 체크
+		if (abs(StatuePosY - TargetPosY) < 30.0f) {  // 10.0f는 임의의 값. 원하는 값으로 조절하세요.
+			if (mStatueState == eStatueState::MOVING_DOWN) {
+				mStatueState = eStatueState::MOVING_UP;
+			}
+			else {
+				mStatueState = eStatueState::MOVING_DOWN;
+				mStompCount++;
+			}
+		}
+
+		if (mStompCount == 3) {
+			// 3번 움직였다면 원하는 동작을 수행하거나 상태를 변경하세요.
+			mStompCount = 0;  // 카운트 초기화
+		}
+	
 	}
+
+
+
 	void GoddnessScript::Stomp_End()
 	{
 	}
