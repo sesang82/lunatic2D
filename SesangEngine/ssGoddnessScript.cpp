@@ -263,42 +263,76 @@ namespace ss
 
 
 	
-		if (!mTest)
+		if (mTest)
 		{
 			ChangeState(eBoss2_Phase1::STOMP_READY);
 			mPrevBoss2_Phase1_State = eBoss2_Phase1::IDLE;
 
 			m_fTime = 0.f;
 
-			mTest = true;
+			
 		}
 
-		else if (mTest)
+		else if (!mTest && m_fTime > 3.0f)
 		{
-			if (mPrevBoss2_Phase1_State == eBoss2_Phase1::STOMP_END)
+			//if (mPrevBoss2_Phase1_State == eBoss2_Phase1::STOMP_END) // 테스트 완료. 에너지볼 기능 구현되면 이거 다시 되살리기 
+			//{
+			//	// 석상이 중앙으로 이동한다. 
+			//	Vector3 StatuePos = mTransform->GetPosition();
+			//	Vector3 FirstPos = Vector3(0.f, -87.f, 500.f);
+
+
+			//	Vector3 TargetPos = Vector3(0.f, FirstPos.y + 67.f, FirstPos.z);
+
+
+			//	// 석상에서 목표 위치로의 방향 벡터를 계산합니다.
+			//	Vector3 dir = TargetPos - StatuePos;
+			//	float distance = dir.Length();  // 석상과 목표 위치 사이의 거리를 계산합니다.
+			//	dir.Normalize();  // 방향 벡터를 정규화합니다.
+
+
+			//	float moveSpeed = 150.0f;  // 원하는 속도 값을 설정하세요.
+
+			//	Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+			//	StatuePos += moveAmount;  // 현재 위치를 업데이트합니다.
+			//	mTransform->SetPosition(StatuePos);  // 업데이트된 위치를 설정합니다.
+			//}
+
+
+
+
+			// == 초기값 위치에서 y값만 어느 정도 위로 올린다. 
+			Vector3 StatuePos = mTransform->GetPosition();
+
+			float moveSpeed = 100.0f;  // 원하는 속도 값을 설정하세요.
+
+			float moveAmountY = moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+	
+			// 올라가는 위치 제한 
+			if (StatuePos.y < -21.f)
 			{
-				// 석상이 중앙으로 이동한다. 
-				Vector3 StatuePos = mTransform->GetPosition();
-				Vector3 FirstPos = Vector3(0.f, -87.f, 500.f);
 
-
-				Vector3 TargetPos = Vector3(0.f, FirstPos.y + 67.f, FirstPos.z);
-
-
-				// 석상에서 목표 위치로의 방향 벡터를 계산합니다.
-				Vector3 dir = TargetPos - StatuePos;
-				float distance = dir.Length();  // 석상과 목표 위치 사이의 거리를 계산합니다.
-				dir.Normalize();  // 방향 벡터를 정규화합니다.
-
-
-				float moveSpeed = 150.0f;  // 원하는 속도 값을 설정하세요.
-
-				Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
-
-				StatuePos += moveAmount;  // 현재 위치를 업데이트합니다.
-				mTransform->SetPosition(StatuePos);  // 업데이트된 위치를 설정합니다.
+				StatuePos.y += moveAmountY;
+				mTransform->SetPosition(StatuePos);
 			}
+
+
+
+			//ChangeState(eBoss2_Phase1::ENERGYBALL_READY);
+			mPrevBoss2_Phase1_State = eBoss2_Phase1::IDLE;
+
+			//m_fTime = 0.f;
+
+
+
+
+
+
+
 		}
+
 
 
 
