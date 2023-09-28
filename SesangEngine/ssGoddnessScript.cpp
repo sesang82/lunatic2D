@@ -329,7 +329,7 @@ namespace ss
 			
 			m_fTime += Time::DeltaTime();
 
-			if (m_fTime > 10.0f)
+			if (m_fTime > 5.0f)
 			{
 
 				ChangeState(eBoss2_Phase1::ENERGYBALL_READY);
@@ -569,11 +569,11 @@ namespace ss
 
 		Vector3 StatuePos = mTransform->GetPosition();
 
-
 		if (!mbEnergySpawn)
 		{
 			mbEnergySpawn = true;
-			mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x, StatuePos.y, 300.f), eLayerType::Collision, L"Parrying_S_EnergyballObj");
+
+			mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x - 60.f, StatuePos.y + 20.f, 300.f), eLayerType::Collision, L"Parrying_S_EnergyballObj");
 			mEngeryball->SetOriginOwenr(mTransform->GetOwner());
 
 			EnergyballScript* script = mEngeryball->AddComponent<EnergyballScript>();

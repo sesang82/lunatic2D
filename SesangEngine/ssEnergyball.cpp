@@ -10,11 +10,38 @@
 
 namespace ss
 {
+	int Energyball::miSpawnedBallCount = 0;
+
 	Energyball::Energyball()
 		: mAnimator(nullptr)
 		, mTransform(nullptr)
 		, mbTest(false)
+		, miMaxSpawnedBalls(11)
 	{
+
+		spawnPatterns =
+		{
+			// LT
+			{0, -35}, // 아래
+			{35, 35}, // 오른쪽
+
+
+			// LB
+			{-35, -105},  // 꼭짓점
+			{0, 35}, // 위 
+			{35, -35}, // 오른쪽
+
+			// RT
+			{70, 0}, // 꼭짓점
+			{0, 35}, // 위
+			{-35, -35}, // 아래 
+
+			// RB
+			{35, 105}, // 꼭짓점
+			{0, -35}, // 아래
+			{-35, 35}, // 위
+		};
+
 		Energyball::Initialize();
 
 
@@ -64,10 +91,17 @@ namespace ss
 			//Vector3 bossPos = mOwner->GetComponent<Transform>()->GetPosition();
 
 
-
 			if (!mbTest)
 			{
-				object::Instantiate<Energyball>(Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y - 30.f, 300.f), eLayerType::Collision, L"Parrying_S_EnergyballObj2");
+				CreateEnergyball();
+				
+				//object::Instantiate<Energyball>(Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y - 35.f, 300.f), eLayerType::Collision, L"Parrying_S_EnergyballObj2"); // 아래
+				//object::Instantiate<Energyball>(Vector3(mTransform->GetPosition().x + 60.f, mTransform->GetPosition().y + 35.f, 300.f), eLayerType::Collision, L"Parrying_S_EnergyballObj3"); // 오른쪽
+
+
+			//	object::Instantiate<Energyball>(Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y - 35.f, 300.f), eLayerType::Collision, L"Parrying_S_EnergyballObj2"); // 오른쪽
+
+
 				mbTest = true;
 			}
 
@@ -84,6 +118,25 @@ namespace ss
 	void Energyball::Render()
 	{
 		Bullet::Render();
+	}
+
+	void Energyball::CreateEnergyball()
+	{
+
+		// 12개까지만 생성되게 해둠 
+		if (miMaxSpawnedBalls <= miSpawnedBallCount)
+			return;
+
+
+		Vector2 offset = spawnPatterns[miSpawnedBallCount]; // stiatc으로 해뒀기 때문에 객체가 생성되도 원하는 인덱스값의 위치 값 가져올 수 있음 
+
+
+		object::Instantiate<Energyball>(Vector3(mTransform->GetPosition().x + offset.x, mTransform->GetPosition().y + offset.y, 300.f),
+			eLayerType::Collision, L"Parrying_S_EnergyballObj"); // 아래
+
+		++miSpawnedBallCount;
+
+
 	}
 
 

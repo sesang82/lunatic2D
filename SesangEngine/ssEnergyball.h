@@ -20,6 +20,11 @@ namespace ss
         virtual void Render() override;
 
     private:
+        static int miSpawnedBallCount; // 객체가 생성될때마다 생성자 초기값으로 초기화되기 때문에 static 씀 
+        int miMaxSpawnedBalls;
+
+        std::vector<Vector2> spawnPatterns; 
+
        class Animator* mAnimator;
        class Transform* mTransform;
        class GameObject* mOwner; 
@@ -28,7 +33,7 @@ namespace ss
        bool  mbTest;
     public:
        void SetOriginOwenr(GameObject* obj) { mOwner = obj; }
-
+       void CreateEnergyball();
       
        
      

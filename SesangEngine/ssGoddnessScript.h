@@ -22,6 +22,10 @@ namespace ss
     class GoddnessScript :
         public MonsterScript
     {
+
+        friend class Energyball;
+
+
     public:
         GoddnessScript();
         virtual ~GoddnessScript();
