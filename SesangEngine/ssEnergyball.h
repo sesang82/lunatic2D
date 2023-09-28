@@ -19,6 +19,18 @@ namespace ss
         virtual void LateUpdate() override;
         virtual void Render() override;
 
+    private:
+       class Animator* mAnimator;
+       class Transform* mTransform;
+       class GameObject* mOwner; 
+       
+
+       bool  mbTest;
+    public:
+       void SetOriginOwenr(GameObject* obj) { mOwner = obj; }
+
+      
+       
      
 
 

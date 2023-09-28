@@ -573,7 +573,8 @@ namespace ss
 		if (!mbEnergySpawn)
 		{
 			mbEnergySpawn = true;
-			mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x, StatuePos.y - 20.f, 300.f), eLayerType::Collision, L"EnergyballObj");
+			mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x, StatuePos.y, 300.f), eLayerType::Collision, L"Parrying_S_EnergyballObj");
+			mEngeryball->SetOriginOwenr(mTransform->GetOwner());
 
 			EnergyballScript* script = mEngeryball->AddComponent<EnergyballScript>();
 

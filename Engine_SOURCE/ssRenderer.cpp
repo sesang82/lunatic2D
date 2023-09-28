@@ -2962,7 +2962,7 @@ namespace renderer
 		 // 惯荤
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2-Boss2_1_Energyball_B_Parrying_Energying_Effect",
+				 = Resources::Load<Texture>(L"Boss2_1_Energyball_B_Parrying_Energying_Effect",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Big\\Parrying\\Energying\\AfterSpawn.png");
 
 			 // === Material 积己
@@ -3029,7 +3029,7 @@ namespace renderer
 		 // 惯荤
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2-Boss2_1_Energyball_S_Parrying_AfterSpawn_Effect",
+				 = Resources::Load<Texture>(L"Boss2_1_Energyball_S_Parrying_AfterSpawn_Effect",
 					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Small\\Parrying\\AfterSpawn\\AfterSpawn.png");
 
 			 // === Material 积己
