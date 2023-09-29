@@ -119,7 +119,7 @@ namespace ss
 
 		mfTime += Time::DeltaTime();
 
-		if (mfTime > 5.5f && mbSpawnComplete && miSpawnedBallCount == 12)
+		if (mfTime > 8.5f && mbSpawnComplete && miSpawnedBallCount == 12)
 		{
 			AddComponent<Collider2D>();
 

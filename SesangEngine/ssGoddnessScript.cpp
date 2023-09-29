@@ -312,7 +312,7 @@ namespace ss
 			// == 초기값 위치에서 y값만 어느 정도 위로 올린다. 
 			Vector3 StatuePos = mTransform->GetPosition();
 
-			float moveSpeed = 100.0f;  // 원하는 속도 값을 설정하세요.
+			float moveSpeed = 200.0f;  // 원하는 속도 값을 설정하세요.
 
 			float moveAmountY = moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
 
@@ -583,6 +583,16 @@ namespace ss
 			SceneManager::SetPlayer(mPlayer);
 		
 
+		
+		}
+
+
+		m_fTime += Time::DeltaTime();
+
+		if (mEngeryball->GetSpawnCount() == 12 && m_fTime > 16.0f)
+		{
+			ChangeState(eBoss2_Phase1::ENERGYBALL_END);
+			m_fTime = 0.0f;
 		}
 	
 
@@ -594,6 +604,37 @@ namespace ss
 	}
 	void GoddnessScript::Energyball_End()
 	{
+	
+		Vector3 targetPos = Vector3(0.f, -87.f, 500.f);
+		Vector3 StatuePos = mTransform->GetPosition();
+
+		float moveSpeed = 200.0f;  // 원하는 속도 값을 설정하세요.
+
+		float moveAmountY = moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+		// 내려가는 위치 제한
+		if (StatuePos.y > targetPos.y)
+		{
+			StatuePos.y -= moveAmountY;
+			// 만약 moveAmountY를 빼고 난 후의 값이 targetPos.y보다 작다면 targetPos.y로 설정
+			if (StatuePos.y < targetPos.y)
+			{
+				StatuePos.y = targetPos.y;
+			}
+			mTransform->SetPosition(StatuePos);
+
+			
+		}
+
+
+		m_fTime += Time::DeltaTime();
+
+		if (m_fTime > 3.f)
+		{
+			ChangeState(eBoss2_Phase1::IDLE);
+			m_fTime = 0.f;
+		}
+
 	}
 	void GoddnessScript::Wind_Ready()
 	{

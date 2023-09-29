@@ -44,6 +44,8 @@ namespace ss
        void SetFirstEnergyball(Energyball* obj) { mFirstEnergyball = obj; }
        void CreateEnergyball();
        void IncreaseSpawnCount() { ++miSpawnedBallCount; }
+       void InitializeSpawnCount() { miSpawnedBallCount = 0; }
+       int GetSpawnCount() { return miSpawnedBallCount; }
 
     
        
