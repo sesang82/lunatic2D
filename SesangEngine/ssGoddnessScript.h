@@ -18,6 +18,14 @@ namespace ss
         MOVING_DOWN
     };
 
+    enum class eStompState
+    {
+        NONE,
+        SINGLE_STOMP,
+        QUADRUPLE_STOMP, // 4번 연속적으로 빠르게 내려감 
+
+    };
+
 
     class GoddnessScript :
         public MonsterScript
@@ -55,6 +63,7 @@ namespace ss
 
         eBossType mBossType;
         eStatueState mStatueState;
+        eStompState mStompState;
         class Player* mPlayer;
 
 
@@ -81,6 +90,9 @@ namespace ss
         void Dead();
 
 
+   
+
+
 
 
 
@@ -92,6 +104,7 @@ namespace ss
         Vector3 GetCurDir() { return mCurDir; }
         eMonsterState GetCurState() { return mCurState; }
 
+        eStompState  GetRandomStompState();
     };
 }
 
