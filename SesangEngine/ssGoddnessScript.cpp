@@ -48,6 +48,7 @@ namespace ss
 
 
 
+		GetOwner()->AddComponent<Rigidbody2D>();
 
 		mCharacterState->SetMaxHP(110.f);
 		mCharacterState->SetCurrentHP(110.f);
@@ -390,7 +391,7 @@ namespace ss
 				dir.Normalize();  // 방향 벡터를 정규화합니다.
 
 
-				float moveSpeed = 250.0f;  // 원하는 속도 값을 설정하세요.
+				float moveSpeed = 650.0f;  // 원하는 속도 값을 설정하세요.
 
 				Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
 
@@ -399,7 +400,7 @@ namespace ss
 
 				m_fTime += Time::DeltaTime();
 
-				if (m_fTime > 1.4f) // 1.5보다 줄이면 정확한 위치에 가기 전에 내려앉음 
+				if (m_fTime > 0.5f) // 1.5보다 줄이면 정확한 위치에 가기 전에 내려앉음 
 				{
 					ChangeState(eBoss2_Phase1::STOMP_ING);
 					m_fTime = 0.0f;
@@ -436,6 +437,7 @@ namespace ss
 	void GoddnessScript::Stomp_Ing()
 	{
 		
+		
 			float StatuePosY = mTransform->GetPosition().y;
 			float HitGroundPosY = mHitGround->GetComponent<Transform>()->GetPosition().y;
 			float TargetPosY = 0.0f;
@@ -445,10 +447,12 @@ namespace ss
 			{
 			case eStatueState::MOVING_DOWN:
 				TargetPosY = HitGroundPosY + 136.f;
+				mRigidbody->AddForce(Vector2(0.f, 150.f));
 				break;
 
 			case eStatueState::MOVING_UP:
 				TargetPosY = HitGroundPosY + 250.f;
+				mRigidbody->AddForce(Vector2(0.f, -150.f));
 				break;
 			}
 
@@ -457,7 +461,7 @@ namespace ss
 			float moveDistance = abs(dirY);
 			dirY = dirY > 0 ? 1.0f : -1.0f;
 
-			float moveSpeed = 250.0f;
+			float moveSpeed = 700.0f;
 			float moveAmountY = dirY * moveSpeed * Time::DeltaTime();
 
 			StatuePosY += moveAmountY;
@@ -509,7 +513,7 @@ namespace ss
 				{
 				
 					ChangeState(eBoss2_Phase1::STOMP_END);
-					mStatueState = eStatueState::MOVING_DOWN; 
+					mStatueState = eStatueState::MOVING_DOWN; // 1번만 찍는 패턴은 현 상태가 계속 아래 상태여야하므로.
 					mHitGround->SetState(GameObject::eState::Dead);
 				
 				}
@@ -571,10 +575,10 @@ namespace ss
 
 			else if (mStompState == eStompState::SINGLE_STOMP)
 			{
-				if (m_fTime > 2.0f)
-				{
 					// 상태가 바뀔 때 카메라를 다시 원래대로 돌려놓는다. 
 
+				if (m_fTime > 0.2f)
+				{
 					if (miCompleteStompCount < 4)
 					{
 
@@ -592,8 +596,11 @@ namespace ss
 					}
 
 					m_fTime = 0.0f;
-
 				}
+
+					
+
+	
 
 
 			}
