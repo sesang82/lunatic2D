@@ -12,19 +12,22 @@
 namespace ss
 {
 	int Energyball::miSpawnedBallCount = 0;
-	Energyball* Energyball::mFirstEnergyball = nullptr;
-
 
 	Energyball::Energyball()
 		: mAnimator(nullptr)
 		, mTransform(nullptr)
 		, mbTest(false)
-		, miMaxSpawnedBalls(11)
+		, mbSpawnComplete(false)
+		, mStorePlayerPos(false)
+		, miMaxSpawnedBalls(12)
+		, mPlayerPos(Vector3::Zero)
+		, mfTime(0.0f)
 	{
 
 		spawnPatterns =
 		{
 			// LT
+			{0, 35},
 			{0, -35}, // 아래
 			{35, 35}, // 오른쪽
 
@@ -78,24 +81,25 @@ namespace ss
 		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false); // trigger 완성하면 지우기 
 
 		AddComponent<EnergyballScript>();
+
+		
 		
 
 		Bullet::Initialize();
 	}
 	void Energyball::Update()
 	{
-		
+
+		int i = miSpawnedBallCount;
+
+			mPlayer = SceneManager::GetPlayer();
+
+			RemoveComponent<Collider2D>();
+
+
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 			mAnimator->PlayAnimation(L"Energyball_S_Parrying_Energying", true);
-
-			if (nullptr != mFirstEnergyball)
-			{
-				Player* player = SceneManager::GetPlayer();
-
-			    Vector3 playerpos = player->GetComponent<Transform>()->GetPosition();
-			}
-
 
 			if (!mbTest)
 			{
@@ -107,11 +111,42 @@ namespace ss
 
 			//	object::Instantiate<Energyball>(Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y - 35.f, 300.f), eLayerType::Collision, L"Parrying_S_EnergyballObj2"); // 오른쪽
 
-
 				mbTest = true;
+				mbSpawnComplete = true;
+			}	
+
+		}
+
+		mfTime += Time::DeltaTime();
+
+		if (mfTime > 5.5f && mbSpawnComplete && miSpawnedBallCount == 12)
+		{
+			AddComponent<Collider2D>();
+
+			if (!mStorePlayerPos)
+			{
+				mPlayer = SceneManager::GetPlayer();
+				// 석상이 대각선으로 이동한다.
+				mPlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+				mStorePlayerPos = true;
+			
 			}
 
+			Vector3 TargetPos = Vector3(mPlayerPos.x, mPlayerPos.y, mPlayerPos.z);
+			Vector3 EnergyballPos = mTransform->GetPosition();
 
+			// 석상에서 목표 위치로의 방향 벡터를 계산합니다.
+			Vector3 dir = TargetPos - EnergyballPos;
+			float distance = dir.Length();  // 석상과 목표 위치 사이의 거리를 계산합니다.
+			dir.Normalize();  // 방향 벡터를 정규화합니다.
+
+
+			float moveSpeed = 250.0f;  // 원하는 속도 값을 설정하세요.
+
+			Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+			EnergyballPos += moveAmount;  // 현재 위치를 업데이트합니다.
+			mTransform->SetPosition(EnergyballPos);  // 업데이트된 위치를 설정합니다.
 
 		}
 
@@ -144,6 +179,7 @@ namespace ss
 
 
 	}
+
 
 
 

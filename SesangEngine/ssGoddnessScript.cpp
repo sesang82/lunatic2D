@@ -576,7 +576,10 @@ namespace ss
 
 			mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x - 60.f, StatuePos.y + 20.f, 400.f), eLayerType::Collision, L"Parrying_S_EnergyballObj");
 			mEngeryball->SetFirstEnergyball(mEngeryball);
-			
+			mEngeryball->SetOriginOwenr(mTransform->GetOwner());
+		
+			mEngeryball->IncreaseSpawnCount();
+
 			SceneManager::SetPlayer(mPlayer);
 		
 
