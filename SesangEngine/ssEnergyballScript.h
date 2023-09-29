@@ -37,14 +37,9 @@ namespace ss
         std::vector<EnergyBallPattern> FourGroupPattern;
 
         Vector3  mvStartPosition;
+        class CharacterState* mState;
 
 
-
-    public:
-        void SpawnEnergyBalls();
-        Energyball* CreateBall(Vector3 position);
-
-        Vector3  CalculateSpawnPosition(Vector3 startPosition, int group, int index);
 
 
     };

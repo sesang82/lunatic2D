@@ -20,6 +20,7 @@
 #include "ssEffectScript.h"
 #include "ssEnergyball.h"
 #include "ssEnergyballScript.h"
+#include "ssSceneManager.h"
 
 
 
@@ -573,10 +574,11 @@ namespace ss
 		{
 			mbEnergySpawn = true;
 
-			mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x - 60.f, StatuePos.y + 20.f, 300.f), eLayerType::Collision, L"Parrying_S_EnergyballObj");
-			mEngeryball->SetOriginOwenr(mTransform->GetOwner());
-
-			EnergyballScript* script = mEngeryball->AddComponent<EnergyballScript>();
+			mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x - 60.f, StatuePos.y + 20.f, 400.f), eLayerType::Collision, L"Parrying_S_EnergyballObj");
+			mEngeryball->SetFirstEnergyball(mEngeryball);
+			
+			SceneManager::SetPlayer(mPlayer);
+		
 
 		}
 	

@@ -51,6 +51,7 @@ namespace ss
 		static Scene* GetActiveScene() { return mActiveScene; }
 
 
+
 	private:
 		static Scene* mActiveScene;
 		// 여러 씬들을 관리하기 편하게 map으로 저장해둠
@@ -58,9 +59,12 @@ namespace ss
 
 		static eWeaponType WeaponInfo;
 		//static Boss* mBoss;
+		static class Player* mPlayer;
 
 	public:
 		static void SetWeaponInfo(eWeaponType info) { WeaponInfo = info; }
 		static eWeaponType GetWeaponInfo() { return WeaponInfo; }
+		static void SetPlayer(Player* player) { mPlayer = player; }
+		static Player* GetPlayer() { return mPlayer; }
 	};
 }

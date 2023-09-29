@@ -7,10 +7,13 @@
 #include "ssAnimator.h"
 #include "ssobject.h"
 #include "ssGoddnessScript.h"
+#include "ssPlayer.h"
 
 namespace ss
 {
 	int Energyball::miSpawnedBallCount = 0;
+	Energyball* Energyball::mFirstEnergyball = nullptr;
+
 
 	Energyball::Energyball()
 		: mAnimator(nullptr)
@@ -74,6 +77,7 @@ namespace ss
 
 		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false); // trigger 완성하면 지우기 
 
+		AddComponent<EnergyballScript>();
 		
 
 		Bullet::Initialize();
@@ -85,10 +89,12 @@ namespace ss
 		{
 			mAnimator->PlayAnimation(L"Energyball_S_Parrying_Energying", true);
 
-			
-			//GoddnessScript* boss = mOwner->GetComponent<GoddnessScript>();
+			if (nullptr != mFirstEnergyball)
+			{
+				Player* player = SceneManager::GetPlayer();
 
-			//Vector3 bossPos = mOwner->GetComponent<Transform>()->GetPosition();
+			    Vector3 playerpos = player->GetComponent<Transform>()->GetPosition();
+			}
 
 
 			if (!mbTest)
@@ -131,7 +137,7 @@ namespace ss
 		Vector2 offset = spawnPatterns[miSpawnedBallCount]; // stiatc으로 해뒀기 때문에 객체가 생성되도 원하는 인덱스값의 위치 값 가져올 수 있음 
 
 
-		object::Instantiate<Energyball>(Vector3(mTransform->GetPosition().x + offset.x, mTransform->GetPosition().y + offset.y, 300.f),
+		object::Instantiate<Energyball>(Vector3(mTransform->GetPosition().x + offset.x, mTransform->GetPosition().y + offset.y, 400.f),
 			eLayerType::Collision, L"Parrying_S_EnergyballObj"); // 아래
 
 		++miSpawnedBallCount;

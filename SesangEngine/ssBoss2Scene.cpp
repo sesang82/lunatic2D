@@ -230,7 +230,6 @@ namespace ss
 
 
 		Transform* eyetr = mBoss1->GetComponent<Transform>();
-		//eyetr->SetPosition(Vector3(0.f, -20.f, 500.f)); //  석상 위에 올라가 있을 때 위치
 		eyetr->SetPosition(Vector3(0.f, -87.f, 500.f));
 
 		GoddnessScript* wolfScript = mBoss1->AddComponent<GoddnessScript>();
@@ -242,7 +241,7 @@ namespace ss
 		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 
 		Transform* Playertr = mPlayer->GetComponent<Transform>();
-		Playertr->SetPosition(Vector3(-290.f, -208.0f, 500.f));
+		Playertr->SetPosition(Vector3(-290.f, -208.0f, 400.f));
 		PlayerScript* playerScript = mPlayer->GetComponent<PlayerScript>();
 		playerScript->SetMonster(mBoss1);
 

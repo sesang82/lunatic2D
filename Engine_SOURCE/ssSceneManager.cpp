@@ -9,6 +9,8 @@ namespace ss
 	Scene* SceneManager::mActiveScene = nullptr;
 	eWeaponType SceneManager::WeaponInfo = eWeaponType::PISTOL;
 
+	Player* SceneManager::mPlayer = nullptr;
+
 
 	// ¾À ¸ð¾ÆµÎ´Â map
 	std::map<std::wstring, Scene*> SceneManager::mScenes;

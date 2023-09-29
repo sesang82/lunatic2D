@@ -21,18 +21,22 @@ namespace ss
 
     private:
         static int miSpawnedBallCount; // 객체가 생성될때마다 생성자 초기값으로 초기화되기 때문에 static 씀 
+        static Energyball* mFirstEnergyball; // 첫번째 에너지볼의 참조 정보를 저장해둘 용도
+
+
         int miMaxSpawnedBalls;
 
         std::vector<Vector2> spawnPatterns; 
 
        class Animator* mAnimator;
        class Transform* mTransform;
-       class GameObject* mOwner; 
+       class GameObject* mOwner;  // 모든 객체가 사용하도록 해둠 
        
 
        bool  mbTest;
     public:
        void SetOriginOwenr(GameObject* obj) { mOwner = obj; }
+       void SetFirstEnergyball(Energyball* obj) { mFirstEnergyball = obj; }
        void CreateEnergyball();
       
        
