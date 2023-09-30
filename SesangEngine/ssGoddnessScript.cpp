@@ -24,7 +24,7 @@
 #include <random>
 #include "ssRenderer.h"
 #include "ssCameraScript.h"
-
+#include "ssBackground.h"
 
 
 namespace ss
@@ -780,19 +780,15 @@ namespace ss
 
 	void GoddnessScript::Dead()
 	{
-		GameObject* obj = renderer::mainCamera->GetOwner();
-		obj->GetComponent<CameraScript>()->SetTarget(mTransform->GetOwner());
-		obj->GetComponent<CameraScript>()->SetOffset(668.f, 668.f);
+
+		SetHit(false); // dead 상태 진입했을 땐 피격당해도 빨갛게 변하지 않도록 한다. 
+		GetOwner()->RemoveComponent<Collider2D>(); // dead 상태에는 잠시 가려놓을거기 때문에 혹시모를 일에 대비해 컴포넌트를 빼둔다. 
+
+		mCamera->GetComponent<Camera>()->SetTargetSize(5.3f);
 
 
-
-		Transform* camearaTr = obj->GetComponent<Transform>();
-		camearaTr->SetPosition(Vector3(camearaTr->GetPosition().x, camearaTr->GetPosition().y + 0.3f, camearaTr->GetPosition().z));
-
-		renderer::mainCamera->SetTargetSize(5.3f);
-		//renderer::mainCamera->SetLerpSpeed(0.001f);
-		
-
+		Vector3 CameraPos = mCamera->GetComponent<Transform>()->GetPosition();
+		mCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y - 0.02f, CameraPos.z);
 
 		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 		{
@@ -808,7 +804,7 @@ namespace ss
 			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 14
 			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 15)
 		{
-			renderer::mainCamera->SetTargetSize(2.3f);
+			mCamera->GetComponent<Camera>()->SetTargetSize(2.3f); // 줌 아웃될 때 부드럽게 되도록 해둠 
 		}
 
 		mAnimator->PlayAnimation(L"Boss_Goddness_Die", false);
@@ -819,20 +815,14 @@ namespace ss
 		// 애니메이션 재생이 끝나면 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
-			renderer::mainCamera->SetTargetSize(2.3f);
+			
 			//mAttackColliderObj->SetState(GameObject::eState::Dead);
-			Time::SetTimeScale(1.f);
-
-			obj->GetComponent<CameraScript>()->SetOffset(800.f, 800.f); // 사이즈 원복시킴 
 		
+			mCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y, CameraPos.z);
+	
 			GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 
 			mBossHPFrame->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl")); // 잠시 가려놨다가 spawn때 다시 띄우기 
-
-
-	
-
-
 
 		}
 	}

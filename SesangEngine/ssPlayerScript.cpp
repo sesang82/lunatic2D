@@ -102,8 +102,32 @@ namespace ss
 		mAnimator->EndEvent(L"Player_S_Attack2L") = std::bind(&PlayerScript::AttackEnd, this);
 		mAnimator->EndEvent(L"Player_S_Attack3R") = std::bind(&PlayerScript::AttackEnd, this);
 		mAnimator->EndEvent(L"Player_S_Attack3L") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_S_spAttackR") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_S_spAttackL") = std::bind(&PlayerScript::AttackEnd, this);
 		mAnimator->EndEvent(L"Player_S_OverloadingR") = std::bind(&PlayerScript::AttackEnd, this);
 		mAnimator->EndEvent(L"Player_S_OverloadingL") = std::bind(&PlayerScript::AttackEnd, this);
+
+		mAnimator->EndEvent(L"Player_P_Attack1,2R") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_P_Attack1,2L") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_P_Attack3R") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_P_Attack3L") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_P_spAttackR") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_P_spAttackL") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_P_OverLoadingR") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_P_OverLoadingL") = std::bind(&PlayerScript::AttackEnd, this);
+
+		mAnimator->EndEvent(L"Player_G_Attack1R") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_Attack1L") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_Attack2R") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_Attack2L") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_Attack3R") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_Attack3L") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_spAttackR") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_spAttackL") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_overload_Attack1R") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_overload_Attack1L") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_overload_Attack2R") = std::bind(&PlayerScript::AttackEnd, this);
+		mAnimator->EndEvent(L"Player_G_overload_Attack2L") = std::bind(&PlayerScript::AttackEnd, this);
 
 		// 가드할 때 
 		mAnimator->EndEvent(L"Player_S_GuardR") = std::bind(&PlayerScript::GuardEnd, this);

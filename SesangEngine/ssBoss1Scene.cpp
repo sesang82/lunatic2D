@@ -205,6 +205,7 @@ namespace ss
 			Animator* anim = Fire->GetComponent<Animator>();
 			anim->Create(L"Boss1_Fire", Image1, Vector2(0.f, 0.f), Vector2(41.f, 110.f), 8, Vector2(41.f, 110.f));
 			anim->PlayAnimation(L"Boss1_Fire", true);
+
 		}
 
 		// ¿ÞÂÊ µÎ¹øÂ° È¶ºÒ
@@ -224,6 +225,7 @@ namespace ss
 			Animator* anim = Fire->GetComponent<Animator>();
 			anim->Create(L"Boss1_Fire", Image1, Vector2(0.f, 0.f), Vector2(41.f, 110.f), 8, Vector2(41.f, 110.f));
 			anim->PlayAnimation(L"Boss1_Fire", true);
+
 		}
 
 		// ¿À¸¥ÂÊ Ã¹¹øÂ° È¶ºÒ
@@ -243,6 +245,7 @@ namespace ss
 			Animator* anim = Fire->GetComponent<Animator>();
 			anim->Create(L"Boss1_Fire", Image1, Vector2(0.f, 0.f), Vector2(41.f, 110.f), 8, Vector2(41.f, 110.f));
 			anim->PlayAnimation(L"Boss1_Fire", true);
+	
 		}
 
 
@@ -263,6 +266,9 @@ namespace ss
 			Animator* anim = Fire->GetComponent<Animator>();
 			anim->Create(L"Boss1_Fire", Image1, Vector2(0.f, 0.f), Vector2(41.f, 110.f), 8, Vector2(41.f, 110.f));
 			anim->PlayAnimation(L"Boss1_Fire", true);
+
+
+
 		}
 
 		// ´Á´ë ¸Ê »ó 

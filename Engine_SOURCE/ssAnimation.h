@@ -74,6 +74,7 @@ namespace ss
 
 
         // 특정 인덱스의 재생 시간 값을 바꾸기 위한 함수 (GetIndex 함수를 쓴 다음 그 안에다가 써야함)
+        // 기본값 0.1보다 작으면 빠르고, 크면 느림 
         void SetCurSpriteDuration(float newDuration)
         {
            

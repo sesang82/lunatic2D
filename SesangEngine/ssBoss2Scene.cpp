@@ -28,6 +28,7 @@ namespace ss
 {
 
 	Boss2Scene::Boss2Scene()
+		
 	{
 	}
 	Boss2Scene::~Boss2Scene()
@@ -173,53 +174,34 @@ namespace ss
 
 		// 횃불
 
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire1");
-			bg->Initialize();
+		
+			Background* Fire1 = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire");
+			Fire1->Initialize();
+			Fire1->GetComponent<Transform>()->SetPosition(Vector3(-243.f, 0.f, 700.f));
+			Fire1->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
 
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Fire_Base_Mtrl"));
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(-243.f, 0.f, 700.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
+			
+			
+			Background* Fire2 = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire");
+			Fire2->Initialize();
+			Fire2->GetComponent<Transform>()->SetPosition(Vector3(-81.f, 0.f, 700.f));
+			Fire2->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
 
-		}
+	
 
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire2");
-			bg->Initialize();
+			Background* Fire3 = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire");
+			Fire3->Initialize();
+			Fire3->GetComponent<Transform>()->SetPosition(Vector3(81.f, 0.f, 700.f));
+			Fire3->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
 
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Fire_Base_Mtrl"));
+	
+			Background* Fire4 = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire");
+			Fire4->Initialize();
+			Fire4->GetComponent<Transform>()->SetPosition(Vector3(243.f, 0.f, 700.f));
+			Fire4->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(-81.f, 0.f, 700.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
-
-		}
-
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire3");
-			bg->Initialize();
-
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Fire_Base_Mtrl"));
-
-			bg->GetComponent<Transform>()->SetPosition(Vector3(81.f, 0.f, 700.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
-
-		}
-
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Fire4");
-			bg->Initialize();
-
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Fire_Base_Mtrl"));
-
-			bg->GetComponent<Transform>()->SetPosition(Vector3(243.f, 0.f, 700.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 64.f, 1.0f));
-
-		}
+		
 
 
 
@@ -234,6 +216,10 @@ namespace ss
 
 		GoddnessScript* wolfScript = mBoss1->AddComponent<GoddnessScript>();
 		wolfScript->SetFirstPos(eyetr->GetPosition());
+
+	
+
+
 
 
 		//캐릭터
@@ -428,6 +414,8 @@ namespace ss
 
 			camera->AddComponent<CameraScript>();
 
+			mBoss1->GetComponent<GoddnessScript>()->SetCamera(camera);
+		
 			//script->SetCamera(camera); // trigger 스크립트에서 메인 카메라 갖다 쓰기 위해 갖고 옴 
 
 

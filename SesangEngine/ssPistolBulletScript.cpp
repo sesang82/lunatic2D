@@ -447,6 +447,8 @@ namespace ss
 					GetOwner()->SetState(GameObject::eState::Dead);
 				}
 
+				script->SetHit(true);
+
 			}
 
 
