@@ -25,6 +25,7 @@
 
 
 
+
 namespace ss
 {
 	GoddnessScript::GoddnessScript()
@@ -34,6 +35,7 @@ namespace ss
 		, mTest(false)
 		, mbEnergySpawn(false)
 		, mStatueState(eStatueState::MOVING_DOWN)
+		, mbFirstStomp(false)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -257,10 +259,6 @@ namespace ss
 	{
 
 
-		mAnimator->PlayAnimation(L"Boss_Goddness_Idle", true); 
-
-
-
 		// 랜덤으로 상태를 변경한다. 
 		int randomValue = rand() % 2; // 0 또는 1을 생성 (랜덤으로) 
 
@@ -270,61 +268,41 @@ namespace ss
 		m_fTime += Time::DeltaTime();
 
 
-	
-		if (!mTest)
+			// 석상 패턴 
+
+
+		if (m_fTime > 3.0f)
 		{
-			//mStompState = GetRandomStompState();
+			if (randomValue == 0)
+			{
 
-			mStompState = eStompState::SINGLE_STOMP;
-			ChangeState(eBoss2_Phase1::STOMP_READY);
-			mPrevBoss2_Phase1_State = eBoss2_Phase1::IDLE;
+				mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
 
-			m_fTime = 0.f;
 
+
+				mStompState = GetRandomStompState();
+				ChangeState(eBoss2_Phase1::STOMP_READY);
 			
+
+				m_fTime = 0.0f;
+
+
+
+
+			}
+
+			// 에너지볼 패턴 
+			else if (randomValue == 1)
+			{
+				ChangeState(eBoss2_Phase1::ENERGYBALL_READY);
+
+				m_fTime = 0.0f;
+
+
+
+			}
 		}
-
-		//else if (!mTest && m_fTime > 3.0f)
-		//{
-
-
-		//	// == 초기값 위치에서 y값만 어느 정도 위로 올린다. 
-		//	Vector3 StatuePos = mTransform->GetPosition();
-
-		//	float moveSpeed = 200.0f;  // 원하는 속도 값을 설정하세요.
-
-		//	float moveAmountY = moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
-
-	
-		//	// 올라가는 위치 제한 
-		//	if (StatuePos.y < -21.f)
-		//	{
-
-		//		StatuePos.y += moveAmountY;
-		//		mTransform->SetPosition(StatuePos);
-
-		//	
-		//	}
-
-		//	
-		//	m_fTime += Time::DeltaTime();
-
-		//	if (m_fTime > 5.0f)
-		//	{
-
-		//		ChangeState(eBoss2_Phase1::ENERGYBALL_READY);
-		//		mPrevBoss2_Phase1_State = eBoss2_Phase1::IDLE;
-
-		//		m_fTime = 0.f;
-		//	}
-
-
-
-
-
-
-
-		//}
+		
 
 
 
@@ -337,17 +315,19 @@ namespace ss
 
 
 	}
+
+
+
+
 	void GoddnessScript::Hit()
 	{
 	}
 	void GoddnessScript::Stomp_Ready()
 	{
-
 		// 확대됐던 카메라가 stomp 애니메이션 첫 인덱스에 다시 원래 사이즈인 2.3값으로 돌아온다. 
 
 		// 잠시 애니메이션 재생을 멈춘다. (0인덱스에 머무르게), 양 옆에 벽에 가시가 나온다.
 		 
-		mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
 		 
 		// 벽에 가시가 다 나오면 플레이어의 위치 위에 떠있는다 (체감상 2초 정도?)
 		bool isGround = mPlayer->GetComponent<Rigidbody2D>()->IsGround();
@@ -376,7 +356,9 @@ namespace ss
 			{
 				
 
-
+				// **** 점프하면 tagetPos를 못 가져오는 버그 있음
+				
+				
 				// 석상이 대각선으로 이동한다. 
 				Vector3 StatuePos = mTransform->GetPosition();
 				Vector3 HitGroundPos = mHitGround->GetComponent<Transform>()->GetPosition();
@@ -391,7 +373,7 @@ namespace ss
 				dir.Normalize();  // 방향 벡터를 정규화합니다.
 
 
-				float moveSpeed = 650.0f;  // 원하는 속도 값을 설정하세요.
+				float moveSpeed = 700.0f;  // 원하는 속도 값을 설정하세요.
 
 				Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
 
@@ -499,7 +481,7 @@ namespace ss
 					if (miStompCount == 3)
 					{
 						ChangeState(eBoss2_Phase1::STOMP_END);
-						mHitGround->SetState(GameObject::eState::Dead);
+						
 					}
 
 					else
@@ -513,8 +495,18 @@ namespace ss
 				{
 				
 					ChangeState(eBoss2_Phase1::STOMP_END);
-					mStatueState = eStatueState::MOVING_DOWN; // 1번만 찍는 패턴은 현 상태가 계속 아래 상태여야하므로.
-					mHitGround->SetState(GameObject::eState::Dead);
+
+					if(!mbFirstStomp)
+					{ 
+					
+						mbFirstStomp = true;
+					}
+
+					else
+					{
+						mStatueState = eStatueState::MOVING_DOWN; // 1번만 찍는 패턴은 현 상태가 계속 아래 상태여야하므로.
+					}
+				
 				
 				}
 
@@ -547,29 +539,45 @@ namespace ss
 
 			if (mStompState == eStompState::QUADRUPLE_STOMP)
 			{
-				if (m_fTime > 2.0f)
-				{
+		
 					// 상태가 바뀔 때 카메라를 다시 원래대로 돌려놓는다. 
 
 					if (miCompleteStompCount < 3)
 					{
+						mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
 
-						ChangeState(eBoss2_Phase1::STOMP_READY);
-						++miCompleteStompCount;
+						if (m_fTime > 2.0f)
+						{
+							ChangeState(eBoss2_Phase1::STOMP_READY);
+							++miCompleteStompCount;
+							m_fTime = 0.f;
+						}
 
 
 					}
 
 					else if (miCompleteStompCount == 3)
 					{
-						ChangeState(eBoss2_Phase1::IDLE);
-						mPrevBoss2_Phase1_State = eBoss2_Phase1::STOMP_END;
-						miCompleteStompCount = 0; // 초기화 
+						if (m_fTime > 2.0f)
+						{
+
+					
+
+								ChangeState(eBoss2_Phase1::IDLE);
+								mPrevBoss2_Phase1_State = eBoss2_Phase1::STOMP_END;
+								miCompleteStompCount = 0; // 초기화 
+								m_fTime = 0.0f;
+
+						}
+
+					
 					}
 
-					m_fTime = 0.0f;
 
-				}
+
+					
+
+				
 
 			}
 
@@ -581,21 +589,31 @@ namespace ss
 				{
 					if (miCompleteStompCount < 4)
 					{
-
+						mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
 						ChangeState(eBoss2_Phase1::STOMP_READY);
 						++miCompleteStompCount;
+						m_fTime = 0.0f;
 
 
 					}
 
 					else if (miCompleteStompCount == 4)
 					{
-						ChangeState(eBoss2_Phase1::IDLE);
-						mPrevBoss2_Phase1_State = eBoss2_Phase1::STOMP_END;
-						miCompleteStompCount = 0; // 초기화 
+
+						if (m_fTime > 2.0f)
+						{
+
+								ChangeState(eBoss2_Phase1::IDLE);
+								mPrevBoss2_Phase1_State = eBoss2_Phase1::STOMP_END;
+								miCompleteStompCount = 0; // 초기화 
+								m_fTime = 0.0f;
+								mbFirstStomp = false;
+							
+
+						}
 					}
 
-					m_fTime = 0.0f;
+				
 				}
 
 					
@@ -620,43 +638,103 @@ namespace ss
 
 	void GoddnessScript::Energyball_Start()
 	{
-
-		if (mStompState == eStompState::QUADRUPLE_STOMP)
+		if (mPrevBoss2_Phase1_State == eBoss2_Phase1::STOMP_END)
 		{
+			// 석상이 중앙으로 이동한다. 
+			Vector3 StatuePos = mTransform->GetPosition();
+			Vector3 FirstPos = Vector3(0.f, -87.f, 500.f);
+
+
+			Vector3 TargetPos = Vector3(0.f, FirstPos.y + 67.f, FirstPos.z);
+
+
+			// 석상에서 목표 위치로의 방향 벡터를 계산합니다.
+			Vector3 dir = TargetPos - StatuePos;
+			float distance = dir.Length();  // 석상과 목표 위치 사이의 거리를 계산합니다.
+			dir.Normalize();  // 방향 벡터를 정규화합니다.
+
+
+			float moveSpeed = 130.0f;  // 원하는 속도 값을 설정하세요.
+
+			Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+			StatuePos += moveAmount;  // 현재 위치를 업데이트합니다.
+			mTransform->SetPosition(StatuePos);  // 업데이트된 위치를 설정합니다.
+		}
+
+
+		else
+		{
+			// == 초기값 위치에서 y값만 어느 정도 위로 올린다. 
 			Vector3 StatuePos = mTransform->GetPosition();
 
-			if (!mbEnergySpawn)
+			float moveSpeed = 200.0f;  // 원하는 속도 값을 설정하세요.
+
+			float moveAmountY = moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+
+			// 올라가는 위치 제한 
+			if (StatuePos.y < -21.f)
 			{
-				mbEnergySpawn = true;
 
-				mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x - 60.f, StatuePos.y + 20.f, 400.f), eLayerType::Collision, L"Parrying_S_EnergyballObj");
-				mEngeryball->SetFirstEnergyball(mEngeryball);
-				mEngeryball->SetOriginOwenr(mTransform->GetOwner());
-
-				mEngeryball->IncreaseSpawnCount();
-
-				SceneManager::SetPlayer(mPlayer);
-
+				StatuePos.y += moveAmountY;
+				mTransform->SetPosition(StatuePos);
 
 
 			}
 
-
-			m_fTime += Time::DeltaTime();
-
-			if (mEngeryball->GetSpawnCount() == 12 && m_fTime > 16.0f)
-			{
-				ChangeState(eBoss2_Phase1::ENERGYBALL_END);
-				m_fTime = 0.0f;
-			}
-		}
 	
+		}
 
+
+		m_fTime += Time::DeltaTime();
+
+		if (m_fTime > 2.f)
+		{
+			ChangeState(eBoss2_Phase1::ENERGYBALL_ING);
+			m_fTime = 0.0f;
+		}
+
+
+
+
+		
 
 
 	}
 	void GoddnessScript::Energyball_ing()
 	{
+		Vector3 StatuePos = mTransform->GetPosition();
+
+		if (!mbEnergySpawn)
+		{
+			mbEnergySpawn = true;
+
+			mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x - 60.f, StatuePos.y + 20.f, 400.f), eLayerType::Collision, L"Parrying_S_EnergyballObj");
+			mEngeryball->SetFirstEnergyball(mEngeryball);
+			mEngeryball->SetOriginOwenr(mTransform->GetOwner());
+
+			mEngeryball->IncreaseSpawnCount();
+
+			SceneManager::SetPlayer(mPlayer);
+
+
+
+		}
+
+
+		m_fTime += Time::DeltaTime();
+
+		if (mEngeryball->GetSpawnCount() == 12 && m_fTime > 13.1f)
+		{
+			ChangeState(eBoss2_Phase1::ENERGYBALL_END);
+			mbEnergySpawn = false;
+			mEngeryball->InitializeSpawnCount();
+			m_fTime = 0.0f;
+		}
+
+
+
 	}
 	void GoddnessScript::Energyball_End()
 	{
@@ -685,7 +763,7 @@ namespace ss
 
 		m_fTime += Time::DeltaTime();
 
-		if (m_fTime > 3.f)
+		if (m_fTime > 1.5f)
 		{
 			ChangeState(eBoss2_Phase1::IDLE);
 			m_fTime = 0.f;

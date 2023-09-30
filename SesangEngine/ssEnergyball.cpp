@@ -74,8 +74,8 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image1 = Resources::Find<ss::graphics::Texture>(L"Boss2_1_Energyball_S_Parrying_Spawn_Effect");
 		std::shared_ptr<ss::graphics::Texture> Image2 = Resources::Find<ss::graphics::Texture>(L"Boss2_1_Energyball_S_Parrying_AfterSpawn_Effect");
 
-		mAnimator->Create(L"Energyball_S_Parrying_Spawn", Image1, Vector2(0.f, 0.f), Vector2(58.f, 54.f), 6, Vector2(58.f, 54.f));
-		mAnimator->Create(L"Energyball_S_Parrying_Energying", Image2, Vector2(0.f, 0.f), Vector2(58.f, 54.f), 6, Vector2(58.f, 54.f));
+		mAnimator->Create(L"Energyball_S_Parrying_Spawn", Image1, Vector2(0.f, 0.f), Vector2(58.f, 54.f), 6, Vector2(58.f, 54.f), Vector2::Zero, 0.08f);
+		mAnimator->Create(L"Energyball_S_Parrying_Energying", Image2, Vector2(0.f, 0.f), Vector2(58.f, 54.f), 6, Vector2(58.f, 54.f), Vector2::Zero, 0.08f);
 
 
 		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false); // trigger 완성하면 지우기 
@@ -119,7 +119,7 @@ namespace ss
 
 		mfTime += Time::DeltaTime();
 
-		if (mfTime > 8.5f && mbSpawnComplete && miSpawnedBallCount == 12)
+		if (mfTime > 7.f && mbSpawnComplete && miSpawnedBallCount == 12)
 		{
 			AddComponent<Collider2D>();
 
@@ -141,7 +141,7 @@ namespace ss
 			dir.Normalize();  // 방향 벡터를 정규화합니다.
 
 
-			float moveSpeed = 250.0f;  // 원하는 속도 값을 설정하세요.
+			float moveSpeed = 380.0f;  // 원하는 속도 값을 설정하세요.
 
 			Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
 

@@ -12,6 +12,7 @@
 #include "ssPlayerScript.h"
 #include "ssGameState.h"
 #include "ssCharacterState.h"
+#include "ssGoddnessScript.h"
 
 namespace ss
 {
@@ -194,22 +195,20 @@ namespace ss
 
 		else if (GetOwner()->GetName() == L"StompHitGroundObj")
 		{
-		/*	BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
+			GoddnessScript* script = mMonster->GetComponent<GoddnessScript>();
 
 			if (nullptr != script)
 			{
-				bool howling = script->IsHowling();
+		
+				eBoss2_Phase1 bossState = script->GetCurBoss2_Phase1_State();
 
-				eWolfBossState state = script->GetCurWolfState();
 
-
-				if (howling && script->GetCurWolfState() == eWolfBossState::HOWLING_END)
+				if (script->GetCurBoss2_Phase1_State() == eBoss2_Phase1::STOMP_END)
 				{
-					script->SetHowling(false);
 					GetOwner()->SetState(GameObject::eState::Dead);
 				}
 
-			}*/
+			}
 		}
 
 

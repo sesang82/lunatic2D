@@ -55,6 +55,7 @@ namespace ss
         int miStompCount;
         int miCompleteStompCount;
         bool mbStomp;
+        bool mbFirstStomp;
         bool mTest;
 
         bool mbEnergySpawn;
