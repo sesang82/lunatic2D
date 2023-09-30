@@ -17,6 +17,7 @@
 #include "ssBigWolfScript.h"
 #include "ssWoodGolemScript.h"
 #include "ssWolfScript.h"
+#include "ssGoddnessScript.h"
 
 namespace ss
 {
@@ -409,6 +410,47 @@ namespace ss
 
 
 			else if (B_wolf->GetCurrentHP() <= 0.f)
+			{
+
+				script->ChangeState(eMonsterState::DEAD);
+			}
+
+
+
+
+		}
+
+
+
+		else if (L"B_GodObj" == other->GetOwner()->GetName())
+		{
+
+			CharacterState* B_God = other->GetOwner()->GetComponent<CharacterState>();
+			GoddnessScript* script = other->GetOwner()->GetComponent<GoddnessScript>();
+
+
+
+			if (B_God->GetCurrentHP() > 0.f)
+			{
+
+				if (GetOwner()->GetName() == L"Pistolbullet_Small_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Small_ObjL")
+				{
+					B_God->SetCurrentHP(B_God->GetCurrentHP() - 10);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+				else if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
+					|| GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
+				{
+					B_God->SetCurrentHP(B_God->GetCurrentHP() - 20);
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+			}
+
+
+			else if (B_God->GetCurrentHP() <= 0.f)
 			{
 
 				script->ChangeState(eMonsterState::DEAD);

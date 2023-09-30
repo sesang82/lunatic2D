@@ -274,7 +274,7 @@ namespace ss
 			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
 			MeshRenderer* mr = Fire->GetComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Boss2-1_Idle_Mtrl"));
+			mr->SetMaterial(Resources::Find<Material>(L"WolfStatueMtrl"));
 
 			Fire->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.1f, 650.f));
 			Fire->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 1.0f));

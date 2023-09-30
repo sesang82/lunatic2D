@@ -64,7 +64,7 @@ namespace ss
 
 			// 레터박스에 띄울 글귀를 만든다.
 
-			if (GetOwner()->GetName() == L"B_WolfObj")
+			if (GetOwner()->GetName() == L"col_SpawnBoss1")
 			{
 				mBossName = object::Instantiate<Background>(eLayerType::Grid, L"Boss1Name");
 				mBossName->Initialize();
@@ -78,19 +78,19 @@ namespace ss
 
 			}
 
-			else if (GetOwner()->GetName() == L"B_GodObj")
-			{
-				mBossName = object::Instantiate<Background>(eLayerType::Grid, L"Boss2Name");
-				mBossName->Initialize();
+			//else if (GetOwner()->GetName() == L"col_SpawnBoss2")
+			//{
+			//	mBossName = object::Instantiate<Background>(eLayerType::Grid, L"Boss2Name");
+			//	mBossName->Initialize();
 
-				Transform* nameTR = mBossName->GetComponent<Transform>();
-				nameTR->SetPosition(Vector3(0.f, -350.f, 100.f));
-				nameTR->SetScale(Vector3(74.f, 48.f, 1.f));
+			//	Transform* nameTR = mBossName->GetComponent<Transform>();
+			//	nameTR->SetPosition(Vector3(0.f, -350.f, 100.f));
+			//	nameTR->SetScale(Vector3(74.f, 48.f, 1.f));
 
-				MeshRenderer* nameMR = mBossName->GetComponent<MeshRenderer>();
-				nameMR->SetMaterial(Resources::Find<Material>(L"Boss1NameMtrl")); // 이건 나중에 수정하기 
+			//	MeshRenderer* nameMR = mBossName->GetComponent<MeshRenderer>();
+			//	nameMR->SetMaterial(Resources::Find<Material>(L"Boss1NameMtrl")); // 이건 나중에 수정하기 
 
-			}
+			//}
 
 
 			// UI카메라 (잠시 UI도 안나오게 끈다) 
@@ -103,20 +103,22 @@ namespace ss
 			Bossmr->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
 
-			if (GetOwner()->GetName() == L"B_WolfObj")
+			if (GetOwner()->GetName() == L"col_SpawnBoss1")
 			{
 				Animator* animator = mMonster->GetComponent<Animator>();
 				animator->PlayAnimation(L"Boss_Wolf_SpawnL", false);
 			}
 
-			else if (GetOwner()->GetName() == L"B_GodObj")
-			{
-				Animator* animator = mMonster->GetComponent<Animator>();
-				animator->PlayAnimation(L"Boss_Wolf_SpawnL", false);
-			}
+			//else if (GetOwner()->GetName() == L"B_GodObj") // 트리거 충돌체 이름으로 쓰기 (가드니스) 
+			//{
+			//	Animator* animator = mMonster->GetComponent<Animator>();
+			//	animator->PlayAnimation(L"Boss_Wolf_SpawnL", false);
+			//}
 		
 		
 		}
+
+
 	}
 
 	void TriggerScript::OnCollisionStay(Collider2D* other)
@@ -127,9 +129,13 @@ namespace ss
 
 			if (animator->GetCurActiveAnimation()->IsComplete())
 			{
-				int i = 0;
-				BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
-				script->ChangeState(eWolfBossState::IDLE);
+				
+				if (GetOwner()->GetName() == L"col_SpawnBoss1")
+				{
+					BigWolfScript* script = mMonster->GetComponent<BigWolfScript>();
+					script->ChangeState(eWolfBossState::IDLE);
+				}
+				
 			}
 		}
 

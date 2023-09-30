@@ -120,6 +120,9 @@ namespace ss
 	void GoddnessScript::Update()
 	{
 
+		MonsterScript::Update();
+
+
 		// 이동->상태변환->애니메이션
 
 
@@ -775,6 +778,29 @@ namespace ss
 	}
 	void GoddnessScript::Dead()
 	{
+		mAnimator->PlayAnimation(L"Boss_Goddness_Die", false);
+	
+
+	// 애니메이션 재생이 끝나면 
+	if (mAnimator->GetCurActiveAnimation()->IsComplete())
+	{
+		//mAttackColliderObj->SetState(GameObject::eState::Dead);
+
+
+		GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+		mBossHPFrame->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl")); // 잠시 가려놨다가 spawn때 다시 띄우기 
+
+
+		if (nullptr != mHitGround)
+		{
+			mHitGround->SetState(GameObject::eState::Dead);
+		}
+
+
+
+	}
+
 	}
 
 	eStompState GoddnessScript::GetRandomStompState()

@@ -12,6 +12,8 @@
 #include "ssBigWolfScript.h"
 #include "ssWoodGolemScript.h"
 #include "ssWolfScript.h"
+#include "ssGoddnessScript.h"
+
 
 
 namespace ss
@@ -203,6 +205,33 @@ namespace ss
 
 		}
 
+		else if (L"B_GodObj" == other->GetOwner()->GetName())
+		{
+
+			CharacterState* B_Statue = other->GetOwner()->GetComponent<CharacterState>();
+			GoddnessScript* script = other->GetOwner()->GetComponent<GoddnessScript>();
+
+			if (B_Statue->GetCurrentHP() > 0.f)
+			{
+
+				B_Statue->SetCurrentHP(B_Statue->GetCurrentHP() - 10);
+				script->SetHit(true);
+				//script->BindConstantBuffer();
+
+			}
+
+			else if (B_Statue->GetCurrentHP() <= 0.f)
+			{
+				script->ChangeState(eWolfBossState::DEAD);
+			}
+
+
+		}
+		
+
+
+
+
 
 	}
 	void PlayerAttackColScript::OnCollisionStay(Collider2D* other)
@@ -370,6 +399,31 @@ namespace ss
 
 
 			}
+
+
+			else if (L"B_GodObj" == other->GetOwner()->GetName())
+			{
+
+				CharacterState* B_Statue = other->GetOwner()->GetComponent<CharacterState>();
+				GoddnessScript* script = other->GetOwner()->GetComponent<GoddnessScript>();
+
+				if (B_Statue->GetCurrentHP() > 0.f)
+				{
+
+					B_Statue->SetCurrentHP(B_Statue->GetCurrentHP() - 10);
+					script->SetHit(true);
+					//script->BindConstantBuffer();
+
+				}
+
+				else if (B_Statue->GetCurrentHP() <= 0.f)
+				{
+					script->ChangeState(eWolfBossState::DEAD);
+				}
+
+
+				}
+
 
 		}
 
