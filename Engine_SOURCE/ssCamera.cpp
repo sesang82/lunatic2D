@@ -371,7 +371,7 @@ namespace ss
 			mSize = mCurrentSize; // 현재 크기를 카메라 크기에 반영
 
 			// mLerpSpeed 감소
-			mLerpSpeed *= 0.2; // 0에 가까울수록 처음에 확대할 때의 속도가 느려짐 
+			mLerpSpeed *= 0.2; // 0에 가까울수록 처음에 확대
 
 			// mLerpSpeed의 최소값 설정
 			if (mLerpSpeed < 0.001)

@@ -793,13 +793,22 @@ namespace ss
 		//renderer::mainCamera->SetLerpSpeed(0.001f);
 		
 
-	
-		
-		Time::SetTimeScale(0.5f);
 
 		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 		{
-			mAnimator->GetCurActiveAnimation()->SetCurSpriteDuration(2.5f);
+			
+			mAnimator->GetCurActiveAnimation()->SetCurSpriteDuration(0.01f);
+		}
+
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9
+			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 10
+			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 11
+			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 12
+			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 13
+			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 14
+			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 15)
+		{
+			renderer::mainCamera->SetTargetSize(2.3f);
 		}
 
 		mAnimator->PlayAnimation(L"Boss_Goddness_Die", false);
@@ -810,10 +819,12 @@ namespace ss
 		// 애니메이션 재생이 끝나면 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
+			renderer::mainCamera->SetTargetSize(2.3f);
 			//mAttackColliderObj->SetState(GameObject::eState::Dead);
+			Time::SetTimeScale(1.f);
 
 			obj->GetComponent<CameraScript>()->SetOffset(800.f, 800.f); // 사이즈 원복시킴 
-			renderer::mainCamera->SetTargetSize(2.3f);
+		
 			GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 
 			mBossHPFrame->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl")); // 잠시 가려놨다가 spawn때 다시 띄우기 
