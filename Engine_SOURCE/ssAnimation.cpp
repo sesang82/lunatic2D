@@ -17,6 +17,7 @@ namespace ss
 		, mSprites{}
 		, mAtlas(nullptr)
 		, mDirection(true)
+		, mTimeScale(1.0f)
 	{
 	}
 
@@ -29,7 +30,8 @@ namespace ss
 		if (mbComplete)
 			return;
 
-		mTime += Time::DeltaTime();
+		mTime += Time::DeltaTime() * Time::GetTimeScale();
+
 
 		// 
 		if (mSprites[mIndex].duration <= mTime)

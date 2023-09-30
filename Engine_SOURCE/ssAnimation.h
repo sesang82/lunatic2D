@@ -48,7 +48,7 @@ namespace ss
         bool mbComplete; // 애니메이션이 끝났는지
         bool mDirection;
         float mTime;
-
+        float mTimeScale;
 
         UINT mAnimCount;
 
@@ -67,6 +67,11 @@ namespace ss
         void SetComplete(bool complete) { mbComplete = complete; }
         bool GetDirection() { return mDirection; }
         void SetDirection(bool direction) { mDirection = direction; }
+
+
+        void SetTimeScale(float scale) { mTimeScale = scale; }
+
+
 
         // 특정 인덱스의 재생 시간 값을 바꾸기 위한 함수 (GetIndex 함수를 쓴 다음 그 안에다가 써야함)
         void SetCurSpriteDuration(float newDuration)

@@ -7,6 +7,8 @@ namespace ss
 {
 	double Time::mDeltaTime = 0.0l;
 	double Time::mSecond = 0.0f;
+	double Time::mTimeScale = 1.0f;
+
 	LARGE_INTEGER Time::mCpuFrequency = {};
 	LARGE_INTEGER Time::mPrevFrequency = {};
 	LARGE_INTEGER Time::mCurFrequency = {};
@@ -26,7 +28,7 @@ namespace ss
 
 		double differnceFrequency = mCurFrequency.QuadPart - mPrevFrequency.QuadPart;
 
-		mDeltaTime = differnceFrequency / mCpuFrequency.QuadPart;
+		mDeltaTime = differnceFrequency / mCpuFrequency.QuadPart * mTimeScale;
 		
 		mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 	}

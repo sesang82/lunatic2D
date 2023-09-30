@@ -22,7 +22,8 @@
 #include "ssEnergyballScript.h"
 #include "ssSceneManager.h"
 #include <random>
-
+#include "ssRenderer.h"
+#include "ssCameraScript.h"
 
 
 
@@ -53,7 +54,7 @@ namespace ss
 		GetOwner()->AddComponent<Rigidbody2D>();
 
 		mCharacterState->SetMaxHP(110.f);
-		mCharacterState->SetCurrentHP(110.f);
+		mCharacterState->SetCurrentHP(10.f);
 
 	    mMeshRenderer->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
@@ -77,7 +78,7 @@ namespace ss
 		mAnimator->Create(L"Boss_Goddness_Stomp", Image2, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 4, Vector2(269.f, 308.f));
 		mAnimator->Create(L"Boss_Goddness_EnergyballStart", Image3, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 11, Vector2(269.f, 308.f));
 		mAnimator->Create(L"Boss_Goddness_EnergyballEnd", Image4, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 5, Vector2(269.f, 308.f));
-		mAnimator->Create(L"Boss_Goddness_Die", Image5, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 22, Vector2(269.f, 308.f));
+		mAnimator->Create(L"Boss_Goddness_Die", Image5, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 16, Vector2(269.f, 308.f));
 
 
 		// ==== 2페이즈 신
@@ -776,32 +777,56 @@ namespace ss
 	void GoddnessScript::Wind_Ready()
 	{
 	}
+
 	void GoddnessScript::Dead()
 	{
-		mAnimator->PlayAnimation(L"Boss_Goddness_Die", false);
+		GameObject* obj = renderer::mainCamera->GetOwner();
+		obj->GetComponent<CameraScript>()->SetTarget(mTransform->GetOwner());
+		obj->GetComponent<CameraScript>()->SetOffset(668.f, 668.f);
+
+
+
+		Transform* camearaTr = obj->GetComponent<Transform>();
+		camearaTr->SetPosition(Vector3(camearaTr->GetPosition().x, camearaTr->GetPosition().y + 0.3f, camearaTr->GetPosition().z));
+
+		renderer::mainCamera->SetTargetSize(5.3f);
+		//renderer::mainCamera->SetLerpSpeed(0.001f);
+		
+
 	
+		
+		Time::SetTimeScale(0.5f);
 
-	// 애니메이션 재생이 끝나면 
-	if (mAnimator->GetCurActiveAnimation()->IsComplete())
-	{
-		//mAttackColliderObj->SetState(GameObject::eState::Dead);
-
-
-		GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
-
-		mBossHPFrame->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl")); // 잠시 가려놨다가 spawn때 다시 띄우기 
-
-
-		if (nullptr != mHitGround)
+		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 		{
-			mHitGround->SetState(GameObject::eState::Dead);
+			mAnimator->GetCurActiveAnimation()->SetCurSpriteDuration(2.5f);
 		}
 
+		mAnimator->PlayAnimation(L"Boss_Goddness_Die", false);
 
 
+
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+			//mAttackColliderObj->SetState(GameObject::eState::Dead);
+
+			obj->GetComponent<CameraScript>()->SetOffset(800.f, 800.f); // 사이즈 원복시킴 
+			renderer::mainCamera->SetTargetSize(2.3f);
+			GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+			mBossHPFrame->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl")); // 잠시 가려놨다가 spawn때 다시 띄우기 
+
+
+	
+
+
+
+		}
 	}
 
-	}
+	
 
 	eStompState GoddnessScript::GetRandomStompState()
 	{

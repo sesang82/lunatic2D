@@ -48,6 +48,10 @@ namespace ss
 		void SetTarget(GameObject* obj) { mTarget = obj; }
 
 		void StartShake(float duration, float magnitude);
+		void SetOffset(float left, float right) 
+		{
+			cameraOffset.leftOffset = left, cameraOffset.rightOffset = right;
+		}
 
 
 	};

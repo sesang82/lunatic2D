@@ -364,7 +364,7 @@ namespace ss
 					GetOwner()->SetState(GameObject::eState::Dead);
 				}
 
-				script->ChangeState(eMonsterState::HIT);
+				script->SetHit(true);
 			}
 
 
@@ -405,14 +405,14 @@ namespace ss
 					GetOwner()->SetState(GameObject::eState::Dead);
 				}
 
-				script->ChangeState(eMonsterState::HIT);
+				script->SetHit(true);
 			}
 
 
 			else if (B_wolf->GetCurrentHP() <= 0.f)
 			{
 
-				script->ChangeState(eMonsterState::DEAD);
+				script->ChangeState(eWolfBossState::DEAD);
 			}
 
 
@@ -453,7 +453,7 @@ namespace ss
 			else if (B_God->GetCurrentHP() <= 0.f)
 			{
 
-				script->ChangeState(eMonsterState::DEAD);
+				script->ChangeState(eBoss2_Phase1::DIE);
 			}
 
 

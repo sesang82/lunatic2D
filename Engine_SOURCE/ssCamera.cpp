@@ -48,7 +48,7 @@ namespace ss
 
 		mCurrentSize = mSize; // 시작 시에 현재 크기를 초기화
 		mTargetSize = mSize; // 목표 크기도 초기 크기와 동일하게 설정
-		mLerpSpeed = 0.005f; // 보간 속도 설정. 이 값을 조절하여 확대/축소 속도를 변경 
+		mLerpSpeed = 0.03f; // 보간 속도 설정. 이 값을 조절하여 확대/축소 속도를 변경  (0.03f)
 		mIsZooming = false; // 확대/축소 중인지를 나타내는 플래그
 	}
 
@@ -369,6 +369,15 @@ namespace ss
 			}
 
 			mSize = mCurrentSize; // 현재 크기를 카메라 크기에 반영
+
+			// mLerpSpeed 감소
+			mLerpSpeed *= 0.2; // 0에 가까울수록 처음에 확대할 때의 속도가 느려짐 
+
+			// mLerpSpeed의 최소값 설정
+			if (mLerpSpeed < 0.001)
+			{
+				mLerpSpeed = 0.001;
+			}
 		}
 	}
 }

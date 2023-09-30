@@ -85,6 +85,7 @@ namespace ss
 			mIsZooming = true;
 		}
 
+		void SetLerpSpeed(float speed) { mLerpSpeed = speed; }
 		void UpdateZoom();
 
 	private:
