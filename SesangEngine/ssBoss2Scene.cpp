@@ -281,7 +281,6 @@ namespace ss
 			bg->SetName(L"BossHPFrame");
 
 
-			mBoss1->GetComponent<MonsterScript>()->SetUI(bg);
 		}
 
 
@@ -295,7 +294,7 @@ namespace ss
 
 			stoneHP->Initialize();
 
-			mBoss1->GetComponent<MonsterScript>()->SetUICamera(stoneHP);
+		
 
 		}
 
@@ -417,7 +416,7 @@ namespace ss
 
 			camera->AddComponent<CameraScript>();
 
-			mBoss1->GetComponent<GoddnessScript>()->SetCamera(camera);
+			mBoss1->GetComponent<MonsterScript>()->SetMainCamera(camera);
 		
 			//script->SetCamera(camera); // trigger 스크립트에서 메인 카메라 갖다 쓰기 위해 갖고 옴 
 

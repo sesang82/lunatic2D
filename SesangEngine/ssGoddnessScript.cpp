@@ -37,11 +37,19 @@ namespace ss
 		, mbEnergySpawn(false)
 		, mStatueState(eStatueState::MOVING_DOWN)
 		, mbFirstStomp(false)
+		, mLetterBox(false)
+		, mLetterBoxBottom(nullptr)
+		, mLetterBoxUP(nullptr)
+		, mBossName(nullptr)
+	
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
 		m_tMonsterInfo.m_fDetectRange = 300.f;
 	}
+
+
+
 	GoddnessScript::~GoddnessScript()
 	{
 	}
@@ -112,7 +120,7 @@ namespace ss
 
 		// ==== 2페이즈 신
 		mAnimator->Create(L"Boss2_Goddness_Idle", Image6, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 8, Vector2(269.f, 276.f), Vector2::Zero, 0.2f);
-		mAnimator->Create(L"Boss2_Goddness_Intro", Image7, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 17, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Intro", Image7, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 17, Vector2(269.f, 276.f), Vector2::Zero, 0.11f);
 		mAnimator->Create(L"Boss2_Goddness_IntroEnd", Image8, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 8, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_MoveFront", Image9, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_MoveBack", Image10, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f));
@@ -371,14 +379,63 @@ namespace ss
 
 	void GoddnessScript::IntroEnd()
 	{
-		mCamera->GetComponent<Camera>()->SetTargetSize(5.3f);
-		mCamera->GetComponent<CameraScript>()->SetTarget(this->GetOwner());
+		mMainCamera->GetComponent<Camera>()->SetTargetSize(3.8f); // 4.3
+		mMainCamera->GetComponent<CameraScript>()->SetTarget(this->GetOwner());
 
-		Vector3 CameraPos = mCamera->GetComponent<Transform>()->GetPosition();
-		mCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y + 0.38f, CameraPos.z);
+		Vector3 CameraPos = mMainCamera->GetComponent<Transform>()->GetPosition();
+		mMainCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y + 0.45f, CameraPos.z);
 
 	
-		
+		// ===============
+		// 레터박스를 만든다.
+
+		if (!mLetterBox)
+		{
+			mLetterBox = true;
+
+			mLetterBoxUP = object::Instantiate<Background>(eLayerType::Grid, L"letterbox_UP");
+			mLetterBoxUP->Initialize();
+
+			Transform* tr = mLetterBoxUP->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.f, -160.f, 100.f));
+			tr->SetScale(Vector3(1600.f, 896.f, 1.f));
+
+			MeshRenderer* mr = mLetterBoxUP->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"LetterBoxUpMtrl"));
+
+
+
+			 mLetterBoxBottom = object::Instantiate<Background>(eLayerType::Grid, L"letterbox_Bottom");
+			 mLetterBoxBottom->Initialize();
+
+			Transform* TR = mLetterBoxBottom->GetComponent<Transform>();
+			TR->SetPosition(Vector3(0.f, -560.f, 100.f));
+			TR->SetScale(Vector3(1600.f, 896.f, 1.f));
+
+			MeshRenderer* MR = mLetterBoxBottom->GetComponent<MeshRenderer>();
+			MR->SetMaterial(Resources::Find<Material>(L"LetterBoxUpMtrl"));
+
+
+			// 레터박스에 띄울 글귀를 만든다.
+
+			mBossName = object::Instantiate<Background>(eLayerType::Grid, L"Boss2Name");
+			mBossName->Initialize();
+
+			Transform* nameTR = mBossName->GetComponent<Transform>();
+			nameTR->SetPosition(Vector3(0.f, -128.f, 100.f));
+			nameTR->SetScale(Vector3(40.f, 26.f, 1.f));
+
+			MeshRenderer* nameMR = mBossName->GetComponent<MeshRenderer>();
+			nameMR->SetMaterial(Resources::Find<Material>(L"Boss2_2NameMtrl"));
+		}
+
+
+
+
+
+
+
+		// ========
 
 		mAnimator->PlayAnimation(L"Boss2_Goddness_Intro", false);
 
@@ -388,18 +445,23 @@ namespace ss
 		// 애니메이션 재생이 끝나면 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
-		
-
-			mBossHPFrame->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"BossHpFrameMtrl")); // 잠시 가려놨다가 spawn때 다시 띄우기 
-			
-
-			mCamera->GetComponent<Camera>()->SetTargetSize(2.3f);
-			mCamera->GetComponent<CameraScript>()->SetTarget(mPlayer);
-			mCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y, CameraPos.z);
+	
+			mMainCamera->GetComponent<Camera>()->SetTargetSize(2.3f);
+			mMainCamera->GetComponent<CameraScript>()->SetTarget(mPlayer);
+			mMainCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y, CameraPos.z);
+			mMainCamera-> GetComponent<Camera>()->TurnLayerMask(eLayerType::Grid, false);
 
 			mUICamera->GetComponent<Camera>()->TurnLayerMask(eLayerType::UI, true);
 
+			mLetterBoxBottom->SetState(GameObject::eState::Dead);
+			mLetterBoxUP->SetState(GameObject::eState::Dead);
+			mBossName->SetState(GameObject::eState::Dead);
 
+			ChangeState(eBoss2_Phase2::IDLE);
+
+		
+
+		
 		
 		}
 
@@ -411,7 +473,7 @@ namespace ss
 
 	void GoddnessScript::Idle()
 	{
-
+	
 		if (mBossType == eBossType::STATUE)
 		{
 			// 랜덤으로 상태를 변경한다. 
@@ -473,7 +535,7 @@ namespace ss
 		else if (mBossType == eBossType::GODDNESS)
 		{
 
-
+		
 
 
 
@@ -948,8 +1010,8 @@ namespace ss
 		SetHit(false); // dead 상태 진입했을 땐 피격당해도 빨갛게 변하지 않도록 한다. 
 		GetOwner()->RemoveComponent<Collider2D>(); // dead 상태에는 잠시 가려놓을거기 때문에 혹시모를 일에 대비해 컴포넌트를 빼둔다. 
 
-		mCamera->GetComponent<Camera>()->SetTargetSize(5.3f);
-		mCamera->GetComponent<CameraScript>()->SetTarget(this->GetOwner());
+		mMainCamera->GetComponent<Camera>()->SetTargetSize(5.3f);
+		mMainCamera->GetComponent<CameraScript>()->SetTarget(this->GetOwner());
 
 
 		//if (mHitGround->GetState() != GameObject::eState::Dead)
@@ -958,8 +1020,8 @@ namespace ss
 		//}
 
 
-		Vector3 CameraPos = mCamera->GetComponent<Transform>()->GetPosition();
-		mCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y - 0.02f, CameraPos.z);
+		Vector3 CameraPos = mMainCamera->GetComponent<Transform>()->GetPosition();
+		mMainCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y + 0.2f, CameraPos.z);
 
 		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 		{
@@ -975,7 +1037,7 @@ namespace ss
 			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 14
 			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 15)
 		{
-			mCamera->GetComponent<Camera>()->SetTargetSize(2.3f); // 줌 아웃될 때 부드럽게 되도록 해둠 
+			mMainCamera->GetComponent<Camera>()->SetTargetSize(2.3f); // 줌 아웃될 때 부드럽게 되도록 해둠 
 		}
 
 		mAnimator->PlayAnimation(L"Boss_Goddness_Die", false);
@@ -986,11 +1048,11 @@ namespace ss
 		// 애니메이션 재생이 끝나면 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
-			mCamera->GetComponent<CameraScript>()->SetTarget(mPlayer);
+			mMainCamera->GetComponent<CameraScript>()->SetTarget(mPlayer);
 
 			//mAttackColliderObj->SetState(GameObject::eState::Dead);
 		
-			mCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y, CameraPos.z);
+			mMainCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y, CameraPos.z);
 	
 			GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 

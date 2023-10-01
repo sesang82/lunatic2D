@@ -59,6 +59,7 @@ namespace ss
         bool mTest;
 
         bool mbEnergySpawn;
+        bool mLetterBox;
 
 
 
@@ -73,7 +74,13 @@ namespace ss
         // ==== 이펙트
         class Effect* mHitGround;
         class Energyball* mEngeryball;
-        class GameObject* mCamera;
+
+
+
+        // ==== 레터박스
+        class Background* mLetterBoxBottom;
+        class Background* mLetterBoxUP;
+        class Background* mBossName;
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 
@@ -105,8 +112,7 @@ namespace ss
     public:
         void SetFirstPos(Vector3 pos) { mFirstPos = pos; }
         void SetPlayer(Player* player) { mPlayer = player; }
-        void SetCamera(GameObject* camera) { mCamera = camera; }
-  
+
 
         Vector3 GetDir() { return mDir; }
         Vector3 GetCurDir() { return mCurDir; }

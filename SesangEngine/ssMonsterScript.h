@@ -146,6 +146,7 @@ namespace ss
 		class GameObject* mPlayerUIFrame;
 		//class Monster*			mMonster;
 
+		class GameObject* mMainCamera;
 		class GameObject* mUICamera;
 
 		Vector3					mPrevDir;
@@ -248,6 +249,9 @@ namespace ss
 		
 		void SetUICamera(GameObject* ui) { mUICamera = ui; }
 		GameObject* GetUICamera() { return mUICamera; }
+
+		void SetMainCamera(GameObject* ui) { mMainCamera = ui; }
+		GameObject* GetMainCamera() { return mMainCamera; }
 
 	};
 }
