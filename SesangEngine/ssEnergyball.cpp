@@ -141,7 +141,7 @@ namespace ss
 			dir.Normalize();  // 방향 벡터를 정규화합니다.
 
 
-			float moveSpeed = 380.0f;  // 원하는 속도 값을 설정하세요.
+			float moveSpeed = 380.0f;  //. 380
 
 			Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
 

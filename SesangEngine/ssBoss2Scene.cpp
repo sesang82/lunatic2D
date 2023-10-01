@@ -262,6 +262,7 @@ namespace ss
 			bg->GetComponent<Transform>()->SetPosition(Vector3(-103.f, -204.f, 350.f));
 			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
 			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
+
 		}
 
 
@@ -293,6 +294,8 @@ namespace ss
 			stonehptr->SetPosition(Vector3(-50.f, 196.f, 250.f));
 
 			stoneHP->Initialize();
+
+			mBoss1->GetComponent<MonsterScript>()->SetUICamera(stoneHP);
 
 		}
 
@@ -432,6 +435,8 @@ namespace ss
 			renderer::cameras.push_back(cameraComp0);
 
 			//script->SetUICamera(UIcamera); // trigger 스크립트에서 메인 카메라 갖다 쓰기 위해 갖고 옴 
+
+			mBoss1->GetComponent<MonsterScript>()->SetUICamera(UIcamera);
 		}
 
 

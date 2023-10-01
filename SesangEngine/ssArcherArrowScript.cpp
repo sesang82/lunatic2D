@@ -106,7 +106,7 @@ namespace ss
 				mState = GameState::GetInst().GetState(L"Player");
 				mState->SetCurrentHP(mState->GetCurrentHP() - 10);
 
-				// 공격 당했을 시 HIT 상태로 변경 
+				// 공격 당했을 시 플레이어를 HIT 상태로 변경 
 				script->ChangeState(ePlayerState::HIT);
 
 

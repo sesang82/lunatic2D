@@ -77,6 +77,8 @@ namespace ss
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 
+        void Intro();
+        void IntroEnd();
         void Idle();
 
         void Hit();

@@ -25,7 +25,7 @@ namespace ss
 	{	
 			if (other->GetName() == L"StoneEyeProjectileCol"
 				|| other->GetName() == L"ArcherArrowCol"
-				|| other->GetName() == L"Parrying_S_EnergyballObj")
+				|| other->GetName() == L"EnergyballCol")
 			{
 				Transform* tr = other->GetOwner()->GetComponent<Transform>();
 				Vector3 BulletCurScale = tr->GetScale();

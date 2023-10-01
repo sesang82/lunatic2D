@@ -43,20 +43,7 @@ namespace ss
 	void Stage1Scene::Initialize()
 	{
 
-		// 레이어 충돌을 담당하는 함수 
 
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Ground, true);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Wall, true);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Collision, true);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Mon_Bullet, true);
-
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Boss, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Collision, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Etc, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Mon_Bullet, true);
-		CollisionManager::SetLayer(eLayerType::Guard, eLayerType::Mon_Bullet, true);
 
 		// 달 배경
 		{

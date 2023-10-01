@@ -31,11 +31,6 @@ namespace ss
 	void EntranceScene::Initialize()
 	{
 
-		// 레이어 충돌을 담당하는 함수
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
-
-
 		// 배경 맵 설정 
 		{
 			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"EntranceMap");

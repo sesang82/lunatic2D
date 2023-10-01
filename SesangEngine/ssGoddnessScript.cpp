@@ -70,9 +70,38 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image4 = Resources::Find<ss::graphics::Texture>(L"Boss2-1_EnergyballEnd");
 		std::shared_ptr<ss::graphics::Texture> Image5 = Resources::Find<ss::graphics::Texture>(L"Boss2-1_Die");
 
+		// ==================
+		std::shared_ptr<ss::graphics::Texture> Image6 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Idle");
+		std::shared_ptr<ss::graphics::Texture> Image7 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Intro");
+		std::shared_ptr<ss::graphics::Texture> Image8= Resources::Find<ss::graphics::Texture>(L"Boss2_2_IntroEnd");
+		std::shared_ptr<ss::graphics::Texture> Image9 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_MoveFront");
+		std::shared_ptr<ss::graphics::Texture> Image10 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_MoveBack");
+		std::shared_ptr<ss::graphics::Texture> Image11 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Hit");
 
-		std::shared_ptr<ss::graphics::Texture> Image6 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Die");
-	
+
+		std::shared_ptr<ss::graphics::Texture> Image12 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Counter_Start");
+		std::shared_ptr<ss::graphics::Texture> Image13 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Countering");
+		std::shared_ptr<ss::graphics::Texture> Image14 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Counter_End");
+		std::shared_ptr<ss::graphics::Texture> Image15 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Counter_Hit");
+
+		std::shared_ptr<ss::graphics::Texture> Image16 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_DiagonalAttack_Ready");
+		std::shared_ptr<ss::graphics::Texture> Image17 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_DiagonalAttack_Vertical");
+		std::shared_ptr<ss::graphics::Texture> Image18 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_DiagonalAttack_Diagonal");
+		
+		std::shared_ptr<ss::graphics::Texture> Image19 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Energyball_Start");
+		std::shared_ptr<ss::graphics::Texture> Image20 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Energyballing");
+		std::shared_ptr<ss::graphics::Texture> Image21 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Energyball_End");
+
+		std::shared_ptr<ss::graphics::Texture> Image22 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_GroundSpearPeople");
+
+		std::shared_ptr<ss::graphics::Texture> Image23 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_ShiledBeam_Ready");
+		std::shared_ptr<ss::graphics::Texture> Image24 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_ShiledBeam_ing");
+		std::shared_ptr<ss::graphics::Texture> Image25 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_ShiledBeam_End");
+
+		std::shared_ptr<ss::graphics::Texture> Image26 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_SummonSpear");
+		std::shared_ptr<ss::graphics::Texture> Image27 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Die");
+
+
 		// ==== 1페이즈 석상 
 		mAnimator->Create(L"Boss_Goddness_Idle", Image1, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 2, Vector2(269.f, 308.f));
 		mAnimator->Create(L"Boss_Goddness_Stomp", Image2, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 4, Vector2(269.f, 308.f));
@@ -82,7 +111,40 @@ namespace ss
 
 
 		// ==== 2페이즈 신
-	
+		mAnimator->Create(L"Boss2_Goddness_Idle", Image6, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 8, Vector2(269.f, 276.f), Vector2::Zero, 0.2f);
+		mAnimator->Create(L"Boss2_Goddness_Intro", Image7, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 17, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_IntroEnd", Image8, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 8, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_MoveFront", Image9, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_MoveBack", Image10, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Hit", Image11, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 5, Vector2(269.f, 276.f));
+		
+		mAnimator->Create(L"Boss2_Goddness_Die", Image12, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image13, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image14, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image15, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image16, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image17, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image18, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image19, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image20, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image21, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image22, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image23, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image24, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image25, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image26, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Die", Image27, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+								
+
+
+
+
+
+
+
+
+
+
 
 		mAnimator->PlayAnimation(L"Boss_Goddness_Idle", true); // trigger 완성하면 지우기 
 		// ======
@@ -101,9 +163,9 @@ namespace ss
 		mCollider->SetType(eColliderType::Rect);
 		mCollider->SetSize(Vector2(0.6f, 0.36f));
 		mCollider->SetCenter(Vector2(-4.f, -84.f));
-
-		// ===== 리지드바디
-
+		
+		// ===== 초기 상태값 (임시로 부여ㅡ tirrger 도입하면 이건 없애기) 
+		mCurBoss2_Phase1_State = eBoss2_Phase1::IDLE; 
 
 
 		////==== 근접 공격 특정 인덱스 충돌체 
@@ -131,6 +193,10 @@ namespace ss
 		{
 			switch (mCurBoss2_Phase1_State)
 			{
+			case ss::eBoss2_Phase1::INTRO:
+				Intro();
+				break;
+
 			case ss::eBoss2_Phase1::IDLE:
 				Idle();
 				break;
@@ -175,12 +241,15 @@ namespace ss
 			switch (mCurBoss2_Phase2_State)
 			{
 			case ss::eBoss2_Phase2::INTRO:
+				Intro();
 				break;
 
 			case ss::eBoss2_Phase2::INTRO_END:
+				IntroEnd();
 				break;
 
 			case ss::eBoss2_Phase2::IDLE:
+				Idle();
 				break;
 
 			case ss::eBoss2_Phase2::MOVE_FRONT:
@@ -259,62 +328,156 @@ namespace ss
 
 
 
+	void GoddnessScript::Intro()
+	{
+
+		if (mBossType == eBossType::GODDNESS)
+		{
+		
+			//// == 초기값 위치에서 y값만 어느 정도 위로 올린다. 
+			Vector3 StatuePos = mTransform->GetPosition();
+
+			float moveSpeed = 100.0f;  // 원하는 속도 값을 설정하세요.
+
+			float moveAmountY = moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+
+			// 내려가는 위치 제한 
+			if (StatuePos.y > -45.f)
+			{
+
+				StatuePos.y -= moveAmountY;
+				mTransform->SetPosition(StatuePos);
+			
+
+			}
+
+			
+
+
+			m_fTime += Time::DeltaTime();
+
+			if (m_fTime > 3.f)
+			{
+
+				ChangeState(eBoss2_Phase2::INTRO_END);
+
+				m_fTime = 0.0f;
+			}
+		}
+
+
+	}
+
+	void GoddnessScript::IntroEnd()
+	{
+		mCamera->GetComponent<Camera>()->SetTargetSize(5.3f);
+		mCamera->GetComponent<CameraScript>()->SetTarget(this->GetOwner());
+
+		Vector3 CameraPos = mCamera->GetComponent<Transform>()->GetPosition();
+		mCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y + 0.38f, CameraPos.z);
+
+	
+		
+
+		mAnimator->PlayAnimation(L"Boss2_Goddness_Intro", false);
+
+
+	
+
+		// 애니메이션 재생이 끝나면 
+		if (mAnimator->GetCurActiveAnimation()->IsComplete())
+		{
+		
+
+			mBossHPFrame->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"BossHpFrameMtrl")); // 잠시 가려놨다가 spawn때 다시 띄우기 
+			
+
+			mCamera->GetComponent<Camera>()->SetTargetSize(2.3f);
+			mCamera->GetComponent<CameraScript>()->SetTarget(mPlayer);
+			mCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y, CameraPos.z);
+
+			mUICamera->GetComponent<Camera>()->TurnLayerMask(eLayerType::UI, true);
+
+
+		
+		}
+
+
+	
+		
+
+	}
+
 	void GoddnessScript::Idle()
 	{
 
+		if (mBossType == eBossType::STATUE)
+		{
+			// 랜덤으로 상태를 변경한다. 
+			int randomValue = rand() % 2; // 0 또는 1을 생성 (랜덤으로) 
 
-		// 랜덤으로 상태를 변경한다. 
-		int randomValue = rand() % 2; // 0 또는 1을 생성 (랜덤으로) 
 
-
-		// 랜덤 숫자가 stomp Ready에 해당하는거라면 상태를 바꾸기 전에 아래와 같은 사항을 추가해준다.
-		// 카메라가 플레이어 쪽으로 점점 더 확대된다. (stomp 패턴 암시) 
-		m_fTime += Time::DeltaTime();
+			// 랜덤 숫자가 stomp Ready에 해당하는거라면 상태를 바꾸기 전에 아래와 같은 사항을 추가해준다.
+			// 카메라가 플레이어 쪽으로 점점 더 확대된다. (stomp 패턴 암시) 
+			m_fTime += Time::DeltaTime();
 
 
 			// 석상 패턴 
 
 
-		if (m_fTime > 3.0f)
-		{
-			if (randomValue == 0)
+			if (m_fTime > 3.0f)
 			{
+				if (randomValue == 0)
+				{
 
-				mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
-
-
-
-				mStompState = GetRandomStompState();
-				ChangeState(eBoss2_Phase1::STOMP_READY);
-			
-
-				m_fTime = 0.0f;
+					mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
 
 
 
+					mStompState = GetRandomStompState();
+					ChangeState(eBoss2_Phase1::STOMP_READY);
 
+
+					m_fTime = 0.0f;
+
+
+
+
+				}
+
+				// 에너지볼 패턴 
+				else if (randomValue == 1)
+				{
+					ChangeState(eBoss2_Phase1::ENERGYBALL_READY);
+
+					m_fTime = 0.0f;
+
+
+
+				}
 			}
 
-			// 에너지볼 패턴 
-			else if (randomValue == 1)
-			{
-				ChangeState(eBoss2_Phase1::ENERGYBALL_READY);
-
-				m_fTime = 0.0f;
 
 
 
-			}
+
+			// 만약에 에너지볼 상태로 넘어간다면 
+			// 이전 상태가 stomp 상태였다면 일단 가운데로 위치를 옮긴다.
+			// 그게 아니라면 씬에 배치했던 첫 위치에서 위로 조금만 위치를 올린다.
+			// 그 다음에 상태를 전환한다. 
+
+
 		}
-		
+
+		else if (mBossType == eBossType::GODDNESS)
+		{
 
 
 
 
-		// 만약에 에너지볼 상태로 넘어간다면 
-		// 이전 상태가 stomp 상태였다면 일단 가운데로 위치를 옮긴다.
-		// 그게 아니라면 씬에 배치했던 첫 위치에서 위로 조금만 위치를 올린다.
-		// 그 다음에 상태를 전환한다. 
+
+		}
 
 
 
@@ -658,7 +821,7 @@ namespace ss
 			dir.Normalize();  // 방향 벡터를 정규화합니다.
 
 
-			float moveSpeed = 130.0f;  // 원하는 속도 값을 설정하세요.
+			float moveSpeed = 200.0f;  // 원하는 속도 값을 설정하세요.
 
 			Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
 
@@ -780,11 +943,19 @@ namespace ss
 
 	void GoddnessScript::Dead()
 	{
+		mUICamera->GetComponent<Camera>()->TurnLayerMask(eLayerType::UI, false);
 
 		SetHit(false); // dead 상태 진입했을 땐 피격당해도 빨갛게 변하지 않도록 한다. 
 		GetOwner()->RemoveComponent<Collider2D>(); // dead 상태에는 잠시 가려놓을거기 때문에 혹시모를 일에 대비해 컴포넌트를 빼둔다. 
 
 		mCamera->GetComponent<Camera>()->SetTargetSize(5.3f);
+		mCamera->GetComponent<CameraScript>()->SetTarget(this->GetOwner());
+
+
+		//if (mHitGround->GetState() != GameObject::eState::Dead)
+		//{
+		//	mHitGround->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+		//}
 
 
 		Vector3 CameraPos = mCamera->GetComponent<Transform>()->GetPosition();
@@ -815,16 +986,45 @@ namespace ss
 		// 애니메이션 재생이 끝나면 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
-			
+			mCamera->GetComponent<CameraScript>()->SetTarget(mPlayer);
+
 			//mAttackColliderObj->SetState(GameObject::eState::Dead);
 		
 			mCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y, CameraPos.z);
 	
 			GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 
-			mBossHPFrame->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl")); // 잠시 가려놨다가 spawn때 다시 띄우기 
+			GetOwner()->GetComponent<Transform>()->SetPosition
+			(Vector3(2.f, 200.f, mTransform->GetPosition().z)); // 300.f 	
 
+			m_fTime += Time::DeltaTime();
+
+			if (m_fTime > 3.5f)
+			{
+				mBossType = eBossType::GODDNESS;
+				ChangeState(eBoss2_Phase1::INTRO);
+
+				mAnimator->PlayAnimation(L"Boss2_Goddness_IntroEnd", true);
+
+			GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
+
+			GetOwner()->AddComponent<Collider2D>(); // dead 상태에는 잠시 가려놓을거기 때문에 혹시모를 일에 대비해 컴포넌트를 빼둔다. 
+			mCharacterState->SetMaxHP(110.f);
+			mCharacterState->SetCurrentHP(10.f);
+
+		
+
+			m_fTime = 0.0f;
+
+			
+			}
+	
+		
 		}
+
+
+		
+
 	}
 
 	

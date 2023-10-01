@@ -11,6 +11,7 @@
 #include "ssCameraScript.h"
 #include "ssObject.h"
 #include "ssBackground.h"
+#include "ssCollisionManager.h"
 
 
 ss::TitleScene::TitleScene()
@@ -23,6 +24,25 @@ ss::TitleScene::~TitleScene()
 
 void ss::TitleScene::Initialize()
 {
+	CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Ground, true);
+	CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Wall, true);
+	CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Collision, true);
+	CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Mon_Bullet, true);
+
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Ground, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Wall, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Boss, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Collision, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Etc, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Mon_Bullet, true);
+	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+
+	CollisionManager::SetLayer(eLayerType::Guard, eLayerType::Mon_Bullet, true);
+	CollisionManager::SetLayer(eLayerType::Guard, eLayerType::Collision, true);
+
+
+	// ----------------
 	// ¹è°æ
 	{
 		Background* MainBG = object::Instantiate<Background>(eLayerType::BG, L"Title");

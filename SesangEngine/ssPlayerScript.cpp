@@ -602,11 +602,12 @@ namespace ss
 			PlayerGuardColScript* guardScript = mGuardColObj->AddComponent<PlayerGuardColScript>();
 			mGuardCol = mGuardColObj->AddComponent<Collider2D>();
 			mGuardCol->SetName(L"PlayerGuardCol");
+			mGuardCol->SetSize(Vector2(30.f, 50.f));
 
 			if (mCurDir.x > 0)
 			{
-				mGuardCol->SetSize(Vector2(4.f, 20.f));
-				mGuardCol->SetCenter(Vector2(25.f, 3.f));
+				
+				mGuardCol->SetCenter(Vector2(15.f, 2.f));
 
 				// GuardøÎ ¿Ã∆Â∆Æ
 				mGuardEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"PlayerGuardEffectObjR");
@@ -615,8 +616,8 @@ namespace ss
 
 			else
 			{
-				mGuardCol->SetSize(Vector2(4.f, 20.f));
-				mGuardCol->SetCenter(Vector2(-17.5f, 3.f));
+				
+				mGuardCol->SetCenter(Vector2(-5.5f, 2.f));
 
 				// GuardøÎ ¿Ã∆Â∆Æ
 				mGuardEffectObj = object::Instantiate<Effect>(pos, eLayerType::Effect, L"PlayerGuardEffectObjL");

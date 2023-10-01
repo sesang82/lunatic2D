@@ -47,6 +47,7 @@ namespace ss
 
 	enum class eBoss2_Phase1
 	{
+		INTRO,
 		IDLE,
 		STOMP_READY,
 		STOMP_ING,
@@ -141,7 +142,11 @@ namespace ss
 
 		class Player* mPlayer;
 		class GameObject* mBossHPFrame;
+		class GameObject* mBossHPBar;
+		class GameObject* mPlayerUIFrame;
 		//class Monster*			mMonster;
+
+		class GameObject* mUICamera;
 
 		Vector3					mPrevDir;
 		Vector3					mCurDir;
@@ -239,6 +244,10 @@ namespace ss
 
 		void SetUI(GameObject* ui) { mBossHPFrame = ui; }
 		GameObject* GetUI() { return mBossHPFrame; }
+		
+		
+		void SetUICamera(GameObject* ui) { mUICamera = ui; }
+		GameObject* GetUICamera() { return mUICamera; }
 
 	};
 }

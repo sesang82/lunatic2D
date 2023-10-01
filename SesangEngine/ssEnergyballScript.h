@@ -28,16 +28,13 @@ namespace ss
         virtual void OnCollisionStay(Collider2D* other) override;
         virtual void OnCollisionExit(Collider2D* other) override;
 
-
+    private:
+        GameObject* mOriginOwner;
+        class CharacterState* mState;
+        bool mIsGuard;
 
     private:
-        std::vector<EnergyBallPattern> firstGroupPattern;
-        std::vector<EnergyBallPattern> secondGroupPattern;
-        std::vector<EnergyBallPattern> ThirdGroupPattern;
-        std::vector<EnergyBallPattern> FourGroupPattern;
-
-        Vector3  mvStartPosition;
-        class CharacterState* mState;
+        void SetOriginOwner(GameObject* obj) { mOriginOwner = obj; }
 
 
 
