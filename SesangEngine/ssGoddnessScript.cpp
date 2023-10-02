@@ -25,6 +25,7 @@
 #include "ssRenderer.h"
 #include "ssCameraScript.h"
 #include "ssBackground.h"
+#include "ssPlatform.h"
 
 
 namespace ss
@@ -45,6 +46,12 @@ namespace ss
 		, mPlatformLT(nullptr)
 		, mPlatformRT(nullptr)
 		, mPlatformRB(nullptr)
+		,mGroundLT(nullptr)
+		,mGroundLB(nullptr)
+		,mGroundRT(nullptr)
+		,mGroundRB(nullptr)
+		, mPlatformMidle(nullptr)
+		, mGroundMidle(nullptr)
 	
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
@@ -177,8 +184,11 @@ namespace ss
 		mCollider->SetCenter(Vector2(-4.f, -84.f));
 		
 		// ===== 초기 상태값 (임시로 부여ㅡ tirrger 도입하면 이건 없애기) 
-		mCurBoss2_Phase2_State = eBoss2_Phase2::IDLE; 
-		mBossType = eBossType::GODDNESS;
+		//mCurBoss2_Phase2_State = eBoss2_Phase2::IDLE; 
+		//mBossType = eBossType::GODDNESS;
+
+	    mCurBoss2_Phase1_State = eBoss2_Phase1::IDLE; 
+		mBossType = eBossType::STATUE;
 
 
 
@@ -204,6 +214,26 @@ namespace ss
 
 
 		// 이동->상태변환->애니메이션
+
+
+		Vector3 cameraOffset = Vector3(0, 0, 0);  // 기본 오프셋 값
+
+		Transform* Target_tr = mPlayer->GetComponent<Transform>();
+		Vector3 TargetPos = Target_tr->GetPosition();
+
+		//// 플레이어의 위치에 따른 오프셋 변경
+		//if (TargetPos.y > 25)
+		//{
+		//	cameraOffset.y = -50;  // 예: y축 방향으로 -50만큼 오프셋 적용
+
+		//	Vector3 MainCameraPos = mMainCamera->GetComponent<Transform>()->GetPosition();
+
+		//	Vector3 newCameraPos = Vector3(TargetPos.x + cameraOffset.x, TargetPos.y + cameraOffset.y, MainCameraPos.z);
+
+		//	mMainCamera->GetComponent<Transform>()->SetPosition(newCameraPos);
+		//}
+
+
 
 
 		if (mBossType == eBossType::STATUE)
@@ -549,19 +579,108 @@ namespace ss
 
 			Vector3 BossPos = mTransform->GetPosition(); // 2, -45, 500 (보스 중간 위치) 
 
+			Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+
+			// 플레이어 위치 
+			// (DEAD - IDLE일 떄의 위치) 
+			// LT => -146. // 35.f // 400 
+			// LB => -146.f // -86.f // 400
+
+
 			if(!mLetterBox)
 			{
 				mLetterBox = true;
 
-				mPlatformLB = object::Instantiate<Background>(Vector3(BossPos.x - 148.f, BossPos.y -40.f, BossPos.z), eLayerType::Collision, L"PlatformLBObj");
-				mPlatformLT = object::Instantiate<Background>(Vector3(BossPos.x - 148.f, BossPos.y + 90.f, BossPos.z), eLayerType::Collision, L"PlatformLTObj");
-				mPlatformRT = object::Instantiate<Background>(Vector3(BossPos.x + 145.f, BossPos.y + 90.f, BossPos.z), eLayerType::Collision, L"PlatformRTObj");
-				mPlatformRB = object::Instantiate<Background>(Vector3(BossPos.x + 145.f, BossPos.y - 40.f, BossPos.z), eLayerType::Collision, L"PlatformRBObj");
+				//mPlatformLB = object::Instantiate<Background>(Vector3(BossPos.x - 148.f, BossPos.y -40.f, BossPos.z), eLayerType::Collision, L"PlatformLBObj");
+				//mPlatformLT = object::Instantiate<Background>(Vector3(BossPos.x - 148.f, BossPos.y + 90.f, BossPos.z), eLayerType::Collision, L"PlatformLTObj");
+				//mPlatformRT = object::Instantiate<Background>(Vector3(BossPos.x + 145.f, BossPos.y + 90.f, BossPos.z), eLayerType::Collision, L"PlatformRTObj");
+				//mPlatformRB = object::Instantiate<Background>(Vector3(BossPos.x + 145.f, BossPos.y - 40.f, BossPos.z), eLayerType::Collision, L"PlatformRBObj");
+
+				//mPlatformLT->Initialize();
+				//mPlatformLB->Initialize();
+				//mPlatformRT->Initialize();
+				//mPlatformRB->Initialize();
+
+
+				//// ==== 바닥이 될 충돌체 
+				//mGroundLT = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+				//mGroundLT->Initialize();
+
+				//Transform* tr = mGroundLT->GetComponent<Transform>();
+				//tr->SetPosition(Vector3(BossPos.x - 148.f, BossPos.y - 33.f, BossPos.z));
+				//tr->SetScale(Vector3(70.f, 2.f, 1.f));
+
+
+				//mGroundLB = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+				//mGroundLB->Initialize();
+
+				//Transform* tr2 = mGroundLB->GetComponent<Transform>();
+				//tr2->SetPosition(Vector3(BossPos.x - 148.f, BossPos.y + 97.f, BossPos.z));
+				//tr2->SetScale(Vector3(70.f, 2.f, 1.f));
+
+
+				//mGroundRT = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+				//mGroundRT->Initialize();
+
+				//Transform* tr3 = mGroundRT->GetComponent<Transform>();
+				//tr3->SetPosition(Vector3(BossPos.x + 145.f, BossPos.y + 97.f, BossPos.z));
+				//tr3->SetScale(Vector3(70.f, 2.f, 1.f));
+
+
+				//mGroundRB = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+				//mGroundRB->Initialize();
+
+				//Transform* tr4 = mGroundRB->GetComponent<Transform>();
+				//tr4->SetPosition(Vector3(BossPos.x + 145.f, BossPos.y - 33.f, BossPos.z));
+				//tr4->SetScale(Vector3(70.f, 2.f, 1.f));
+
+
+
+				// =================
+				// 패턴 어느 정도 완성되면 아래걸로 원복시키기 (dead - idle로 넘어갔을 때의 위치랑 작업하려고 idle부터 시작했을때랑 위치가 다름) 
+	
+				mPlatformLB = object::Instantiate<Background>(Vector3(BossPos.x - 145.f, BossPos.y - 72.f, BossPos.z), eLayerType::Collision, L"PlatformLBObj");
+				mPlatformLT = object::Instantiate<Background>(Vector3(BossPos.x - 145.f, BossPos.y + 50.f, BossPos.z), eLayerType::Collision, L"PlatformLTObj");
+				mPlatformRT = object::Instantiate<Background>(Vector3(BossPos.x + 140.f, BossPos.y + 50.f, BossPos.z), eLayerType::Collision, L"PlatformRTObj");
+				mPlatformRB = object::Instantiate<Background>(Vector3(BossPos.x + 140.f, BossPos.y - 72.f, BossPos.z), eLayerType::Collision, L"PlatformRBObj");
 
 				mPlatformLT->Initialize();
 				mPlatformLB->Initialize();
 				mPlatformRT->Initialize();
 				mPlatformRB->Initialize();
+
+
+				// ==== 바닥이 될 충돌체 
+				mGroundLT = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+				mGroundLT->Initialize();
+				Transform* tr = mGroundLT->GetComponent<Transform>();
+				tr->SetPosition(Vector3(BossPos.x - 145.f, BossPos.y + 57.f, BossPos.z));
+				tr->SetScale(Vector3(77.f, 2.f, 1.f));
+
+				mGroundLB = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+				mGroundLB->Initialize();
+				Transform* tr2 = mGroundLB->GetComponent<Transform>();
+				tr2->SetPosition(Vector3(BossPos.x - 145.f, BossPos.y - 65.f, BossPos.z));
+				tr2->SetScale(Vector3(77.f, 2.f, 1.f));
+
+				mGroundRT = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+				mGroundRT->Initialize();
+				Transform* tr3 = mGroundRT->GetComponent<Transform>();
+				tr3->SetPosition(Vector3(BossPos.x + 140.f, BossPos.y + 57.f, BossPos.z));
+				tr3->SetScale(Vector3(77.f, 2.f, 1.f));
+
+				mGroundRB = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+				mGroundRB->Initialize();
+				Transform* tr4 = mGroundRB->GetComponent<Transform>();
+				tr4->SetPosition(Vector3(BossPos.x + 140.f, BossPos.y - 65.f, BossPos.z));
+				tr4->SetScale(Vector3(77.f, 2.f, 1.f));
+
+
+
+
+
+
+
 
 			}
 

@@ -29,7 +29,8 @@ namespace ss
 		int mCameraWidth;
 		Vector2 mMapSize; // 카메라가 비출 영역의 크기 (내가 마음대로 정하는 크기)
 		float mPosOffset; // 플레이어의 기본 위치에 카메라를 얼마나 내릴지    // 카메라가 플레이어를 따라다니는데 얼마나 떨어져 있을지에 대한 값
-		float someOffset;
+		float mBottomOffset;
+		float mTopOffset;
 
 		bool mbFllowMonster;
 		bool mbReturnToPlayer;

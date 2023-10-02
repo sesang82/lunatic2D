@@ -87,6 +87,14 @@ namespace ss
         class Background* mPlatformLB;
         class Background* mPlatformRT;
         class Background* mPlatformRB;
+        class Background* mPlatformMidle;
+
+
+        class Platform* mGroundLT;
+        class Platform* mGroundLB;
+        class Platform* mGroundRT;
+        class Platform* mGroundRB;
+        class Platform* mGroundMidle;
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 

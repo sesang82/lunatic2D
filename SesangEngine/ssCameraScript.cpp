@@ -31,7 +31,7 @@ namespace ss
 		{
 			cameraOffset.leftOffset = 785.0f;
 			cameraOffset.rightOffset = 785.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
-			someOffset = 75.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mBottomOffset = 75.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 			mPosOffset = 100.f;
 		}
 
@@ -39,7 +39,7 @@ namespace ss
 		{
 			cameraOffset.leftOffset = 540.0f;			
 			cameraOffset.rightOffset = 584.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
-			someOffset = 660.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mBottomOffset = 660.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 			mPosOffset = 80.f;
 		}
 
@@ -48,7 +48,7 @@ namespace ss
 		{
 			cameraOffset.leftOffset = 668.0f;
 			cameraOffset.rightOffset = 668.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
-			someOffset = 30.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mBottomOffset = 30.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 			mPosOffset = 100.f;
 		}
 
@@ -57,7 +57,7 @@ namespace ss
 		{
 			cameraOffset.leftOffset = 670.0f;
 			cameraOffset.rightOffset = 840.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
-			someOffset = 180.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mBottomOffset = 180.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 			mPosOffset = 0.f;
 		}
 
@@ -73,12 +73,12 @@ namespace ss
 		{
 			cameraOffset.leftOffset = 800.0f;
 			cameraOffset.rightOffset = 800.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
-			someOffset = 300.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mBottomOffset = 300.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
 			mPosOffset = 100.f;
+			mTopOffset = 450.f;
 		}
 
-		 float what = cameraOffset.leftOffset;
-		 float what2 = cameraOffset.rightOffset;
+		
 
 	
 	}
@@ -178,8 +178,8 @@ namespace ss
 
 		float leftLimit = -viewWidth / 2.0f + cameraOffset.leftOffset;  // someOffset은 원하는 한계값에 따라 조절
 		float rightLimit = viewWidth / 2.0f - cameraOffset.rightOffset;
-		float topLimit = viewHeight / 2.0f - someOffset;
-		float bottomLimit = -viewHeight / 2.0f + someOffset;
+		float topLimit = viewHeight / 2.0f - mTopOffset;
+		float bottomLimit = -viewHeight / 2.0f + mBottomOffset;
 
 		Vector3 cameraPos = Cam_tr->GetPosition();
 
@@ -194,41 +194,6 @@ namespace ss
 		Cam_tr->SetPosition(cameraPos);
 
 
-
-	// ======================================================	
-			
-		//Vector3 pos = Cam_tr->GetPosition();
-		//
-		//if (Input::GetKey(eKeyCode::W))
-		//{
-		//	pos.y += 500.0f * Time::DeltaTime();
-		//	Cam_tr->SetPosition(pos);
-		//}
-		//else if (Input::GetKey(eKeyCode::S))
-		//{
-		//	pos.y -= 500.0f * Time::DeltaTime();
-		//	Cam_tr->SetPosition(pos);
-		//}
-		//else if (Input::GetKey(eKeyCode::A))
-		//{
-		//	pos.x -= 500.0f * Time::DeltaTime();
-		//	Cam_tr->SetPosition(pos);
-		//}
-		//else if (Input::GetKey(eKeyCode::D))
-		//{
-		//	pos.x += 500.0f * Time::DeltaTime();
-		//	Cam_tr->SetPosition(pos);
-		//}
-		//else if (Input::GetKey(eKeyCode::Q))
-		//{
-		//	pos.z -= 500.0f * Time::DeltaTime();
-		//	Cam_tr->SetPosition(pos);
-		//}
-		//else if (Input::GetKey(eKeyCode::E))
-		//{
-		//	pos.z += 500.0f * Time::DeltaTime();
-		//	Cam_tr->SetPosition(pos);
-		//}
 
 	}
 	void CameraScript::StartShake(float duration, float magnitude)
