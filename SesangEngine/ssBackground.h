@@ -28,7 +28,7 @@ namespace ss
         Transform* GetTransfrom() { return tr; }
         void SetBoss(Monster* boss) { mBoss = boss; }
 
-        void Fire_turnOnStart_End();
+       
     };
 }
 

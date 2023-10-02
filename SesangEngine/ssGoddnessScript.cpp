@@ -41,6 +41,10 @@ namespace ss
 		, mLetterBoxBottom(nullptr)
 		, mLetterBoxUP(nullptr)
 		, mBossName(nullptr)
+		, mPlatformLB(nullptr)
+		, mPlatformLT(nullptr)
+		, mPlatformRT(nullptr)
+		, mPlatformRB(nullptr)
 	
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
@@ -173,7 +177,9 @@ namespace ss
 		mCollider->SetCenter(Vector2(-4.f, -84.f));
 		
 		// ===== 초기 상태값 (임시로 부여ㅡ tirrger 도입하면 이건 없애기) 
-		mCurBoss2_Phase1_State = eBoss2_Phase1::IDLE; 
+		mCurBoss2_Phase2_State = eBoss2_Phase2::IDLE; 
+		mBossType = eBossType::GODDNESS;
+
 
 
 		////==== 근접 공격 특정 인덱스 충돌체 
@@ -186,6 +192,9 @@ namespace ss
 
 		// trigger 완성하면 이거 씌우기 
 		//mMeshRenderer->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+
+
 
 	}
 	void GoddnessScript::Update()
@@ -458,6 +467,7 @@ namespace ss
 			mBossName->SetState(GameObject::eState::Dead);
 
 			ChangeState(eBoss2_Phase2::IDLE);
+			mLetterBox = false;
 
 		
 
@@ -535,8 +545,25 @@ namespace ss
 		else if (mBossType == eBossType::GODDNESS)
 		{
 
-		
+			mAnimator->PlayAnimation(L"Boss2_Goddness_IntroEnd", true);
 
+			Vector3 BossPos = mTransform->GetPosition(); // 2, -45, 500 (보스 중간 위치) 
+
+			if(!mLetterBox)
+			{
+				mLetterBox = true;
+
+				mPlatformLB = object::Instantiate<Background>(Vector3(BossPos.x - 148.f, BossPos.y -40.f, BossPos.z), eLayerType::Collision, L"PlatformLBObj");
+				mPlatformLT = object::Instantiate<Background>(Vector3(BossPos.x - 148.f, BossPos.y + 90.f, BossPos.z), eLayerType::Collision, L"PlatformLTObj");
+				mPlatformRT = object::Instantiate<Background>(Vector3(BossPos.x + 145.f, BossPos.y + 90.f, BossPos.z), eLayerType::Collision, L"PlatformRTObj");
+				mPlatformRB = object::Instantiate<Background>(Vector3(BossPos.x + 145.f, BossPos.y - 40.f, BossPos.z), eLayerType::Collision, L"PlatformRBObj");
+
+				mPlatformLT->Initialize();
+				mPlatformLB->Initialize();
+				mPlatformRT->Initialize();
+				mPlatformRB->Initialize();
+
+			}
 
 
 		}

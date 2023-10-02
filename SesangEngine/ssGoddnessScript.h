@@ -82,6 +82,12 @@ namespace ss
         class Background* mLetterBoxUP;
         class Background* mBossName;
 
+        // 발판
+        class Background* mPlatformLT;
+        class Background* mPlatformLB;
+        class Background* mPlatformRT;
+        class Background* mPlatformRB;
+
     public:
         // 함수는 각 하나의 역할만 하게 하기 
         void Intro();

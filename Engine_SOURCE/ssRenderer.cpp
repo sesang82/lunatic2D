@@ -3495,6 +3495,22 @@ namespace renderer
 
 		 }
 
+		  // 100 24 
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_GroundPlatformImage",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\Phase2\\Ground\\Boss_Goddess_Object_Platform_11.png");
+
+			 // === Material 생성
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_GroundPlatformImage_Mtrl", spriteMateiral);
+
+		 }
+
 
 		 // 사람 등 뒤에 달린 이펙트 10 142 142
 		 {
