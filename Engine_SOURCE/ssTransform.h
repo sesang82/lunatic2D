@@ -66,13 +66,19 @@ namespace ss
 		void SetPosition(Vector3 position) { mRelativePos = position; }
 		void SetPosition(float x, float y, float z) { mRelativePos = Vector3(x, y, z); }
 
-		/*void SetRotation(const Vector3& rotationInDegrees)
+		void SetRotation(Vector3 rot)
 		{
-			mRelativeRot.x = XMConvertToRadians(rotationInDegrees.x);
-			mRelativeRot.y = XMConvertToRadians(rotationInDegrees.y);
-			mRelativeRot.z = XMConvertToRadians(rotationInDegrees.z);
-		}*/
+			if (rot.z <= 1.0f && rot.z >= 0.0f)
+			{
+				mRelativeRot = rot;
 
+			}
+			else
+			{
+				const float PI = 3.141592;
+				mRelativeRot.z = rot.z * PI / 180;
+			}
+		}
 		void SetRotation(float x, float y, float z) { mRelativeRot = Vector3(x, y, z); }
 
 		// z값은 1이여야만 렌더링이 된다(원래 크기로)

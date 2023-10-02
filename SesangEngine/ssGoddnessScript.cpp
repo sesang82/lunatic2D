@@ -1351,9 +1351,9 @@ namespace ss
 		// 칼 3개가 발사된다. 
 		// 
 		mSwordBullet_Mid = object::Instantiate<SwordBullet>(Vector3(0.f, 0.f, 400.f), eLayerType::Collision, L"Sword_Mid");
-		mSwordBullet_Mid->GetComponent<Transform>()->SetRotation(degree, 1.f, 1.f);
+		mSwordBullet_Mid->GetComponent<Transform>()->SetRotation(0, 0.f, 15.f);
 	
-
+	
 
 
 	}

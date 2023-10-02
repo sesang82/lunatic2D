@@ -64,7 +64,7 @@ namespace ss
 			float degree = pi / 8.0f;
 
 			player->GetComponent<Transform>()->SetPosition(Vector3(-2.0f, 0.0f, 1.0001f));
-			player-> GetComponent<Transform>()->SetRotation(Vector3(15.f, 1.f, 1.f));
+
 			//player->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
 
 			std::shared_ptr<Texture> atlas
