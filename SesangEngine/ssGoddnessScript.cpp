@@ -26,6 +26,7 @@
 #include "ssCameraScript.h"
 #include "ssBackground.h"
 #include "ssPlatform.h"
+#include "ssSwordBullet.h"
 
 
 namespace ss
@@ -52,6 +53,17 @@ namespace ss
 		,mGroundRB(nullptr)
 		, mPlatformMidle(nullptr)
 		, mGroundMidle(nullptr)
+		, mbMovingDown(false)
+		, mbMovingDiagonally(true)
+		, mSwordBullet_Mid(nullptr)
+		, mSwordBullet_Left(nullptr)
+		, mSwordBullet_Right(nullptr)
+
+
+
+
+
+
 	
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
@@ -133,8 +145,15 @@ namespace ss
 		mAnimator->Create(L"Boss2_Goddness_Idle", Image6, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 8, Vector2(269.f, 276.f), Vector2::Zero, 0.2f);
 		mAnimator->Create(L"Boss2_Goddness_Intro", Image7, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 17, Vector2(269.f, 276.f), Vector2::Zero, 0.11f);
 		mAnimator->Create(L"Boss2_Goddness_IntroEnd", Image8, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 8, Vector2(269.f, 276.f));
-		mAnimator->Create(L"Boss2_Goddness_MoveFront", Image9, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f));
-		mAnimator->Create(L"Boss2_Goddness_MoveBack", Image10, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f));
+
+		mAnimator->Create(L"Boss2_Goddness_MoveFrontR", Image9, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f), Vector2::Zero, 0.15f);
+		mAnimator->Create(L"Boss2_Goddness_MoveFrontL", Image9, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f), Vector2::Zero, 0.15f, true);
+
+		mAnimator->Create(L"Boss2_Goddness_MoveBackR", Image10, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f), Vector2::Zero, 0.15f);
+		mAnimator->Create(L"Boss2_Goddness_MoveBackL", Image10, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f), Vector2::Zero, 0.15f, true);
+
+
+
 		mAnimator->Create(L"Boss2_Goddness_Hit", Image11, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 5, Vector2(269.f, 276.f));
 		
 		mAnimator->Create(L"Boss2_Goddness_Die", Image12, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
@@ -151,7 +170,7 @@ namespace ss
 		mAnimator->Create(L"Boss2_Goddness_Die", Image23, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_Die", Image24, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_Die", Image25, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
-		mAnimator->Create(L"Boss2_Goddness_Die", Image26, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_SummonSpear", Image26, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 17, Vector2(269.f, 276.f), Vector2::Zero, 0.08f);
 		mAnimator->Create(L"Boss2_Goddness_Die", Image27, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 								
 
@@ -184,11 +203,12 @@ namespace ss
 		mCollider->SetCenter(Vector2(-4.f, -84.f));
 		
 		// ===== 초기 상태값 (임시로 부여ㅡ tirrger 도입하면 이건 없애기) 
-		//mCurBoss2_Phase2_State = eBoss2_Phase2::IDLE; 
-		//mBossType = eBossType::GODDNESS;
+		mBossType = eBossType::GODDNESS;
+		mCurBoss2_Phase2_State = eBoss2_Phase2::IDLE; 
+		
 
-	    mCurBoss2_Phase1_State = eBoss2_Phase1::IDLE; 
-		mBossType = eBossType::STATUE;
+	   // mCurBoss2_Phase1_State = eBoss2_Phase1::IDLE; 
+		//mBossType = eBossType::STATUE;
 
 
 
@@ -300,9 +320,11 @@ namespace ss
 				break;
 
 			case ss::eBoss2_Phase2::MOVE_FRONT:
+				MoveFront();
 				break;
 
 			case ss::eBoss2_Phase2::MOVE_BACK:
+				MoveBack();
 				break;
 
 			case ss::eBoss2_Phase2::DIAGONAL_ATTACK_DIAGONAL:
@@ -344,7 +366,16 @@ namespace ss
 			case ss::eBoss2_Phase2::SHIELDBEAM_END:
 				break;
 
-			case ss::eBoss2_Phase2::SUMMONSPEAR:
+			case ss::eBoss2_Phase2::SUMMONSPEAR_START:
+				SummonSpear_Start();
+				break;
+
+			case ss::eBoss2_Phase2::SUMMONSPEAR_ING:
+				SummonSpear_Ing();
+				break;
+
+			case ss::eBoss2_Phase2::SUMMONSPEAR_END:
+				SummonSpear_End();
 				break;
 
 			case ss::eBoss2_Phase2::HIT:
@@ -684,6 +715,16 @@ namespace ss
 
 			}
 
+
+
+			m_fTime += Time::DeltaTime();
+
+			if (m_fTime > 2.f)
+			{
+				ChangeState(eBoss2_Phase2::MOVE_BACK);
+
+				m_fTime = 0.0f;
+			}
 
 		}
 
@@ -1233,6 +1274,96 @@ namespace ss
 
 		
 
+	}
+
+	void GoddnessScript::MoveBack()
+	{
+		mAnimator->PlayAnimation(L"Boss2_Goddness_MoveBackL", true);
+
+
+		// 대각선 방향을 구한다.
+		Vector3 DiagonalDirection = Vector3(1.0, 1.0, 500);
+		DiagonalDirection.Normalize(); // 움직임의 방향은 유지하되 크기만 1로 해둔다. 
+
+
+		Vector3 BossPos = mTransform->GetPosition();
+
+		if (mbMovingDiagonally)
+		{
+
+			float moveSpeed = 40000.0f;  // 움직임의 속도
+
+
+			BossPos += DiagonalDirection * moveSpeed * Time::DeltaTime();
+
+			// 대각선 움직임이 일정 거리 이상 움직였다면
+			if (BossPos.y >= 80.f)
+			{
+				mbMovingDiagonally = false;
+				mbMovingDown = true;
+			}
+
+			// 움직인 위치를 실제로 적용합니다.
+			mTransform->SetPosition(BossPos);
+		}
+
+
+		// 대각선 이동이 끝나면 아래로 직선 이동한다. 
+		else if (mbMovingDown) 
+		{
+		
+
+			float moveSpeed = 100.0f;  // 움직임의 속도
+
+
+			BossPos.y -= moveSpeed * Time::DeltaTime();
+
+			// 아래로 움직임이 일정 거리 이상 움직였다면
+			if (mTransform->GetPosition().y <= -110.f) {
+				mbMovingDown = false;
+
+				mAnimator->PlayAnimation(L"Boss2_Goddness_SummonSpear", false);
+				ChangeState(eBoss2_Phase2::SUMMONSPEAR_START);
+				
+			}
+
+			mTransform->SetPosition(BossPos);
+		
+		}
+
+	
+
+	}
+
+	void GoddnessScript::MoveFront()
+	{
+	}
+
+	void GoddnessScript::SummonSpear_Start()
+	{
+		// 보스는 위아래로 와리가리한다. (왼쪽 방향인지 오른쪽 방향인지에 따라 다르게 해줘야될듯)
+
+		const float pi = 3.141592f;
+		float degree = pi / 8.0f;
+		
+
+
+		// 칼 3개가 발사된다. 
+		// 
+		mSwordBullet_Mid = object::Instantiate<SwordBullet>(Vector3(0.f, 0.f, 400.f), eLayerType::Collision, L"Sword_Mid");
+		mSwordBullet_Mid->GetComponent<Transform>()->SetRotation(degree, 1.f, 1.f);
+	
+
+
+
+	}
+
+	void GoddnessScript::SummonSpear_Ing()
+	{
+	}
+
+	void GoddnessScript::SummonSpear_End()
+	{
 	}
 
 	

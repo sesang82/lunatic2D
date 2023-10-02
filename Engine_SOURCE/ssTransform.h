@@ -66,12 +66,12 @@ namespace ss
 		void SetPosition(Vector3 position) { mRelativePos = position; }
 		void SetPosition(float x, float y, float z) { mRelativePos = Vector3(x, y, z); }
 
-		void SetRotation(const Vector3& rotationInDegrees)
+		/*void SetRotation(const Vector3& rotationInDegrees)
 		{
 			mRelativeRot.x = XMConvertToRadians(rotationInDegrees.x);
 			mRelativeRot.y = XMConvertToRadians(rotationInDegrees.y);
 			mRelativeRot.z = XMConvertToRadians(rotationInDegrees.z);
-		}
+		}*/
 
 		void SetRotation(float x, float y, float z) { mRelativeRot = Vector3(x, y, z); }
 

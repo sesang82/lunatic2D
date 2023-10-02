@@ -61,6 +61,8 @@ namespace ss
         bool mbEnergySpawn;
         bool mLetterBox;
 
+        bool mbMovingDown;
+        bool mbMovingDiagonally;
 
 
 
@@ -96,6 +98,13 @@ namespace ss
         class Platform* mGroundRB;
         class Platform* mGroundMidle;
 
+
+
+        // 칼
+        class SwordBullet* mSwordBullet_Mid;
+        class SwordBullet* mSwordBullet_Left;
+        class SwordBullet* mSwordBullet_Right;
+
     public:
         // 함수는 각 하나의 역할만 하게 하기 
         void Intro();
@@ -115,6 +124,15 @@ namespace ss
         void Wind_Ready();
 
         void Dead();
+
+        // --------
+        void MoveBack();
+        void MoveFront();
+
+        void SummonSpear_Start();
+        void SummonSpear_Ing();
+        void SummonSpear_End();
+       
 
 
 

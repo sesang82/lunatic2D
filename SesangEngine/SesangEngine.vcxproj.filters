@@ -224,6 +224,9 @@
     <ClCompile Include="ssEnergyball.cpp">
       <Filter>Contents\GameObj\etc\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="ssSwordBullet.cpp">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -652,6 +655,9 @@
       <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
     </ClInclude>
     <ClInclude Include="ssEnergyball.h">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ssSwordBullet.h">
       <Filter>Contents\GameObj\etc\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
