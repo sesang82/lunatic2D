@@ -117,7 +117,7 @@ namespace gui
 		pos.z -= 0.01f; // z값만큼은 변동을 줘야해서 이처럼 함
 
 		tr->SetPosition(pos);
-		tr->SetRotation(0.0f, 0.0f, mesh.rotation.z);
+		tr->SetRotation(mesh.rotation);
 
 		if (mesh.type == ss::enums::eColliderType::Rect)
 		{

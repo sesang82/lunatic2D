@@ -1366,14 +1366,14 @@ namespace ss
 
 		m_fTime += Time::DeltaTime();
 
-		if (!mbDirHitSpawn && m_fTime > 1.8f)
+		if (!mbDirHitSpawn && m_fTime > 1.6f)
 		{
 			mbDirHitSpawn = true;
 
 
 			if (!mbFreezingPos)
 			{
-				mbFreezingPos = true;
+				mbFreezingPos = true; // false는 상태 전환될 때 해주기 
 				mPlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
 			}
@@ -1417,7 +1417,7 @@ namespace ss
 		
 	
 
-		if (!mbSwordSpawn && m_fTime > 4.f)
+		if (!mbSwordSpawn && m_fTime > 2.5f)
 		{
 			mbSwordSpawn = true;
 			mbDirHitSpawn = false;
@@ -1427,7 +1427,7 @@ namespace ss
 			if (mPlayerPos.x >= 0.0)
 			{
 
-				mSwordBullet_Mid = object::Instantiate<SwordBullet>
+				mSwordBullet_Left = object::Instantiate<SwordBullet>
 					(Vector3(mPlayerPos.x - 650.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
 
 			}
@@ -1439,13 +1439,22 @@ namespace ss
 				if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
 				{
 					// 660은 테스트 용도 , 찐 위치는 685
-					mSwordBullet_Mid = object::Instantiate<SwordBullet>
+					mSwordBullet_Left = object::Instantiate<SwordBullet>
 						(Vector3(mPlayerPos.x + 550.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
 
-					Vector3 SwordBullet_MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+					Transform* SwordBullet_MidTr = mSwordBullet_Left->GetComponent<Transform>();
+
+
+					Vector3 rotation = mTransform->GetDegreeRot();
+					rotation.z = 10.0f;
+					SwordBullet_MidTr->SetRotation(rotation);
+
+
+
+
 
 					// ======
-					mSwordBullet_Left = object::Instantiate<SwordBullet>
+					mSwordBullet_Mid = object::Instantiate<SwordBullet>
 						(Vector3(mPlayerPos.x + 550.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
 
 					Vector3 SwordBullet_LeftPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
@@ -1483,7 +1492,7 @@ namespace ss
 		if (nullptr != mSwordBullet_Mid
 			|| nullptr != mSwordBullet_Left
 			|| nullptr != mSwordBullet_Right
-			&& m_fTime > 2.f)
+			&& m_fTime > 2.8f)
 		{
 
 			mbSwordSpawn = false;
@@ -1494,11 +1503,11 @@ namespace ss
 			BulletToPlayer.Normalize(); // nomarlize해서 방향을 구한다
 
 
-			float speed = 500.f;
+			float speed = 300.f;
 
 	
 			MidPos.x += BulletToPlayer.x * speed * Time::DeltaTime();
-			mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos);
+			mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x - 0.5f, MidPos.y, MidPos.z);
 
 			m_fTime = 0.0f;
 

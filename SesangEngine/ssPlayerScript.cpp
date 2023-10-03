@@ -343,6 +343,10 @@ namespace ss
 
 		}
 
+		else if (L"Sword_RightToLeft" == other->GetOwner()->GetName())
+		{
+			int i = 0; // 회전 약간 충돌 안맞는데 허용되는 오차
+		}
 
 
 

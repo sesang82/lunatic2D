@@ -21,6 +21,7 @@ namespace ss
 		, mRelativeForward(Vector3::Forward)
 		, mRelativeRight(Vector3::Right)
 		, mFlip(false)
+		, mDegreeRot(Vector3::Zero)
 		//, mWorldForward(Vector3::Forward)
 		//, mWorldRight(Vector3::Right)
 		//, mWorldUp(Vector3::Up)

@@ -48,6 +48,8 @@ namespace ss
 
 		Vector3 mStoreOwnerPos; // 스토어 오너의 위치를 저장하기 위함
 
+		Vector3 mDegreeRot;
+
 	public:
 		void SetFlip() { mFlip = !mFlip; }
 		bool GetFlip() { return mFlip; }
@@ -66,26 +68,32 @@ namespace ss
 		void SetPosition(Vector3 position) { mRelativePos = position; }
 		void SetPosition(float x, float y, float z) { mRelativePos = Vector3(x, y, z); }
 
-		void SetRotation(Vector3 rot)
+		void SetRotation(Vector3 rotation)
 		{
-			if (rot.z <= 1.0f && rot.z >= 0.0f)
-			{
-				mRelativeRot = rot;
+			mRelativeRot.x = XM_PI / (180.0f / rotation.x);
+			mRelativeRot.y = XM_PI / (180.0f / rotation.y);
+			mRelativeRot.z = XM_PI / (180.0f / rotation.z);
 
-			}
-			else
-			{
-				const float PI = 3.141592;
-				mRelativeRot.z = rot.z * PI / 180;
-			}
+			mDegreeRot = rotation;
 		}
-		void SetRotation(float x, float y, float z) { mRelativeRot = Vector3(x, y, z); }
+
+
+		void SetRotation(float x, float y, float z)
+		{
+
+			mRelativeRot.x = XM_PI / (180.0f / x);
+			mRelativeRot.y = XM_PI / (180.0f / y);
+			mRelativeRot.z = XM_PI / (180.0f / z);
+
+			mDegreeRot = Vector3(x, y, z);
+		}
 
 		// z값은 1이여야만 렌더링이 된다(원래 크기로)
 		void SetScale(Vector3 scale) { mRelativeScale = scale; }
 		void SetScale(float x, float y, float z) { mRelativeScale = Vector3(x, y, z); }
 
 		Vector3 GetPosition() { return mRelativePos; }
+		Vector3 GetDegreeRot() { return mDegreeRot; }
 		Vector3 GetRotation() { return mRelativeRot; }
 		Vector3 GetScale() { return mRelativeScale; }
 
