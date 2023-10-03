@@ -1359,7 +1359,7 @@ namespace ss
 		
 		// 보스는 위아래로 와리가리한다. (왼쪽 방향인지 오른쪽 방향인지에 따라 다르게 해줘야될듯)
 
-
+		mPlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
 
 		// 칼 3개가 발사된다. (dead 처리는 벽에 부딪치면 없어질 때 그떄 할 것이므로 신경 안써도 됨) 
@@ -1432,6 +1432,32 @@ namespace ss
 					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
 				}
 
+
+				// 세로로 공격 (아래에서 위쪽) 
+				else
+				{
+					// mHitDir_Left mHitDir_Right
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_DU");
+					EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+					//=========
+					mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_DU");
+					EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
+					effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y - 20.f, 400.f);
+
+					// ====
+					mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_DU");
+					EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
+					effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
+
+				}
+
 			}
 
 			// 오른쪽에서 왼쪽으로 발사 
@@ -1488,11 +1514,19 @@ namespace ss
 					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
 				}
 
-				
+				// 세로로 공격 (위쪽에서 아래 ) 
+				else
+				{
+
+
+				}
 
 
 			}
 
+
+
+			
 		
 		}
 		

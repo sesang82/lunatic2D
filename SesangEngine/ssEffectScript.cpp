@@ -428,9 +428,23 @@ namespace ss
 			mr->SetMaterial(Resources::Find<Material>(L"Dir_RightToLeft_Mtrl"));
 			tr->SetScale(Vector3(1632.f, 9.f, 0.f));
 
-			}
+		}
 	
 
+		else if (GetOwner()->GetName() == L"HitDir_MidObj_DU")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"Dir_DownToUp_Mtrl"));
+			tr->SetScale(Vector3(9.f, 1632.f, 0.f));
+
+		}
+
+
+		else if (GetOwner()->GetName() == L"HitDir_MidObj_UD")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"Dir_UpToDown_Mtrl"));
+			tr->SetScale(Vector3(9.f, 1632.f, 0.f));
+
+		}
 
 	}
 
@@ -836,9 +850,11 @@ namespace ss
 				}
 				
 
-
+				
 		else if (GetOwner()->GetName() == L"HitDir_MidObj_LR"
-			|| GetOwner()->GetName() == L"HitDir_MidObj_RL")
+			|| GetOwner()->GetName() == L"HitDir_MidObj_RL"
+			|| GetOwner()->GetName() == L"HitDir_MidObj_DU"
+			|| GetOwner()->GetName() == L"HitDir_MidObj_UD")
 		{
 
 				bool SpawnDirHit = mOwnerObj->GetComponent<GoddnessScript>()->IsSpawnDirHit();
