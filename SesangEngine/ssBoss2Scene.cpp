@@ -167,7 +167,7 @@ namespace ss
 			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
 			mr->SetMaterial(Resources::Find<Material>(L"Boss2_Tile_Mtrl"));
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 700.f));
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 100.f));
 			bg->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 1.0f));
 
 		}

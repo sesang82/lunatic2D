@@ -52,6 +52,8 @@ namespace ss
         Vector3					mDir; // 어슬렁거리는 move상태일때만 사용할 거 
         Vector3					mCurDir; // 거리값으로 계산해낸 방향 
 
+        Vector3                 mPlayerPos;
+
         int miStompCount;
         int miCompleteStompCount;
         bool mbStomp;
@@ -59,10 +61,14 @@ namespace ss
         bool mTest;
 
         bool mbEnergySpawn;
+        bool mbSwordSpawn;
+        bool mbDirHitSpawn;
         bool mLetterBox;
 
         bool mbMovingDown;
         bool mbMovingDiagonally;
+
+        bool mbFreezingPos;
 
 
 
@@ -104,6 +110,10 @@ namespace ss
         class SwordBullet* mSwordBullet_Mid;
         class SwordBullet* mSwordBullet_Left;
         class SwordBullet* mSwordBullet_Right;
+
+        class Effect* mHitDir_Mid;
+        class Effect* mHitDir_Left;
+        class Effect* mHitDir_Right;
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 
@@ -151,6 +161,12 @@ namespace ss
         eMonsterState GetCurState() { return mCurState; }
 
         eStompState  GetRandomStompState();
+
+
+        bool IsSpawnDirHit() 
+        {
+            return mbDirHitSpawn;
+        }
 
     };
       

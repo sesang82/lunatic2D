@@ -343,10 +343,6 @@ namespace ss
 
 		}
 
-		else if (L"Sword_Mid" == other->GetOwner()->GetName())
-		{
-			int i = 0;
-		}
 
 
 

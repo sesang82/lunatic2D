@@ -484,6 +484,11 @@ namespace renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"torchAnimMtrl", material);
 
+		material = std::make_shared<Material>();
+		material->SetShader(BossShader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"SwordBulletMtrl", material);
+
 
 
 
@@ -3445,21 +3450,79 @@ namespace renderer
 
 
 		 // **** sword 
-		 // base 89 38 1
+		 // base 89 114 1
 		 {
 			 std::shared_ptr<Texture> texture
-				 = Resources::Load<Texture>(L"Boss2_Sword_base_Effect",
-					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\base.png");
+				 = Resources::Load<Texture>(L"Boss2_Sword_Left_To_Right_Effect",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\4545.png");
 
 			 // === Material 持失
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetShader(spriteShader);
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-			 Resources::Insert(L"Boss2_Sword_base_Effect_Mtrl", spriteMateiral);
+			 Resources::Insert(L"Boss2_Sword_Left_To_Right_Effect_Mtrl", spriteMateiral);
+
 
 		 }
+
+		 // base 89 114 1
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_Sword_Right_To_Left_Effect",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\566.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_Sword_Right_To_Left_Effect_Mtrl", spriteMateiral);
+
+
+		 }
+
+
+		 // base 89 114 1
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_Sword_Down_To_Up_Effect",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\cvdf.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_Sword_Down_To_Up_Effect_Mtrl", spriteMateiral);
+
+
+		 }
+
+
+		 // base 89 114 1
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_Sword_Up_To_Down_Effect",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\2.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_Sword_Up_To_Down_Effect_Mtrl", spriteMateiral);
+
+
+		 }
+
+
+
+
 
 		 // wall hit 89 38 4 (混拭 採禦張 凶)
 		 {
@@ -3474,6 +3537,78 @@ namespace renderer
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			 Resources::Insert(L"Boss2_Sword_wallHit_Effectt_Mtrl", spriteMateiral);
+
+		 }
+
+
+
+
+
+		 // Dir 672 9
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Dir_LeftToRight",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\DirLeftToRight.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Dir_LeftToRight_Mtrl", spriteMateiral);
+
+
+		 }
+
+		 // Dir 672 9
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Dir_RightToLeft",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\DirRightToLeft.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Dir_RightToLeft_Mtrl", spriteMateiral);
+
+
+		 }
+
+		 // Dir 9 672
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Dir_UpToDown",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\DirUpToDown.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Dir_UpToDown_Mtrl", spriteMateiral);
+
+
+		 }
+
+		 // Dir 9 672
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Dir_DownToUp",
+					 L"..\\Resources\\Texture\\Boss\\\Goddness\\CommonEffect\\Sword\\DirDownToUp.png");
+
+			 // === Material 持失
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Dir_DownToUp_Mtrl", spriteMateiral);
+
 
 		 }
 

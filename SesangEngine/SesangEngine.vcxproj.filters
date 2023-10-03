@@ -227,6 +227,9 @@
     <ClCompile Include="ssSwordBullet.cpp">
       <Filter>Contents\GameObj\etc\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="ssSwordBulletScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -659,6 +662,9 @@
     </ClInclude>
     <ClInclude Include="ssSwordBullet.h">
       <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ssSwordBulletScript.h">
+      <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

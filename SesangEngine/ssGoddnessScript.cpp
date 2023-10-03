@@ -56,10 +56,15 @@ namespace ss
 		, mbMovingDown(false)
 		, mbMovingDiagonally(true)
 		, mSwordBullet_Mid(nullptr)
-		, mSwordBullet_Left(nullptr)
 		, mSwordBullet_Right(nullptr)
-
-
+		, mSwordBullet_Left(nullptr)
+		, mbSwordSpawn(false)
+		, mbDirHitSpawn(false)
+		, mHitDir_Mid(nullptr)
+		,mHitDir_Left(nullptr)
+		,mHitDir_Right(nullptr)
+		, mPlayerPos(Vector3::Zero)
+		, mbFreezingPos(false)
 
 
 
@@ -203,12 +208,12 @@ namespace ss
 		mCollider->SetCenter(Vector2(-4.f, -84.f));
 		
 		// ===== 초기 상태값 (임시로 부여ㅡ tirrger 도입하면 이건 없애기) 
-		mBossType = eBossType::GODDNESS;
-		mCurBoss2_Phase2_State = eBoss2_Phase2::IDLE; 
+		//mBossType = eBossType::GODDNESS;
+		//mCurBoss2_Phase2_State = eBoss2_Phase2::IDLE;
 		
 
-	   // mCurBoss2_Phase1_State = eBoss2_Phase1::IDLE; 
-		//mBossType = eBossType::STATUE;
+	    mCurBoss2_Phase1_State = eBoss2_Phase1::IDLE; 
+		mBossType = eBossType::STATUE;
 
 
 
@@ -670,42 +675,50 @@ namespace ss
 				// =================
 				// 패턴 어느 정도 완성되면 아래걸로 원복시키기 (dead - idle로 넘어갔을 때의 위치랑 작업하려고 idle부터 시작했을때랑 위치가 다름) 
 	
-				mPlatformLB = object::Instantiate<Background>(Vector3(BossPos.x - 145.f, BossPos.y - 72.f, BossPos.z), eLayerType::Collision, L"PlatformLBObj");
-				mPlatformLT = object::Instantiate<Background>(Vector3(BossPos.x - 145.f, BossPos.y + 50.f, BossPos.z), eLayerType::Collision, L"PlatformLTObj");
-				mPlatformRT = object::Instantiate<Background>(Vector3(BossPos.x + 140.f, BossPos.y + 50.f, BossPos.z), eLayerType::Collision, L"PlatformRTObj");
-				mPlatformRB = object::Instantiate<Background>(Vector3(BossPos.x + 140.f, BossPos.y - 72.f, BossPos.z), eLayerType::Collision, L"PlatformRBObj");
+				mPlatformLB = object::Instantiate<Background>(Vector3(BossPos.x - 145.f, BossPos.y - 87.f, BossPos.z), eLayerType::Collision, L"PlatformLBObj");
+				mPlatformLT = object::Instantiate<Background>(Vector3(BossPos.x - 145.f, BossPos.y + 25.f, BossPos.z), eLayerType::Collision, L"PlatformLTObj");
+				mPlatformRT = object::Instantiate<Background>(Vector3(BossPos.x + 140.f, BossPos.y + 25.f, BossPos.z), eLayerType::Collision, L"PlatformRTObj");
+				mPlatformRB = object::Instantiate<Background>(Vector3(BossPos.x + 140.f, BossPos.y - 87.f, BossPos.z), eLayerType::Collision, L"PlatformRBObj");
+				mPlatformMidle = object::Instantiate<Background>(Vector3(BossPos.x, BossPos.y - 28.f, BossPos.z), eLayerType::Collision, L"PlatformRBObj");
+
 
 				mPlatformLT->Initialize();
 				mPlatformLB->Initialize();
 				mPlatformRT->Initialize();
 				mPlatformRB->Initialize();
+				mPlatformMidle->Initialize();
 
 
 				// ==== 바닥이 될 충돌체 
 				mGroundLT = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
 				mGroundLT->Initialize();
 				Transform* tr = mGroundLT->GetComponent<Transform>();
-				tr->SetPosition(Vector3(BossPos.x - 145.f, BossPos.y + 57.f, BossPos.z));
+				tr->SetPosition(Vector3(BossPos.x - 145.f, BossPos.y + 32.f, BossPos.z));
 				tr->SetScale(Vector3(77.f, 2.f, 1.f));
 
 				mGroundLB = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
 				mGroundLB->Initialize();
 				Transform* tr2 = mGroundLB->GetComponent<Transform>();
-				tr2->SetPosition(Vector3(BossPos.x - 145.f, BossPos.y - 65.f, BossPos.z));
+				tr2->SetPosition(Vector3(BossPos.x - 145.f, BossPos.y - 80.f, BossPos.z));
 				tr2->SetScale(Vector3(77.f, 2.f, 1.f));
 
 				mGroundRT = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
 				mGroundRT->Initialize();
 				Transform* tr3 = mGroundRT->GetComponent<Transform>();
-				tr3->SetPosition(Vector3(BossPos.x + 140.f, BossPos.y + 57.f, BossPos.z));
+				tr3->SetPosition(Vector3(BossPos.x + 140.f, BossPos.y + 32.f, BossPos.z));
 				tr3->SetScale(Vector3(77.f, 2.f, 1.f));
 
 				mGroundRB = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
 				mGroundRB->Initialize();
 				Transform* tr4 = mGroundRB->GetComponent<Transform>();
-				tr4->SetPosition(Vector3(BossPos.x + 140.f, BossPos.y - 65.f, BossPos.z));
+				tr4->SetPosition(Vector3(BossPos.x + 140.f, BossPos.y - 80.f, BossPos.z));
 				tr4->SetScale(Vector3(77.f, 2.f, 1.f));
 
+				mGroundMidle = object::Instantiate<Platform>(eLayerType::Ground, L"col_SpecialFloor");
+				mGroundMidle->Initialize();
+				Transform* tr5 = mGroundMidle->GetComponent<Transform>();
+				tr5->SetPosition(Vector3(BossPos.x, BossPos.y - 21.f, BossPos.z));
+				tr5->SetScale(Vector3(77.f, 2.f, 1.f));
 
 
 
@@ -1341,17 +1354,157 @@ namespace ss
 
 	void GoddnessScript::SummonSpear_Start()
 	{
+		Vector3 BossPos = mTransform->GetPosition(); // 2, -45, 500 (보스 중간 위치
+
+		
 		// 보스는 위아래로 와리가리한다. (왼쪽 방향인지 오른쪽 방향인지에 따라 다르게 해줘야될듯)
 
-		const float pi = 3.141592f;
-		float degree = pi / 8.0f;
+
+
+
+		// 칼 3개가 발사된다. (dead 처리는 벽에 부딪치면 없어질 때 그떄 할 것이므로 신경 안써도 됨) 
+
+		m_fTime += Time::DeltaTime();
+
+		if (!mbDirHitSpawn && m_fTime > 1.8f)
+		{
+			mbDirHitSpawn = true;
+
+
+			if (!mbFreezingPos)
+			{
+				mbFreezingPos = true;
+				mPlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+
+			}
+
+
+			// 왼쪽에서 오른쪽으로 발사 
+			if (mPlayerPos.x >= 0.0)
+			{
+
+			}
+
+			// 오른쪽에서 왼쪽으로 발사 
+			else if (mPlayerPos.x <= 0.0)
+			{
+
+				if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
+				{
+					// mHitDir_Left mHitDir_Right
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
+					EffectScript* effectcript = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+				}
+
+
+				else if (mPlayerPos.y >= -100)
+				{
+
+				}
+
+				
+
+
+			}
+
 		
+		}
+		
+	
+
+		if (!mbSwordSpawn && m_fTime > 4.f)
+		{
+			mbSwordSpawn = true;
+			mbDirHitSpawn = false;
 
 
-		// 칼 3개가 발사된다. 
-		// 
-		mSwordBullet_Mid = object::Instantiate<SwordBullet>(Vector3(0.f, 0.f, 400.f), eLayerType::Collision, L"Sword_Mid");
-		mSwordBullet_Mid->GetComponent<Transform>()->SetRotation(0, 0.f, 15.f);
+			// 왼쪽에서 오른쪽으로 발사 
+			if (mPlayerPos.x >= 0.0)
+			{
+
+				mSwordBullet_Mid = object::Instantiate<SwordBullet>
+					(Vector3(mPlayerPos.x - 650.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
+
+			}
+
+			// 오른쪽에서 왼쪽으로 발사 
+			else if (mPlayerPos.x <= 0.0)
+			{
+
+				if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
+				{
+					// 660은 테스트 용도 , 찐 위치는 685
+					mSwordBullet_Mid = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 550.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+					Vector3 SwordBullet_MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+
+					// ======
+					mSwordBullet_Left = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 550.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+					Vector3 SwordBullet_LeftPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+
+					// ====
+					mSwordBullet_Right = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 550.f, mPlayerPos.y + 40.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+					Vector3 SwordBullet_RightPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+
+				}
+
+
+				else if (mPlayerPos.y >= -100)
+				{
+					
+					mSwordBullet_Mid = object::Instantiate<SwordBullet> // 570
+						(Vector3(mPlayerPos.x + 400.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+					mSwordBullet_Left = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 400.f, mPlayerPos.y - 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+					mSwordBullet_Right = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 400.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+				}
+
+
+
+			}
+
+			
+		}
+
+
+		if (nullptr != mSwordBullet_Mid
+			|| nullptr != mSwordBullet_Left
+			|| nullptr != mSwordBullet_Right
+			&& m_fTime > 2.f)
+		{
+
+			mbSwordSpawn = false;
+
+			Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+			
+			Vector3 BulletToPlayer = mPlayerPos - mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+			BulletToPlayer.Normalize(); // nomarlize해서 방향을 구한다
+
+
+			float speed = 500.f;
+
+	
+			MidPos.x += BulletToPlayer.x * speed * Time::DeltaTime();
+			mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos);
+
+			m_fTime = 0.0f;
+
+
+		}
+
 	
 	
 

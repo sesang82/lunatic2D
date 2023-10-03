@@ -1,15 +1,15 @@
 #pragma once
 #include "ssScript.h"
 
-// 스톤 아이 근접 공격용 충돌체 
 namespace ss
 {
-    class EffectScript :
+
+    class SwordBulletScript :
         public Script
     {
     public:
-        EffectScript();
-        ~EffectScript();
+        SwordBulletScript();
+        virtual ~SwordBulletScript();
 
     public:
         virtual void Initialize() override;
@@ -20,13 +20,16 @@ namespace ss
         virtual void OnCollisionExit(Collider2D* other) override;
 
     private:
-        class GameObject* mOwnerObj; // 몬스터의 애니메이션 인덱스 정보 땜에 만들어둠 
-        float mTime;
+        GameObject* mOriginOwner;
+        class CharacterState* mState;
+        bool mIsGuard;
 
-    public:
-        void SetOriginOwner(GameObject* Obj) { mOwnerObj = Obj; }
+    private:
+        void SetOriginOwner(GameObject* obj) { mOriginOwner = obj; }
+
+
+
 
     };
+
 }
-
-

@@ -11,6 +11,8 @@
 #include "ssBigWolfScript.h"
 #include "ssPlayerScript.h"
 #include "ssrenderer.h"
+#include "ssGoddnessScript.h"
+#include "ssTime.h"
 
 // 아이템도 그냥 여기다가 같이 넣기 
 
@@ -19,6 +21,7 @@ namespace ss
 {
 	EffectScript::EffectScript()
 		: mOwnerObj(nullptr)
+		, mTime(0.0f)
 	{
 
 	}
@@ -409,7 +412,25 @@ namespace ss
 			anim->PlayAnimation(L"P_PlayerspAttack_EffectL", false);
 			tr->SetScale(Vector3(86.f, 67.f, 0.f));
 
+		}
+		
+
+		else if (GetOwner()->GetName() == L"HitDir_MidObj_LR")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"Dir_LeftToRight_Mtrl"));
+			tr->SetScale(Vector3(1632.f, 9.f, 0.f));
+
+		}
+
+		
+		else if (GetOwner()->GetName() == L"HitDir_MidObj_RL")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"Dir_RightToLeft_Mtrl"));
+			tr->SetScale(Vector3(1632.f, 9.f, 0.f));
+
 			}
+	
+
 
 	}
 
@@ -813,6 +834,27 @@ namespace ss
 				}
 
 				}
+				
+
+
+		else if (GetOwner()->GetName() == L"HitDir_MidObj_LR"
+			|| GetOwner()->GetName() == L"HitDir_MidObj_RL")
+		{
+
+				bool SpawnDirHit = mOwnerObj->GetComponent<GoddnessScript>()->IsSpawnDirHit();
+				mTime += Time::DeltaTime();
+
+
+
+			if (SpawnDirHit && mTime > 1.5f)
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
+				mTime = 0.0f;
+			}
+
+		}
+		
+	
 
 
 	}
