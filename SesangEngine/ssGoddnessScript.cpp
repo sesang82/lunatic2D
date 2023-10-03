@@ -1382,6 +1382,55 @@ namespace ss
 			// 왼쪽에서 오른쪽으로 발사 
 			if (mPlayerPos.x >= 0.0)
 			{
+				if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
+				{
+					// mHitDir_Left mHitDir_Right
+					mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript1 = mHitDir_Left->AddComponent<EffectScript>();
+					effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+					//=========
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript2 = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
+
+					// ====
+					mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
+					effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 40.f, 400.f);
+
+
+
+				}
+
+
+				else if (mPlayerPos.y >= -100)
+				{
+					// mHitDir_Left mHitDir_Right
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+					//=========
+					mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
+					effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y - 20.f, 400.f);
+
+					// ====
+					mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
+					effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
+				}
 
 			}
 
@@ -1418,7 +1467,25 @@ namespace ss
 
 				else if (mPlayerPos.y >= -100)
 				{
+					// mHitDir_Left mHitDir_Right
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
+					EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
 
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+					//=========
+					mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
+					EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
+					effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y - 20.f, 400.f);
+
+					// ====
+					mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
+					EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
+					effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
 				}
 
 				
@@ -1440,10 +1507,35 @@ namespace ss
 			// 왼쪽에서 오른쪽으로 발사 
 			if (mPlayerPos.x >= 0.0)
 			{
+				if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
+				{
+					mSwordBullet_Left = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
 
-				mSwordBullet_Left = object::Instantiate<SwordBullet>
-					(Vector3(mPlayerPos.x - 650.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
+					mSwordBullet_Mid = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
 
+
+					// ====
+					mSwordBullet_Right = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y + 40.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+				}
+
+				else if (mPlayerPos.y >= -100)
+				{
+
+					mSwordBullet_Mid = object::Instantiate<SwordBullet> // 570
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+					mSwordBullet_Left = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y - 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+					mSwordBullet_Right = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+				}
+
+				
 			}
 
 			// 오른쪽에서 왼쪽으로 발사 
@@ -1497,6 +1589,7 @@ namespace ss
 
 
 			}
+		
 
 			
 		}
@@ -1517,37 +1610,37 @@ namespace ss
 				
 
 				// ==== 왼쪽
-				//Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
+				Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
 
-				//Vector3 BulletToPlayer1 = mPlayerPos - mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
-				//BulletToPlayer1.Normalize(); // nomarlize해서 방향을 구한다
+				Vector3 BulletToPlayer1 = mPlayerPos - mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
+				BulletToPlayer1.Normalize(); // nomarlize해서 방향을 구한다
 
-				//LeftPos.x += BulletToPlayer1.x * speed * Time::DeltaTime();
-				//mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x - 0.5f, LeftPos.y, LeftPos.z);
-
-
-
-				//// == 중앙
-				//// ==== 왼쪽
-				//Vector3 MidPos = mHitDir_Mid->GetComponent<Transform>()->GetPosition();
-
-				//Vector3 BulletToPlayer2 = mPlayerPos - mHitDir_Mid->GetComponent<Transform>()->GetPosition();
-				//BulletToPlayer2.Normalize(); // nomarlize해서 방향을 구한다
+				LeftPos.x += BulletToPlayer1.x * speed * Time::DeltaTime();
+				mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x + 0.5f, LeftPos.y, LeftPos.z);
 
 
-				//MidPos.x += BulletToPlayer2.x * speed * Time::DeltaTime();
-				//mHitDir_Mid->GetComponent<Transform>()->SetPosition(MidPos.x - 0.5f, MidPos.y, MidPos.z);
+
+				// == 중앙
+				// ==== 왼쪽
+				Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+
+				Vector3 BulletToPlayer2 = mPlayerPos - mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+				BulletToPlayer2.Normalize(); // nomarlize해서 방향을 구한다
 
 
-				//// ==== 끝
-				//// ==== 왼쪽
-				//Vector3 RightPos = mHitDir_Right->GetComponent<Transform>()->GetPosition();
+				MidPos.x += BulletToPlayer2.x * speed * Time::DeltaTime();
+				mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x + 0.5f, MidPos.y, MidPos.z);
 
-				//Vector3 BulletToPlayer3 = mPlayerPos - mHitDir_Right->GetComponent<Transform>()->GetPosition();
-				//BulletToPlayer3.Normalize(); // nomarlize해서 방향을 구한다
 
-				//RightPos.x += BulletToPlayer3.x * speed * Time::DeltaTime();
-				//mHitDir_Right->GetComponent<Transform>()->SetPosition(RightPos.x - 0.5f, RightPos.y, RightPos.z);
+				// ==== 끝
+				// ==== 왼쪽
+				Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
+
+				Vector3 BulletToPlayer3 = mPlayerPos - mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
+				BulletToPlayer3.Normalize(); // nomarlize해서 방향을 구한다
+
+				RightPos.x += BulletToPlayer3.x * speed * Time::DeltaTime();
+				mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x + 0.5f, RightPos.y, RightPos.z);
 
 
 
@@ -1558,50 +1651,40 @@ namespace ss
 			// 오른쪽에서 왼쪽으로 발사 
 			else if (mPlayerPos.x <= 0.0)
 			{
+				mbSwordSpawn = false;
 
-				if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
-				{
-					mbSwordSpawn = false;
+				// ==== 왼쪽
+				Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
 
-					// ==== 왼쪽
-					Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
+				Vector3 BulletToPlayer1 = mPlayerPos - mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
+				BulletToPlayer1.Normalize(); // nomarlize해서 방향을 구한다
 
-					Vector3 BulletToPlayer1 = mPlayerPos - mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
-					BulletToPlayer1.Normalize(); // nomarlize해서 방향을 구한다
-
-					LeftPos.x += BulletToPlayer1.x * speed * Time::DeltaTime();
-					mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x - 0.5f, LeftPos.y, LeftPos.z);
+				LeftPos.x += BulletToPlayer1.x * speed * Time::DeltaTime();
+				mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x - 0.5f, LeftPos.y, LeftPos.z);
 
 
-					// == 중앙
-					// ==== 왼쪽
-					Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+				// == 중앙
+				// ==== 왼쪽
+				Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
 
-					Vector3 BulletToPlayer2 = mPlayerPos - mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
-					BulletToPlayer2.Normalize(); // nomarlize해서 방향을 구한다
-
-
-					MidPos.x += BulletToPlayer2.x * speed * Time::DeltaTime();
-					mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x - 0.5f, MidPos.y, MidPos.z);
+				Vector3 BulletToPlayer2 = mPlayerPos - mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+				BulletToPlayer2.Normalize(); // nomarlize해서 방향을 구한다
 
 
-					// ==== 끝
+				MidPos.x += BulletToPlayer2.x * speed * Time::DeltaTime();
+				mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x - 0.5f, MidPos.y, MidPos.z);
+
+
+				// ==== 끝
 		
-					Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
+				Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
 
-					Vector3 BulletToPlayer3 = mPlayerPos - mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
-					BulletToPlayer3.Normalize(); // nomarlize해서 방향을 구한다
+				Vector3 BulletToPlayer3 = mPlayerPos - mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
+				BulletToPlayer3.Normalize(); // nomarlize해서 방향을 구한다
 
-					RightPos.x += BulletToPlayer3.x * speed * Time::DeltaTime();
-					mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x - 0.5f, RightPos.y, RightPos.z);
+				RightPos.x += BulletToPlayer3.x * speed * Time::DeltaTime();
+				mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x - 0.5f, RightPos.y, RightPos.z);
 
-				}
-
-				else if (mPlayerPos.y >= -100)
-				{
-
-					
-				}
 			}
 
 			m_fTime = 0.0f;
