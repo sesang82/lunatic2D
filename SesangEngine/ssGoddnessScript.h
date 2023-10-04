@@ -71,6 +71,7 @@ namespace ss
         bool mbFreezingPos;
 
         int miRandom;
+        int mSpawnDirCount;
 
 
         eBossType mBossType;
