@@ -70,6 +70,7 @@ namespace ss
 
         bool mbFreezingPos;
 
+        int miRandom;
 
 
         eBossType mBossType;
