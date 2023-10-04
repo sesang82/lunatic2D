@@ -47,10 +47,10 @@ namespace ss
 		, mPlatformLT(nullptr)
 		, mPlatformRT(nullptr)
 		, mPlatformRB(nullptr)
-		,mGroundLT(nullptr)
-		,mGroundLB(nullptr)
-		,mGroundRT(nullptr)
-		,mGroundRB(nullptr)
+		, mGroundLT(nullptr)
+		, mGroundLB(nullptr)
+		, mGroundRT(nullptr)
+		, mGroundRB(nullptr)
 		, mPlatformMidle(nullptr)
 		, mGroundMidle(nullptr)
 		, mbMovingDown(false)
@@ -61,12 +61,17 @@ namespace ss
 		, mbSwordSpawn(false)
 		, mbDirHitSpawn(false)
 		, mHitDir_Mid(nullptr)
-		,mHitDir_Left(nullptr)
-		,mHitDir_Right(nullptr)
+		, mHitDir_Left(nullptr)
+		, mHitDir_Right(nullptr)
 		, mPlayerPos(Vector3::Zero)
 		, mbFreezingPos(false)
 		, miRandom(0)
 		, mSpawnDirCount(0)
+		, mfChangeTime(0)
+		, mSummonState(eSummonState::SPAWN_DIRHIT)
+		, mbFireSwordBullet(false)
+		, mbFirstSpawnDone(false)
+		, mbSecondSpawnDone(false)
 
 
 
@@ -1300,7 +1305,6 @@ namespace ss
 		Vector3 DiagonalDirection = Vector3(1.0, 1.0, 500);
 		DiagonalDirection.Normalize(); // 움직임의 방향은 유지하되 크기만 1로 해둔다. 
 
-
 		Vector3 BossPos = mTransform->GetPosition();
 
 		if (mbMovingDiagonally)
@@ -1334,7 +1338,8 @@ namespace ss
 			BossPos.y -= moveSpeed * Time::DeltaTime();
 
 			// 아래로 움직임이 일정 거리 이상 움직였다면
-			if (mTransform->GetPosition().y <= -110.f) {
+			if (mTransform->GetPosition().y <= -110.f) 
+			{
 				mbMovingDown = false;
 
 				mAnimator->PlayAnimation(L"Boss2_Goddness_SummonSpear", false);
@@ -1361,7 +1366,6 @@ namespace ss
 		
 		// 보스는 위아래로 와리가리한다. (왼쪽 방향인지 오른쪽 방향인지에 따라 다르게 해줘야될듯)
 
-		mPlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
 
 		// 칼 3개가 발사된다. (dead 처리는 벽에 부딪치면 없어질 때 그떄 할 것이므로 신경 안써도 됨) 
@@ -1371,17 +1375,6 @@ namespace ss
 
 		m_fTime += Time::DeltaTime();
 
-		if (!mbDirHitSpawn && m_fTime > 1.6f)
-		{
-			if (mSpawnDirCount == 7)
-			{
-				mSpawnDirCount = 0;
-				return;
-			}
-
-
-
-			mbDirHitSpawn = true;
 
 
 			if (!mbFreezingPos)
@@ -1392,196 +1385,283 @@ namespace ss
 			}
 
 
-			// 왼쪽에서 오른쪽으로 발사 
-			if (mPlayerPos.x >= 0.0)
+			switch (mSummonState)
 			{
-				miRandom = rand() % 2;
+			case eSummonState::SPAWN_DIRHIT:
+				// dirhit 생성 로직
 
-				if (miRandom == 0)
+				if (!mbDirHitSpawn)
 				{
-					if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
+					if (mSpawnDirCount == 7)
 					{
-						// mHitDir_Left mHitDir_Right
-						mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
-						EffectScript* effectcript1 = mHitDir_Left->AddComponent<EffectScript>();
-						effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
-
-						Vector3 BossPos = mTransform->GetPosition();
-						mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
-
-						//=========
-						mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
-						EffectScript* effectcript2 = mHitDir_Mid->AddComponent<EffectScript>();
-						effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
-
-						// ====
-						mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
-						EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
-						effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 40.f, 400.f);
-
-
-
+						mSpawnDirCount = 0;
+						return;
 					}
 
+					float time = mbFirstSpawnDone ? 1.6f : 2.5f;
 
-					else if (mPlayerPos.y >= -100)
-					{
-						// mHitDir_Left mHitDir_Right
-						mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
-						EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
-						effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+					if (m_fTime > mbFirstSpawnDone)
+					{						
+						mbDirHitSpawn = true;
 
-						Vector3 BossPos = mTransform->GetPosition();
-						mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
 
-						//=========
-						mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
-						EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
-						effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y - 20.f, 400.f);
+						CreateDirHit();
+						mbFirstSpawnDone = true; // 2번째 스폰때부터는 true값으로 시간 반영됨 
+						m_fTime = 0.0f;
 
-						// ====
-						mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
-						EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
-						effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
+						mSummonState = eSummonState::SPAWN_SWORD;
 					}
-				}
+				
+				}// 상태 전환
+				break;
 
-				else if (miRandom == 1)
+			case eSummonState::SPAWN_SWORD:
+				// 칼 생성 로직
+
+				if (!mbSwordSpawn)
 				{
-					// 세로로 공격 (아래에서 위쪽) 랜덤 숫자 로 ELSE IF 두 개를 하나로 묶고, ELSE는 하나로 묶어서 돌아가게 하기 
-					if (mPlayerPos.x <= -308 || mPlayerPos.x <= 297)
+				
+					float time = mbSecondSpawnDone ? 2.5f : 3.5f;
+
+					if (m_fTime > mbSecondSpawnDone)
 					{
-						// mHitDir_Left mHitDir_Right
-						mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_DU");
-						EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
-						effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+						
+						mbSwordSpawn = true;
 
-						Vector3 BossPos = mTransform->GetPosition();
-						mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+						CreateSwordBullet();
+						mbSecondSpawnDone = true; // 2번째 부터는 0.7로 시간 반영됨 
+						m_fTime = 0.0f;
 
-						//=========
-						mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_DU");
-						EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
-						effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x - 20.f, mPlayerPos.y, 400.f);
-
-						// ====
-						mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_DU");
-						EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
-						effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x + 20.f, mPlayerPos.y, 400.f);
+						mSummonState = eSummonState::SPAWN_DIRHIT;
+						mbDirHitSpawn = false;
+						ChangeState(eBoss2_Phase2::SUMMONSPEAR_ING);
 
 					}
+				
 				}
+				break;
+
 
 			}
 
-			// 오른쪽에서 왼쪽으로 발사 
-			else if (mPlayerPos.x <= 0.0)
-			{
-				miRandom = rand() % 2;
+		
+		
+	}
 
-				if (miRandom == 0)
-				{
-					if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
-					{
-						// mHitDir_Left mHitDir_Right
-						mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
-						EffectScript* effectcript1 = mHitDir_Left->AddComponent<EffectScript>();
-						effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+	void GoddnessScript::SummonSpear_Ing()
+	{
+		m_fTime += Time::DeltaTime();
 
-						Vector3 BossPos = mTransform->GetPosition();
-						mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
 
-						//=========
-						mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
-						EffectScript* effectcript2 = mHitDir_Mid->AddComponent<EffectScript>();
-						effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
-
-						// ====
-						mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
-						EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
-						effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 40.f, 400.f);
+			FireSwordBullet();
+			mbSwordSpawn = false;
 
 
 
-					}
+		if (mSpawnDirCount < 7 && m_fTime > 0.8f)
+		{
+		
+			ChangeState(eBoss2_Phase2::SUMMONSPEAR_START);
+			mbFreezingPos = false;
+			m_fTime = 0.f;
 
 
-					else if (mPlayerPos.y >= -100)
-					{
-						// mHitDir_Left mHitDir_Right
-						mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
-						EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
-						effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
-
-						Vector3 BossPos = mTransform->GetPosition();
-						mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
-
-						//=========
-						mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
-						EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
-						effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y - 20.f, 400.f);
-
-						// ====
-						mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
-						EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
-						effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
-					}
-				}
-
-
-				else if (miRandom == 1)
-				{
-					// 세로로 공격 (위에서 아래) 랜덤 숫자 로 ELSE IF 두 개를 하나로 묶고, ELSE는 하나로 묶어서 돌아가게 하기 
-					if (mPlayerPos.x <= -308 || mPlayerPos.x <= 297)
-					{
-
-
-						mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_UD");
-						EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
-						effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
-
-						Vector3 BossPos = mTransform->GetPosition();
-						mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
-
-						//=========
-						mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_UD");
-						EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
-						effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x - 20.f, mPlayerPos.y, 400.f);
-
-						// ====
-						mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_UD");
-						EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
-						effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
-						mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x + 20.f, mPlayerPos.y, 400.f);
-
-
-					}
-				}
-			}
-
-
-
-			
-			++mSpawnDirCount;
 		}
 		
-	
+	}
 
-		if (!mbSwordSpawn && m_fTime > 2.5f)
+	void GoddnessScript::SummonSpear_End()
+	{
+	}
+
+	void GoddnessScript::CreateDirHit()
+	{
+		// 왼쪽에서 오른쪽으로 발사 
+		if (mPlayerPos.x >= 0.0)
 		{
-			mbSwordSpawn = true;
-			mbDirHitSpawn = false;
+			miRandom = rand() % 2;
+
+			if (miRandom == 0)
+			{
+				if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
+				{
+					// mHitDir_Left mHitDir_Right
+					mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript1 = mHitDir_Left->AddComponent<EffectScript>();
+					effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+					//=========
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript2 = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
+
+					// ====
+					mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
+					effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 40.f, 400.f);
+
+
+
+				}
+
+
+				else if (mPlayerPos.y >= -100)
+				{
+					// mHitDir_Left mHitDir_Right
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+					//=========
+					mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
+					effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y - 20.f, 400.f);
+
+					// ====
+					mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_LR");
+					EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
+					effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
+				}
+			}
+
+			else if (miRandom == 1)
+			{
+				// 세로로 공격 (아래에서 위쪽) 랜덤 숫자 로 ELSE IF 두 개를 하나로 묶고, ELSE는 하나로 묶어서 돌아가게 하기 
+				if (mPlayerPos.x <= -308 || mPlayerPos.x <= 297)
+				{
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_DU");
+					EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+					//	=========
+					mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_DU");
+					EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
+					effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x - 20.f, mPlayerPos.y, 400.f);
+
+					// ====
+					mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_DU");
+					EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
+					effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x + 20.f, mPlayerPos.y, 400.f);
+
+				}
+			}
+
+		}
+
+		// 오른쪽에서 왼쪽으로 발사 
+		else if (mPlayerPos.x <= 0.0)
+		{
+			miRandom = rand() % 2;
+
+			if (miRandom == 0)
+			{
+				if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
+				{
+					// mHitDir_Left mHitDir_Right
+					mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
+					EffectScript* effectcript1 = mHitDir_Left->AddComponent<EffectScript>();
+					effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+					//=========
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
+					EffectScript* effectcript2 = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
+
+					// ====
+					mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
+					EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
+					effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 40.f, 400.f);
+
+
+
+				}
+
+
+				else if (mPlayerPos.y >= -100)
+				{
+					// mHitDir_Left mHitDir_Right
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
+					EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+					//=========
+					mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
+					EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
+					effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y - 20.f, 400.f);
+
+					// ====
+					mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_RL");
+					EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
+					effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y + 20.f, 400.f);
+				}
+			}
+
+
+			else if (miRandom == 1)
+			{
+				// 세로로 공격 (위에서 아래) 랜덤 숫자 로 ELSE IF 두 개를 하나로 묶고, ELSE는 하나로 묶어서 돌아가게 하기 
+				if (mPlayerPos.x <= -308 || mPlayerPos.x <= 297)
+				{
+
+
+					mHitDir_Mid = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_UD");
+					EffectScript* effectcript1 = mHitDir_Mid->AddComponent<EffectScript>();
+					effectcript1->SetOriginOwner((Monster*)mTransform->GetOwner());
+
+					Vector3 BossPos = mTransform->GetPosition();
+					mHitDir_Mid->GetComponent<Transform>()->SetPosition(mPlayerPos.x, mPlayerPos.y, 400.f);
+
+					//=========
+					mHitDir_Left = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_UD");
+					EffectScript* effectcript2 = mHitDir_Left->AddComponent<EffectScript>();
+					effectcript2->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Left->GetComponent<Transform>()->SetPosition(mPlayerPos.x - 20.f, mPlayerPos.y, 400.f);
+
+					// ====
+					mHitDir_Right = object::Instantiate<Effect>(eLayerType::Effect, L"HitDir_MidObj_UD");
+					EffectScript* effectcript3 = mHitDir_Right->AddComponent<EffectScript>();
+					effectcript3->SetOriginOwner((Monster*)mTransform->GetOwner());
+					mHitDir_Right->GetComponent<Transform>()->SetPosition(mPlayerPos.x + 20.f, mPlayerPos.y, 400.f);
+
+
+				}
+			}
+		}
+
+
+
+		++mSpawnDirCount;
+	
+	}
+
+	void GoddnessScript::CreateSwordBullet()
+	{
+
 
 
 			// 왼쪽에서 오른쪽으로 발사 
@@ -1591,6 +1671,7 @@ namespace ss
 				{
 					if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
 					{
+
 						mSwordBullet_Left = object::Instantiate<SwordBullet>
 							(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
 
@@ -1620,8 +1701,8 @@ namespace ss
 
 				else if (miRandom == 1)
 				{
-					mSwordBullet_Mid = object::Instantiate<SwordBullet> 
-						(Vector3(mPlayerPos.x , mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
+					mSwordBullet_Mid = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x, mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
 
 					mSwordBullet_Left = object::Instantiate<SwordBullet>
 						(Vector3(mPlayerPos.x - 20.f, mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
@@ -1630,7 +1711,7 @@ namespace ss
 						(Vector3(mPlayerPos.x + 20.f, mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
 				}
 
-				
+
 			}
 
 			// 오른쪽에서 왼쪽으로 발사 
@@ -1701,15 +1782,17 @@ namespace ss
 
 
 
-				
+
 
 			}
-		
+
 
 
 			if (mSpawnDirCount == 4)
 			{
-				Vector3 BossToCenterDir = Vector3(2.f, -45.f, 500.f) - BossPos ;
+				Vector3 BossPos = mTransform->GetPosition();
+
+				Vector3 BossToCenterDir = Vector3(2.f, -45.f, 500.f) - BossPos;
 				BossToCenterDir.Normalize();
 
 				float speed = 400.f;
@@ -1720,23 +1803,22 @@ namespace ss
 				mTransform->SetPosition(BossPos);
 
 			}
-			
-		}
 
+		
+	}
 
-		if (nullptr != mSwordBullet_Mid
-			|| nullptr != mSwordBullet_Left
-			|| nullptr != mSwordBullet_Right
-			&& m_fTime > 2.8f)
-		{
-			
-			float speed = 800.f;
+	void GoddnessScript::FireSwordBullet()
+	{
+		
+		
+
+			float speed = 1200.f;
 
 			// 왼쪽에서 오른쪽으로 발사 , 아래에서 위로 
 			if (mPlayerPos.x >= 0.0)
 			{
-				mbSwordSpawn = false;
-				
+
+
 
 				if (miRandom == 0)
 				{
@@ -1746,7 +1828,7 @@ namespace ss
 
 
 
-					// == 중앙
+					 //== 중앙
 					// ==== 왼쪽
 					Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
 
@@ -1784,15 +1866,13 @@ namespace ss
 					mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x, RightPos.y + speed * Time::DeltaTime(), RightPos.z);
 				}
 
-				
+
 
 			}
 
 			// 오른쪽에서 왼쪽으로 발사 , 위에서 아래 
 			else if (mPlayerPos.x <= 0.0)
 			{
-				mbSwordSpawn = false;
-
 
 				if (miRandom == 0)
 				{
@@ -1806,21 +1886,21 @@ namespace ss
 					// ==== 왼쪽
 					Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
 
-					mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x - speed * Time::DeltaTime(), MidPos.y , MidPos.z);
+					mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x - speed * Time::DeltaTime(), MidPos.y, MidPos.z);
 
 
 					// ==== 끝
 					// ==== 왼쪽
 					Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
 
-					mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x - speed * Time::DeltaTime(), RightPos.y , RightPos.z);
+					mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x - speed * Time::DeltaTime(), RightPos.y, RightPos.z);
 
 				}
 
 				else if (miRandom == 1)
 				{
-				 
-				 
+
+
 					// ==== 왼쪽
 					Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
 
@@ -1846,30 +1926,11 @@ namespace ss
 
 			}
 
-			m_fTime = 0.0f;
-
-		}
-
-
-	/*	if (m_fTime > 3.0f)
-		{
-			m_fTime = 0.0f;
-
-			mbFreezingPos = false;
 
 
 
-		}*/
+		
 
-
-	}
-
-	void GoddnessScript::SummonSpear_Ing()
-	{
-	}
-
-	void GoddnessScript::SummonSpear_End()
-	{
 	}
 
 	

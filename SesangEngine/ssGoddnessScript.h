@@ -26,6 +26,12 @@ namespace ss
 
     };
 
+    enum class eSummonState 
+    {
+        SPAWN_DIRHIT,
+        SPAWN_SWORD,
+        SWORD_FIRE,
+    };
 
     class GoddnessScript :
         public MonsterScript
@@ -63,20 +69,27 @@ namespace ss
         bool mbEnergySpawn;
         bool mbSwordSpawn;
         bool mbDirHitSpawn;
+        bool mbFireSwordBullet;
         bool mLetterBox;
 
         bool mbMovingDown;
         bool mbMovingDiagonally;
 
         bool mbFreezingPos;
+        bool mbFirstSpawnDone;
+        bool mbSecondSpawnDone;
 
         int miRandom;
         int mSpawnDirCount;
+
+        float mfChangeTime;
 
 
         eBossType mBossType;
         eStatueState mStatueState;
         eStompState mStompState;
+        eSummonState mSummonState;
+
         class Player* mPlayer;
    
 
@@ -146,7 +159,9 @@ namespace ss
         void SummonSpear_End();
        
 
-
+        void CreateDirHit();
+        void CreateSwordBullet();
+        void FireSwordBullet();
 
 
 

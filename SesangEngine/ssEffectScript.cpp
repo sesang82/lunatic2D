@@ -862,7 +862,7 @@ namespace ss
 
 
 
-			if (SpawnDirHit && mTime > 0.8f)
+			if (SpawnDirHit && mTime > 0.6f)
 			{
 				GetOwner()->SetState(GameObject::eState::Dead);
 				mTime = 0.0f;
