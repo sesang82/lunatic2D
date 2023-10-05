@@ -80,7 +80,7 @@ namespace ss
 
 		// 보스 늑대용
 		anim->Create(L"Boss_Wolf_HowlingEffect", Image1, Vector2(0.f, 0.f), Vector2(583.f, 123.f), 6, Vector2(583.f, 123.f));
-		
+
 		anim->Create(L"Boss_Wolf_BreathStartEffectL", Image2, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 4, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
 		anim->Create(L"Boss_Wolf_BreathEndEffectL", Image3, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
 
@@ -142,14 +142,14 @@ namespace ss
 
 		// 
 		anim->Create(L"PlayerGuardEffectR", Image24, Vector2(0.f, 0.f), Vector2(24.f, 55.f), 5, Vector2(70.f, 55.f), Vector2(17.f, 0.f));
-		anim->Create(L"PlayerGuardEffectL", Image24, Vector2(0.f, 0.f), Vector2(24.f, 55.f), 5, Vector2(70.f, 55.f), Vector2(7, 0.f), 0.1f,  true);
+		anim->Create(L"PlayerGuardEffectL", Image24, Vector2(0.f, 0.f), Vector2(24.f, 55.f), 5, Vector2(70.f, 55.f), Vector2(7, 0.f), 0.1f, true);
 
 
 		if (GetOwner()->GetName() == L"HowlingEffectObj")
 		{
 			tr->SetScale(Vector3(583.f, 123.f, 0.f));
 			anim->PlayAnimation(L"Boss_Wolf_HowlingEffect", true);
-			
+
 		}
 
 		else if (GetOwner()->GetName() == L"BreathingObjL")
@@ -166,7 +166,7 @@ namespace ss
 		{
 			//Transform* playertr = mOwnerObj->GetComponent<Transform>();
 
-			
+
 			mr->SetMaterial(Resources::Find<Material>(L"UILowHPMtrl"));
 			tr->SetScale(Vector3(2300.f, 500.f, 0.f));
 			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition()));
@@ -271,7 +271,7 @@ namespace ss
 			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x - 500.f,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
-				}
+		}
 
 		else if (GetOwner()->GetName() == L"OverloadRBUI")
 		{
@@ -281,17 +281,17 @@ namespace ss
 			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x - 500.f,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
-				}
+		}
 
 		else if (GetOwner()->GetName() == L"OverloadTopHorizionUI")
 		{
 			anim->PlayAnimation(L"Over_TopHorizion", true);
-				tr->SetScale(Vector3(480.f, 45.f, 0.f));
+			tr->SetScale(Vector3(480.f, 45.f, 0.f));
 
 			tr->SetPosition(Vector3(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().x,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().y,
 				renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition().z));
-				}
+		}
 
 		else if (GetOwner()->GetName() == L"OverloadBottomHorizionUI")
 		{
@@ -311,7 +311,7 @@ namespace ss
 			anim->PlayAnimation(L"G_PlayerspAttack2_EffectR", false);
 			tr->SetScale(Vector3(130.f, 49.f, 0.f));
 
-		
+
 		}
 
 		else if (GetOwner()->GetName() == L"Player_Gauntlet_SPEffect_DustL")
@@ -336,7 +336,7 @@ namespace ss
 			tr->SetScale(Vector3(500.f, 50.f, 0.f));
 
 		}
-		
+
 
 		// ===== 플레이어 기타 효과 
 		else if (GetOwner()->GetName() == L"PlayerGuardEffectObjR")
@@ -406,14 +406,14 @@ namespace ss
 			anim->PlayAnimation(L"P_PlayerspAttack_EffectR", false);
 			tr->SetScale(Vector3(86.f, 67.f, 0.f));
 
-			}
+		}
 		else if (GetOwner()->GetName() == L"Player_Pistol_SPAttack_EffectL")
 		{
 			anim->PlayAnimation(L"P_PlayerspAttack_EffectL", false);
 			tr->SetScale(Vector3(86.f, 67.f, 0.f));
 
 		}
-		
+
 
 		else if (GetOwner()->GetName() == L"HitDir_MidObj_LR")
 		{
@@ -422,14 +422,14 @@ namespace ss
 
 		}
 
-		
+
 		else if (GetOwner()->GetName() == L"HitDir_MidObj_RL")
 		{
 			mr->SetMaterial(Resources::Find<Material>(L"Dir_RightToLeft_Mtrl"));
 			tr->SetScale(Vector3(1632.f, 9.f, 0.f));
 
 		}
-	
+
 
 		else if (GetOwner()->GetName() == L"HitDir_MidObj_DU")
 		{
@@ -816,15 +816,15 @@ namespace ss
 		else if (GetOwner()->GetName() == L"Player_Pistol_AttackEffectR"
 			|| GetOwner()->GetName() == L"Player_Pistol_AttackEffectL")
 
+		{
+			if (anim->GetCurActiveAnimation()->IsComplete())
 			{
-				if (anim->GetCurActiveAnimation()->IsComplete())
-				{
-					GetOwner()->SetState(GameObject::eState::Dead);
-				}
-
-		
-
+				GetOwner()->SetState(GameObject::eState::Dead);
 			}
+
+
+
+		}
 
 
 
@@ -841,36 +841,39 @@ namespace ss
 
 		else if (GetOwner()->GetName() == L"Player_Pistol_SPAttack_EffectR"
 			|| GetOwner()->GetName() == L"Player_Pistol_SPAttack_EffectL")
+		{
+			if (anim->GetCurActiveAnimation()->IsComplete())
 			{
-				if (anim->GetCurActiveAnimation()->IsComplete())
-				{
-					GetOwner()->SetState(GameObject::eState::Dead);
-				}
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
 
-				}
-				
+		}
 
-				
+
+
 		else if (GetOwner()->GetName() == L"HitDir_MidObj_LR"
 			|| GetOwner()->GetName() == L"HitDir_MidObj_RL"
 			|| GetOwner()->GetName() == L"HitDir_MidObj_DU"
 			|| GetOwner()->GetName() == L"HitDir_MidObj_UD")
 		{
 
-				bool SpawnDirHit = mOwnerObj->GetComponent<GoddnessScript>()->IsSpawnDirHit();
-				mTime += Time::DeltaTime();
+			bool SpawnDirHit = mOwnerObj->GetComponent<GoddnessScript>()->IsSpawnDirHit();
+			int DirHitCount = mOwnerObj->GetComponent<GoddnessScript>()->GetSpawnDirCount();
+			bool SummonFinish = mOwnerObj->GetComponent<GoddnessScript>()->GetSummonFinish();
+
+			mTime += Time::DeltaTime();
 
 
 
-			if (SpawnDirHit && mTime > 0.6f)
+			if (SpawnDirHit && mTime > 0.38f || DirHitCount == 8)
 			{
 				GetOwner()->SetState(GameObject::eState::Dead);
 				mTime = 0.0f;
 			}
 
 		}
-		
-	
+
+
 
 
 	}

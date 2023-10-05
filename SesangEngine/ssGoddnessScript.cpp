@@ -72,11 +72,12 @@ namespace ss
 		, mbFireSwordBullet(false)
 		, mbFirstSpawnDone(false)
 		, mbSecondSpawnDone(false)
+		, mbSummonFinish(false)
 
 
 
 
-	
+
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -99,7 +100,7 @@ namespace ss
 		mCharacterState->SetMaxHP(110.f);
 		mCharacterState->SetCurrentHP(10.f);
 
-	    mMeshRenderer->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
+		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -116,7 +117,7 @@ namespace ss
 		// ==================
 		std::shared_ptr<ss::graphics::Texture> Image6 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Idle");
 		std::shared_ptr<ss::graphics::Texture> Image7 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Intro");
-		std::shared_ptr<ss::graphics::Texture> Image8= Resources::Find<ss::graphics::Texture>(L"Boss2_2_IntroEnd");
+		std::shared_ptr<ss::graphics::Texture> Image8 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_IntroEnd");
 		std::shared_ptr<ss::graphics::Texture> Image9 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_MoveFront");
 		std::shared_ptr<ss::graphics::Texture> Image10 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_MoveBack");
 		std::shared_ptr<ss::graphics::Texture> Image11 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Hit");
@@ -130,7 +131,7 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image16 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_DiagonalAttack_Ready");
 		std::shared_ptr<ss::graphics::Texture> Image17 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_DiagonalAttack_Vertical");
 		std::shared_ptr<ss::graphics::Texture> Image18 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_DiagonalAttack_Diagonal");
-		
+
 		std::shared_ptr<ss::graphics::Texture> Image19 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Energyball_Start");
 		std::shared_ptr<ss::graphics::Texture> Image20 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Energyballing");
 		std::shared_ptr<ss::graphics::Texture> Image21 = Resources::Find<ss::graphics::Texture>(L"Boss2_2_Energyball_End");
@@ -167,7 +168,7 @@ namespace ss
 
 
 		mAnimator->Create(L"Boss2_Goddness_Hit", Image11, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 5, Vector2(269.f, 276.f));
-		
+
 		mAnimator->Create(L"Boss2_Goddness_Die", Image12, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_Die", Image13, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_Die", Image14, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
@@ -184,7 +185,7 @@ namespace ss
 		mAnimator->Create(L"Boss2_Goddness_Die", Image25, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_SummonSpear", Image26, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 17, Vector2(269.f, 276.f), Vector2::Zero, 0.08f);
 		mAnimator->Create(L"Boss2_Goddness_Die", Image27, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
-								
+
 
 
 
@@ -213,13 +214,13 @@ namespace ss
 		mCollider->SetType(eColliderType::Rect);
 		mCollider->SetSize(Vector2(0.6f, 0.36f));
 		mCollider->SetCenter(Vector2(-4.f, -84.f));
-		
+
 		// ===== 초기 상태값 (임시로 부여ㅡ tirrger 도입하면 이건 없애기) 
 		//mBossType = eBossType::GODDNESS;
 		//mCurBoss2_Phase2_State = eBoss2_Phase2::IDLE;
-		
 
-	    mCurBoss2_Phase1_State = eBoss2_Phase1::IDLE; 
+
+		mCurBoss2_Phase1_State = eBoss2_Phase1::IDLE;
 		mBossType = eBossType::STATUE;
 
 
@@ -291,7 +292,7 @@ namespace ss
 			case ss::eBoss2_Phase1::STOMP_END:
 				Stomp_End();
 				break;
-			
+
 			case ss::eBoss2_Phase1::ENERGYBALL_READY:
 				Energyball_Start();
 				break;
@@ -423,7 +424,7 @@ namespace ss
 
 		if (mBossType == eBossType::GODDNESS)
 		{
-		
+
 			//// == 초기값 위치에서 y값만 어느 정도 위로 올린다. 
 			Vector3 StatuePos = mTransform->GetPosition();
 
@@ -438,11 +439,11 @@ namespace ss
 
 				StatuePos.y -= moveAmountY;
 				mTransform->SetPosition(StatuePos);
-			
+
 
 			}
 
-			
+
 
 
 			m_fTime += Time::DeltaTime();
@@ -467,7 +468,7 @@ namespace ss
 		Vector3 CameraPos = mMainCamera->GetComponent<Transform>()->GetPosition();
 		mMainCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y + 0.45f, CameraPos.z);
 
-	
+
 		// ===============
 		// 레터박스를 만든다.
 
@@ -487,8 +488,8 @@ namespace ss
 
 
 
-			 mLetterBoxBottom = object::Instantiate<Background>(eLayerType::Grid, L"letterbox_Bottom");
-			 mLetterBoxBottom->Initialize();
+			mLetterBoxBottom = object::Instantiate<Background>(eLayerType::Grid, L"letterbox_Bottom");
+			mLetterBoxBottom->Initialize();
 
 			Transform* TR = mLetterBoxBottom->GetComponent<Transform>();
 			TR->SetPosition(Vector3(0.f, -560.f, 100.f));
@@ -522,16 +523,16 @@ namespace ss
 		mAnimator->PlayAnimation(L"Boss2_Goddness_Intro", false);
 
 
-	
+
 
 		// 애니메이션 재생이 끝나면 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
-	
+
 			mMainCamera->GetComponent<Camera>()->SetTargetSize(2.3f);
 			mMainCamera->GetComponent<CameraScript>()->SetTarget(mPlayer);
 			mMainCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y, CameraPos.z);
-			mMainCamera-> GetComponent<Camera>()->TurnLayerMask(eLayerType::Grid, false);
+			mMainCamera->GetComponent<Camera>()->TurnLayerMask(eLayerType::Grid, false);
 
 			mUICamera->GetComponent<Camera>()->TurnLayerMask(eLayerType::UI, true);
 
@@ -542,21 +543,21 @@ namespace ss
 			ChangeState(eBoss2_Phase2::IDLE);
 			mLetterBox = false;
 
-		
 
-		
-		
+
+
+
 		}
 
 
-	
-		
+
+
 
 	}
 
 	void GoddnessScript::Idle()
 	{
-	
+
 		if (mBossType == eBossType::STATUE)
 		{
 			// 랜덤으로 상태를 변경한다. 
@@ -630,7 +631,7 @@ namespace ss
 			// LB => -146.f // -86.f // 400
 
 
-			if(!mLetterBox)
+			if (!mLetterBox)
 			{
 				mLetterBox = true;
 
@@ -681,7 +682,7 @@ namespace ss
 
 				// =================
 				// 패턴 어느 정도 완성되면 아래걸로 원복시키기 (dead - idle로 넘어갔을 때의 위치랑 작업하려고 idle부터 시작했을때랑 위치가 다름) 
-	
+
 				mPlatformLB = object::Instantiate<Background>(Vector3(BossPos.x - 145.f, BossPos.y - 87.f, BossPos.z), eLayerType::Collision, L"PlatformLBObj");
 				mPlatformLT = object::Instantiate<Background>(Vector3(BossPos.x - 145.f, BossPos.y + 25.f, BossPos.z), eLayerType::Collision, L"PlatformLTObj");
 				mPlatformRT = object::Instantiate<Background>(Vector3(BossPos.x + 140.f, BossPos.y + 25.f, BossPos.z), eLayerType::Collision, L"PlatformRTObj");
@@ -763,8 +764,8 @@ namespace ss
 		// 확대됐던 카메라가 stomp 애니메이션 첫 인덱스에 다시 원래 사이즈인 2.3값으로 돌아온다. 
 
 		// 잠시 애니메이션 재생을 멈춘다. (0인덱스에 머무르게), 양 옆에 벽에 가시가 나온다.
-		 
-		 
+
+
 		// 벽에 가시가 다 나오면 플레이어의 위치 위에 떠있는다 (체감상 2초 정도?)
 		bool isGround = mPlayer->GetComponent<Rigidbody2D>()->IsGround();
 
@@ -772,7 +773,7 @@ namespace ss
 		{
 			// hit ground를 띄운다. 
 			// hit ground 쪽으로 이동한다.
-		
+
 			Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
 
@@ -782,56 +783,56 @@ namespace ss
 			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
 			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
 
-			mbStomp = true; 
+			mbStomp = true;
 
 
 		}
 
-		
-			if (nullptr != mHitGround)
+
+		if (nullptr != mHitGround)
+		{
+
+
+			// **** 점프하면 tagetPos를 못 가져오는 버그 있음
+
+
+			// 석상이 대각선으로 이동한다. 
+			Vector3 StatuePos = mTransform->GetPosition();
+			Vector3 HitGroundPos = mHitGround->GetComponent<Transform>()->GetPosition();
+
+
+			Vector3 TargetPos = Vector3(HitGroundPos.x, HitGroundPos.y + 250.f, HitGroundPos.z);
+
+
+			// 석상에서 목표 위치로의 방향 벡터를 계산합니다.
+			Vector3 dir = TargetPos - StatuePos;
+			float distance = dir.Length();  // 석상과 목표 위치 사이의 거리를 계산합니다.
+			dir.Normalize();  // 방향 벡터를 정규화합니다.
+
+
+			float moveSpeed = 700.0f;  // 원하는 속도 값을 설정하세요.
+
+			Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+			StatuePos += moveAmount;  // 현재 위치를 업데이트합니다.
+			mTransform->SetPosition(StatuePos);  // 업데이트된 위치를 설정합니다.
+
+			m_fTime += Time::DeltaTime();
+
+			if (m_fTime > 0.5f) // 1.5보다 줄이면 정확한 위치에 가기 전에 내려앉음 
 			{
-				
-
-				// **** 점프하면 tagetPos를 못 가져오는 버그 있음
-				
-				
-				// 석상이 대각선으로 이동한다. 
-				Vector3 StatuePos = mTransform->GetPosition();
-				Vector3 HitGroundPos = mHitGround->GetComponent<Transform>()->GetPosition();
-
-
-				Vector3 TargetPos = Vector3(HitGroundPos.x, HitGroundPos.y + 250.f, HitGroundPos.z);
-
-
-				// 석상에서 목표 위치로의 방향 벡터를 계산합니다.
-				Vector3 dir = TargetPos - StatuePos;
-				float distance = dir.Length();  // 석상과 목표 위치 사이의 거리를 계산합니다.
-				dir.Normalize();  // 방향 벡터를 정규화합니다.
-
-
-				float moveSpeed = 700.0f;  // 원하는 속도 값을 설정하세요.
-
-				Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
-
-				StatuePos += moveAmount;  // 현재 위치를 업데이트합니다.
-				mTransform->SetPosition(StatuePos);  // 업데이트된 위치를 설정합니다.
-
-				m_fTime += Time::DeltaTime();
-
-				if (m_fTime > 0.5f) // 1.5보다 줄이면 정확한 위치에 가기 전에 내려앉음 
-				{
-					ChangeState(eBoss2_Phase1::STOMP_ING);
-					m_fTime = 0.0f;
-					mbStomp = false;
-				
-				}
+				ChangeState(eBoss2_Phase1::STOMP_ING);
+				m_fTime = 0.0f;
+				mbStomp = false;
 
 			}
-	
 
-	
+		}
 
-	
+
+
+
+
 
 
 
@@ -845,8 +846,8 @@ namespace ss
 
 
 
-		
-		
+
+
 
 
 
@@ -854,104 +855,104 @@ namespace ss
 	}
 	void GoddnessScript::Stomp_Ing()
 	{
-		
-		
-			float StatuePosY = mTransform->GetPosition().y;
-			float HitGroundPosY = mHitGround->GetComponent<Transform>()->GetPosition().y;
-			float TargetPosY = 0.0f;
 
-			// 상태에 따른 목표 위치 설정
-			switch (mStatueState)
+
+		float StatuePosY = mTransform->GetPosition().y;
+		float HitGroundPosY = mHitGround->GetComponent<Transform>()->GetPosition().y;
+		float TargetPosY = 0.0f;
+
+		// 상태에 따른 목표 위치 설정
+		switch (mStatueState)
+		{
+		case eStatueState::MOVING_DOWN:
+			TargetPosY = HitGroundPosY + 136.f;
+			mRigidbody->AddForce(Vector2(0.f, 150.f));
+			break;
+
+		case eStatueState::MOVING_UP:
+			TargetPosY = HitGroundPosY + 250.f;
+			mRigidbody->AddForce(Vector2(0.f, -150.f));
+			break;
+		}
+
+		float dirY = TargetPosY - StatuePosY;
+
+		float moveDistance = abs(dirY);
+		dirY = dirY > 0 ? 1.0f : -1.0f;
+
+		float moveSpeed = 700.0f;
+		float moveAmountY = dirY * moveSpeed * Time::DeltaTime();
+
+		StatuePosY += moveAmountY;
+
+
+		mTransform->SetPosition(Vector3(mTransform->GetPosition().x, StatuePosY, mTransform->GetPosition().z));
+
+
+		// 상태 전환 로직
+		if ((dirY > 0 && StatuePosY >= TargetPosY) || (dirY < 0 && StatuePosY <= TargetPosY))
+		{
+			if (mStompState == eStompState::QUADRUPLE_STOMP)
 			{
-			case eStatueState::MOVING_DOWN:
-				TargetPosY = HitGroundPosY + 136.f;
-				mRigidbody->AddForce(Vector2(0.f, 150.f));
-				break;
 
-			case eStatueState::MOVING_UP:
-				TargetPosY = HitGroundPosY + 250.f;
-				mRigidbody->AddForce(Vector2(0.f, -150.f));
-				break;
-			}
-
-			float dirY = TargetPosY - StatuePosY;
-
-			float moveDistance = abs(dirY);
-			dirY = dirY > 0 ? 1.0f : -1.0f;
-
-			float moveSpeed = 700.0f;
-			float moveAmountY = dirY * moveSpeed * Time::DeltaTime();
-
-			StatuePosY += moveAmountY;
-
-
-			mTransform->SetPosition(Vector3(mTransform->GetPosition().x, StatuePosY, mTransform->GetPosition().z));
-
-
-			// 상태 전환 로직
-			if ((dirY > 0 && StatuePosY >= TargetPosY) || (dirY < 0 && StatuePosY <= TargetPosY))
-			{
-				if (mStompState == eStompState::QUADRUPLE_STOMP)
+				if (mStatueState == eStatueState::MOVING_DOWN)
 				{
-
-					if (mStatueState == eStatueState::MOVING_DOWN)
-					{
-						mStatueState = eStatueState::MOVING_UP;
+					mStatueState = eStatueState::MOVING_UP;
 
 
 
-						if (miStompCount == 3)
-							return;
-
-						miStompCount++;
-					}
-
-
-					else
-					{
-						mStatueState = eStatueState::MOVING_DOWN;
-
-					}
-				
-		
 					if (miStompCount == 3)
-					{
-						ChangeState(eBoss2_Phase1::STOMP_END);
-						
-					}
+						return;
 
-					else
-					{
-						ChangeState(eBoss2_Phase1::STOMP_ING);
-					}
+					miStompCount++;
 				}
 
 
-				else if (mStompState == eStompState::SINGLE_STOMP)
+				else
 				{
-				
+					mStatueState = eStatueState::MOVING_DOWN;
+
+				}
+
+
+				if (miStompCount == 3)
+				{
 					ChangeState(eBoss2_Phase1::STOMP_END);
 
-					if(!mbFirstStomp)
-					{ 
-					
-						mbFirstStomp = true;
-					}
-
-					else
-					{
-						mStatueState = eStatueState::MOVING_DOWN; // 1번만 찍는 패턴은 현 상태가 계속 아래 상태여야하므로.
-					}
-				
-				
 				}
 
+				else
+				{
+					ChangeState(eBoss2_Phase1::STOMP_ING);
+				}
+			}
+
+
+			else if (mStompState == eStompState::SINGLE_STOMP)
+			{
+
+				ChangeState(eBoss2_Phase1::STOMP_END);
+
+				if (!mbFirstStomp)
+				{
+
+					mbFirstStomp = true;
+				}
+
+				else
+				{
+					mStatueState = eStatueState::MOVING_DOWN; // 1번만 찍는 패턴은 현 상태가 계속 아래 상태여야하므로.
+				}
 
 
 			}
 
 
-		
+
+		}
+
+
+
 
 
 
@@ -966,110 +967,110 @@ namespace ss
 		// 카메라를 좀 더 확대시켜서 딜 타임임을 알려준다. 
 		mAnimator->PlayAnimation(L"Boss_Goddness_Idle", true);
 
-		
-			miStompCount = 0; // 0을 언제 초기화할지 좀 생각해보기 
+
+		miStompCount = 0; // 0을 언제 초기화할지 좀 생각해보기 
 
 
-			m_fTime += Time::DeltaTime();
+		m_fTime += Time::DeltaTime();
 
 
-			if (mStompState == eStompState::QUADRUPLE_STOMP)
+		if (mStompState == eStompState::QUADRUPLE_STOMP)
+		{
+
+			// 상태가 바뀔 때 카메라를 다시 원래대로 돌려놓는다. 
+
+			if (miCompleteStompCount < 3)
 			{
-		
-					// 상태가 바뀔 때 카메라를 다시 원래대로 돌려놓는다. 
+				mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
 
-					if (miCompleteStompCount < 3)
-					{
-						mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
-
-						if (m_fTime > 2.0f)
-						{
-							ChangeState(eBoss2_Phase1::STOMP_READY);
-							++miCompleteStompCount;
-							m_fTime = 0.f;
-						}
-
-
-					}
-
-					else if (miCompleteStompCount == 3)
-					{
-						if (m_fTime > 2.0f)
-						{
-
-					
-
-								ChangeState(eBoss2_Phase1::IDLE);
-								mPrevBoss2_Phase1_State = eBoss2_Phase1::STOMP_END;
-								miCompleteStompCount = 0; // 초기화 
-								m_fTime = 0.0f;
-
-						}
-
-					
-					}
-
-
-
-					
-
-				
-
-			}
-
-			else if (mStompState == eStompState::SINGLE_STOMP)
-			{
-					// 상태가 바뀔 때 카메라를 다시 원래대로 돌려놓는다. 
-
-				if (m_fTime > 0.2f)
+				if (m_fTime > 2.0f)
 				{
-					if (miCompleteStompCount < 4)
-					{
-						mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
-						ChangeState(eBoss2_Phase1::STOMP_READY);
-						++miCompleteStompCount;
-						m_fTime = 0.0f;
-
-
-					}
-
-					else if (miCompleteStompCount == 4)
-					{
-
-						if (m_fTime > 2.0f)
-						{
-
-								ChangeState(eBoss2_Phase1::IDLE);
-								mPrevBoss2_Phase1_State = eBoss2_Phase1::STOMP_END;
-								miCompleteStompCount = 0; // 초기화 
-								m_fTime = 0.0f;
-								mbFirstStomp = false;
-							
-
-						}
-					}
-
-				
+					ChangeState(eBoss2_Phase1::STOMP_READY);
+					++miCompleteStompCount;
+					m_fTime = 0.f;
 				}
 
-					
 
-	
+			}
+
+			else if (miCompleteStompCount == 3)
+			{
+				if (m_fTime > 2.0f)
+				{
+
+
+
+					ChangeState(eBoss2_Phase1::IDLE);
+					mPrevBoss2_Phase1_State = eBoss2_Phase1::STOMP_END;
+					miCompleteStompCount = 0; // 초기화 
+					m_fTime = 0.0f;
+
+				}
 
 
 			}
-	
 
 
-	
-		
-		
-		
+
+
+
+
+
+		}
+
+		else if (mStompState == eStompState::SINGLE_STOMP)
+		{
+			// 상태가 바뀔 때 카메라를 다시 원래대로 돌려놓는다. 
+
+			if (m_fTime > 0.2f)
+			{
+				if (miCompleteStompCount < 4)
+				{
+					mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
+					ChangeState(eBoss2_Phase1::STOMP_READY);
+					++miCompleteStompCount;
+					m_fTime = 0.0f;
+
+
+				}
+
+				else if (miCompleteStompCount == 4)
+				{
+
+					if (m_fTime > 2.0f)
+					{
+
+						ChangeState(eBoss2_Phase1::IDLE);
+						mPrevBoss2_Phase1_State = eBoss2_Phase1::STOMP_END;
+						miCompleteStompCount = 0; // 초기화 
+						m_fTime = 0.0f;
+						mbFirstStomp = false;
+
+
+					}
+				}
+
+
+			}
+
+
+
+
+
+
+		}
+
+
+
+
+
+
+
 		/*if (mStatueState == eStatueState::MOVING_UP && miStompCount == 1)
 		{
 			ChangeState(eBoss2_Phase1::STOMP_ING);
 		}*/
-		
+
 	}
 
 	void GoddnessScript::Energyball_Start()
@@ -1119,7 +1120,7 @@ namespace ss
 
 			}
 
-	
+
 		}
 
 
@@ -1134,7 +1135,7 @@ namespace ss
 
 
 
-		
+
 
 
 	}
@@ -1174,7 +1175,7 @@ namespace ss
 	}
 	void GoddnessScript::Energyball_End()
 	{
-	
+
 		Vector3 targetPos = Vector3(0.f, -87.f, 500.f);
 		Vector3 StatuePos = mTransform->GetPosition();
 
@@ -1193,7 +1194,7 @@ namespace ss
 			}
 			mTransform->SetPosition(StatuePos);
 
-			
+
 		}
 
 
@@ -1232,7 +1233,7 @@ namespace ss
 
 		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 		{
-			
+
 			mAnimator->GetCurActiveAnimation()->SetCurSpriteDuration(0.01f);
 		}
 
@@ -1258,9 +1259,9 @@ namespace ss
 			mMainCamera->GetComponent<CameraScript>()->SetTarget(mPlayer);
 
 			//mAttackColliderObj->SetState(GameObject::eState::Dead);
-		
+
 			mMainCamera->GetComponent<Transform>()->SetPosition(CameraPos.x, CameraPos.y, CameraPos.z);
-	
+
 			GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 
 			GetOwner()->GetComponent<Transform>()->SetPosition
@@ -1275,24 +1276,24 @@ namespace ss
 
 				mAnimator->PlayAnimation(L"Boss2_Goddness_IntroEnd", true);
 
-			GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
+				GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
-			GetOwner()->AddComponent<Collider2D>(); // dead 상태에는 잠시 가려놓을거기 때문에 혹시모를 일에 대비해 컴포넌트를 빼둔다. 
-			mCharacterState->SetMaxHP(110.f);
-			mCharacterState->SetCurrentHP(10.f);
+				GetOwner()->AddComponent<Collider2D>(); // dead 상태에는 잠시 가려놓을거기 때문에 혹시모를 일에 대비해 컴포넌트를 빼둔다. 
+				mCharacterState->SetMaxHP(110.f);
+				mCharacterState->SetCurrentHP(10.f);
 
-		
 
-			m_fTime = 0.0f;
 
-			
+				m_fTime = 0.0f;
+
+
 			}
-	
-		
+
+
 		}
 
 
-		
+
 
 	}
 
@@ -1328,9 +1329,9 @@ namespace ss
 
 
 		// 대각선 이동이 끝나면 아래로 직선 이동한다. 
-		else if (mbMovingDown) 
+		else if (mbMovingDown)
 		{
-		
+
 
 			float moveSpeed = 100.0f;  // 움직임의 속도
 
@@ -1338,20 +1339,20 @@ namespace ss
 			BossPos.y -= moveSpeed * Time::DeltaTime();
 
 			// 아래로 움직임이 일정 거리 이상 움직였다면
-			if (mTransform->GetPosition().y <= -110.f) 
+			if (mTransform->GetPosition().y <= -110.f)
 			{
 				mbMovingDown = false;
 
 				mAnimator->PlayAnimation(L"Boss2_Goddness_SummonSpear", false);
 				ChangeState(eBoss2_Phase2::SUMMONSPEAR_START);
-				
+
 			}
 
 			mTransform->SetPosition(BossPos);
-		
+
 		}
 
-	
+
 
 	}
 
@@ -1363,89 +1364,84 @@ namespace ss
 	{
 		Vector3 BossPos = mTransform->GetPosition(); // 2, -45, 500 (보스 중간 위치
 
-		
+
 		// 보스는 위아래로 와리가리한다. (왼쪽 방향인지 오른쪽 방향인지에 따라 다르게 해줘야될듯)
 
 
 
 		// 칼 3개가 발사된다. (dead 처리는 벽에 부딪치면 없어질 때 그떄 할 것이므로 신경 안써도 됨) 
 
-	
+
 
 
 		m_fTime += Time::DeltaTime();
 
 
 
-			if (!mbFreezingPos)
+		if (!mbFreezingPos)
+		{
+			mbFreezingPos = true; // false는 상태 전환될 때 해주기 
+			mPlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+
+		}
+
+
+		switch (mSummonState)
+		{
+		case eSummonState::SPAWN_DIRHIT:
+			// dirhit 생성 로직
+
+			if (!mbDirHitSpawn)
 			{
-				mbFreezingPos = true; // false는 상태 전환될 때 해주기 
-				mPlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
-			}
+				float Changetime = mbFirstSpawnDone ? 0.0f : 1.4f;
 
-
-			switch (mSummonState)
-			{
-			case eSummonState::SPAWN_DIRHIT:
-				// dirhit 생성 로직
-
-				if (!mbDirHitSpawn)
+				if (m_fTime > Changetime)
 				{
-					if (mSpawnDirCount == 7)
-					{
-						mSpawnDirCount = 0;
-						return;
-					}
-
-					float time = mbFirstSpawnDone ? 1.6f : 2.5f;
-
-					if (m_fTime > mbFirstSpawnDone)
-					{						
-						mbDirHitSpawn = true;
+					mbDirHitSpawn = true;
 
 
-						CreateDirHit();
-						mbFirstSpawnDone = true; // 2번째 스폰때부터는 true값으로 시간 반영됨 
-						m_fTime = 0.0f;
+					CreateDirHit();
+					mbFirstSpawnDone = true; // 2번째 스폰때부터는 true값으로 시간 반영됨 
+					m_fTime = 0.0f;
 
-						mSummonState = eSummonState::SPAWN_SWORD;
-					}
-				
-				}// 상태 전환
-				break;
-
-			case eSummonState::SPAWN_SWORD:
-				// 칼 생성 로직
-
-				if (!mbSwordSpawn)
-				{
-				
-					float time = mbSecondSpawnDone ? 2.5f : 3.5f;
-
-					if (m_fTime > mbSecondSpawnDone)
-					{
-						
-						mbSwordSpawn = true;
-
-						CreateSwordBullet();
-						mbSecondSpawnDone = true; // 2번째 부터는 0.7로 시간 반영됨 
-						m_fTime = 0.0f;
-
-						mSummonState = eSummonState::SPAWN_DIRHIT;
-						mbDirHitSpawn = false;
-						ChangeState(eBoss2_Phase2::SUMMONSPEAR_ING);
-
-					}
-				
+					mSummonState = eSummonState::SPAWN_SWORD;
 				}
-				break;
 
+			}// 상태 전환
+			break;
+
+		case eSummonState::SPAWN_SWORD:
+			// 칼 생성 로직
+
+			if (!mbSwordSpawn)
+			{
+
+				float Changetime = mbSecondSpawnDone ? 0.5f : 0.6f; // 1괜찮은듯
+
+				if (m_fTime > Changetime)
+				{
+
+					mbSwordSpawn = true;
+
+					CreateSwordBullet();
+					mbSecondSpawnDone = true; // 2번째 부터는 0.7로 시간 반영됨 
+					m_fTime = 0.0f;
+
+					mSummonState = eSummonState::SPAWN_DIRHIT;
+					mbDirHitSpawn = false;
+					ChangeState(eBoss2_Phase2::SUMMONSPEAR_ING);
+
+				}
 
 			}
+			break;
 
-		
-		
+
+		}
+
+
+
 	}
 
 	void GoddnessScript::SummonSpear_Ing()
@@ -1453,25 +1449,32 @@ namespace ss
 		m_fTime += Time::DeltaTime();
 
 
-			FireSwordBullet();
-			mbSwordSpawn = false;
+		FireSwordBullet();
+		mbSwordSpawn = false;
 
 
 
-		if (mSpawnDirCount < 7 && m_fTime > 0.8f)
+		if (mSpawnDirCount < 8 && m_fTime > 0.8f)
 		{
-		
+
 			ChangeState(eBoss2_Phase2::SUMMONSPEAR_START);
 			mbFreezingPos = false;
 			m_fTime = 0.f;
 
-
+			mbSummonFinish = true; // false는 다음 상태로 넘어갈 때 해주기 
 		}
-		
+
+		else if (mSpawnDirCount == 8)
+		{
+			mSpawnDirCount = 0;
+			ChangeState(eBoss2_Phase2::SUMMONSPEAR_END);
+		}
+
 	}
 
 	void GoddnessScript::SummonSpear_End()
 	{
+		int i = 0;
 	}
 
 	void GoddnessScript::CreateDirHit()
@@ -1656,284 +1659,287 @@ namespace ss
 
 
 		++mSpawnDirCount;
-	
+
 	}
 
 	void GoddnessScript::CreateSwordBullet()
 	{
 
 
+		if (mSpawnDirCount == 8)
+			return;
 
-			// 왼쪽에서 오른쪽으로 발사 
-			if (mPlayerPos.x >= 0.0)
+		// 왼쪽에서 오른쪽으로 발사 
+		if (mPlayerPos.x >= 0.0)
+		{
+			if (miRandom == 0)
 			{
-				if (miRandom == 0)
+				if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
 				{
-					if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
-					{
-
-						mSwordBullet_Left = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
-
-						mSwordBullet_Mid = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
-
-
-						// ====
-						mSwordBullet_Right = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y + 40.f, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
-
-					}
-
-					else if (mPlayerPos.y >= -100)
-					{
-
-						mSwordBullet_Mid = object::Instantiate<SwordBullet> // 570
-							(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
-
-						mSwordBullet_Left = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y - 20.f, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
-
-						mSwordBullet_Right = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
-					}
-				}
-
-				else if (miRandom == 1)
-				{
-					mSwordBullet_Mid = object::Instantiate<SwordBullet>
-						(Vector3(mPlayerPos.x, mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
 
 					mSwordBullet_Left = object::Instantiate<SwordBullet>
-						(Vector3(mPlayerPos.x - 20.f, mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
 
+					mSwordBullet_Mid = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
+
+
+					// ====
 					mSwordBullet_Right = object::Instantiate<SwordBullet>
-						(Vector3(mPlayerPos.x + 20.f, mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
-				}
-
-
-			}
-
-			// 오른쪽에서 왼쪽으로 발사 
-			else if (mPlayerPos.x <= 0.0)
-			{
-				if (miRandom == 0)
-				{
-					if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
-					{
-						mSwordBullet_Left = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
-
-
-						// ==== 회전 테스트 
-						/*Vector3 rotation = mTransform->GetDegreeRot();
-						rotation.z = 10.0f;
-						SwordBullet_MidTr->SetRotation(rotation);*/
-
-						// ======
-						mSwordBullet_Mid = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
-
-
-						// ====
-						mSwordBullet_Right = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y + 40.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
-
-
-
-
-						Transform* SwordBullet_MidTr = mSwordBullet_Left->GetComponent<Transform>();
-
-
-
-
-					}
-
-
-					else if (mPlayerPos.y >= -100)
-					{
-
-						mSwordBullet_Mid = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
-
-						mSwordBullet_Left = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y - 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
-
-						mSwordBullet_Right = object::Instantiate<SwordBullet>
-							(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
-					}
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y + 40.f, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
 
 				}
 
-
-				else if (miRandom == 1)
+				else if (mPlayerPos.y >= -100)
 				{
-
 
 					mSwordBullet_Mid = object::Instantiate<SwordBullet> // 570
-						(Vector3(mPlayerPos.x, mPlayerPos.y + 450.f, 400.f), eLayerType::Collision, L"Sword_UpToDown");
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
 
 					mSwordBullet_Left = object::Instantiate<SwordBullet>
-						(Vector3(mPlayerPos.x - 20.f, mPlayerPos.y + 450.f, 400.f), eLayerType::Collision, L"Sword_UpToDown");
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y - 20.f, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
 
 					mSwordBullet_Right = object::Instantiate<SwordBullet>
-						(Vector3(mPlayerPos.x + 20.f, mPlayerPos.y + 450.f, 400.f), eLayerType::Collision, L"Sword_UpToDown");
+						(Vector3(mPlayerPos.x - 600.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_LeftToLight");
+				}
+			}
+
+			else if (miRandom == 1)
+			{
+				mSwordBullet_Mid = object::Instantiate<SwordBullet>
+					(Vector3(mPlayerPos.x, mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
+
+				mSwordBullet_Left = object::Instantiate<SwordBullet>
+					(Vector3(mPlayerPos.x - 20.f, mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
+
+				mSwordBullet_Right = object::Instantiate<SwordBullet>
+					(Vector3(mPlayerPos.x + 20.f, mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
+			}
+
+
+		}
+
+		// 오른쪽에서 왼쪽으로 발사 
+		else if (mPlayerPos.x <= 0.0)
+		{
+			if (miRandom == 0)
+			{
+				if (mPlayerPos.y >= -210 && mPlayerPos.y <= -100)
+				{
+					mSwordBullet_Left = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+
+					// ==== 회전 테스트 
+					/*Vector3 rotation = mTransform->GetDegreeRot();
+					rotation.z = 10.0f;
+					SwordBullet_MidTr->SetRotation(rotation);*/
+
+					// ======
+					mSwordBullet_Mid = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+
+					// ====
+					mSwordBullet_Right = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y + 40.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+
+
+
+					Transform* SwordBullet_MidTr = mSwordBullet_Left->GetComponent<Transform>();
+
+
+
+
 				}
 
 
+				else if (mPlayerPos.y >= -100)
+				{
 
+					mSwordBullet_Mid = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
 
+					mSwordBullet_Left = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y - 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+
+					mSwordBullet_Right = object::Instantiate<SwordBullet>
+						(Vector3(mPlayerPos.x + 570.f, mPlayerPos.y + 20.f, 400.f), eLayerType::Collision, L"Sword_RightToLeft");
+				}
 
 			}
 
 
-
-			if (mSpawnDirCount == 4)
+			else if (miRandom == 1)
 			{
-				Vector3 BossPos = mTransform->GetPosition();
-
-				Vector3 BossToCenterDir = Vector3(2.f, -45.f, 500.f) - BossPos;
-				BossToCenterDir.Normalize();
-
-				float speed = 400.f;
-
-				BossPos += BossToCenterDir * 400.f * Time::DeltaTime();
 
 
-				mTransform->SetPosition(BossPos);
+				mSwordBullet_Mid = object::Instantiate<SwordBullet> // 570
+					(Vector3(mPlayerPos.x, mPlayerPos.y + 450.f, 400.f), eLayerType::Collision, L"Sword_UpToDown");
 
+				mSwordBullet_Left = object::Instantiate<SwordBullet>
+					(Vector3(mPlayerPos.x - 20.f, mPlayerPos.y + 450.f, 400.f), eLayerType::Collision, L"Sword_UpToDown");
+
+				mSwordBullet_Right = object::Instantiate<SwordBullet>
+					(Vector3(mPlayerPos.x + 20.f, mPlayerPos.y + 450.f, 400.f), eLayerType::Collision, L"Sword_UpToDown");
 			}
 
-		
+
+
+
+
+		}
+
+
+
+		if (mSpawnDirCount == 4)
+		{
+			Vector3 BossPos = mTransform->GetPosition();
+
+			Vector3 BossToCenterDir = Vector3(2.f, -45.f, 500.f) - BossPos;
+			BossToCenterDir.Normalize();
+
+			float speed = 400.f;
+
+			BossPos += BossToCenterDir * 400.f * Time::DeltaTime();
+
+
+			mTransform->SetPosition(BossPos);
+
+		}
+
+
 	}
 
 	void GoddnessScript::FireSwordBullet()
 	{
-		
-		
 
-			float speed = 1200.f;
 
-			// 왼쪽에서 오른쪽으로 발사 , 아래에서 위로 
-			if (mPlayerPos.x >= 0.0)
+
+		float VerticalSpeed = 900.f;
+		float HorizionSpeed = 1200.f;
+
+		// 왼쪽에서 오른쪽으로 발사 , 아래에서 위로 
+		if (mPlayerPos.x >= 0.0)
+		{
+
+
+
+			if (miRandom == 0)
 			{
+				Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
+
+				mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x + HorizionSpeed * Time::DeltaTime(), LeftPos.y, LeftPos.z);
 
 
 
-				if (miRandom == 0)
-				{
-					Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
+				//== 중앙
+			   // ==== 왼쪽
+				Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
 
-					mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x + speed * Time::DeltaTime(), LeftPos.y, LeftPos.z);
-
-
-
-					 //== 중앙
-					// ==== 왼쪽
-					Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
-
-					mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x + speed * Time::DeltaTime(), MidPos.y, MidPos.z);
+				mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x + HorizionSpeed * Time::DeltaTime(), MidPos.y, MidPos.z);
 
 
-					// ==== 끝
-					// ==== 왼쪽
-					Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
+				// ==== 끝
+				// ==== 왼쪽
+				Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
 
-					mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x + speed * Time::DeltaTime(), RightPos.y, RightPos.z);
-
-				}
-
-				else if (miRandom == 1)
-				{
-					// ==== 왼쪽
-					Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
-
-					mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x, LeftPos.y + speed * Time::DeltaTime(), LeftPos.z);
-
-
-
-					// == 중앙
-					// ==== 왼쪽
-					Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
-
-					mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x, MidPos.y + speed * Time::DeltaTime(), MidPos.z);
-
-
-					// ==== 끝
-					// ==== 왼쪽
-					Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
-
-					mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x, RightPos.y + speed * Time::DeltaTime(), RightPos.z);
-				}
-
-
+				mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x + HorizionSpeed * Time::DeltaTime(), RightPos.y, RightPos.z);
 
 			}
 
-			// 오른쪽에서 왼쪽으로 발사 , 위에서 아래 
-			else if (mPlayerPos.x <= 0.0)
+			else if (miRandom == 1)
 			{
+				// ==== 왼쪽
+				Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
 
-				if (miRandom == 0)
-				{
-					Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
-
-					mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x - speed * Time::DeltaTime(), LeftPos.y, LeftPos.z);
+				mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x, LeftPos.y + VerticalSpeed * Time::DeltaTime(), LeftPos.z);
 
 
 
-					// == 중앙
-					// ==== 왼쪽
-					Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+				// == 중앙
+				// ==== 왼쪽
+				Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
 
-					mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x - speed * Time::DeltaTime(), MidPos.y, MidPos.z);
-
-
-					// ==== 끝
-					// ==== 왼쪽
-					Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
-
-					mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x - speed * Time::DeltaTime(), RightPos.y, RightPos.z);
-
-				}
-
-				else if (miRandom == 1)
-				{
+				mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x, MidPos.y + VerticalSpeed * Time::DeltaTime(), MidPos.z);
 
 
-					// ==== 왼쪽
-					Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
+				// ==== 끝
+				// ==== 왼쪽
+				Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
 
-					mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x, LeftPos.y - speed * Time::DeltaTime(), LeftPos.z);
-
-
-
-					// == 중앙
-					// ==== 왼쪽
-					Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
-
-					mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x, MidPos.y - speed * Time::DeltaTime(), MidPos.z);
-
-
-					// ==== 끝
-					// ==== 왼쪽
-					Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
-
-					mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x, RightPos.y - speed * Time::DeltaTime(), RightPos.z);
-				}
-
-
-
+				mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x, RightPos.y + VerticalSpeed * Time::DeltaTime(), RightPos.z);
 			}
 
 
 
+		}
 
-		
+		// 오른쪽에서 왼쪽으로 발사 , 위에서 아래 
+		else if (mPlayerPos.x <= 0.0)
+		{
+
+			if (miRandom == 0)
+			{
+				Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
+
+				mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x - HorizionSpeed * Time::DeltaTime(), LeftPos.y, LeftPos.z);
+
+
+
+				// == 중앙
+				// ==== 왼쪽
+				Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+
+				mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x - HorizionSpeed * Time::DeltaTime(), MidPos.y, MidPos.z);
+
+
+				// ==== 끝
+				// ==== 왼쪽
+				Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
+
+				mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x - HorizionSpeed * Time::DeltaTime(), RightPos.y, RightPos.z);
+
+			}
+
+			else if (miRandom == 1)
+			{
+
+
+				// ==== 왼쪽
+				Vector3 LeftPos = mSwordBullet_Left->GetComponent<Transform>()->GetPosition();
+
+				mSwordBullet_Left->GetComponent<Transform>()->SetPosition(LeftPos.x, LeftPos.y - VerticalSpeed * Time::DeltaTime(), LeftPos.z);
+
+
+
+				// == 중앙
+				// ==== 왼쪽
+				Vector3 MidPos = mSwordBullet_Mid->GetComponent<Transform>()->GetPosition();
+
+				mSwordBullet_Mid->GetComponent<Transform>()->SetPosition(MidPos.x, MidPos.y - VerticalSpeed * Time::DeltaTime(), MidPos.z);
+
+
+				// ==== 끝
+				// ==== 왼쪽
+				Vector3 RightPos = mSwordBullet_Right->GetComponent<Transform>()->GetPosition();
+
+				mSwordBullet_Right->GetComponent<Transform>()->SetPosition(RightPos.x, RightPos.y - VerticalSpeed * Time::DeltaTime(), RightPos.z);
+			}
+
+
+
+		}
+
+
+
+
+
 
 	}
 
-	
+
 
 	eStompState GoddnessScript::GetRandomStompState()
 	{

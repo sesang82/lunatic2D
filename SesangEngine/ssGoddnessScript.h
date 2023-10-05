@@ -12,7 +12,7 @@ namespace ss
         GODDNESS,
     };
 
-    enum class eStatueState 
+    enum class eStatueState
     {
         MOVING_UP,
         MOVING_DOWN
@@ -26,7 +26,7 @@ namespace ss
 
     };
 
-    enum class eSummonState 
+    enum class eSummonState
     {
         SPAWN_DIRHIT,
         SPAWN_SWORD,
@@ -78,6 +78,8 @@ namespace ss
         bool mbFreezingPos;
         bool mbFirstSpawnDone;
         bool mbSecondSpawnDone;
+        bool mbSummonFinish;
+
 
         int miRandom;
         int mSpawnDirCount;
@@ -91,7 +93,7 @@ namespace ss
         eSummonState mSummonState;
 
         class Player* mPlayer;
-   
+
 
 
         // ==== ¿Ã∆Â∆Æ
@@ -157,7 +159,7 @@ namespace ss
         void SummonSpear_Start();
         void SummonSpear_Ing();
         void SummonSpear_End();
-       
+
 
         void CreateDirHit();
         void CreateSwordBullet();
@@ -180,13 +182,17 @@ namespace ss
         eStompState  GetRandomStompState();
 
 
-        bool IsSpawnDirHit() 
+        bool IsSpawnDirHit()
         {
             return mbDirHitSpawn;
         }
 
+        int GetSpawnDirCount() { return mSpawnDirCount; }
+
+        bool GetSummonFinish() { return mbSummonFinish; }
+
     };
-      
+
 }
 
 
