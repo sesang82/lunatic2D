@@ -19,7 +19,7 @@
 #include "ssGameState.h"
 #include "ssEffectScript.h"
 #include "ssEnergyball.h"
-#include "ssEnergyballScript.h"
+#include "ssSmallEnergyballScript.h"
 #include "ssSceneManager.h"
 #include <random>
 #include "ssRenderer.h"
@@ -27,6 +27,9 @@
 #include "ssBackground.h"
 #include "ssPlatform.h"
 #include "ssSwordBullet.h"
+#include "ssBigEnergyballScript.h"
+#include "ssBigEnergyball.h"
+#include "ssSmallEnergyball.h"
 
 
 namespace ss
@@ -82,6 +85,8 @@ namespace ss
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
 		m_tMonsterInfo.m_fDetectRange = 300.f;
+
+		activeStates.insert(eSummonState::SPAWN_DIRHIT);
 	}
 
 
@@ -156,6 +161,7 @@ namespace ss
 
 		// ==== 2페이즈 신
 		mAnimator->Create(L"Boss2_Goddness_Idle", Image6, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 8, Vector2(269.f, 276.f), Vector2::Zero, 0.2f);
+		mAnimator->Create(L"Boss2_Goddness_IdleR", Image6, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 8, Vector2(269.f, 276.f), Vector2::Zero, 0.2f, true);
 		mAnimator->Create(L"Boss2_Goddness_Intro", Image7, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 17, Vector2(269.f, 276.f), Vector2::Zero, 0.11f);
 		mAnimator->Create(L"Boss2_Goddness_IntroEnd", Image8, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 8, Vector2(269.f, 276.f));
 
@@ -169,16 +175,18 @@ namespace ss
 
 		mAnimator->Create(L"Boss2_Goddness_Hit", Image11, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 5, Vector2(269.f, 276.f));
 
-		mAnimator->Create(L"Boss2_Goddness_Die", Image12, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
-		mAnimator->Create(L"Boss2_Goddness_Die", Image13, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
-		mAnimator->Create(L"Boss2_Goddness_Die", Image14, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_CounterStart", Image12, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 13, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Countering", Image13, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 5, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_CounterEnd", Image14, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 3, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_Die", Image15, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_Die", Image16, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_Die", Image17, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_Die", Image18, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
-		mAnimator->Create(L"Boss2_Goddness_Die", Image19, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
-		mAnimator->Create(L"Boss2_Goddness_Die", Image20, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
-		mAnimator->Create(L"Boss2_Goddness_Die", Image21, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
+
+		mAnimator->Create(L"Boss2_Goddness_EnergyballStart", Image19, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 10, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_Energyballing", Image20, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 6, Vector2(269.f, 276.f));
+		mAnimator->Create(L"Boss2_Goddness_EnergyballEnd", Image21, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 3, Vector2(269.f, 276.f));
+
 		mAnimator->Create(L"Boss2_Goddness_Die", Image22, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_Die", Image23, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
 		mAnimator->Create(L"Boss2_Goddness_Die", Image24, Vector2(0.f, 0.f), Vector2(269.f, 276.f), 16, Vector2(269.f, 276.f));
@@ -347,12 +355,15 @@ namespace ss
 				break;
 
 			case ss::eBoss2_Phase2::ENERGYBALL_START:
+				Energyball_Start();
 				break;
 
 			case ss::eBoss2_Phase2::ENERGYBALL_ING:
+				Energyball_ing();
 				break;
 
 			case ss::eBoss2_Phase2::ENERGYBALL_END:
+				Energyball_End();
 				break;
 
 			case ss::eBoss2_Phase2::COUNTER_START:
@@ -1060,115 +1071,143 @@ namespace ss
 
 		}
 
-
-
-
-
-
-
-		/*if (mStatueState == eStatueState::MOVING_UP && miStompCount == 1)
-		{
-			ChangeState(eBoss2_Phase1::STOMP_ING);
-		}*/
-
 	}
 
 	void GoddnessScript::Energyball_Start()
 	{
-		if (mPrevBoss2_Phase1_State == eBoss2_Phase1::STOMP_END)
+
+		if (mBossType == eBossType::STATUE)
 		{
-			// 석상이 중앙으로 이동한다. 
-			Vector3 StatuePos = mTransform->GetPosition();
-			Vector3 FirstPos = Vector3(0.f, -87.f, 500.f);
-
-
-			Vector3 TargetPos = Vector3(0.f, FirstPos.y + 67.f, FirstPos.z);
-
-
-			// 석상에서 목표 위치로의 방향 벡터를 계산합니다.
-			Vector3 dir = TargetPos - StatuePos;
-			float distance = dir.Length();  // 석상과 목표 위치 사이의 거리를 계산합니다.
-			dir.Normalize();  // 방향 벡터를 정규화합니다.
-
-
-			float moveSpeed = 200.0f;  // 원하는 속도 값을 설정하세요.
-
-			Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
-
-			StatuePos += moveAmount;  // 현재 위치를 업데이트합니다.
-			mTransform->SetPosition(StatuePos);  // 업데이트된 위치를 설정합니다.
-		}
-
-
-		else
-		{
-			// == 초기값 위치에서 y값만 어느 정도 위로 올린다. 
-			Vector3 StatuePos = mTransform->GetPosition();
-
-			float moveSpeed = 200.0f;  // 원하는 속도 값을 설정하세요.
-
-			float moveAmountY = moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
-
-
-			// 올라가는 위치 제한 
-			if (StatuePos.y < -21.f)
+			if (mPrevBoss2_Phase1_State == eBoss2_Phase1::STOMP_END)
 			{
+				// 석상이 중앙으로 이동한다. 
+				Vector3 StatuePos = mTransform->GetPosition();
+				Vector3 FirstPos = Vector3(0.f, -87.f, 500.f);
 
-				StatuePos.y += moveAmountY;
-				mTransform->SetPosition(StatuePos);
+
+				Vector3 TargetPos = Vector3(0.f, FirstPos.y + 67.f, FirstPos.z);
+
+
+				// 석상에서 목표 위치로의 방향 벡터를 계산합니다.
+				Vector3 dir = TargetPos - StatuePos;
+				float distance = dir.Length();  // 석상과 목표 위치 사이의 거리를 계산합니다.
+				dir.Normalize();  // 방향 벡터를 정규화합니다.
+
+
+				float moveSpeed = 200.0f;  // 원하는 속도 값을 설정하세요.
+
+				Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+				StatuePos += moveAmount;  // 현재 위치를 업데이트합니다.
+				mTransform->SetPosition(StatuePos);  // 업데이트된 위치를 설정합니다.
+			}
+
+
+			else
+			{
+				// == 초기값 위치에서 y값만 어느 정도 위로 올린다. 
+				Vector3 StatuePos = mTransform->GetPosition();
+
+				float moveSpeed = 200.0f;  // 원하는 속도 값을 설정하세요.
+
+				float moveAmountY = moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+
+				// 올라가는 위치 제한 
+				if (StatuePos.y < -21.f)
+				{
+
+					StatuePos.y += moveAmountY;
+					mTransform->SetPosition(StatuePos);
+
+
+				}
 
 
 			}
 
 
+			m_fTime += Time::DeltaTime();
+
+			if (m_fTime > 2.f)
+			{
+				ChangeState(eBoss2_Phase1::ENERGYBALL_ING);
+				m_fTime = 0.0f;
+			}
+
 		}
 
-
-		m_fTime += Time::DeltaTime();
-
-		if (m_fTime > 2.f)
+		else if (mBossType == eBossType::GODDNESS)
 		{
-			ChangeState(eBoss2_Phase1::ENERGYBALL_ING);
-			m_fTime = 0.0f;
+			mAnimator->PlayAnimation(L"Boss2_Goddness_EnergyballStart", false);
+
+			// 에너지볼을 소환한다. 
+
+			Vector3 BossPos = mTransform->GetPosition();
+
+			if (!mbEnergySpawn)
+			{
+				
+				mbEnergySpawn = true;
+
+				mSmallEngeryball = object::Instantiate<SmallEnergyball>(Vector3(BossPos.x + 80.f, BossPos.y + 20.f, 400.f),eLayerType::Collision, L"S_EnergyballObj");
+
+
+
+			}
+
+
+
 		}
-
-
 
 
 
 
 
 	}
+
+
 	void GoddnessScript::Energyball_ing()
 	{
-		Vector3 StatuePos = mTransform->GetPosition();
 
-		if (!mbEnergySpawn)
+
+		if (mBossType == eBossType::STATUE)
 		{
-			mbEnergySpawn = true;
+			Vector3 StatuePos = mTransform->GetPosition();
 
-			mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x - 60.f, StatuePos.y + 20.f, 400.f), eLayerType::Collision, L"Parrying_S_EnergyballObj");
-			mEngeryball->SetFirstEnergyball(mEngeryball);
-			mEngeryball->SetOriginOwenr(mTransform->GetOwner());
+			if (!mbEnergySpawn)
+			{
+				mbEnergySpawn = true;
 
-			mEngeryball->IncreaseSpawnCount();
+				mEngeryball = object::Instantiate<Energyball>(Vector3(StatuePos.x - 60.f, StatuePos.y + 20.f, 400.f), eLayerType::Collision, L"Parrying_S_EnergyballObj");
+				mEngeryball->SetFirstEnergyball(mEngeryball);
+				mEngeryball->SetOriginOwenr(mTransform->GetOwner());
 
-			SceneManager::SetPlayer(mPlayer);
+				mEngeryball->IncreaseSpawnCount();
+
+				SceneManager::SetPlayer(mPlayer);
 
 
+
+			}
+
+
+			m_fTime += Time::DeltaTime();
+
+			if (mEngeryball->GetSpawnCount() == 12 && m_fTime > 13.5f)
+			{
+				ChangeState(eBoss2_Phase1::ENERGYBALL_END);
+				mbEnergySpawn = false;
+				mEngeryball->InitializeSpawnCount();
+				m_fTime = 0.0f;
+			}
+		}
+
+		else if (mBossType == eBossType::GODDNESS)
+		{
 
 		}
 
-
-		m_fTime += Time::DeltaTime();
-
-		if (mEngeryball->GetSpawnCount() == 12 && m_fTime > 13.1f)
-		{
-			ChangeState(eBoss2_Phase1::ENERGYBALL_END);
-			mbEnergySpawn = false;
-			mEngeryball->InitializeSpawnCount();
-			m_fTime = 0.0f;
-		}
 
 
 
@@ -1176,35 +1215,45 @@ namespace ss
 	void GoddnessScript::Energyball_End()
 	{
 
-		Vector3 targetPos = Vector3(0.f, -87.f, 500.f);
-		Vector3 StatuePos = mTransform->GetPosition();
-
-		float moveSpeed = 150.0f;  // 원하는 속도 값을 설정하세요.
-
-		float moveAmountY = moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
-
-		// 내려가는 위치 제한
-		if (StatuePos.y > targetPos.y)
+		if (mBossType == eBossType::STATUE)
 		{
-			StatuePos.y -= moveAmountY;
-			// 만약 moveAmountY를 빼고 난 후의 값이 targetPos.y보다 작다면 targetPos.y로 설정
-			if (StatuePos.y < targetPos.y)
+			Vector3 targetPos = Vector3(0.f, -87.f, 500.f);
+			Vector3 StatuePos = mTransform->GetPosition();
+
+			float moveSpeed = 150.0f;  // 원하는 속도 값을 설정하세요.
+
+			float moveAmountY = moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
+
+			// 내려가는 위치 제한
+			if (StatuePos.y > targetPos.y)
 			{
-				StatuePos.y = targetPos.y;
+				StatuePos.y -= moveAmountY;
+				// 만약 moveAmountY를 빼고 난 후의 값이 targetPos.y보다 작다면 targetPos.y로 설정
+				if (StatuePos.y < targetPos.y)
+				{
+					StatuePos.y = targetPos.y;
+				}
+				mTransform->SetPosition(StatuePos);
+
+
 			}
-			mTransform->SetPosition(StatuePos);
 
 
+			m_fTime += Time::DeltaTime();
+
+			if (m_fTime > 1.5f)
+			{
+				ChangeState(eBoss2_Phase1::IDLE);
+				m_fTime = 0.f;
+			}
 		}
 
-
-		m_fTime += Time::DeltaTime();
-
-		if (m_fTime > 1.5f)
+		else if (mBossType == eBossType::GODDNESS)
 		{
-			ChangeState(eBoss2_Phase1::IDLE);
-			m_fTime = 0.f;
+
 		}
+
+
 
 	}
 	void GoddnessScript::Wind_Ready()
@@ -1362,11 +1411,11 @@ namespace ss
 
 	void GoddnessScript::SummonSpear_Start()
 	{
-		Vector3 BossPos = mTransform->GetPosition(); // 2, -45, 500 (보스 중간 위치
 
-
-		// 보스는 위아래로 와리가리한다. (왼쪽 방향인지 오른쪽 방향인지에 따라 다르게 해줘야될듯)
-
+		if (mSpawnDirCount < 5)
+		{
+			mAnimator->PlayAnimation(L"Boss2_Goddness_IdleR", true);
+		}
 
 
 		// 칼 3개가 발사된다. (dead 처리는 벽에 부딪치면 없어질 때 그떄 할 것이므로 신경 안써도 됨) 
@@ -1388,6 +1437,7 @@ namespace ss
 
 		switch (mSummonState)
 		{
+
 		case eSummonState::SPAWN_DIRHIT:
 			// dirhit 생성 로직
 
@@ -1405,10 +1455,42 @@ namespace ss
 					mbFirstSpawnDone = true; // 2번째 스폰때부터는 true값으로 시간 반영됨 
 					m_fTime = 0.0f;
 
-					mSummonState = eSummonState::SPAWN_SWORD;
+					if (mSpawnDirCount == 5)
+					{
+						mSummonState = eSummonState::MOVE_TO_CENTER;
+					}
+
+					else
+					{
+						mSummonState = eSummonState::SPAWN_SWORD;
+					}
+
 				}
 
 			}// 상태 전환
+			break;
+		
+		case eSummonState::MOVE_TO_CENTER:
+		{
+			mAnimator->PlayAnimation(L"Boss2_Goddness_MoveFrontL", false);
+
+			Vector3 BossPos = mTransform->GetPosition();
+			Vector3 BossToCenterDir = Vector3(2.f, -45.f, 500.f) - BossPos;
+			BossToCenterDir.Normalize();
+			float speed = 250000.f;
+			BossPos += BossToCenterDir * speed * Time::DeltaTime();
+			mTransform->SetPosition(BossPos);
+
+			// 중앙에 도착했는지 확인
+			if (BossPos.x >= 2.4f && BossPos.x <= 2.6f)
+			{
+				mAnimator->PlayAnimation(L"Boss2_Goddness_CounterStart", false);
+
+				// 다음 상태로 전환
+				mSummonState = mSummonState = eSummonState::SPAWN_SWORD;
+			}
+
+		}
 			break;
 
 		case eSummonState::SPAWN_SWORD:
@@ -1441,7 +1523,6 @@ namespace ss
 		}
 
 
-
 	}
 
 	void GoddnessScript::SummonSpear_Ing()
@@ -1456,6 +1537,8 @@ namespace ss
 
 		if (mSpawnDirCount < 8 && m_fTime > 0.8f)
 		{
+	
+
 
 			ChangeState(eBoss2_Phase2::SUMMONSPEAR_START);
 			mbFreezingPos = false;
@@ -1474,7 +1557,8 @@ namespace ss
 
 	void GoddnessScript::SummonSpear_End()
 	{
-		int i = 0;
+		mAnimator->PlayAnimation(L"Boss2_Goddness_CounterEnd", false);
+		ChangeState(eBoss2_Phase2::ENERGYBALL_START);
 	}
 
 	void GoddnessScript::CreateDirHit()
@@ -1791,23 +1875,6 @@ namespace ss
 
 		}
 
-
-
-		if (mSpawnDirCount == 4)
-		{
-			Vector3 BossPos = mTransform->GetPosition();
-
-			Vector3 BossToCenterDir = Vector3(2.f, -45.f, 500.f) - BossPos;
-			BossToCenterDir.Normalize();
-
-			float speed = 400.f;
-
-			BossPos += BossToCenterDir * 400.f * Time::DeltaTime();
-
-
-			mTransform->SetPosition(BossPos);
-
-		}
 
 
 	}

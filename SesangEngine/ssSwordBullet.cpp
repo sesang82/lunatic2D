@@ -3,7 +3,7 @@
 #include "ssResources.h"
 #include "ssMesh.h"
 #include "ssTime.h"
-#include "ssEnergyballScript.h"
+#include "ssSmallEnergyballScript.h"
 #include "ssAnimator.h"
 #include "ssobject.h"
 #include "ssGoddnessScript.h"

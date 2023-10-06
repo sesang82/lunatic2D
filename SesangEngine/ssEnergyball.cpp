@@ -3,7 +3,7 @@
 #include "ssResources.h"
 #include "ssMesh.h"
 #include "ssTime.h"
-#include "ssEnergyballScript.h"
+#include "ssSmallEnergyballScript.h"
 #include "ssAnimator.h"
 #include "ssobject.h"
 #include "ssGoddnessScript.h"
@@ -80,7 +80,7 @@ namespace ss
 
 		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false); // trigger 완성하면 지우기 
 
-		AddComponent<EnergyballScript>();
+		AddComponent<SmallEnergyballScript>();
 
 		
 		

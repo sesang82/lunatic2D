@@ -8,47 +8,90 @@ namespace ss
 	}
 	Layer::~Layer()
 	{
-		for (GameObject* gameObj : mGameObjects)
+		/*for (GameObject* gameObj : mGameObjects)
 		{
 			if (gameObj == nullptr)
 				continue;
 
 			delete gameObj;
 			gameObj = nullptr;
+		}*/
+
+
+		for (int i = 0; i < mGameObjects.size(); ++i)
+		{
+			GameObject* gameObj = mGameObjects[i];
+			if (gameObj == nullptr)
+				continue;
+
+			delete gameObj;
+			mGameObjects[i] = nullptr;
 		}
+
 	}
 	void Layer::Initialize()
 	{
 	}
 	void Layer::Update()
 	{
-		for (GameObject* gameObj : mGameObjects)
+		//for (GameObject* gameObj : m_GameObjects)
+		//{
+		//	if (gameObj->GetState()
+		//		!= GameObject::eState::Active)
+		//		continue;
+
+		//	gameObj->Update();
+		//}
+
+		for (int i = 0; i < mGameObjects.size(); ++i)
 		{
-			// Active 상태인것만 Update()돌게 함
-			if (gameObj->GetState()
-				!= GameObject::eState::Active)
+			GameObject* gameObj = mGameObjects[i];
+
+			if (gameObj->GetState() != GameObject::eState::Active)
 				continue;
 
 			gameObj->Update();
 		}
 	}
+
 	void Layer::LateUpdate()
 	{
-		for (GameObject* gameObj : mGameObjects)
+		//for (GameObject* gameObj : m_GameObjects)
+		//{
+		//	if (gameObj->GetState()
+		//		!= GameObject::eState::Active)
+		//		continue;
+
+		//	gameObj->LateUpdate();
+		//}
+
+		for (int i = 0; i < mGameObjects.size(); ++i)
 		{
-			if (gameObj->GetState()
-				!= GameObject::eState::Active)
+			GameObject* gameObj = mGameObjects[i];
+
+			if (gameObj->GetState() != GameObject::eState::Active)
 				continue;
 
 			gameObj->LateUpdate();
 		}
 	}
+
 	void Layer::Render()
 	{
-		for (GameObject* gameObj : mGameObjects)
+		//for (GameObject* gameObj : m_GameObjects)
+		//{
+		//	if (gameObj->GetState()
+		//		!= GameObject::eState::Active)
+		//		continue;
+
+		//	gameObj->Render();
+		//}
+
+		for (int i = 0; i < mGameObjects.size(); ++i)
 		{
-			if (gameObj->GetState()
-				!= GameObject::eState::Active)
+			GameObject* gameObj = mGameObjects[i];
+
+			if (gameObj->GetState() != GameObject::eState::Active)
 				continue;
 
 			gameObj->Render();
@@ -59,17 +102,18 @@ namespace ss
 	{
 		// dead 오브젝트 모아두기
 		std::set<GameObject*> deleteGameObj = {};
-		for (GameObject* gameObj : mGameObjects)
+		for (int i = 0; i < mGameObjects.size(); ++i)
 		{
-			if (gameObj->GetState() 
-				== GameObject::eState::Dead)			
+			GameObject* gameObj = mGameObjects[i];
+
+			if (gameObj->GetState() == GameObject::eState::Dead)
 				deleteGameObj.insert(gameObj);
 		}
 
 		// daed 오브젝트 제외시키기 layer에서
 		typedef std::vector<GameObject*>::iterator GameObjectIter;
 		for (GameObjectIter iter = mGameObjects.begin()
-			; iter != mGameObjects.end() ; )
+			; iter != mGameObjects.end(); )
 		{
 			std::set<GameObject*>::iterator deleteIter
 				= deleteGameObj.find(*(iter));

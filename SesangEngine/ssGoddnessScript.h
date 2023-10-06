@@ -26,11 +26,17 @@ namespace ss
 
     };
 
-    enum class eSummonState
+    // 몬스터 스크립트의 state는 전체 상태를 조절하기 위한 거였는데
+    // 아래는 맥락들을 조절하기 위한거. 그런데도 성격이 좀 겹치는 것 같아서 어떻게 리팩토링할지 나중에 생각해보기
+    enum class eSummonState 
     {
         SPAWN_DIRHIT,
+        MOVE_TO_CENTER,
         SPAWN_SWORD,
         SWORD_FIRE,
+        ENERGYBALL_STRAT,
+        ENERGYBALL_ING,
+        ENERGYBALL_END,
     };
 
     class GoddnessScript :
@@ -54,6 +60,9 @@ namespace ss
 
 
     private:
+        std::set<eSummonState> activeStates;
+
+
         Vector3                 mFirstPos;
         Vector3					mDir; // 어슬렁거리는 move상태일때만 사용할 거 
         Vector3					mCurDir; // 거리값으로 계산해낸 방향 
@@ -99,6 +108,8 @@ namespace ss
         // ==== 이펙트
         class Effect* mHitGround;
         class Energyball* mEngeryball;
+        class BigEnergyball* mBigEngeryball;
+        class SmallEnergyball* mSmallEngeryball;
 
 
 

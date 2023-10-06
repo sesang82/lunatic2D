@@ -218,7 +218,7 @@
     <ClCompile Include="ssGoddnessScript.cpp">
       <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
     </ClCompile>
-    <ClCompile Include="ssEnergyballScript.cpp">
+    <ClCompile Include="ssSmallEnergyballScript.cpp">
       <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
     </ClCompile>
     <ClCompile Include="ssEnergyball.cpp">
@@ -228,6 +228,15 @@
       <Filter>Contents\GameObj\etc\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="ssSwordBulletScript.cpp">
+      <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="ssSmallEnergyball.cpp">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="ssBigEnergyball.cpp">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="ssBigEnergyballScript.cpp">
       <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
     </ClCompile>
   </ItemGroup>
@@ -654,7 +663,7 @@
     <ClInclude Include="ssGoddnessScript.h">
       <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
     </ClInclude>
-    <ClInclude Include="ssEnergyballScript.h">
+    <ClInclude Include="ssSmallEnergyballScript.h">
       <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
     </ClInclude>
     <ClInclude Include="ssEnergyball.h">
@@ -664,6 +673,15 @@
       <Filter>Contents\GameObj\etc\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="ssSwordBulletScript.h">
+      <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="ssSmallEnergyball.h">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ssBigEnergyball.h">
+      <Filter>Contents\GameObj\etc\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ssBigEnergyballScript.h">
       <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
     </ClInclude>
   </ItemGroup>

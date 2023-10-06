@@ -1,8 +1,5 @@
 #pragma once
 #include "ssScript.h"
-#include "ssEnergyball.h"
-
-
 
 namespace ss
 {
@@ -13,12 +10,12 @@ namespace ss
     };
 
 
-    class EnergyballScript :
+    class SmallEnergyballScript :
         public Script
     {
     public:
-        EnergyballScript();
-        virtual ~EnergyballScript();
+        SmallEnergyballScript();
+        virtual ~SmallEnergyballScript();
 
     public:
         virtual void Initialize() override;
@@ -33,11 +30,22 @@ namespace ss
         class CharacterState* mState;
         bool mIsGuard;
 
-    private:
-        void SetOriginOwner(GameObject* obj) { mOriginOwner = obj; }
+        class Animator* mAnimator;
+        class Transform* mTransform;
+        class GameObject* mOwner;  // 모든 객체가 사용하도록 해둠 
+        class Player* mPlayer;
+
+        float mfTime;
+        Vector3 mDir;
+
+ 
 
 
 
+
+
+    public:
+      
 
     };
 
