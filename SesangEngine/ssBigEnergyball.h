@@ -24,6 +24,7 @@ namespace ss
         BigEnergyball* mFirstEnergyball;
         float mfTime;
         Vector3 mPlayerPos;
+        Vector3 mDirections;
 
 
         int miMaxSpawnedBalls;
@@ -38,15 +39,21 @@ namespace ss
         class Player* mPlayer;
 
 
-        bool  mbTest;
+       static bool  mbSpawn;
+        
     public:
         void SetOriginOwenr(GameObject* obj) { mOwner = obj; }
         void SetFirstEnergyball(BigEnergyball* obj) { mFirstEnergyball = obj; }
-        void CreateEnergyball();
+        void CreateBalls();
         void IncreaseSpawnCount() { ++miSpawnedBallCount; }
         void InitializeSpawnCount() { miSpawnedBallCount = 0; }
         int GetSpawnCount() { return miSpawnedBallCount; }
 
+        void SetDir(Vector3 dir) { mDirections = dir; }
+        Vector3 GetDir() { return mDirections; }
+
+
+    
 
 
 

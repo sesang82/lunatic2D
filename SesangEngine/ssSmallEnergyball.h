@@ -40,7 +40,7 @@ namespace ss
 
 
         static bool  mbSpawn;
-        static bool  mbSpawnFinish;
+
 
 
     public:

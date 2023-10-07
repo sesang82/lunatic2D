@@ -12,7 +12,7 @@
 namespace ss
 {
 	bool SmallEnergyball::mbSpawn = false;
-	bool SmallEnergyball::mbSpawnFinish = false;
+
 
 
 	SmallEnergyball::SmallEnergyball()
@@ -44,7 +44,7 @@ namespace ss
 
 		Collider2D* col = AddComponent<Collider2D>();
 		col->SetSize(Vector2(1.f, 1.f));
-		col->SetName(L"EnergyballCol");
+		col->SetName(L"SmallEnergyballCol");
 
 
 		std::shared_ptr<ss::graphics::Texture> Image1 = Resources::Find<ss::graphics::Texture>(L"Boss2_1_Energyball_S_Parrying_Spawn_Effect");
@@ -78,7 +78,6 @@ namespace ss
 			
 				
 				CreateCircleBalls();
-				mbSpawnFinish = true;
 				
 			}
 		}
@@ -86,14 +85,14 @@ namespace ss
 		
 		mfTime += Time::DeltaTime();
 
-		if (mfTime > 3.f)
+		if (mfTime > 2.f)
 		{
 			if (GetName() == L"S_EnergyballObjs" && mbSpawn)
 			{
 				AddComponent<Collider2D>();
 			}
 
-			float speed = 400.f;
+			float speed = 150.f;
 
 		
 			Transform* tr = GetComponent<Transform>();
