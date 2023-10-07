@@ -1150,7 +1150,12 @@ namespace ss
 				
 				mbEnergySpawn = true;
 
-				mSmallEngeryball = object::Instantiate<SmallEnergyball>(Vector3(BossPos.x + 80.f, BossPos.y + 20.f, 400.f),eLayerType::Collision, L"S_EnergyballObj");
+				mSmallEngeryball = object::Instantiate<SmallEnergyball>(Vector3(BossPos.x + 82.f, BossPos.y + 9.3f, 400.f),eLayerType::Collision, L"S_EnergyballObj");
+				mSmallEngeryball->Initialize();
+
+				mSmallEngeryball->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+				mSmallEngeryball->RemoveComponent<Collider2D>();
+			
 
 
 

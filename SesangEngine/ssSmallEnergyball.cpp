@@ -23,7 +23,7 @@ namespace ss
 		, mfTime(0.0f)
 
 	{
-		SmallEnergyball::Initialize();
+		
 	}
 	SmallEnergyball::~SmallEnergyball()
 	{
@@ -37,7 +37,8 @@ namespace ss
 
 		mTransform->SetScale(Vector3(58.f, 54.f, 1.0f));
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+		mr->SetMaterial(Resources::Find<Material>(L"SmallEnergyBulletMtrl"));
+	
 
 		Collider2D* col = AddComponent<Collider2D>();
 		col->SetSize(Vector2(1.f, 1.f));
@@ -72,15 +73,25 @@ namespace ss
 			if (!mbSpawn)
 			{
 				mbSpawn = true; // dead 처리될 때 false처리 해주기 
+			
+				
 				CreateCircleBalls();
+				
 			}
-
-
-			float speed = 200.f;
-
-			Vector3 newPos = mTransform->GetPosition() + mDir * speed * Time::DeltaTime();
-			mTransform->SetPosition(newPos);
 		}
+
+		
+		mfTime += Time::DeltaTime();
+
+		//if (mfTime > 15.f)
+		//{
+		//	float speed = 200.f;
+
+		//	Vector3 newPos = mTransform->GetPosition() + mDir * speed * Time::DeltaTime();
+		//	mTransform->SetPosition(newPos);
+		//}
+
+
 
 		Bullet::Update();
 	}
@@ -98,7 +109,7 @@ namespace ss
 		const int numBalls = 15;
 		const float radius = 100.0f; // 원하는 반지름의 크기로 변경 가능
 
-		float angleStep = 360.0f / (numBalls + 1); // 22.5도 간격으로 에너지볼을 생성하기 위한 각도 스텝
+		float angleStep = 360.0f / numBalls; // 22.5도 간격으로 에너지볼을 생성하기 위한 각도 스텝
 
 		Vector3 bossPosition = Vector3(2.5f, -45.2f, mTransform->GetPosition().z);
 
@@ -107,13 +118,16 @@ namespace ss
 
 			const float PI = 3.14159265358979323846f;
 
-			float angle = angleStep *(i + 1); // 처음 생성된 에너지볼을 고려하여 각도 조정
+			float angle = angleStep * i; // 처음 생성된 에너지볼을 고려하여 각도 조정
 			float x = bossPosition.x + (radius * cosf(ToRadian(angle)));
 			float y = bossPosition.y + (radius * sinf(ToRadian(angle)));
 
 			// 에너지볼 생성
 			Vector3 spawnPos = Vector3(x, y, bossPosition.z);
 			SmallEnergyball* ball = object::Instantiate<SmallEnergyball>(spawnPos, eLayerType::Collision, L"S_EnergyballObj"); // 필요한 다른 파라미터들도 채워야 합니다.
+			ball->Initialize();
+			ball->RemoveComponent<Collider2D>(); // 날라갈 때 충돌체 입히기 
+
 
 			// 에너지볼에 방향 벡터 설정
 			Vector3 Balldir = (spawnPos - bossPosition);
@@ -121,6 +135,7 @@ namespace ss
 			mDir = Balldir;
 
 		}
+	
 	}
 
 

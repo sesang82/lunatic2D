@@ -489,6 +489,11 @@ namespace renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"SwordBulletMtrl", material);
 
+		material = std::make_shared<Material>();
+		material->SetShader(BossShader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"SmallEnergyBulletMtrl", material);
+
 
 
 
