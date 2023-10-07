@@ -12,6 +12,8 @@
 namespace ss
 {
 	bool SmallEnergyball::mbSpawn = false;
+	bool SmallEnergyball::mbSpawnFinish = false;
+
 
 	SmallEnergyball::SmallEnergyball()
 		: mAnimator(nullptr)
@@ -72,10 +74,11 @@ namespace ss
 
 			if (!mbSpawn)
 			{
-				mbSpawn = true; // dead 처리될 때 false처리 해주기 
+				mbSpawn = true; // 다음 상태로 넘어갈 때  false처리 해주기 
 			
 				
 				CreateCircleBalls();
+				mbSpawnFinish = true;
 				
 			}
 		}
@@ -83,13 +86,24 @@ namespace ss
 		
 		mfTime += Time::DeltaTime();
 
-		//if (mfTime > 15.f)
-		//{
-		//	float speed = 200.f;
+		if (mfTime > 3.f)
+		{
+			if (GetName() == L"S_EnergyballObjs" && mbSpawn)
+			{
+				AddComponent<Collider2D>();
+			}
 
-		//	Vector3 newPos = mTransform->GetPosition() + mDir * speed * Time::DeltaTime();
-		//	mTransform->SetPosition(newPos);
-		//}
+			float speed = 400.f;
+
+		
+			Transform* tr = GetComponent<Transform>();
+			Vector3 Pos = tr->GetPosition();
+
+			Pos += GetDir() * speed * Time::DeltaTime();
+			tr->SetPosition(Pos);
+
+			//mfTime = 0.0f; => 0으로 초기화하는거는 다른 상태로 넘어갈 떄 그냥 하자 (여러 객체를 써서 이 떄문에 문제가 되는 듯)
+		}
 
 
 
@@ -106,33 +120,52 @@ namespace ss
 
 	void SmallEnergyball::CreateCircleBalls()
 	{
-		const int numBalls = 15;
-		const float radius = 100.0f; // 원하는 반지름의 크기로 변경 가능
+		const int numBalls = 16;
+		const float radius = 90.0f; // 원하는 반지름의 크기로 변경 가능
 
 		float angleStep = 360.0f / numBalls; // 22.5도 간격으로 에너지볼을 생성하기 위한 각도 스텝
 
-		Vector3 bossPosition = Vector3(2.5f, -45.2f, mTransform->GetPosition().z);
+		Vector3 bossPosition = Vector3(2.3f, -32.f, mTransform->GetPosition().z); // 45.2
+
+		const int offsetIndex = 14;  // 기존 13번 인덱스를 0번으로 만들기 위한 오프셋 
+
 
 		for (int i = 0; i < numBalls; ++i)
 		{
+			// 14번 인덱스를 0번으로 설정 (0번 인덱스였던 녀석 말고 14번 인덱스에 있던 녀석을 0번으로 바꾸고 싶어서 i -2로 하면 범위 벗어나서 오류남.
+			// 때문에 모듈러 연산을 이용 
+			int adjustedIndex = (i + offsetIndex) % numBalls;
+
+
+			const float angleOffset = 14.0f;  // 왼쪽으로 30도 오프셋
 
 			const float PI = 3.14159265358979323846f;
 
-			float angle = angleStep * i; // 처음 생성된 에너지볼을 고려하여 각도 조정
+			float angle = angleStep * i + angleOffset; // 오프셋을 추가한 각도 계산 // 처음 생성된 에너지볼을 고려하여 각도 조정
 			float x = bossPosition.x + (radius * cosf(ToRadian(angle)));
 			float y = bossPosition.y + (radius * sinf(ToRadian(angle)));
 
 			// 에너지볼 생성
 			Vector3 spawnPos = Vector3(x, y, bossPosition.z);
-			SmallEnergyball* ball = object::Instantiate<SmallEnergyball>(spawnPos, eLayerType::Collision, L"S_EnergyballObj"); // 필요한 다른 파라미터들도 채워야 합니다.
+			SmallEnergyball* ball = object::Instantiate<SmallEnergyball>(spawnPos, eLayerType::Collision, L"S_EnergyballObjs"); // 필요한 다른 파라미터들도 채워야 합니다.
 			ball->Initialize();
 			ball->RemoveComponent<Collider2D>(); // 날라갈 때 충돌체 입히기 
 
-
 			// 에너지볼에 방향 벡터 설정
-			Vector3 Balldir = (spawnPos - bossPosition);
-			Balldir.Normalize();
-			mDir = Balldir;
+
+			if (adjustedIndex < 4) // 상단의 4개
+				ball->SetDir(Vector3(0, 1, 0));
+
+			else if (adjustedIndex < 8) // 왼쪽 4개
+				ball->SetDir(Vector3(-1, 0, 0));
+
+			else if (adjustedIndex < 12) // 오른쪽 4개
+				ball->SetDir(Vector3(0, -1, 0));
+
+			else 
+				ball->SetDir(Vector3(1, 0, 0));
+
+
 
 		}
 	

@@ -40,6 +40,9 @@ namespace ss
 
 
         static bool  mbSpawn;
+        static bool  mbSpawnFinish;
+
+
     public:
         void SetOriginOwenr(GameObject* obj) { mOwner = obj; }
         void SetFirstEnergyball(SmallEnergyball* obj) { mFirstEnergyball = obj; }
@@ -57,8 +60,17 @@ namespace ss
             return degree * (PI / 180.0f);
         }
 
+        void SetDir(Vector3 dir)
+        {
+            mDir = dir;
+        }
+
+        Vector3 GetDir()
+        {
+            return mDir;
+        }
+
 
 
     };
 }
-
