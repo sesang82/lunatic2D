@@ -2957,6 +2957,22 @@ namespace renderer
 
 		 }
 
+		 // dead
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_1_Energyball_B_noParrying_End_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Big\\noParrying\\End.png");
+
+			 // === Material 생성
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_1_Energyball_B_noParrying_End_Effect_Mtrl", spriteMateiral);
+
+		 }
+
 		 // >> Energy Ball Big (패링0) : 노란거
 		 // 소환
 		 {

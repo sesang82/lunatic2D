@@ -1159,7 +1159,7 @@ namespace ss
 
 				// ===== 큰 에너지볼
 				
-				mBigEngeryball = object::Instantiate<BigEnergyball>(Vector3(BossPos.x + 82.f, BossPos.y + 9.3f, 400.f), eLayerType::Collision, L"ㅠ_EnergyballObj");
+				mBigEngeryball = object::Instantiate<BigEnergyball>(Vector3(BossPos.x + 82.f, BossPos.y + 9.3f, 400.f), eLayerType::Collision, L"B_EnergyballObj");
 				mBigEngeryball->Initialize();
 
 				mBigEngeryball->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
@@ -1482,7 +1482,7 @@ namespace ss
 
 			}// 상태 전환
 			break;
-		
+
 		case eSummonState::MOVE_TO_CENTER:
 		{
 			mAnimator->PlayAnimation(L"Boss2_Goddness_MoveFrontL", false);
@@ -1504,7 +1504,7 @@ namespace ss
 			}
 
 		}
-			break;
+		break;
 
 		case eSummonState::SPAWN_SWORD:
 			// 칼 생성 로직
@@ -1536,6 +1536,7 @@ namespace ss
 		}
 
 
+
 	}
 
 	void GoddnessScript::SummonSpear_Ing()
@@ -1550,7 +1551,7 @@ namespace ss
 
 		if (mSpawnDirCount < 8 && m_fTime > 0.8f)
 		{
-	
+
 
 
 			ChangeState(eBoss2_Phase2::SUMMONSPEAR_START);
@@ -1560,16 +1561,22 @@ namespace ss
 			mbSummonFinish = true; // false는 다음 상태로 넘어갈 때 해주기 
 		}
 
+
+
 		else if (mSpawnDirCount == 8)
 		{
 			mSpawnDirCount = 0;
 			ChangeState(eBoss2_Phase2::SUMMONSPEAR_END);
+			
+		
 		}
 
 	}
 
 	void GoddnessScript::SummonSpear_End()
 	{
+		//mbSummonFinish = false;
+
 		mAnimator->PlayAnimation(L"Boss2_Goddness_CounterEnd", false);
 		ChangeState(eBoss2_Phase2::ENERGYBALL_START);
 	}
@@ -1813,7 +1820,6 @@ namespace ss
 					(Vector3(mPlayerPos.x + 20.f, mPlayerPos.y - 40.f, 400.f), eLayerType::Collision, L"Sword_DownToUp");
 			}
 
-
 		}
 
 		// 오른쪽에서 왼쪽으로 발사 
@@ -2011,10 +2017,6 @@ namespace ss
 
 
 		}
-
-
-
-
 
 
 	}

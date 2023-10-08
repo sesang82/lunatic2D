@@ -4,6 +4,7 @@
 #include "ssPlayer.h"
 #include "ssInput.h"
 #include "ssPlayerScript.h"
+#include "ssAnimator.h"
 
 
 namespace ss
@@ -25,106 +26,219 @@ namespace ss
 	void WallScript::OnCollisionEnter(Collider2D* other)
 	{
 
+		if (GetOwner()->GetName() == L"Wall_R_Obj")
+		{
+			if (other->GetOwner()->GetName() == L"S_EnergyballObj"
+				|| other->GetOwner()->GetName() == L"Parrying_S_EnergyballObj")
+			{
+
+				other->GetOwner()->SetState(GameObject::eState::Dead);
+
+			}
+
+
+		/*	else if (other->GetOwner()->GetName() == L"Sword_LeftToLight")
+			{
+				other->GetOwner()->SetState(GameObject::eState::Dead);
+			}*/
+
+
+
+		}
+
+		else if (GetOwner()->GetName() == L"Wall_L_Obj")
+		{
+			if (other->GetOwner()->GetName() == L"S_EnergyballObj"
+				|| other->GetOwner()->GetName() == L"Parrying_S_EnergyballObj")
+			{
+
+				other->GetOwner()->SetState(GameObject::eState::Dead);
+
+			}
+
+			/*else if (other->GetOwner()->GetName() == L"Sword_RightToLeft")
+			{
+				other->GetOwner()->SetState(GameObject::eState::Dead);
+			}*/
+
+
+		}
+
+		else if (GetOwner()->GetName() == L"Wall_Up_Obj")
+		{
+			if (other->GetName() == L"colHit_player")
+			{
+				Rigidbody2D* playerRigd = mPlayer->GetComponent<Rigidbody2D>();
+				playerRigd->SetVelocity(Vector2(playerRigd->GetVelocity().x, 0.f));
+
+			}
+
+			else if (other->GetOwner()->GetName() == L"S_EnergyballObj"
+				|| other->GetOwner()->GetName() == L"Parrying_S_EnergyballObj")
+			{
+
+				other->GetOwner()->SetState(GameObject::eState::Dead);
+
+			}
+
+			else if (other->GetOwner()->GetName() == L"B_EnergyballObj")
+			{
+				
+				other->GetOwner()->GetComponent<Animator>()->PlayAnimation(L"Energyball_B_NoParrying_End", false);
+
+
+				Transform* tr = other->GetOwner()->GetComponent<Transform>();
+
+				Vector3 rotation = tr->GetDegreeRot();
+				rotation.z = 180.0f;
+				tr->SetRotation(rotation);
+
+				if (other->GetOwner()->GetComponent<Animator>()->GetCurActiveAnimation()->IsComplete())
+				{
+					other->GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+			}
+
+
+			/*else if (other->GetOwner()->GetName() == L"Sword_DownToUp")
+			{
+				other->GetOwner()->SetState(GameObject::eState::Dead);
+			}*/
+
+
+		}
+
+
+		
+
+
+		
+
+
+
+
+
 		
 	}
 	void WallScript::OnCollisionStay(Collider2D* other)
 	{
-		if (other->GetName() == L"colHit_player" && GetOwner()->GetName() == L"Wall_R_Obj")
+
+		if (GetOwner()->GetName() == L"Wall_R_Obj")
 		{
-			Rigidbody2D* playerRigd = mPlayer->GetComponent<Rigidbody2D>();
-			
-			bool TurnOverload = mPlayer->GetComponent<PlayerScript>()->IsTurnOverload();
-			bool IsDash = mPlayer->GetComponent<PlayerScript>()->IsDash();
-			bool IsJump = mPlayer->GetComponent<PlayerScript>()->IsJump();
-
-
-			if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKeyUp(eKeyCode::RIGHT) || IsDash || IsJump)
+			if (other->GetName() == L"colHit_player")
 			{
-				playerRigd->SetVelocity(Vector2(0.f, playerRigd->GetVelocity().y));
+				Rigidbody2D* playerRigd = mPlayer->GetComponent<Rigidbody2D>();
 
-				if (IsJump)
+				bool TurnOverload = mPlayer->GetComponent<PlayerScript>()->IsTurnOverload();
+				bool IsDash = mPlayer->GetComponent<PlayerScript>()->IsDash();
+				bool IsJump = mPlayer->GetComponent<PlayerScript>()->IsJump();
+
+				bool IsGround = playerRigd->IsGround();
+
+
+				if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKeyUp(eKeyCode::RIGHT) || IsDash || IsJump)
 				{
-					playerRigd->SetGravity(Vector2(0.f, 1500.f));
-				}
+					playerRigd->SetVelocity(Vector2(0.f, playerRigd->GetVelocity().y));
 
-			}
-
-			else if (Input::GetKey(eKeyCode::LEFT))
-			{
-				if (!TurnOverload)
-				{
-					playerRigd->SetVelocity(Vector2(-300.f, 0.f));
-				}
-
-				else
-				{
-					playerRigd->SetVelocity(Vector2(-400.f, 0.f));
-				}
-			}
-
-		}
-
-		else if (other->GetName() == L"colHit_player" && GetOwner()->GetName() == L"Wall_L_Obj")
-		{
-			Rigidbody2D* playerRigd = mPlayer->GetComponent<Rigidbody2D>();
-			bool TurnOverload = mPlayer->GetComponent<PlayerScript>()->IsTurnOverload();
-			bool IsDash = mPlayer->GetComponent<PlayerScript>()->IsDash();
-			bool IsJump = mPlayer->GetComponent<PlayerScript>()->IsJump();
-
-			bool IsGround = playerRigd->IsGround();
-
-
-			if (Input::GetKey(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::LEFT) || IsDash || IsJump)
-			{
-				playerRigd->SetVelocity(Vector2(0.f, playerRigd->GetVelocity().y));
-
-				if (IsJump)
-				{
-					playerRigd->SetGravity(Vector2(0.f, 1500.f));
-
-					if (IsGround)
+					if (IsJump)
 					{
-						mPlayer->GetComponent<PlayerScript>()->SetJump(false);
+						playerRigd->SetGravity(Vector2(0.f, 1500.f));
+
+						if (IsGround)
+						{
+							mPlayer->GetComponent<PlayerScript>()->SetJump(false);
+						}
 					}
-	
+
 				}
 
+				else if (Input::GetKey(eKeyCode::LEFT))
+				{
+
+					if (!IsJump)
+					{
+						playerRigd->SetGravity(Vector2::Zero);
+					}
+
+
+					if (!TurnOverload || !IsJump)
+					{
+						playerRigd->SetVelocity(Vector2(-300.f, 0.f));
+					}
+
+					else if (TurnOverload || !IsJump)
+					{
+						playerRigd->SetVelocity(Vector2(-400.f, 0.f));
+					}
+				}
 
 			}
 
-			else if (Input::GetKey(eKeyCode::RIGHT))
-			{
-				
-				if (!IsJump)
-				{
-					playerRigd->SetGravity(Vector2::Zero);
-				}
-
-				if (!TurnOverload || !IsJump)
-				{
-					playerRigd->SetVelocity(Vector2(300.f, 0.f));
-				}
-
-				else if (TurnOverload || !IsJump)
-				{
-					playerRigd->SetVelocity(Vector2(400.f, 0.f));
-				}
-			}
 
 
-			
+
+
 
 		}
 
 
-
-
-		else if (other->GetName() == L"colHit_player" && GetOwner()->GetName() == L"Wall_Up_Obj")
+		if (GetOwner()->GetName() == L"Wall_L_Obj")
 		{
-			Rigidbody2D* playerRigd = mPlayer->GetComponent<Rigidbody2D>();
-			playerRigd->SetGravity(Vector2(0.f, 1500.f));
+			if (other->GetName() == L"colHit_player")
+			{
+				Rigidbody2D* playerRigd = mPlayer->GetComponent<Rigidbody2D>();
+				bool TurnOverload = mPlayer->GetComponent<PlayerScript>()->IsTurnOverload();
+				bool IsDash = mPlayer->GetComponent<PlayerScript>()->IsDash();
+				bool IsJump = mPlayer->GetComponent<PlayerScript>()->IsJump();
+
+				bool IsGround = playerRigd->IsGround();
+
+
+				if (Input::GetKey(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::LEFT) || IsDash || IsJump)
+				{
+					playerRigd->SetVelocity(Vector2(0.f, playerRigd->GetVelocity().y));
+
+					if (IsJump)
+					{
+						playerRigd->SetGravity(Vector2(0.f, 1500.f));
+
+						if (IsGround)
+						{
+							mPlayer->GetComponent<PlayerScript>()->SetJump(false);
+						}
+
+					}
+
+
+				}
+
+				else if (Input::GetKey(eKeyCode::RIGHT))
+				{
+
+					if (!IsJump)
+					{
+						playerRigd->SetGravity(Vector2::Zero);
+					}
+
+					if (!TurnOverload || !IsJump)
+					{
+						playerRigd->SetVelocity(Vector2(300.f, 0.f));
+					}
+
+					else if (TurnOverload || !IsJump)
+					{
+						playerRigd->SetVelocity(Vector2(400.f, 0.f));
+					}
+				}
+
+			}
+
+
+
 
 		}
+
 	}
 	void WallScript::OnCollisionExit(Collider2D* other)
 	{

@@ -43,6 +43,9 @@ void ss::TitleScene::Initialize()
 	CollisionManager::SetLayer(eLayerType::Guard, eLayerType::Mon_Bullet, true);
 	CollisionManager::SetLayer(eLayerType::Guard, eLayerType::Collision, true);
 
+	//CollisionManager::SetLayer(eLayerType::Wall, eLayerType::Collision, true);
+	//CollisionManager::SetLayer(eLayerType::Ground, eLayerType::Collision, true);
+
 
 	// ----------------
 	// ¹è°æ

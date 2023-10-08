@@ -63,6 +63,15 @@ namespace ss
 
 
 		}
+
+		else if (other->GetOwner()->GetName() == L"col_Floor")
+		{
+
+
+			GetOwner()->SetState(GameObject::eState::Dead);
+
+
+		}
 	}
 
 	void SmallEnergyballScript::OnCollisionStay(Collider2D* other)

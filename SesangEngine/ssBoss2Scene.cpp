@@ -277,8 +277,8 @@ namespace ss
 
 
 			Transform* tr = col_Floor->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-300.f, -487.f, 500.f));
-			tr->SetScale(Vector3(416.f, 200.f, 1.f));
+			tr->SetPosition(Vector3(0.f, 168.f, 500.f));
+			tr->SetScale(Vector3(640.f, 20.f, 1.f));
 
 
 			WallScript* wallscript = col_Floor->AddComponent<WallScript>();

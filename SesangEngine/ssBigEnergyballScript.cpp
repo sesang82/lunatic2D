@@ -2,6 +2,7 @@
 #include "ssEnergyball.h"
 #include "ssGameState.h"
 #include "ssPlayerScript.h"
+#include "ssAnimator.h"
 
 namespace ss
 {
@@ -39,13 +40,23 @@ namespace ss
 			}
 		}
 
-		else if (other->GetName() == L"PlayerGuardCol")
+
+		else if (other->GetOwner()->GetName() == L"col_Floor")
 		{
-			// 총알 반대로 가게 함 
-			mIsGuard = true;
+
+			GetOwner()->GetComponent<Animator>()->PlayAnimation(L"Energyball_B_NoParrying_End", false);
+
+			if (GetOwner()->GetComponent<Animator>()->GetCurActiveAnimation()->IsComplete())
+			{
+				GetOwner()->SetState(GameObject::eState::Dead);
+			}
+
+
 
 
 		}
+
+
 	}
 	void BigEnergyballScript::OnCollisionStay(Collider2D* other)
 	{

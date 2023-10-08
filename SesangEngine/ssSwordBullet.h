@@ -24,9 +24,13 @@ namespace ss
         class Transform* mTransform;
         class GameObject* mOwner;  // 모든 객체가 사용하도록 해둠 
         class Player* mPlayer;
+        class Monster* mBoss;
+
 
     public:
         void SetPlayer(Player* player) { mPlayer = player; }
+        void StoreBoss(Monster* mon) { mBoss = mon; }
+        Monster* GetBoss() { return mBoss; }
 
 
 
