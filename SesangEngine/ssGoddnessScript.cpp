@@ -779,17 +779,20 @@ namespace ss
 
 		// 벽에 가시가 다 나오면 플레이어의 위치 위에 떠있는다 (체감상 2초 정도?)
 		bool isGround = mPlayer->GetComponent<Rigidbody2D>()->IsGround();
+		bool isJump = mPlayer->GetComponent<PlayerScript>()->IsJump();
 
-		if (!mbStomp && isGround)
+		if (!mbStomp && isGround || !mbStomp && isJump)
 		{
 			// hit ground를 띄운다. 
 			// hit ground 쪽으로 이동한다.
+			
 
 			Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
-
 			// hit ground를 띄운다.
-			mHitGround = object::Instantiate<Effect>(Vector3(PlayerPos.x, PlayerPos.y - 20.f, PlayerPos.z), eLayerType::Collision, L"StompHitGroundObj");
+			mHitGround = object::Instantiate<Effect>(Vector3(PlayerPos.x, -225.f, PlayerPos.z), eLayerType::Collision, L"StompHitGroundObj");
+			
+			
 
 			HitGroundScript* script = mHitGround->AddComponent<HitGroundScript>();
 			script->SetMonsterOwner((Monster*)mTransform->GetOwner());
@@ -802,10 +805,6 @@ namespace ss
 
 		if (nullptr != mHitGround)
 		{
-
-
-			// **** 점프하면 tagetPos를 못 가져오는 버그 있음
-
 
 			// 석상이 대각선으로 이동한다. 
 			Vector3 StatuePos = mTransform->GetPosition();

@@ -35,11 +35,17 @@ namespace ss
 			
 			bool TurnOverload = mPlayer->GetComponent<PlayerScript>()->IsTurnOverload();
 			bool IsDash = mPlayer->GetComponent<PlayerScript>()->IsDash();
+			bool IsJump = mPlayer->GetComponent<PlayerScript>()->IsJump();
 
 
-			if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKeyUp(eKeyCode::RIGHT) || IsDash)
+			if (Input::GetKey(eKeyCode::RIGHT) || Input::GetKeyUp(eKeyCode::RIGHT) || IsDash || IsJump)
 			{
-				playerRigd->SetVelocity(Vector2::Zero);
+				playerRigd->SetVelocity(Vector2(0.f, playerRigd->GetVelocity().y));
+
+				if (IsJump)
+				{
+					playerRigd->SetGravity(Vector2(0.f, 1500.f));
+				}
 
 			}
 
@@ -63,23 +69,43 @@ namespace ss
 			Rigidbody2D* playerRigd = mPlayer->GetComponent<Rigidbody2D>();
 			bool TurnOverload = mPlayer->GetComponent<PlayerScript>()->IsTurnOverload();
 			bool IsDash = mPlayer->GetComponent<PlayerScript>()->IsDash();
+			bool IsJump = mPlayer->GetComponent<PlayerScript>()->IsJump();
+
+			bool IsGround = playerRigd->IsGround();
 
 
-			if (Input::GetKey(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::LEFT) || IsDash)
+			if (Input::GetKey(eKeyCode::LEFT) || Input::GetKeyUp(eKeyCode::LEFT) || IsDash || IsJump)
 			{
-				playerRigd->SetVelocity(Vector2::Zero);
+				playerRigd->SetVelocity(Vector2(0.f, playerRigd->GetVelocity().y));
+
+				if (IsJump)
+				{
+					playerRigd->SetGravity(Vector2(0.f, 1500.f));
+
+					if (IsGround)
+					{
+						mPlayer->GetComponent<PlayerScript>()->SetJump(false);
+					}
+	
+				}
+
 
 			}
 
 			else if (Input::GetKey(eKeyCode::RIGHT))
 			{
 				
-				if (!TurnOverload)
+				if (!IsJump)
+				{
+					playerRigd->SetGravity(Vector2::Zero);
+				}
+
+				if (!TurnOverload || !IsJump)
 				{
 					playerRigd->SetVelocity(Vector2(300.f, 0.f));
 				}
 
-				else
+				else if (TurnOverload || !IsJump)
 				{
 					playerRigd->SetVelocity(Vector2(400.f, 0.f));
 				}
@@ -89,7 +115,6 @@ namespace ss
 			
 
 		}
-
 
 
 

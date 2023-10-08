@@ -168,7 +168,7 @@ namespace ss
 			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
 			mr->SetMaterial(Resources::Find<Material>(L"Boss2_Tile_Mtrl"));
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 100.f));
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, 700.f));
 			bg->GetComponent<Transform>()->SetScale(Vector3(1600.f, 896.f, 1.0f));
 
 		}
@@ -261,8 +261,8 @@ namespace ss
 
 
 			Transform* tr = col_Floor->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-300.f, -487.f, 500.f));
-			tr->SetScale(Vector3(416.f, 200.f, 1.f));
+			tr->SetPosition(Vector3(-334.f, -38.f, 500.f));
+			tr->SetScale(Vector3(30.f, 389.f, 1.f));
 
 
 			WallScript* wallscript = col_Floor->AddComponent<WallScript>();

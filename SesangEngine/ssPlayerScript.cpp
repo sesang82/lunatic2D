@@ -501,7 +501,7 @@ namespace ss
 			mRigidbody->SetGround(false);
 			++mJumpCount;
 			mbIdleJump = true;
-			mbJump = true;
+			mbJump = false;
 
 			ChangeState(ePlayerState::JUMP); // 이거 지우면 점프 모션으로 이미지 안바뀜
 
@@ -727,6 +727,8 @@ namespace ss
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
+			mbJump = false;
+
 			mRigidbody->SetGravity(Vector2(0.f, 1500.f));
 
 				mVelocity = mRigidbody->GetVelocity();
@@ -875,6 +877,8 @@ namespace ss
 	}
 	void PlayerScript::Jump()
 	{
+		mbJump = true;
+
 		Vector3 pos = mTransform->GetPosition();
 
 		// Idle 상태로 뛰었을 떄 2번 이상 못 뛰게 막음 

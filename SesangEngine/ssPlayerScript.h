@@ -175,6 +175,8 @@ namespace ss
 
         void  SetPrev(bool prev) { mbPrev = prev; }
 
+        void SetJump(bool jump) { mbJump = jump; }
+        bool IsJump() { return mbJump; }
         bool IsDash() { return mbDash; }
         bool IsTurnOverload() { return mTurnOverload; }
 
