@@ -23,6 +23,7 @@
 #include "ssProgressbar.h"
 #include "ssEffect.h"
 #include "ssGoddnessScript.h"
+#include "ssWallScript.h"
 
 namespace ss
 {
@@ -205,6 +206,8 @@ namespace ss
 
 
 
+
+
 		// ==== 캐릭터
 			//// 보스
 		mBoss1 = object::Instantiate<Monster>(eLayerType::Boss, L"B_GodObj");
@@ -233,6 +236,57 @@ namespace ss
 
 
 		wolfScript->SetPlayer(mPlayer);
+
+
+
+		// ================ 벽, 천장 
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Wall, L"Wall_R_Obj");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(334.f, -38.f, 500.f));
+			tr->SetScale(Vector3(30.f, 389.f, 1.f));
+
+			WallScript* wallscript  = col_Floor->AddComponent<WallScript>();
+			wallscript->SetPlayer(mPlayer);
+
+
+		}
+
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Wall, L"Wall_L_Obj");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-300.f, -487.f, 500.f));
+			tr->SetScale(Vector3(416.f, 200.f, 1.f));
+
+
+			WallScript* wallscript = col_Floor->AddComponent<WallScript>();
+			wallscript->SetPlayer(mPlayer);
+
+
+		}
+
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Wall, L"Wall_Up_Obj");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-300.f, -487.f, 500.f));
+			tr->SetScale(Vector3(416.f, 200.f, 1.f));
+
+
+			WallScript* wallscript = col_Floor->AddComponent<WallScript>();
+			wallscript->SetPlayer(mPlayer);
+
+
+		}
+
 
 
 		//==== UI

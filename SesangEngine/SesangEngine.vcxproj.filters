@@ -239,6 +239,9 @@
     <ClCompile Include="ssBigEnergyballScript.cpp">
       <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
     </ClCompile>
+    <ClCompile Include="ssWallScript.cpp">
+      <Filter>Contents\Script\Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -683,6 +686,9 @@
     </ClInclude>
     <ClInclude Include="ssBigEnergyballScript.h">
       <Filter>Contents\Script\Character\Monster\Boss\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="ssWallScript.h">
+      <Filter>Contents\Script\Platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

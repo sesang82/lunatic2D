@@ -37,6 +37,8 @@ void ss::TitleScene::Initialize()
 	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Etc, true);
 	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Mon_Bullet, true);
 	CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+	
+	CollisionManager::SetLayer(eLayerType::Boss, eLayerType::Collision, true);
 
 	CollisionManager::SetLayer(eLayerType::Guard, eLayerType::Mon_Bullet, true);
 	CollisionManager::SetLayer(eLayerType::Guard, eLayerType::Collision, true);

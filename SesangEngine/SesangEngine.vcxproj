@@ -247,6 +247,7 @@
     <ClCompile Include="ssTriggerScript.cpp" />
     <ClCompile Include="ssUI.cpp" />
     <ClCompile Include="ssTraceState.cpp" />
+    <ClCompile Include="ssWallScript.cpp" />
     <ClCompile Include="ssWolfScript.cpp" />
     <ClCompile Include="ssWoodGolemScript.cpp" />
     <ClCompile Include="ssZombieScript.cpp" />
@@ -329,6 +330,7 @@
     <ClInclude Include="ssTriggerScript.h" />
     <ClInclude Include="ssUI.h" />
     <ClInclude Include="ssTraceState.h" />
+    <ClInclude Include="ssWallScript.h" />
     <ClInclude Include="ssWolfScript.h" />
     <ClInclude Include="ssWoodGolemScript.h" />
     <ClInclude Include="ssZombieScript.h" />

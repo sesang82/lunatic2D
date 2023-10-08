@@ -176,6 +176,7 @@ namespace ss
         void  SetPrev(bool prev) { mbPrev = prev; }
 
         bool IsDash() { return mbDash; }
+        bool IsTurnOverload() { return mTurnOverload; }
 
 
         void SetMonster(Monster* monster) { mMonster = monster; } // 몬스터 정보 가져다 쓸 때 쓸라고 만들어둠 
