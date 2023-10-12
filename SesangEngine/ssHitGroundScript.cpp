@@ -72,6 +72,13 @@ namespace ss
 
 		}
 
+		else if (GetOwner()->GetName() == L"Boss2_BeamHitObj") 
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"Boss2_beam_hit_Mtrl"));
+			tr->SetScale(Vector3(608.f, 383.f, 0.f));
+
+		}
+
 
 	}
 	void HitGroundScript::Update()
@@ -212,8 +219,25 @@ namespace ss
 		}
 
 
+		else if (GetOwner()->GetName() == L"Boss2_BeamHitObj")
+		{
+		
+				GoddnessScript* script = mMonster->GetComponent<GoddnessScript>();
+
+			if (nullptr != script)
+			{
+
+				bool Fire = script->GetBeamFire();
 
 
+				if (Fire)
+				{
+					GetOwner()->SetState(GameObject::eState::Dead);
+				}
+
+			}
+
+		}
 
 
 

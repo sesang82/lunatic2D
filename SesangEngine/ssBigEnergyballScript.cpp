@@ -3,6 +3,7 @@
 #include "ssGameState.h"
 #include "ssPlayerScript.h"
 #include "ssAnimator.h"
+#include "ssBigEnergyball.h"
 
 namespace ss
 {
@@ -43,15 +44,11 @@ namespace ss
 
 		else if (other->GetOwner()->GetName() == L"col_Floor")
 		{
+			BigEnergyball* sword = (BigEnergyball*)GetOwner();
+			
+			sword->SetHit(true);
 
-			GetOwner()->GetComponent<Animator>()->PlayAnimation(L"Energyball_B_NoParrying_End", false);
-
-			if (GetOwner()->GetComponent<Animator>()->GetCurActiveAnimation()->IsComplete())
-			{
-				GetOwner()->SetState(GameObject::eState::Dead);
-			}
-
-
+		
 
 
 		}
@@ -60,6 +57,8 @@ namespace ss
 	}
 	void BigEnergyballScript::OnCollisionStay(Collider2D* other)
 	{
+		
+	
 	}
 	void BigEnergyballScript::OnCollisionExit(Collider2D* other)
 	{

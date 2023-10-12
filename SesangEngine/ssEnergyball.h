@@ -47,6 +47,7 @@ namespace ss
        void InitializeSpawnCount() { miSpawnedBallCount = 0; }
        int GetSpawnCount() { return miSpawnedBallCount; }
 
+       void HitEnd();
     
        
  

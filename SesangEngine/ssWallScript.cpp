@@ -5,6 +5,7 @@
 #include "ssInput.h"
 #include "ssPlayerScript.h"
 #include "ssAnimator.h"
+#include "ssBigEnergyball.h"
 
 
 namespace ss
@@ -28,19 +29,25 @@ namespace ss
 
 		if (GetOwner()->GetName() == L"Wall_R_Obj")
 		{
-			if (other->GetOwner()->GetName() == L"S_EnergyballObj"
+			if (other->GetOwner()->GetName() == L"S_EnergyballObjs"
 				|| other->GetOwner()->GetName() == L"Parrying_S_EnergyballObj")
 			{
 
-				other->GetOwner()->SetState(GameObject::eState::Dead);
+				Transform* tr = other->GetOwner()->GetComponent<Transform>();
+
+				Vector3 rotation = tr->GetDegreeRot();
+				rotation.z = 90.0f;
+				tr->SetRotation(rotation);
+
+				other->GetOwner()->GetComponent<Animator>()->PlayAnimation(L"Energyball_S_Parrying_End", false);
 
 			}
 
 
-		/*	else if (other->GetOwner()->GetName() == L"Sword_LeftToLight")
-			{
-				other->GetOwner()->SetState(GameObject::eState::Dead);
-			}*/
+			//else if (other->GetOwner()->GetName() == L"Sword_LeftToLight")
+			//{
+			//	other->GetOwner()->SetState(GameObject::eState::Dead);
+			//}
 
 
 
@@ -48,18 +55,25 @@ namespace ss
 
 		else if (GetOwner()->GetName() == L"Wall_L_Obj")
 		{
-			if (other->GetOwner()->GetName() == L"S_EnergyballObj"
+			if (other->GetOwner()->GetName() == L"S_EnergyballObjs"
 				|| other->GetOwner()->GetName() == L"Parrying_S_EnergyballObj")
 			{
 
-				other->GetOwner()->SetState(GameObject::eState::Dead);
+				Transform* tr = other->GetOwner()->GetComponent<Transform>();
+
+				Vector3 rotation = tr->GetDegreeRot();
+				rotation.z = -90.0f;
+				tr->SetRotation(rotation);
+
+
+				other->GetOwner()->GetComponent<Animator>()->PlayAnimation(L"Energyball_S_Parrying_End", false);
 
 			}
 
-			/*else if (other->GetOwner()->GetName() == L"Sword_RightToLeft")
-			{
-				other->GetOwner()->SetState(GameObject::eState::Dead);
-			}*/
+			//else if (other->GetOwner()->GetName() == L"Sword_RightToLeft")
+			//{
+			//	other->GetOwner()->SetState(GameObject::eState::Dead);
+			//}
 
 
 		}
@@ -73,19 +87,9 @@ namespace ss
 
 			}
 
-			else if (other->GetOwner()->GetName() == L"S_EnergyballObj"
+			else if (other->GetOwner()->GetName() == L"S_EnergyballObjs"
 				|| other->GetOwner()->GetName() == L"Parrying_S_EnergyballObj")
 			{
-
-				other->GetOwner()->SetState(GameObject::eState::Dead);
-
-			}
-
-			else if (other->GetOwner()->GetName() == L"B_EnergyballObj")
-			{
-				
-				other->GetOwner()->GetComponent<Animator>()->PlayAnimation(L"Energyball_B_NoParrying_End", false);
-
 
 				Transform* tr = other->GetOwner()->GetComponent<Transform>();
 
@@ -93,15 +97,29 @@ namespace ss
 				rotation.z = 180.0f;
 				tr->SetRotation(rotation);
 
-				if (other->GetOwner()->GetComponent<Animator>()->GetCurActiveAnimation()->IsComplete())
-				{
-					other->GetOwner()->SetState(GameObject::eState::Dead);
-				}
+
+				other->GetOwner()->GetComponent<Animator>()->PlayAnimation(L"Energyball_S_Parrying_End", false);
+
+			}
+
+			else if (other->GetOwner()->GetName() == L"BigEnergyballs")
+			{
+				Transform* tr = other->GetOwner()->GetComponent<Transform>();
+
+				Vector3 rotation = tr->GetDegreeRot();
+				rotation.z = 180.0f;
+				tr->SetRotation(rotation);
+
+
+				BigEnergyball* big = (BigEnergyball*)other->GetOwner();
+
+				big->SetHit(true);
+
 
 			}
 
 
-			/*else if (other->GetOwner()->GetName() == L"Sword_DownToUp")
+		/*	else if (other->GetOwner()->GetName() == L"Sword_DownToUp")
 			{
 				other->GetOwner()->SetState(GameObject::eState::Dead);
 			}*/
@@ -262,5 +280,10 @@ namespace ss
 			playerRigd->SetGravity(Vector2(0.f, 1500.f));
 
 		}
+
+
+
+
+
 	}
 }

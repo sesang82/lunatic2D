@@ -67,9 +67,7 @@ namespace ss
 		else if (other->GetOwner()->GetName() == L"col_Floor")
 		{
 
-
-			GetOwner()->SetState(GameObject::eState::Dead);
-
+			GetOwner()->GetComponent<Animator>()->PlayAnimation(L"Energyball_S_Parrying_End", false);
 
 		}
 	}

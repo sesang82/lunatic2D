@@ -2832,7 +2832,7 @@ namespace ss
 
 		mAttackColliderObj->RemoveComponent<Collider2D>();
 
-		if (nullptr != mMonster)
+		if (nullptr != mMonster && mMonster->GetState() != GameObject::eState::Dead)
 		{
 			mMonster->GetComponent<MonsterScript>()->SetHit(false);
 		}

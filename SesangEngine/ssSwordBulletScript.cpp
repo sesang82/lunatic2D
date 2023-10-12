@@ -2,6 +2,7 @@
 #include "ssGameObject.h"
 #include "ssPlayerScript.h"
 #include "ssGameState.h"
+#include "ssGoddnessScript.h"
 
 
 namespace ss
@@ -21,7 +22,7 @@ namespace ss
 	void SwordBulletScript::OnCollisionEnter(Collider2D* other)
 	{
 
-		/*if (other->GetName() == L"col_Floor" && GetOwner()->GetName() == L"Sword_UpToDown")
+		if (other->GetName() == L"col_Floor" && GetOwner()->GetName() == L"Sword_UpToDown")
 		{
 
 
@@ -30,7 +31,7 @@ namespace ss
 
 		}
 
-		else*/ if (other->GetName() == L"colHit_player")
+		else if (other->GetName() == L"colHit_player")
 		{
 			PlayerScript* script = other->GetOwner()->GetComponent<PlayerScript>();
 			bool bDash = script->IsDash();
@@ -44,14 +45,15 @@ namespace ss
 				// 공격 당했을 시 HIT 상태로 변경 
 				script->ChangeState(ePlayerState::HIT);
 
-
-				// 총알이 플레이어에게 부딪치면 삭제
-				GetOwner()->SetState(ss::GameObject::eState::Dead);
 			}
 		}
+
+	
 	}
 	void SwordBulletScript::OnCollisionStay(Collider2D* other)
 	{
+
+		
 	}
 	void SwordBulletScript::OnCollisionExit(Collider2D* other)
 	{

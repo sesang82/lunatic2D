@@ -481,7 +481,7 @@ namespace renderer
 
 		material = std::make_shared<Material>();
 		material->SetShader(BossShader);
-		material->SetRenderingMode(eRenderingMode::Transparent);
+		material->SetRenderingMode(eRenderingMode::CutOut);
 		Resources::Insert(L"torchAnimMtrl", material);
 
 		material = std::make_shared<Material>();
@@ -2622,6 +2622,75 @@ namespace renderer
 #pragma region Boss [Goddness]
 
 
+		 // hit 包访
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_beam_hit",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\Phase2\\Boss\\Effect\\beam_hit.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(spriteShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+
+			 Resources::Insert(L"Boss2_beam_hit_Mtrl", spriteMateiral);
+
+		 }
+
+		 // Beam 包访 742 406
+		 
+		 // 1
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_beam_Start",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\ShieldBeam\\Beam_Start.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+
+			 Resources::Insert(L"Boss2_beam_Start_Mtrl", spriteMateiral);
+
+		 }
+
+		 // 7
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_beam_Ing",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\ShieldBeam\\Beam_Ing.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+
+			 Resources::Insert(L"Boss2_beam_Ing_Mtrl", spriteMateiral);
+
+		 }
+
+		 // 5
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_beam_End",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\ShieldBeam\\Beam_End.png");
+
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+
+			 Resources::Insert(L"Boss2_beam_End_Mtrl", spriteMateiral);
+
+		 }
+
+
+
+
 		 // ======================================
 		 // BackGround
 		 {
@@ -2731,7 +2800,6 @@ namespace renderer
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(spriteShader);
 			 spriteMateiral->SetTexture(texture);
-			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 
 			 Resources::Insert(L"Fire_Base_Mtrl", spriteMateiral);
@@ -2747,8 +2815,7 @@ namespace renderer
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
-			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
-
+			
 
 			 Resources::Insert(L"Fire_turnonstart_Mtrl", spriteMateiral);
 
@@ -2765,7 +2832,6 @@ namespace renderer
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
 			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
-
 
 			 Resources::Insert(L"Fire_turnon_Mtrl", spriteMateiral);
 
@@ -3006,6 +3072,8 @@ namespace renderer
 
 		 }
 
+	
+
 		 // >> Energy Ball Small (菩傅x) : 弧埃芭
 		 // 家券
 		 {
@@ -3073,7 +3141,21 @@ namespace renderer
 
 		 }
 
+		 // 场
+		 {
+			 std::shared_ptr<Texture> texture
+				 = Resources::Load<Texture>(L"Boss2_1_Energyball_S_Parrying_End_Effect",
+					 L"..\\Resources\\Texture\\Boss\\Goddness\\CommonEffect\\AttackCircle\\Small\\Parrying\\End.png");
 
+			 // === Material 积己
+			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			 spriteMateiral->SetShader(AnimShader);
+			 spriteMateiral->SetTexture(texture);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+
+			 Resources::Insert(L"Boss2_1_Energyball_S_Parrying_End_Effect_Mtrl", spriteMateiral);
+
+		 }
 
 
 
@@ -3379,7 +3461,7 @@ namespace renderer
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
-			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			 Resources::Insert(L"Boss2_2_ShiledBeam_Ready_Mtrl", spriteMateiral);
 
@@ -3395,7 +3477,7 @@ namespace renderer
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
-			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			 Resources::Insert(L"Boss2_2_ShiledBeam_ing_Mtrl", spriteMateiral);
 
@@ -3411,8 +3493,7 @@ namespace renderer
 			 std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			 spriteMateiral->SetShader(AnimShader);
 			 spriteMateiral->SetTexture(texture);
-			 spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
-
+			 spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 			 Resources::Insert(L"Boss2_2_ShiledBeam_End_Mtrl", spriteMateiral);
 
 		 }

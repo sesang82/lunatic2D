@@ -77,6 +77,9 @@ namespace ss
 		// 플레이어용 기타 효과
 		std::shared_ptr<ss::graphics::Texture> Image24 = Resources::Find<ss::graphics::Texture>(L"Player_GuardEffect");
 
+		// 보스 가드니스 용 
+		std::shared_ptr<ss::graphics::Texture> Image25 = Resources::Find<ss::graphics::Texture>(L"Boss2_beam_Ing");
+		std::shared_ptr<ss::graphics::Texture> Image26 = Resources::Find<ss::graphics::Texture>(L"Boss2_beam_End");
 
 		// 보스 늑대용
 		anim->Create(L"Boss_Wolf_HowlingEffect", Image1, Vector2(0.f, 0.f), Vector2(583.f, 123.f), 6, Vector2(583.f, 123.f));
@@ -86,6 +89,14 @@ namespace ss
 
 		anim->Create(L"Boss_Wolf_BreathStartEffectR", Image2, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 4, Vector2(663.f, 69.f));
 		anim->Create(L"Boss_Wolf_BreathEndEffectR", Image3, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
+
+		anim->Create(L"Boss_Wolf_BreathEndEffectR", Image3, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
+		anim->Create(L"Boss_Wolf_BreathEndEffectR", Image3, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
+
+	// 보스 가드니스용
+
+		anim->Create(L"Boss2_beam_IngEffect", Image25, Vector2(0.f, 0.f), Vector2(742.f, 406.f), 7, Vector2(742.f, 406.f));
+		//anim->Create(L"Boss2_beam_EndEffect", Image26, Vector2(0.f, 0.f), Vector2(742.f, 406.f), 5, Vector2(742.f, 406.f));
 
 		// 플레이어용
 		// sword
@@ -445,6 +456,16 @@ namespace ss
 			tr->SetScale(Vector3(9.f, 1632.f, 0.f));
 
 		}
+
+
+		else if (GetOwner()->GetName() == L"Boss2_BeamObj")
+		{
+			mr->SetMaterial(Resources::Find<Material>(L"Boss2_beam_Start_Mtrl"));
+			tr->SetScale(Vector3(742.f, 406.f, 0.f));
+
+		}
+
+		
 
 	}
 
@@ -873,6 +894,13 @@ namespace ss
 
 		}
 
+
+		else if (GetOwner()->GetName() == L"Boss2_BeamObj")
+		{
+			anim->PlayAnimation(L"Boss2_beam_IngEffect", true);
+			
+
+		}
 
 
 

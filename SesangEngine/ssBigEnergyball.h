@@ -7,6 +7,7 @@ namespace ss
     class BigEnergyball :
         public Bullet
     {
+        friend class BigEnergyballScript;
 
         class Engeryball;
 
@@ -22,6 +23,7 @@ namespace ss
     private:
         static int miSpawnedBallCount; // 객체가 생성될때마다 생성자 초기값으로 초기화되기 때문에 static 씀 
         BigEnergyball* mFirstEnergyball;
+        BigEnergyball* mEnergyballs;
         float mfTime;
         Vector3 mPlayerPos;
         Vector3 mDirections;
@@ -30,6 +32,7 @@ namespace ss
         int miMaxSpawnedBalls;
         bool mbSpawnComplete;
         bool mStorePlayerPos;
+        bool mbHit;
 
         std::vector<Vector2> spawnPatterns;
 
@@ -51,6 +54,14 @@ namespace ss
 
         void SetDir(Vector3 dir) { mDirections = dir; }
         Vector3 GetDir() { return mDirections; }
+
+        void SetHit(bool hit) { mbHit = hit; }
+        bool GetHit() { return mbHit; }
+        void SetInstance(BigEnergyball* inst) { mEnergyballs = inst; }
+
+
+        void HitEnd();
+        
 
 
     

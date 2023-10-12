@@ -443,7 +443,7 @@ namespace ss
 				else if (GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
 					|| GetOwner()->GetName() == L"Pistolbullet_Big_ObjL")
 				{
-					B_God->SetCurrentHP(B_God->GetCurrentHP() - 20);
+					B_God->SetCurrentHP(B_God->GetCurrentHP() - 10);
 					GetOwner()->SetState(GameObject::eState::Dead);
 				}
 
@@ -455,7 +455,15 @@ namespace ss
 			else if (B_God->GetCurrentHP() <= 0.f)
 			{
 
-				script->ChangeState(eBoss2_Phase1::DIE);
+				if (script->GetBossType() == eBossType::STATUE)
+				{
+					script->ChangeState(eBoss2_Phase1::DIE);
+				}
+
+				else
+				{
+					script->ChangeState(eBoss2_Phase2::DIE);
+				}
 			}
 
 

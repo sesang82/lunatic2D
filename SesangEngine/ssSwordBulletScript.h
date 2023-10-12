@@ -20,12 +20,9 @@ namespace ss
         virtual void OnCollisionExit(Collider2D* other) override;
 
     private:
-        GameObject* mOriginOwner;
         class CharacterState* mState;
         bool mIsGuard;
 
-    private:
-        void SetOriginOwner(GameObject* obj) { mOriginOwner = obj; }
 
 
 

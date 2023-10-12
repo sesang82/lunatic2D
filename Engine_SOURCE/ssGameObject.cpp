@@ -41,6 +41,7 @@ namespace ss
 
 	void GameObject::Update()
 	{
+
 		for (Component* comp : mComponents)
 		{
 			comp->Update();

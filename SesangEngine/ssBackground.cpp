@@ -56,7 +56,7 @@ namespace ss
 		{
 
 			anim->PlayAnimation(L"boss2_GroundplatfromStart", false);
-			GetComponent<Transform>()->SetScale(Vector3(100.f, 24.f, 500.f));
+			GetComponent<Transform>()->SetScale(Vector3(100.f, 24.f, 1.f));
 
 		}
 

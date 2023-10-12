@@ -70,6 +70,8 @@ namespace ss
             return mDir;
         }
 
+        void HitEnd();
+
 
 
     };

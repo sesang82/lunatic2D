@@ -418,12 +418,17 @@ namespace ss
 
 				else if (B_Statue->GetCurrentHP() <= 0.f)
 				{
-					script->ChangeState(eWolfBossState::DEAD);
+					if (script->GetBossType() == eBossType::STATUE)
+					{
+						script->ChangeState(eBoss2_Phase1::DIE);
+					}
+
+					else
+					{
+						script->ChangeState(eBoss2_Phase2::DIE);
+					}
 				}
-
-
-				}
-
+			}
 
 		}
 

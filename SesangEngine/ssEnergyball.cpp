@@ -62,23 +62,26 @@ namespace ss
 		mAnimator = AddComponent<Animator>();
 
 
-		mTransform->SetScale(Vector3(58.f, 54.f, 1.0f));
+		mTransform->SetScale(Vector3(71.f, 64.f, 1.0f));
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
 
-		Collider2D* col = AddComponent<Collider2D>();
-		col->SetSize(Vector2(1.f, 1.f));
-		col->SetName(L"EnergyballCol");
+		AddComponent<Collider2D>();
+
 
 
 		std::shared_ptr<ss::graphics::Texture> Image1 = Resources::Find<ss::graphics::Texture>(L"Boss2_1_Energyball_S_Parrying_Spawn_Effect");
 		std::shared_ptr<ss::graphics::Texture> Image2 = Resources::Find<ss::graphics::Texture>(L"Boss2_1_Energyball_S_Parrying_AfterSpawn_Effect");
+		std::shared_ptr<ss::graphics::Texture> Image3 = Resources::Find<ss::graphics::Texture>(L"Boss2_1_Energyball_S_Parrying_End_Effect");
 
-		mAnimator->Create(L"Energyball_S_Parrying_Spawn", Image1, Vector2(0.f, 0.f), Vector2(58.f, 54.f), 6, Vector2(58.f, 54.f), Vector2::Zero, 0.08f);
-		mAnimator->Create(L"Energyball_S_Parrying_Energying", Image2, Vector2(0.f, 0.f), Vector2(58.f, 54.f), 6, Vector2(58.f, 54.f), Vector2::Zero, 0.08f);
+		mAnimator->Create(L"Energyball_S_Parrying_Spawn", Image1, Vector2(0.f, 0.f), Vector2(71.f, 64.f), 6, Vector2(71.f, 64.f), Vector2::Zero, 0.08f);
+		mAnimator->Create(L"Energyball_S_Parrying_Energying", Image2, Vector2(0.f, 0.f), Vector2(71.f, 64.f), 6, Vector2(71.f, 64.f), Vector2::Zero, 0.08f);
+		mAnimator->Create(L"Energyball_S_Parrying_End", Image3, Vector2(0.f, 0.f), Vector2(71.f, 64.f), 6, Vector2(71.f, 64.f), Vector2::Zero, 0.08f);
 
 
-		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false); // trigger 완성하면 지우기 
+		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false);
+
+		mAnimator->EndEvent(L"Energyball_S_Parrying_End") = std::bind(&Energyball::HitEnd, this);
 
 		AddComponent<SmallEnergyballScript>();
 
@@ -121,7 +124,9 @@ namespace ss
 
 		if (mfTime > 7.f && mbSpawnComplete && miSpawnedBallCount == 12)
 		{
-			AddComponent<Collider2D>();
+			Collider2D* col = AddComponent<Collider2D>();
+			col->SetSize(Vector2(0.8f, 0.8f));
+			col->SetName(L"EnergyballCol");
 
 			if (!mStorePlayerPos)
 			{
@@ -177,6 +182,13 @@ namespace ss
 
 		++miSpawnedBallCount;
 
+
+	}
+
+	void Energyball::HitEnd()
+	{
+
+		SetState(GameObject::eState::Dead);
 
 	}
 

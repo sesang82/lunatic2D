@@ -68,6 +68,7 @@ namespace ss
         Vector3					mCurDir; // 거리값으로 계산해낸 방향 
 
         Vector3                 mPlayerPos;
+        Vector3                 mPos;
 
         int miStompCount;
         int miCompleteStompCount;
@@ -83,11 +84,15 @@ namespace ss
 
         bool mbMovingDown;
         bool mbMovingDiagonally;
+        bool mbMoving;
 
         bool mbFreezingPos;
         bool mbFirstSpawnDone;
         bool mbSecondSpawnDone;
         bool mbSummonFinish;
+        bool mbFiring;
+        bool mbBeam;
+        bool mbBeamFire;
 
 
         int miRandom;
@@ -143,6 +148,9 @@ namespace ss
         class Effect* mHitDir_Left;
         class Effect* mHitDir_Right;
 
+
+        class Effect* mBeam;
+
     public:
         // 함수는 각 하나의 역할만 하게 하기 
         void Intro();
@@ -177,6 +185,13 @@ namespace ss
         void FireSwordBullet();
 
 
+        void ShiledBeam_Start();
+        void ShiledBeam_Ing();
+        void ShiledBeam_End();
+
+        void Beam_End();
+
+
 
 
 
@@ -191,6 +206,7 @@ namespace ss
         eMonsterState GetCurState() { return mCurState; }
 
         eStompState  GetRandomStompState();
+        eBossType GetBossType() { return mBossType; }
 
 
         bool IsSpawnDirHit()
@@ -201,6 +217,12 @@ namespace ss
         int GetSpawnDirCount() { return mSpawnDirCount; }
 
         bool GetSummonFinish() { return mbSummonFinish; }
+        void SetFiring(bool fire) { mbFiring = fire; }
+
+        void SetBeam(bool beam) { mbBeam = beam; }
+
+
+        bool GetBeamFire() { return mbBeamFire; }
 
     };
 
