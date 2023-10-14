@@ -19,6 +19,7 @@
 #include "ssProgressbar.h"
 #include "ssItem.h"
 #include "ssItemScript.h"
+#include "ssUIFrameScript.h"
 
 namespace ss
 {
@@ -128,6 +129,70 @@ namespace ss
 			bg->GetComponent<Transform>()->SetScale(Vector3(308.f, 57.f, 1.f));
 		}
 
+		// 무기 슬롯1
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			bg->SetName(L"Weapon_Slot1");
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(-33.f, -197.f, 90.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(24.f, 24.f, 1.f));
+
+
+			UIFrameScript* uiframe = bg->AddComponent<UIFrameScript>();
+			uiframe->SetPlayer(mPlayer);
+
+
+		}
+
+		// 무기 슬롯2
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			bg->SetName(L"Weapon_Slot2");
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -185.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(24.f, 24.f, 1.f));
+
+
+			UIFrameScript* uiframe = bg->AddComponent<UIFrameScript>();
+			uiframe->SetPlayer(mPlayer);
+		}
+
+		// 무기 슬롯3
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			bg->SetName(L"Weapon_Slot3");
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(33.f, -197.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(24.f, 24.f, 1.f));
+
+
+			UIFrameScript* uiframe = bg->AddComponent<UIFrameScript>();
+			uiframe->SetPlayer(mPlayer);
+		}
+
+
+
 		//플레이어 HP바
 		{
 			GameObject* bg = new GameObject();
@@ -235,7 +300,7 @@ namespace ss
 	void EntranceScene::OnEnter()
 	{
 		renderer::mainCamera = mCamera;
-		mCamera->SetSize(2.3f);
+		mCamera->SetSize(0.3f);
 
 		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 		camerscript->SetTarget(mPlayer);

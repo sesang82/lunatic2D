@@ -3874,7 +3874,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			Resources::Insert(L"w1Mtrl", spriteMateiral);
 		}
@@ -3889,13 +3889,13 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			Resources::Insert(L"w2Mtrl", spriteMateiral);
 		}
 
 
-		// 무기 활
+		// 무기 건틀렛
 		{
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"MiniWeaponBorrow", L"..\\Resources\\Texture\\Library\\w3.png");
@@ -3904,7 +3904,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 
 			Resources::Insert(L"w3Mtrl", spriteMateiral);
 		}

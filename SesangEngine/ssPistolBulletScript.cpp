@@ -23,7 +23,7 @@ namespace ss
 {
 	PistolBulletScript::PistolBulletScript()
 		: mReverse(false)
-		, mSpeed(200.f)
+		, mSpeed(350.f)
 		, mIsGuard(false)
 		, mAnimator(nullptr)
 		, mTransform(nullptr)

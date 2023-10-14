@@ -242,6 +242,9 @@
     <ClCompile Include="ssWallScript.cpp">
       <Filter>Contents\Script\Platform</Filter>
     </ClCompile>
+    <ClCompile Include="ssUIFrameScript.cpp">
+      <Filter>Contents\Script\UI\UIFrame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -444,6 +447,9 @@
     </Filter>
     <Filter Include="Contents\Script\Character\Monster\Boss\Boss2">
       <UniqueIdentifier>{b78d8026-2ac0-44d5-9ce1-e97c986bdcaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\UI\UIFrame">
+      <UniqueIdentifier>{a6f85930-6acc-4a93-855b-e4541732691f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -689,6 +695,9 @@
     </ClInclude>
     <ClInclude Include="ssWallScript.h">
       <Filter>Contents\Script\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="ssUIFrameScript.h">
+      <Filter>Contents\Script\UI\UIFrame</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -251,6 +251,7 @@
     <ClCompile Include="ssWolfScript.cpp" />
     <ClCompile Include="ssWoodGolemScript.cpp" />
     <ClCompile Include="ssZombieScript.cpp" />
+    <ClCompile Include="ssUIFrameScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ssBigEnergyball.h" />
@@ -334,6 +335,7 @@
     <ClInclude Include="ssWolfScript.h" />
     <ClInclude Include="ssWoodGolemScript.h" />
     <ClInclude Include="ssZombieScript.h" />
+    <ClInclude Include="ssUIFrameScript.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

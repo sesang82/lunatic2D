@@ -64,8 +64,13 @@ namespace ss
 		, mAttackEffect(nullptr)
 		, mbAttack(false)
 		, mPistolBullet(nullptr)
+		, mbGetSword(false)
+		, mbGetGauntlet(false)
+		, mbGetPistol(false)
 	{
 	}
+
+
 	PlayerScript::~PlayerScript()
 	{
 	}
@@ -360,15 +365,16 @@ namespace ss
 	void PlayerScript::OnCollisionStay(Collider2D* other)
 	{
 
-
-		// ==== 일단 이미지는 화살이지만, 검 애니메이션 나오게 해보기 
-		if (L"col_TreeBorrow" == other->GetOwner()->GetName())
+		if (L"col_TreeSword" == other->GetOwner()->GetName())
 		{
 
 			if (Input::GetKeyDown(eKeyCode::F))
 			{
 
 				// ui에 칼 이미지가 나오게 한다.
+				mbGetSword = true;
+				SceneManager::SetOnSword(mbGetSword);
+
 
 				// f키를 누르면 칼 idle 애니메이션으로 바뀌게 한다.
 				mChangeFirst = true;
@@ -380,6 +386,47 @@ namespace ss
 			}
 
 		}	
+
+		else if (L"col_TreePistol" == other->GetOwner()->GetName())
+		{
+
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+
+				// ui에 칼 이미지가 나오게 한다.
+				SceneManager::SetOnPistol(true);
+
+
+				// f키를 누르면 칼 idle 애니메이션으로 바뀌게 한다.
+				mChangeFirst = true;
+				mWeaponType = eWeaponType::PISTOL;
+				SceneManager::SetWeaponInfo(mWeaponType);
+				mbChange = true;
+
+
+			}
+
+		}
+
+		else if (L"col_TreeGauntlet" == other->GetOwner()->GetName())
+		{
+
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+
+				// ui에 칼 이미지가 나오게 한다.
+				SceneManager::SetOnGauntlet(true);
+
+				// f키를 누르면 칼 idle 애니메이션으로 바뀌게 한다.
+				mChangeFirst = true;
+				mWeaponType = eWeaponType::GAUNTLET;
+				SceneManager::SetWeaponInfo(mWeaponType);
+				mbChange = true;
+
+
+			}
+
+		}
 
 		// 아이템  ** 과부하
 		else if (L"overload_Item" == other->GetOwner()->GetName())

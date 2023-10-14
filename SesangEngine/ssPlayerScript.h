@@ -76,6 +76,11 @@ namespace ss
         bool mbPlayerOverloadingEffet;
         bool mTurnOverload;
         bool mbRepeat;
+
+
+        bool mbGetSword;
+        bool mbGetGauntlet;
+        bool mbGetPistol;
   
 
         float mJumpPower;
@@ -186,8 +191,11 @@ namespace ss
 
         bool IsUseOverload() { return mbUseOverload;}
         void SetboolSPAttack(bool useAttack) { useAttack = mbspAttack;  }
- 
 
+
+        bool GetSword() { return mbGetSword; }
+        bool GetGauntlet() { return mbGetGauntlet; }
+        bool GetPistol() { return mbGetPistol; }
 
         // 함수는 각 하나의 역할만 하게 하기 
         void Idle();

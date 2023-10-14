@@ -61,10 +61,22 @@ namespace ss
 		//static Boss* mBoss;
 		static class Player* mPlayer;
 
+		static bool mbOnSword;
+		static bool mbOnPistol;
+		static bool mbOnGauntlet;
+
 	public:
 		static void SetWeaponInfo(eWeaponType info) { WeaponInfo = info; }
 		static eWeaponType GetWeaponInfo() { return WeaponInfo; }
 		static void SetPlayer(Player* player) { mPlayer = player; }
 		static Player* GetPlayer() { return mPlayer; }
+
+		static void SetOnSword(bool on) { mbOnSword = on; }
+		static void SetOnPistol(bool on) { mbOnPistol = on;}
+		static void SetOnGauntlet(bool on) { mbOnGauntlet = on; }
+
+		static bool IsOnSword() { return mbOnSword; }
+		static bool IsOnPistol() { return mbOnPistol; }
+		static bool IsOnGauntlet() { return mbOnGauntlet; }
 	};
 }

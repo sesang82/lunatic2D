@@ -119,8 +119,8 @@ namespace ss
 		anim->Create(L"P_PlayerspAttack_EffectR", Image9, Vector2(0.f, 0.f), Vector2(86.f, 67.f), 4, Vector2(86.f, 67.f), Vector2(0.f, -8.f));
 		anim->Create(L"P_PlayerspAttack_EffectL", Image9, Vector2(0.f, 0.f), Vector2(86.f, 67.f), 4, Vector2(86.f, 67.f), Vector2(0.f, -8.f), 0.1f, true);
 
-		anim->Create(L"P_PlayerOverloading_EffectR", Image10, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
-		anim->Create(L"P_PlayerOverloading_EffectL", Image10, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
+		anim->Create(L"P_PlayerOverloading_EffectR", Image10, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.08f);
+		anim->Create(L"P_PlayerOverloading_EffectL", Image10, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.08f, true);
 
 		anim->Create(L"P_PlayerOverloadEnd_EffectR", Image11, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f));
 		anim->Create(L"P_PlayerOverloadEnd_EffectL", Image11, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
