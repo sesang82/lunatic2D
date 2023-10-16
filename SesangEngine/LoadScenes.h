@@ -35,6 +35,6 @@ namespace ss
 
 
 		// =======Load할 때는 On Enter와 On Exit만 호출됨.
-		SceneManager::LoadScene(L"LibraryScene");
+		SceneManager::LoadScene(L"TitleScene");
 	}
 }

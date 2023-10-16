@@ -146,4 +146,5 @@ namespace renderer
 	// 이 함수 안에서 쉐이더를 제작해주면 된다.
 	void LoadShader();
 	void LoadMaterial();
+	void LoadAudio();
 }

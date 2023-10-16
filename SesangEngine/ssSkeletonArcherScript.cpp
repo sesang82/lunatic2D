@@ -155,7 +155,7 @@ namespace ss
 		mFarCol = mFarRangeColObj->GetComponent<Collider2D>();
 
 
-		mFarCol->SetSize(Vector2(200.f, 20.f));
+		mFarCol->SetSize(Vector2(220.f, 20.f));
 		mFarCol->SetCenter(Vector2(0.f, 0.2f));
 
 

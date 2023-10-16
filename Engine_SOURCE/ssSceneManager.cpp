@@ -7,7 +7,7 @@ namespace ss
 {
 	// ===== static √ ±‚»≠
 	Scene* SceneManager::mActiveScene = nullptr;
-	eWeaponType SceneManager::WeaponInfo = eWeaponType::NONE;
+	eWeaponType SceneManager::WeaponInfo = eWeaponType::PISTOL;
 
 	Player* SceneManager::mPlayer = nullptr;
 

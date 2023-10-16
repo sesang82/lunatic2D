@@ -13,7 +13,7 @@ namespace ss
 {
 	ArcherArrowScript::ArcherArrowScript()
 		: mReverse(false)
-		, mSpeed(80.f)
+		, mSpeed(120.f)
 		, mIsGuard(false)
 	{
 	}

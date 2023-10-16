@@ -44,6 +44,22 @@ namespace ss
 			}
 
 
+			else if (other->GetOwner()->GetName() == L"Pistolbullet_Big_ObjR"
+				|| other->GetOwner()->GetName() == L"Pistolbullet_Small_ObjR"
+				|| other->GetOwner()->GetName() == L"ArcherArrowObj_R"
+				|| other->GetOwner()->GetName() == L"ArcherArrowObj_L"
+				|| other->GetOwner()->GetName() == L"StoneEyeFarObjL"
+				|| other->GetOwner()->GetName() == L"StoneEyeFarObjR")
+			{
+				other->GetOwner()->SetState(GameObject::eState::Dead);
+
+
+			}
+
+
+
+
+
 			//else if (other->GetOwner()->GetName() == L"Sword_LeftToLight")
 			//{
 			//	other->GetOwner()->SetState(GameObject::eState::Dead);
@@ -69,6 +85,35 @@ namespace ss
 				other->GetOwner()->GetComponent<Animator>()->PlayAnimation(L"Energyball_S_Parrying_End", false);
 
 			}
+
+			else if (other->GetOwner()->GetName() == L"BigEnergyballs")
+			{
+				Transform* tr = other->GetOwner()->GetComponent<Transform>();
+
+				Vector3 rotation = tr->GetDegreeRot();
+				rotation.z = 180.0f;
+				tr->SetRotation(rotation);
+
+
+				BigEnergyball* big = (BigEnergyball*)other->GetOwner();
+
+				big->SetHit(true);
+
+
+			}
+
+			else if (other->GetOwner()->GetName() == L"Pistolbullet_Big_ObjL"
+				|| other->GetOwner()->GetName() == L"Pistolbullet_Small_ObjL"
+				|| other->GetOwner()->GetName() == L"ArcherArrowObj_R"
+				|| other->GetOwner()->GetName() == L"ArcherArrowObj_L"
+				|| other->GetOwner()->GetName() == L"StoneEyeFarObjL"
+				|| other->GetOwner()->GetName() == L"StoneEyeFarObjR")
+			{
+				other->GetOwner()->SetState(GameObject::eState::Dead);
+
+
+			}
+
 
 			//else if (other->GetOwner()->GetName() == L"Sword_RightToLeft")
 			//{
@@ -117,6 +162,7 @@ namespace ss
 
 
 			}
+
 
 
 		/*	else if (other->GetOwner()->GetName() == L"Sword_DownToUp")
@@ -176,7 +222,7 @@ namespace ss
 
 					if (!IsJump)
 					{
-						playerRigd->SetGravity(Vector2::Zero);
+						//playerRigd->SetGravity(Vector2::Zero);
 					}
 
 

@@ -98,6 +98,7 @@ namespace ss
         class Rigidbody2D* mRigidbody;
         class CharacterState* mState;
         class Collider2D* mCollider;
+        class AudioSource* mAudioSource;
 
         // 공격용 충돌체 
         class AttackCollider* mAttackColliderObj;

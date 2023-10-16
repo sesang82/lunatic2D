@@ -34,6 +34,7 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image3 = Resources::Find<ss::graphics::Texture>(L"Fire_Base");
 		
 		std::shared_ptr<ss::graphics::Texture> Image4 = Resources::Find<ss::graphics::Texture>(L"Boss2_GroundFloatform");
+		std::shared_ptr<Texture> Image5 = Resources::Find<Texture>(L"Moon1Statue");
 
 		// ==== 1페이즈 석상 
 		anim->Create(L"fire_turnOnStart", Image1, Vector2(0.f, 0.f), Vector2(48.f, 64.f), 7, Vector2(48.f, 64.f));
@@ -41,7 +42,8 @@ namespace ss
 		anim->Create(L"fire_turnoff", Image3, Vector2(0.f, 0.f), Vector2(48.f, 64.f), 1, Vector2(48.f, 64.f));
 
 		anim->Create(L"boss2_GroundplatfromStart", Image4, Vector2(0.f, 0.f), Vector2(100.f, 24.f), 12, Vector2(100.f, 24.f), Vector2::Zero, 0.12f);
-
+		anim->Create(L"Statue_Left_Anim", Image5, Vector2(0.f, 0.f), Vector2(212.f, 124.f), 6, Vector2(212.f, 124.f), Vector2::Zero);
+		anim->Create(L"Statue_Right_Anim", Image5, Vector2(0.f, 0.f), Vector2(212.f, 124.f), 6, Vector2(212.f, 124.f), Vector2::Zero, 0.1f, true);
 
 		if (GetName() == L"Boss2_Fire")
 		{
@@ -60,6 +62,15 @@ namespace ss
 
 		}
 
+		else if (GetName() == L"Left_Statue")
+		{
+			anim->PlayAnimation(L"Statue_Left_Anim", true);
+		}
+
+		else if (GetName() == L"Right_Statue")
+		{
+			anim->PlayAnimation(L"Statue_Right_Anim", true);
+		}
 
 		GameObject::Initialize();
 	}

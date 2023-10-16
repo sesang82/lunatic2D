@@ -107,6 +107,8 @@ namespace ss
         void StunEnd();
 
 
+
+
     public:
         void SetFirstPos(Vector3 pos) { mFirstPos = pos; }
         void SetMoveDir(Vector3 dir) { mDir = dir; }

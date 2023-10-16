@@ -13,6 +13,8 @@
 #include "ssGameState.h"
 #include "ssSceneManager.h"
 #include "ssScene.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
 
 namespace ss
 {
@@ -40,6 +42,13 @@ namespace ss
 		mCol->SetType(eColliderType::Rect);
 		mCol->SetSize(Vector2(0.03f, 0.07f));
 		mCol->SetCenter(Vector2(-6.f, 8.f));
+
+
+		AddComponent<AudioListener>();
+		AudioSource* audioSource = AddComponent<AudioSource>();
+
+		//audioSource->GetClip
+
 
 
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
@@ -123,14 +132,14 @@ namespace ss
 			//  LT, 1프레임 사를 사이즈, 자를 갯수, 백사이즈, 오프셋
 		anim->Create(L"Player_D_Spawn", Image1, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 12, Vector2(900.f, 600.f));
 
-		anim->Create(L"Player_D_IdleR", Image2, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 6, Vector2(900.f, 600.f), Vector2(10.f, 17.f));
-		anim->Create(L"Player_D_IdleL", Image2, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 6, Vector2(900.f, 600.f), Vector2(0.f, -17.f), 0.1f, true);
+		anim->Create(L"Player_D_IdleR", Image2, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 6, Vector2(900.f, 600.f), Vector2(10.f, -17.f));
+		anim->Create(L"Player_D_IdleL", Image2, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 6, Vector2(900.f, 600.f), Vector2(-2.f, -17.f), 0.1f, true);
 
-		anim->Create(L"Player_D_RunR", Image3, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(900.f, 600.f), Vector2(10.f, 17.f));
-		anim->Create(L"Player_D_RunL", Image3, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(900.f, 600.f), Vector2(0.f, -17.f), 0.1f, true);
+		anim->Create(L"Player_D_RunR", Image3, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(900.f, 600.f), Vector2(10.f, -17.f));
+		anim->Create(L"Player_D_RunL", Image3, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 8, Vector2(900.f, 600.f), Vector2(-2.f, -17.f), 0.1f, true);
 
-		anim->Create(L"Player_D_JumpR", Image4, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 14, Vector2(900.f, 600.f), Vector2(10.f, 17.f), 0.07f);
-		anim->Create(L"Player_D_JumpL", Image4, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 14, Vector2(900.f, 600.f), Vector2(0.f, -17.f), 0.07f, true);
+		anim->Create(L"Player_D_JumpR", Image4, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 14, Vector2(900.f, 600.f), Vector2(10.f, -17.f), 0.07f);
+		anim->Create(L"Player_D_JumpL", Image4, Vector2(0.f, 0.f), Vector2(88.f, 75.f), 14, Vector2(900.f, 600.f), Vector2(-2.f, -17.f), 0.07f, true);
 
 		
 

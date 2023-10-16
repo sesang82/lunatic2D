@@ -12,9 +12,11 @@
 #include "ssObject.h"
 #include "ssBackground.h"
 #include "ssCollisionManager.h"
+#include "ssAudioSource.h"
 
 
 ss::TitleScene::TitleScene()
+	: mMainCam(nullptr)
 {
 }
 
@@ -44,6 +46,7 @@ void ss::TitleScene::Initialize()
 	CollisionManager::SetLayer(eLayerType::Guard, eLayerType::Collision, true);
 
 	CollisionManager::SetLayer(eLayerType::Wall, eLayerType::Collision, true);
+	CollisionManager::SetLayer(eLayerType::Wall, eLayerType::Mon_Bullet, true);
 	CollisionManager::SetLayer(eLayerType::Ground, eLayerType::Collision, true);
 
 
@@ -63,13 +66,14 @@ void ss::TitleScene::Initialize()
 	
 	// 朝五虞 持失
 	{
-		GameObject* camera = new GameObject();
-		AddGameObject(eLayerType::Camera, camera);
-		Camera* cameraComp = camera->AddComponent<Camera>();
+		mMainCam = new GameObject();
+		AddGameObject(eLayerType::Camera, mMainCam);
+		Camera* cameraComp = mMainCam->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		cameraComp->SetTargetSize(1.f);
+		cameraComp->SetSize(1.f);
 
-		CameraScript* camerscript = camera->AddComponent<CameraScript>();
+		mMainCam->AddComponent<AudioSource>()->AddClipByKey(L"Title_Bgm");
+		mMainCam->GetComponent<AudioSource>()->Play(L"Title_Bgm", true);
 	}
 
 
@@ -111,7 +115,7 @@ void ss::TitleScene::Render()
 
 void ss::TitleScene::OnEnter()
 {
-
+	
 
 }
 

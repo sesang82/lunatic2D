@@ -520,10 +520,7 @@ namespace ss
 	void WoodGolemScript::Dead()
 	{
 	
-		mAttackColliderObj->SetState(GameObject::eState::Dead);
 		
-
-
 		if (mPrevDir.x > 0)
 		{
 			

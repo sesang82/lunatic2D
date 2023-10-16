@@ -20,6 +20,7 @@
 #include "ssItem.h"
 #include "ssItemScript.h"
 #include "ssUIFrameScript.h"
+#include "ssWallScript.h"
 
 namespace ss
 {
@@ -49,7 +50,7 @@ namespace ss
 		mPlayer = object::Instantiate<Player>(eLayerType::Player, L"Player");
 		mPlayer->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
 		Transform* tr = mPlayer->GetComponent<Transform>();
-		tr->SetPosition(Vector3(-588.f, -171.f, 500.f));
+		tr->SetPosition(Vector3(-588.f, -170.f, 500.f));
 
 
 
@@ -250,19 +251,141 @@ namespace ss
 			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 4.f, 1.f));
 		}
 
-		// === 카메라
 
-	// 카메라 생성
+		// 키보드 자판
 		{
-			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Camera, camera);
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_A_Mtrl"));
 
-			mCamera = camera->AddComponent<Camera>();
-			mCamera->TurnLayerMask(eLayerType::UI, false);
+			bg->GetComponent<Transform>()->SetPosition(Vector3(-33.f, -218.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
 
-			camera->AddComponent<CameraScript>();
+
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_S_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -195.f, 80.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
+
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_D_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(33.f, -218.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
+
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_F_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -210.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
+
+
+		// ================ 벽, 천장 
+		//{
+		//	Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Wall, L"Wall_R_Obj");
+		//	col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+		//	Transform* tr = col_Floor->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(334.f, -38.f, 500.f));
+		//	tr->SetScale(Vector3(30.f, 389.f, 1.f));
+
+		//	WallScript* wallscript = col_Floor->AddComponent<WallScript>();
+		//	wallscript->SetPlayer(mPlayer);
+
+
+		//}
+
+		//{
+		//	Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Wall, L"Wall_L_Obj");
+		//	col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+		//	Transform* tr = col_Floor->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(-334.f, -38.f, 500.f));
+		//	tr->SetScale(Vector3(30.f, 389.f, 1.f));
+
+
+		//	WallScript* wallscript = col_Floor->AddComponent<WallScript>();
+		//	wallscript->SetPlayer(mPlayer);
+
+
+		//}
+
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Wall, L"Wall_Up_Obj");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-250.f, -53.f, 500.f));
+			tr->SetScale(Vector3(640.f, 20.f, 1.f));
+
+
+			WallScript* wallscript = col_Floor->AddComponent<WallScript>();
+			wallscript->SetPlayer(mPlayer);
+
 
 		}
+
+		// =======================================
+//		// 충돌체 (다음 씬 넘어가는)
+		{
+			Platform* col_Door = object::Instantiate<Platform>(eLayerType::Collision, L"L_col_Door2");
+			col_Door->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+			Transform* tr = col_Door->GetComponent<Transform>();
+			tr->SetPosition(Vector3(189.f, -270.f, 450.f));
+			tr->SetScale(Vector3(40.f, 61.f, 1.f));
+
+		}
+
+
+
+
+
+		// === 카메라
+
+		 // 메인 카메라 생성 (반드시 씬마다 각기 다른 메인 카메라가 하나씩 있어야함!) 
+		{
+			GameObject* MainCamera = new GameObject();
+			AddGameObject(eLayerType::Camera, MainCamera);
+
+			mCamera = MainCamera->AddComponent<Camera>();
+			mCamera->TurnLayerMask(eLayerType::UI, false);
+			mCamera->SetSize(2.3f); // 2.3 
+
+			CameraScript* camerscript = MainCamera->AddComponent<CameraScript>();
+
+		}
+
 
 		//UI Camera
 		{
@@ -300,7 +423,7 @@ namespace ss
 	void EntranceScene::OnEnter()
 	{
 		renderer::mainCamera = mCamera;
-		mCamera->SetSize(0.3f);
+		mCamera->SetSize(2.3f);
 
 		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 		camerscript->SetTarget(mPlayer);

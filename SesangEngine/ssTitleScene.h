@@ -18,6 +18,9 @@ namespace ss
 
         virtual void OnEnter() override;
         virtual void OnExit() override;
+
+
+        class GameObject* mMainCam;
     };
 }
 

@@ -10,6 +10,8 @@ namespace ss
 		, mMinDistance(1.0f)
 		, mMaxDistance(1000.0f)
 		, mbLoop(false)
+		, mVolume(0.f)
+		, mPitch(0.f)
 	{
 
 	}
@@ -22,7 +24,10 @@ namespace ss
 
 	HRESULT AudioClip::Load(const std::wstring& path)
 	{
-		std::string cPath(path.begin(), path.end());
+		std::filesystem::path parentPath = std::filesystem::current_path().parent_path();
+		std::wstring fullPath = parentPath.wstring() + L"\\Resources\\" + path;
+
+		std::string cPath(fullPath.begin(), fullPath.end());
 		if (!Fmod::CreateSound(cPath, &mSound))
 			return S_FALSE;
 

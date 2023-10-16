@@ -37,9 +37,12 @@ namespace ss
 
 		if (SceneManager::GetSceneByName(L"EntranceScene"))
 		{
-			cameraOffset.leftOffset = 540.0f;			
+			cameraOffset.leftOffset = 540.0f;
 			cameraOffset.rightOffset = 584.0f; // 숫자가 높을수록 오른쪽 제한 값이 왼쪽 안으로 들어옴 
-			mBottomOffset = 660.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+			mBottomOffset = 75.f; //  카메라가 화면의 상단 또는 하단에 가까이 다가가지 않게 하기 위한 값
+
+			mTopOffset = 0.f;
+
 			mPosOffset = 80.f;
 		}
 

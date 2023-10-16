@@ -32,6 +32,8 @@
 #include "ssItem.h"
 #include "ssItemScript.h"
 #include "ssParalloxScript.h"
+#include "ssWallScript.h"
+#include "ssUIFrameScript.h"
 
 namespace ss
 {
@@ -46,104 +48,81 @@ namespace ss
 
 
 
-		// ====== 배경
-		// 둥근 달
+		//// ====== 배경
+		//// 둥근 달
 
-		Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Moon");
-		bg->Initialize();
+		//Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Moon");
+		//bg->Initialize();
 
-		MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-		mr->SetMaterial(Resources::Find<Material>(L"Moon2Mtrl"));
+		//MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+		//mr->SetMaterial(Resources::Find<Material>(L"Moon2Mtrl"));
 
-		bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 50.f, 850.f));
-		bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 900.f, 1.0f));
+		//bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 50.f, 850.f));
+		//bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 900.f, 1.0f));
 
-		ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
-		parallox->SetPlayer(mPlayer);
-		parallox->SetSpeed(Vector2(0.18f, 0.18f));
+		//ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+		//parallox->SetPlayer(mPlayer);
+		//parallox->SetSpeed(Vector2(0.18f, 0.18f));
 
-		parallox->SetMinX(-31.0f);
-		parallox->SetMaxX(33.0f);
+		//parallox->SetMinX(-31.0f);
+		//parallox->SetMaxX(33.0f);
 
-		parallox->SetMinY(-30.0f);
-		parallox->SetMaxY(170.0f);
-
-
-		// 나무1
-
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree1");
-			bg->Initialize();
+		//parallox->SetMinY(-30.0f);
+		//parallox->SetMaxY(170.0f);
 
 
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
+		//// 나무1
 
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -150.0f, 800.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
-
-			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
-			parallox->SetPlayer(mPlayer);
-			parallox->SetSpeed(Vector2(0.3f, 0.3f));
-
-			parallox->SetMinX(-48.0f);
-			parallox->SetMaxX(48.0f);
-
-			parallox->SetMinY(-150.0f);
-			parallox->SetMaxY(150.0f);
-
-		}
-
-		// 나무 2 
-		{
-			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree2");
-			bg->Initialize();
-
-			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-			mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
-
-			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -250.f, 750.f));
-			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
-
-
-
-			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
-			parallox->SetPlayer(mPlayer);
-			parallox->SetSpeed(Vector2(0.4f, 0.4f));
-
-			parallox->SetMinX(-30.0f);
-			parallox->SetMaxX(30.0f);
-
-			parallox->SetMinY(-150.0f);
-			parallox->SetMaxY(90.0f);
-
-
-		}
-
-		//// 나무 3
 		//{
-		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree3");
+		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree1");
+		//	bg->Initialize();
+
+
+		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+		//	mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
+
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -150.0f, 800.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
+
+		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+		//	parallox->SetPlayer(mPlayer);
+		//	parallox->SetSpeed(Vector2(0.3f, 0.3f));
+
+		//	parallox->SetMinX(-48.0f);
+		//	parallox->SetMaxX(48.0f);
+
+		//	parallox->SetMinY(-150.0f);
+		//	parallox->SetMaxY(150.0f);
+
+		//}
+
+		//// 나무 2 
+		//{
+		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree2");
 		//	bg->Initialize();
 
 		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree3Mtrl"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
 
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -100.f, 700.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1200.f, 577.f, 1.0f));
+		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -250.f, 750.f));
+		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
+
 
 
 		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
 		//	parallox->SetPlayer(mPlayer);
-		//	parallox->SetSpeed(Vector2(0.55f, 0.f));
+		//	parallox->SetSpeed(Vector2(0.4f, 0.4f));
 
-		//	parallox->SetMinX(-150.0f);
-		//	parallox->SetMaxX(80.0f);
+		//	parallox->SetMinX(-30.0f);
+		//	parallox->SetMaxX(30.0f);
 
 		//	parallox->SetMinY(-150.0f);
-		//	parallox->SetMaxY(140.0f);
+		//	parallox->SetMaxY(90.0f);
 
 
 		//}
+
+
 
 		// 맵 배경	
 		//
@@ -159,6 +138,9 @@ namespace ss
 
 
 		}
+
+
+
 
 
 		 //캐릭터
@@ -372,7 +354,7 @@ namespace ss
 		
 
 			Transform* tr = col_Floor->GetComponent<Transform>();
-			tr->SetPosition(Vector3(-300.f, -487.f, 500.f));
+			tr->SetPosition(Vector3(-290.f, -487.f, 500.f));
 			tr->SetScale(Vector3(416.f, 200.f, 1.f));
 
 
@@ -486,6 +468,65 @@ namespace ss
 		}
 	
 
+
+		// ================================
+		// 벽
+
+
+		// 1층 중간 오른쪽 벽
+
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Wall, L"Wall_R_Obj");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-120.f, -350.f, 500.f));
+			tr->SetScale(Vector3(20.f, 117.f, 1.f)); //바닥보다는 살짝 작게
+
+
+			WallScript* wallscript = col_Floor->AddComponent<WallScript>();
+			wallscript->SetPlayer(mPlayer);
+
+
+		}
+
+
+		// 2층 맨 오른쪽 벽
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Wall, L"Wall_R_Obj");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(105.f, -150.f, 500.f));
+			tr->SetScale(Vector3(20.f, 250.f, 1.f)); //바닥보다는 살짝 작게
+
+
+			WallScript* wallscript = col_Floor->AddComponent<WallScript>();
+			wallscript->SetPlayer(mPlayer);
+
+
+		}
+
+		// 맨 위층 왼쪽 천장 
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Wall, L"Wall_Up_Obj");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(-120.f, 265.f, 500.f));
+			tr->SetScale(Vector3(270.f, 20.f, 1.f));
+
+
+			WallScript* wallscript = col_Floor->AddComponent<WallScript>();
+			wallscript->SetPlayer(mPlayer);
+
+
+		}
+
+
 		// ======================================
 
 		{
@@ -500,6 +541,69 @@ namespace ss
 			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
 			bg->GetComponent<Transform>()->SetScale(Vector3(308.f, 57.f, 1.f));
 		}
+
+		// 무기 슬롯1
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			bg->SetName(L"Weapon_Slot1");
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(-33.f, -197.f, 90.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(24.f, 24.f, 1.f));
+
+
+			UIFrameScript* uiframe = bg->AddComponent<UIFrameScript>();
+			uiframe->SetPlayer(mPlayer);
+
+
+		}
+
+		// 무기 슬롯2
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			bg->SetName(L"Weapon_Slot2");
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -185.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(24.f, 24.f, 1.f));
+
+
+			UIFrameScript* uiframe = bg->AddComponent<UIFrameScript>();
+			uiframe->SetPlayer(mPlayer);
+		}
+
+		// 무기 슬롯3
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			bg->SetName(L"Weapon_Slot3");
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(33.f, -197.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(24.f, 24.f, 1.f));
+
+
+			UIFrameScript* uiframe = bg->AddComponent<UIFrameScript>();
+			uiframe->SetPlayer(mPlayer);
+		}
+
 
 		//플레이어 HP바
 		{
@@ -529,6 +633,87 @@ namespace ss
 			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
 		}
 
+		//플레이어 오버로드 바
+		{
+			Progressbar* overloadBar = object::Instantiate<Progressbar>(eLayerType::UI, L"overloadBar");
+			overloadBar->SetOwner(mPlayer);
+
+			Transform* tr = overloadBar->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.f, -218.f, 95.f));
+
+			overloadBar->Initialize();
+
+		}
+
+
+		//플레이어 오버로드 빈 bar 
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Overload_BarMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -218.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 4.f, 1.f));
+		}
+
+
+		// 키보드 자판
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_A_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(-33.f, -218.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
+
+
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_S_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -195.f, 80.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
+
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_D_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(33.f, -218.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
+
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_F_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -210.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
 
 
 

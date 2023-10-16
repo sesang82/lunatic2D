@@ -27,6 +27,7 @@
 #include "ssItemScript.h"
 #include "ssPistolBulletScript.h"
 #include "ssPlayerPistolBullet.h"
+#include "ssAudioSource.h"
 
 namespace ss
 {
@@ -67,6 +68,7 @@ namespace ss
 		, mbGetSword(false)
 		, mbGetGauntlet(false)
 		, mbGetPistol(false)
+		, mAudioSource(nullptr)
 	{
 	}
 
@@ -87,7 +89,7 @@ namespace ss
 		mTransform = GetOwner()->GetComponent<Transform>();
 		mRigidbody = GetOwner()->GetComponent<Rigidbody2D>();
 		mCollider = GetOwner()->GetComponent<Collider2D>();
-	
+		mAudioSource = GetOwner()->GetComponent<AudioSource>();
 
 		mAnimator->PlayAnimation(L"Player_S_IdleR", true);
 		//mAnimator->PlayAnimation(L"Player_D_IdleR", true);
@@ -171,7 +173,7 @@ namespace ss
 		Vector3 pos = mTransform->GetPosition();
 	
 			mWeaponType = SceneManager::GetWeaponInfo();
-			mbChange = false;
+			
 		
 		//	BindConstantBuffer();
 
@@ -315,10 +317,7 @@ namespace ss
 		}
 
 	
-		else if (L"L_col_Door" == other->GetOwner()->GetName())
-		{
-			SceneManager::LoadScene(L"EntranceScene");
-		}
+		
 
 		else if (L"L_Stage1_col_Door" == other->GetOwner()->GetName())
 		{
@@ -354,9 +353,21 @@ namespace ss
 		}
 
 
-
-
+		// ==== 다음 씬 넘어가는 충돌체 
+		else if (L"L_col_Door" == other->GetOwner()->GetName())
+		{
+			SceneManager::LoadScene(L"EntranceScene");
+		}
 		
+		else if (L"L_col_Door2" == other->GetOwner()->GetName())
+		{
+			SceneManager::LoadScene(L"EntryScene");
+		}
+
+		else if (L"L_col_Door3" == other->GetOwner()->GetName())
+		{
+			SceneManager::LoadScene(L"Stage1Scene");
+		}
 	
 
 
@@ -401,7 +412,7 @@ namespace ss
 				mChangeFirst = true;
 				mWeaponType = eWeaponType::PISTOL;
 				SceneManager::SetWeaponInfo(mWeaponType);
-				mbChange = true;
+				mbChange = true; // 이펙트용 생성용으로 쓰기 
 
 
 			}
@@ -709,6 +720,25 @@ namespace ss
 		}
 
 
+		// 무기 교체
+		else if (Input::GetKeyDown(eKeyCode::A) && SceneManager::IsOnSword())
+		{
+			mWeaponType = eWeaponType::SWORD;
+			SceneManager::SetWeaponInfo(mWeaponType);
+		}
+
+		else if (Input::GetKeyDown(eKeyCode::S) && SceneManager::IsOnPistol())
+		{
+			mWeaponType = eWeaponType::PISTOL;
+			SceneManager::SetWeaponInfo(mWeaponType);
+		}
+
+		else if (Input::GetKeyDown(eKeyCode::D) && SceneManager::IsOnGauntlet())
+		{
+			mWeaponType = eWeaponType::GAUNTLET;
+			SceneManager::SetWeaponInfo(mWeaponType);
+		}
+
 
 	}
 
@@ -920,6 +950,26 @@ namespace ss
 			}
 
 		}
+
+		// 무기 교체
+		else if (Input::GetKeyDown(eKeyCode::A) && SceneManager::IsOnSword())
+		{
+			mWeaponType = eWeaponType::SWORD;
+			SceneManager::SetWeaponInfo(mWeaponType);
+		}
+
+		else if (Input::GetKeyDown(eKeyCode::S) && SceneManager::IsOnPistol())
+		{
+			mWeaponType = eWeaponType::PISTOL;
+			SceneManager::SetWeaponInfo(mWeaponType);
+		}
+
+		else if (Input::GetKeyDown(eKeyCode::D) && SceneManager::IsOnGauntlet())
+		{
+			mWeaponType = eWeaponType::GAUNTLET;
+			SceneManager::SetWeaponInfo(mWeaponType);
+		}
+
 
 	}
 	void PlayerScript::Jump()

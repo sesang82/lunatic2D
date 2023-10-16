@@ -89,10 +89,10 @@ namespace ss
 			//player->GetComponent<Transform>()->SetScale(Vector3(50.2f, 50.2f, 50.2f));
 			Collider2D* cd = player->AddComponent<Collider2D>();
 
-			AudioSource* as = player->AddComponent<AudioSource>();
+		/*	AudioSource* as = player->AddComponent<AudioSource>();
 			as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\BGM_Stage_0.wav"));
 			as->Play();
-			as->SetLoop(true);
+			as->SetLoop(true);*/
 			//cd->SetSize(Vector2(1.2f, 1.2f));
 			//player->AddComponent<PlayerScript>();
 		}

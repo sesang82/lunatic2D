@@ -2,6 +2,8 @@
 #include "ssResources.h"
 #include "ssTexture.h"
 #include "ssMaterial.h"
+#include "ssResources.h"
+#include "ssAudioSource.h"
 
 
 
@@ -31,6 +33,7 @@ namespace renderer
 		LoadShader();
 		SetupState();
 		LoadMaterial();
+		LoadAudio();
 	}
 
 
@@ -3949,16 +3952,15 @@ namespace renderer
 
 #pragma region Scene [Entry]
 		// ==던전 진입 전 씬
-		// 맵(타일+달 배경)
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Entry", L"..\\Resources\\Texture\\Stage1\\entrymap.png");
+				= Resources::Load<Texture>(L"Entry", L"..\\Resources\\Texture\\Stage1\\entry2.png");
 
 			// == Material 생성(위에서 만든 shader와 texture를 이용)
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			//spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
 			Resources::Insert(L"EntryMtrl", spriteMateiral);
 		}
@@ -4727,6 +4729,61 @@ namespace renderer
 			Resources::Insert(L"Player_GuardEffectMtrl", spriteMateiral);
 		}
 
+
+
+		// 키보드 자판
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Keyboard_A", L"..\\Resources\\Texture\\UI\\UI_KeySetting_a.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+
+			Resources::Insert(L"Keyboard_A_Mtrl", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Keyboard_S", L"..\\Resources\\Texture\\UI\\UI_KeySetting_s.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+
+			Resources::Insert(L"Keyboard_S_Mtrl", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Keyboard_D", L"..\\Resources\\Texture\\UI\\UI_KeySetting_d.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+
+			Resources::Insert(L"Keyboard_D_Mtrl", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Keyboard_F", L"..\\Resources\\Texture\\UI\\UI_KeySetting_f.png");
+
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+
+			Resources::Insert(L"Keyboard_F_Mtrl", spriteMateiral);
+		}
+
 #pragma endregion 
 
 
@@ -4752,6 +4809,148 @@ namespace renderer
 
 
 #pragma endregion 
+
+	}
+
+	void LoadAudio()
+	{
+		// 배경음악
+		Resources::Load<AudioClip>(L"Title_Bgm", L"Sound\\BGM_Main.wav");
+		Resources::Load<AudioClip>(L"Library_Bgm", L"Sound\\BGM_Stage_0.wav");
+		Resources::Load<AudioClip>(L"Stage1_Bgm", L"Sound\\BGM_Stage_1.wav");
+		Resources::Load<AudioClip>(L"Boss1_Bgm", L"Sound\\BGM_VS_Lupus.wav");
+		Resources::Load<AudioClip>(L"Boss2_Statue_Bgm", L"Sound\\BGM_VS_GoddessStatue.wav");
+		Resources::Load<AudioClip>(L"Boss2_Goddess_Bgm", L"Sound\\BGM_VS_Goddess.wav");
+
+
+
+		// ====== effect
+		
+
+		// 플레이어
+		Resources::Load<AudioClip>(L"Player_Dash_Bgm", L"Sound\\SE_Player_Dash.wav");
+		Resources::Load<AudioClip>(L"Player_GaurdHit_Bgm", L"Sound\\SE_Player_Guard_Hit.wav");
+		Resources::Load<AudioClip>(L"Player_Hit_Bgm", L"Sound\\SE_Player_Hit.wav"); // 플레이어가 공격받았을 때
+		Resources::Load<AudioClip>(L"Player_Jump_Bgm", L"Sound\\SE_Player_Jump.wav");
+		Resources::Load<AudioClip>(L"Player_Overload_Bgm", L"Sound\\SE_Player_Overload.wav");
+		Resources::Load<AudioClip>(L"Player_Parrying_Bgm", L"Sound\\SE_Player_Parrying.wav");
+		Resources::Load<AudioClip>(L"Player_WeaponChange_Bgm", L"Sound\\SE_Player_WeaponChange.wav");
+		
+		// 플레이어 무기
+		// 1. 건틀렛
+		Resources::Load<AudioClip>(L"Gauntlet_Attack_Bgm", L"Sound\\SE_Weapon_Gauntlet_Attack.wav");
+		Resources::Load<AudioClip>(L"Gauntlet_Attack3_Bgm", L"Sound\\SE_Weapon_Gauntlet_Attack_3.wav");
+		Resources::Load<AudioClip>(L"Gauntlet_Attack4_Bgm", L"Sound\\SE_Weapon_Gauntlet_Attack_4.wav");
+
+		Resources::Load<AudioClip>(L"Gauntlet_OverloadBuff_Bgm", L"Sound\\SE_Weapon_Gauntlet_OverloadBuff.wav");
+
+		Resources::Load<AudioClip>(L"Gauntlet_SPAttackReady_Bgm", L"Sound\\SE_Weapon_Gauntlet_SPAttack_Ready.wav");
+		Resources::Load<AudioClip>(L"Gauntlet_SPAttack_Bgm", L"Sound\\SE_Weapon_Gauntlet_SPAttack.wav");
+		Resources::Load<AudioClip>(L"Gauntlet_SPAttack2_Bgm", L"Sound\\SE_Weapon_Gauntlet_SPAttack_.wav");
+
+
+		// 2. 피스톨
+		Resources::Load<AudioClip>(L"Pistol_Attack_Bgm", L"Sound\\SE_Weapon_Pistol_Attack.wav");
+		Resources::Load<AudioClip>(L"Pistol_Attack2_Bgm", L"Sound\\SE_Weapon_Pistol_Attack_3.wav");
+		Resources::Load<AudioClip>(L"Pistol_OverloadAttack_Bgm", L"Sound\\SE_Weapon_Pistol_Attack_Overload.wav");
+
+
+		// 3. 스워드
+		Resources::Load<AudioClip>(L"Sword_Attack1_Bgm", L"Sound\\SE_Weapon_Sword_Attack_0_0.wav");
+		Resources::Load<AudioClip>(L"Sword_Attack2_Bgm", L"Sound\\SE_Weapon_Sword_Attack_0_1.wav");
+		Resources::Load<AudioClip>(L"Sword_Attack3_Bgm", L"Sound\\SE_Weapon_Sword_Attack_3.wav");
+
+		Resources::Load<AudioClip>(L"Sword_SPAttack_Bgm", L"Sound\\SE_Weapon_Sword_SPAttack.wav");
+
+		Resources::Load<AudioClip>(L"Sword_OverloadAttack1_Bgm", L"Sound\\SE_Weapon_Sword_Attack_Overload_0.wav");
+		Resources::Load<AudioClip>(L"Sword_OverloadAttack2_Bgm", L"Sound\\SE_Weapon_Sword_Attack_Overload_1.wav");
+
+
+
+		// 기타 오브젝트
+		Resources::Load<AudioClip>(L"Door_Open_Bgm", L"Sound\\SE_Object_Door_Open.wav");
+		Resources::Load<AudioClip>(L"Door_Close_Bgm", L"Sound\\SE_Object_Door_Close.wav");
+
+
+		// Enemy 공통 
+		Resources::Load<AudioClip>(L"Enemy_Die_Bgm", L"Sound\\SE_Enemy_Die.wav");
+		Resources::Load<AudioClip>(L"Enemy_Hit_Bgm", L"Sound\\SE_Enemy_Hit.wav");
+
+		// ==== Enemy
+
+		// 1. 스켈레톤 archer
+		Resources::Load<AudioClip>(L"Archer_NearAttack_Bgm", L"Sound\\SE_Enemy_SkeletonArcher_Attack_0.wav");
+		Resources::Load<AudioClip>(L"Archer_FarAttackReady_Bgm", L"Sound\\SE_Enemy_SkeletonArcher_Attack_1_Ready.wav");
+		Resources::Load<AudioClip>(L"Archer_FarAttackFire_Bgm", L"Sound\\SE_Enemy_SkeletonArcher_Attack_1.wav");
+		
+		
+		
+		// 2. StoneEye
+		Resources::Load<AudioClip>(L"Stoneeye_NearAttackReady_Bgm", L"Sound\\SE_Enemy_StoneEye_Attack_0_Ready.wav");
+		Resources::Load<AudioClip>(L"Stoneeye_NearAttack_Bgm", L"Sound\\SE_Enemy_StoneEye_Attack_0.wav");
+		Resources::Load<AudioClip>(L"Stoneeye_FarAttackReady_Bgm", L"Sound\\SE_Enemy_StoneEye_Attack_1_Ready.wav");
+		Resources::Load<AudioClip>(L"Stoneeye_FarAttack_Bgm", L"Sound\\SE_Enemy_StoneEye_Attack_1.wav");
+
+
+		// 3. Wolf
+		Resources::Load<AudioClip>(L"Wolf_Attack_Bgm", L"Sound\\SE_Enemy_Wolf_Attack_0.wav");
+
+		// 4. 스켈레톤 Lizard
+		Resources::Load<AudioClip>(L"Lizard_Attack_Bgm", L"Sound\\SE_Enemy_SkeletonLizard_Attack_0.wav");
+		
+		
+		// ==== Boss
+		// 1. 큰 늑대
+		Resources::Load<AudioClip>(L"Boss1_Spawn_Bgm", L"Sound\\SE_Boss_Lupus_Spawn.wav");
+		Resources::Load<AudioClip>(L"Boss1_Stomp_Ready_Bgm", L"Sound\\SE_Boss_Lupus_Stomp_Ready.wav");
+		Resources::Load<AudioClip>(L"Boss1_Stomp_Bgm", L"Sound\\SE_Boss_Lupus_Stomp.wav");
+
+		Resources::Load<AudioClip>(L"Boss1_MoveDisappear_Bgm", L"Sound\\SE_Boss_Lupus_Move_Disappear.wav");
+		Resources::Load<AudioClip>(L"Boss1_MoveAppear_Bgm", L"Sound\\SE_Boss_Lupus_Move_Appear.wav");
+									
+		Resources::Load<AudioClip>(L"Boss1_HowlingReady_Bgm", L"Sound\\SE_Boss_Lupus_Howling_Ready.wav");
+		Resources::Load<AudioClip>(L"Boss1_Howling_Bgm", L"Sound\\SE_Boss_Lupus_Howling.wav");
+
+		Resources::Load<AudioClip>(L"Boss1_DashReady_Bgm", L"Sound\\SE_Boss_Lupus_Dash_Ready.wav");
+		Resources::Load<AudioClip>(L"Boss1_Dash_Bgm", L"Sound\\SE_Boss_Lupus_Dash.wav");
+
+		Resources::Load<AudioClip>(L"Boss1_BreathReady_Bgm", L"Sound\\SE_Boss_Lupus_Breath_Ready.wav");
+		Resources::Load<AudioClip>(L"Boss1_Breath", L"Sound\\SE_Boss_Lupus_Breath.wav");
+
+		Resources::Load<AudioClip>(L"Boss1_DieHowl_Bgm", L"Sound\\SE_Boss_Lupus_Die_Howl.wav");
+		Resources::Load<AudioClip>(L"Boss1_Die_Bgm", L"Sound\\SE_Boss_Lupus_Die.wav");
+
+		// 2.보스2_석상
+		Resources::Load<AudioClip>(L"Statue_StompReady_Bgm", L"Sound\\SE_Boss_Goddess_Statue_Stomp_Ready.wav");
+		Resources::Load<AudioClip>(L"Statue_Stomp_Bgm", L"Sound\\SE_Boss_Goddess_Statue_Stomp.wav");
+		Resources::Load<AudioClip>(L"Statue_EnergyballReady_Bgm", L"Sound\\SE_Boss_Goddess_Statue_EnergyBall_Ready.wav");
+		Resources::Load<AudioClip>(L"Statue_Die_Bgm", L"Sound\\SE_Boss_Goddess_Statue_Die.wav");
+
+		// 3. 보스2_Goddness
+		Resources::Load<AudioClip>(L"Goddness_Spawn_Bgm", L"Sound\\SE_Boss_Goddess_Spawn.wav");
+		Resources::Load<AudioClip>(L"Goddness_SpawnGrab_Bgm", L"Sound\\SE_Boss_Goddess_Spawn_Grab.wav");
+
+		Resources::Load<AudioClip>(L"Goddness_ShieldBeamReady_Bgm", L"Sound\\SE_Boss_Goddess_ShieldBeam_Ready.wav");
+		Resources::Load<AudioClip>(L"Goddness_ShiledBeamStart_Bgm", L"Sound\\SE_Boss_Goddess_ShieldBeam_Start.wav");
+		Resources::Load<AudioClip>(L"Goddness_ShiledBeamLoop_Bgm", L"Sound\\SE_Boss_Goddess_ShieldBeam_Loop.wav");
+
+		Resources::Load<AudioClip>(L"Goddness_SummonSpear_Bgm", L"Sound\\SE_Boss_Goddess_SummonSpear.wav");
+
+		Resources::Load<AudioClip>(L"Goddness_Energyball_Bgm", L"Sound\\SE_Boss_Goddess_EnergyBall.wav");
+
+		Resources::Load<AudioClip>(L"Goddness_Die_Bgm", L"Sound\\SE_Boss_Goddess_Die.wav");
+		Resources::Load<AudioClip>(L"Goddness_DieFall_Bgm", L"Sound\\SE_Boss_Goddess_Die_Fall.wav");
+
+		// 보스2 오브젝트 사운드 
+		Resources::Load<AudioClip>(L"GoddnessObj_BigBall_Spawn_Bgm", L"Sound\\SE_Boss_Goddess_Object_BigBall_Spawn.wav");
+		Resources::Load<AudioClip>(L"GoddnessObj_BigBall_Hit_Bgm", L"Sound\\SE_Boss_Goddess_Object_BigBall_Hit.wav");
+
+		Resources::Load<AudioClip>(L"GoddnessObj_Ball_Spawn_Bgm", L"Sound\\SE_Boss_Goddess_Object_Ball_Spawn.wav");
+		Resources::Load<AudioClip>(L"GoddnessObj_Ball_SpawnFire_Bgm", L"Sound\\SE_Boss_Goddess_Object_Ball_Spawn_Fire.wav");
+		Resources::Load<AudioClip>(L"GoddnessObj_Ball_SpawnHit_Bgm", L"Sound\\SE_Boss_Goddess_Object_Ball_Hit.wav");
+
+		Resources::Load<AudioClip>(L"GoddnessObj_Ball_SummonSpear_Hit_Bgm", L"Sound\\SE_Boss_Goddess_Object_SummonSpear_Hit.wav");
+
 
 	}
 
