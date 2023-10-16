@@ -20,6 +20,10 @@
 #include "ssStoneEye.h"
 #include "ssProgressbar.h"
 #include "ssUIFrameScript.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
+#include "ssAudioListener.h"
+#include "ssAudioClip.h"
 
 namespace ss
 {
@@ -32,7 +36,6 @@ namespace ss
 	void LibraryScene::Initialize()
 	{
 
-		//BaseScene::Initialize();
 
 		// µµ¼­°ü
 		{
@@ -443,6 +446,7 @@ namespace ss
 
 			CameraScript* camerscript = mCameraObj->AddComponent<CameraScript>();
 
+
 		}
 
 
@@ -461,8 +465,7 @@ namespace ss
 
 		}
 
-
-
+	
 	
 
 	
@@ -470,26 +473,38 @@ namespace ss
 
 	void LibraryScene::Update()
 	{
-	
-		BaseScene::Update();
+		Scene::Update();
+
 	}
 	void LibraryScene::LateUpdate()
 	{
-		BaseScene::LateUpdate();
+		Scene::LateUpdate();
 	}
 	void LibraryScene::Render()
 	{
-		BaseScene::Render();
+
+		Scene::Render();
 	}
 	void LibraryScene::OnEnter()
 	{
+		Scene::OnEnter();
+
 		renderer::mainCamera = mCamera;
 
-	
 		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 		camerscript->SetTarget(mPlayer);
+		
+		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+		pBGM->SetClip(Resources::Find<AudioClip>(L"Library_Bgm"));
+		pBGM->Play();
+		pBGM->SetLoop(true);
+		pBGM->SetVolume(0.3f);
+
+
 	}
+
 	void LibraryScene::OnExit()
 	{
+		Scene::OnExit();
 	}
 }

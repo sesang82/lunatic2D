@@ -170,6 +170,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ssSoundMgrScript.cpp" />
     <ClCompile Include="ssBigEnergyball.cpp" />
     <ClCompile Include="ssBigEnergyballScript.cpp" />
     <ClCompile Include="ssEnergyball.cpp" />
@@ -254,6 +255,7 @@
     <ClCompile Include="ssUIFrameScript.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ssSoundMgrScript.h" />
     <ClInclude Include="ssBigEnergyball.h" />
     <ClInclude Include="ssBigEnergyballScript.h" />
     <ClInclude Include="ssEnergyball.h" />

@@ -8,6 +8,21 @@ namespace ss
 	// 기존에는 씬 매니저를 통해서 씬을 생성해줬지만, 이제는 세상 엔진에서 생성하는 걸로 바꿈
 	class SceneManager
 	{
+	private:
+		static Scene* mActiveScene;
+		// 여러 씬들을 관리하기 편하게 map으로 저장해둠
+		static std::map<std::wstring, Scene*> mScenes;
+		static std::vector<GameObject*>			mDontDestroyObjects;
+
+		static eWeaponType WeaponInfo;
+		//static Boss* mBoss;
+		static class Player* mPlayer;
+
+		static bool mbOnSword;
+		static bool mbOnPistol;
+		static bool mbOnGauntlet;
+
+
 	public:
 		static void Initialize();
 		static void Update();
@@ -47,23 +62,23 @@ namespace ss
 		}
 
 
+		// 씬 전환 시에 객체를 파괴하지 않도록 설정하는 함수
+		static void DontDestroyOnLoad(GameObject* _GameObject)
+		{
+			mDontDestroyObjects.push_back(_GameObject);
+		}
+
+		static void RemoveFromDontDestroyOnLoad(GameObject* _GameObject);
+
+		static void DontUseOnLoad(std::wstring _Name);
+		static void DontUseOnLoad(eLayerType _LayerType);
+
+
+
 		static Scene* LoadScene(std::wstring name);
 		static Scene* GetActiveScene() { return mActiveScene; }
+		static GameObject* FindSoundMgr();
 
-
-
-	private:
-		static Scene* mActiveScene;
-		// 여러 씬들을 관리하기 편하게 map으로 저장해둠
-		static std::map<std::wstring, Scene*> mScenes;
-
-		static eWeaponType WeaponInfo;
-		//static Boss* mBoss;
-		static class Player* mPlayer;
-
-		static bool mbOnSword;
-		static bool mbOnPistol;
-		static bool mbOnGauntlet;
 
 	public:
 		static void SetWeaponInfo(eWeaponType info) { WeaponInfo = info; }

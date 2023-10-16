@@ -7,7 +7,9 @@ namespace ss
 {
 	GameObject::GameObject()
 		: mState(eState::Active)
-	
+		, mLayerIdx(-1)
+		, mbActive(true)
+
 	{
 		// 게임오브젝트는 생성될 때 기본적으로 트랜스폼을 갖고 있게함 
 		AddComponent<Transform>();
@@ -41,6 +43,8 @@ namespace ss
 
 	void GameObject::Update()
 	{
+		if (!mbActive)
+			return;
 
 		for (Component* comp : mComponents)
 		{
@@ -60,6 +64,9 @@ namespace ss
 
 	void GameObject::LateUpdate()
 	{
+		if (!mbActive)
+			return;
+
 		for (Component* comp : mComponents)
 		{
 			comp->LateUpdate();
@@ -78,6 +85,9 @@ namespace ss
 
 	void GameObject::Render()
 	{
+		if (!mbActive)
+			return;
+
 		for (Component* comp : mComponents)
 		{
 			comp->Render();
@@ -107,7 +117,7 @@ namespace ss
 			if (*iter == child)
 				// iter가 가리키는 값을 지운다. erase할 때는 반드시 안전을 위해
 				// erase가 반환하는 iter값을 다시 받아서 정보를 재갱신해야된다.
-				iter = mChildren.erase(iter); 
+				iter = mChildren.erase(iter);
 
 			else // 찾는 값이 없다면
 				iter++; // iter가 컨테이너의 다음 요소로 넘어가도록 한다.

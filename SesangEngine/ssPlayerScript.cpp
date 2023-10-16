@@ -28,6 +28,9 @@
 #include "ssPistolBulletScript.h"
 #include "ssPlayerPistolBullet.h"
 #include "ssAudioSource.h"
+#include "ssResources.h"
+#include "ssSoundMgrScript.h"
+
 
 namespace ss
 {
@@ -620,6 +623,11 @@ namespace ss
 		// 대쉬
 		else if (Input::GetKeyDown(eKeyCode::X))
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Dash_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.3f);
+
 			// 대쉬 시작
 			mbDash = true;
 			DashDuration = 0.5f;  // 대쉬 지속 시간 설정
@@ -793,6 +801,12 @@ namespace ss
 		// ========대쉬 
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Dash_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.3f);
+
+
 			// 대쉬 시작
 			mbDash = true;
 			DashDuration = 0.5f;  // 대쉬 지속 시간 설정

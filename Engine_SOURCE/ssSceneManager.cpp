@@ -7,18 +7,21 @@ namespace ss
 {
 	// ===== static 초기화
 	Scene* SceneManager::mActiveScene = nullptr;
-	eWeaponType SceneManager::WeaponInfo = eWeaponType::PISTOL;
+
+	// 씬 모아두는 map
+	std::map<std::wstring, Scene*> SceneManager::mScenes;
+
+	std::vector<GameObject*> SceneManager::mDontDestroyObjects;
 
 	Player* SceneManager::mPlayer = nullptr;
 
+	eWeaponType SceneManager::WeaponInfo = eWeaponType::PISTOL;
 
 	bool SceneManager::mbOnSword = false;
 	bool SceneManager::mbOnPistol = false;
 	bool SceneManager::mbOnGauntlet = false;
 
 
-	// 씬 모아두는 map
-	std::map<std::wstring, Scene*> SceneManager::mScenes;
 
 	void SceneManager::Initialize()
 	{
@@ -55,21 +58,103 @@ namespace ss
 
 	Scene* SceneManager::LoadScene(std::wstring name)
 	{
-		// map을 iterator로 돌림
-		std::map<std::wstring, Scene*>::iterator iter
-			= mScenes.find(name);
+
+		std::map<std::wstring, Scene*>::iterator iter = mScenes.find(name);
 
 		if (iter == mScenes.end())
 			return nullptr;
-	
-		// 맵에 저장된 씬이 있다면 일단 활성화중이던 씬을 나가고
-		mActiveScene->OnExit();
 
-		// map에서 반환된 씬 메모리 주소를 활성화 씬으로 대체해준다. 
+		// 이전 씬에서 DontDestroyOnLoad로 설정한 객체를 새 씬으로 이동
+		for (size_t i = 0; i < mDontDestroyObjects.size(); ++i)
+		{
+			GameObject* dontDestroyObject = mDontDestroyObjects[i];
+
+			// 현재 씬에서 객체 제거
+			if (mActiveScene)
+			{
+				mActiveScene->DeleteGameObject((eLayerType)dontDestroyObject->GetLayerIndex(), dontDestroyObject);
+			}
+
+			// 새 씬에서 해당 객체 찾기
+			GameObject* foundObject = iter->second->FindGameObject((eLayerType)dontDestroyObject->GetLayerIndex(), dontDestroyObject);
+
+			// 객체가 이미 새로운 씬에 있는지 확인
+			if (!foundObject)
+			{
+				// 새로운 씬에 객체 추가
+				iter->second->AddGameObject((eLayerType)dontDestroyObject->GetLayerIndex(), dontDestroyObject);
+			}
+		}
+
+		mActiveScene->OnExit();
 		mActiveScene = iter->second;
-		// 새로 활성화 된 씬의 OnEnter로 들어간다. 
 		mActiveScene->OnEnter();
 
 		return iter->second;
 	}
+
+	GameObject* SceneManager::FindSoundMgr()
+	{
+		for (auto& object : mDontDestroyObjects)
+		{
+			std::wstring name = object->GetName();
+
+			if (L"SoundMgr" == name)
+			{
+				return object;
+				break;
+			}
+		}
+
+		return nullptr;
+	}
+	
+
+
+	void SceneManager::RemoveFromDontDestroyOnLoad(GameObject* _GameObject)
+	{
+		auto iter = std::find(mDontDestroyObjects.begin(), mDontDestroyObjects.end(), _GameObject);
+
+		if (iter != mDontDestroyObjects.end())
+		{
+			mDontDestroyObjects.erase(iter);
+		}
+	}
+
+	void SceneManager::DontUseOnLoad(std::wstring objectName)
+	{
+		// m_DontDestroyObjects를 반복문으로 돌며 동일한 이름의 객체를 찾는다
+		for (auto& object : mDontDestroyObjects)
+		{
+			// 객체의 이름을 얻어온다
+			std::wstring name = object->GetName();
+
+			// 동일한 이름의 객체를 찾았을 경우
+			if (name == objectName)
+			{
+				// 호출한 씬에서 제외
+				if (mActiveScene)
+				{
+					mActiveScene->DeleteGameObject((eLayerType)object->GetLayerIndex(), object);
+				}
+			}
+		}
+	}
+
+	void SceneManager::DontUseOnLoad(eLayerType _LayerType)
+	{
+		for (auto& object : mDontDestroyObjects)
+		{
+			int iLayerType = object->GetLayerIndex();
+
+			if ((int)_LayerType == iLayerType)
+			{
+				if (mActiveScene)
+				{
+					mActiveScene->DeleteGameObject((eLayerType)iLayerType, object);
+				}
+			}
+		}
+	}
+
 }

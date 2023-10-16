@@ -245,6 +245,9 @@
     <ClCompile Include="ssUIFrameScript.cpp">
       <Filter>Contents\Script\UI\UIFrame</Filter>
     </ClCompile>
+    <ClCompile Include="ssSoundMgrScript.cpp">
+      <Filter>Contents\Script\Component\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Contents">
@@ -450,6 +453,9 @@
     </Filter>
     <Filter Include="Contents\Script\UI\UIFrame">
       <UniqueIdentifier>{a6f85930-6acc-4a93-855b-e4541732691f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Script\Component\Sound">
+      <UniqueIdentifier>{4ff9425f-2f72-4536-a244-fb722bdda213}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -698,6 +704,9 @@
     </ClInclude>
     <ClInclude Include="ssUIFrameScript.h">
       <Filter>Contents\Script\UI\UIFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="ssSoundMgrScript.h">
+      <Filter>Contents\Script\Component\Sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,12 +15,13 @@ namespace ss
         virtual void Update() override;
         virtual void LateUpdate() override;
         virtual void Render() override;
+        virtual void Destroy() override;
 
         virtual void OnEnter() override;
         virtual void OnExit() override;
 
 
-        class GameObject* mMainCam;
+        GameObject* mCam;
     };
 }
 

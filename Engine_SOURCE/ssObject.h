@@ -14,6 +14,7 @@ namespace ss::object
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
+		gameObj->SetLayerIndex((int)layer);
 		gameObj->SetName(name);
 
 		return gameObj;
@@ -28,6 +29,7 @@ namespace ss::object
 
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
+		gameObj->SetLayerIndex((int)layer);
 
 		gameObj->SetName(name);
 
@@ -43,6 +45,7 @@ namespace ss::object
 
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
+		gameObj->SetLayerIndex((int)layer);
 
 		return gameObj;
 	}
@@ -57,6 +60,7 @@ namespace ss::object
 
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
+		gameObj->SetLayerIndex((int)layer);
 
 		gameObj->SetName(name);
 
@@ -74,6 +78,7 @@ namespace ss::object
 
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
+		gameObj->SetLayerIndex((int)layer);
 
 		gameObj->SetName(name);
 
@@ -87,7 +92,7 @@ namespace ss::object
 		T* gameObj = new T();
 		Scene* scene = SceneManager::GetActiveScene();
 		scene.AddGameObject(gameObj, layer);
-
+		gameObj->SetLayerIndex((int)layer);
 		gameObj->SetName(name);
 
 		Transform* tr = gameObj->GetComponent<Transform>();
@@ -100,5 +105,6 @@ namespace ss::object
 	{
 		gameObj->SetState(ss::GameObject::eState::Dead);
 	}
+
 
 }

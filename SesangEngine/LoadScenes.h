@@ -26,11 +26,11 @@ namespace ss
 		// new연산자를 CreateScene 함수 안에 아예 넣었기 때문에 아래처럼 하면 됨 
 		SceneManager::CreateScene<TitleScene>(L"TitleScene");
 		SceneManager::CreateScene<LibraryScene>(L"LibraryScene");
-		SceneManager::CreateScene<EntranceScene>(L"EntranceScene");
-		SceneManager::CreateScene<EntryScene>(L"EntryScene");
-		SceneManager::CreateScene<Stage1Scene>(L"Stage1Scene");
-		SceneManager::CreateScene<Boss1Scene>(L"Boss1Scene");
-		SceneManager::CreateScene<Boss2Scene>(L"Boss2Scene");
+		//SceneManager::CreateScene<EntranceScene>(L"EntranceScene");
+		//SceneManager::CreateScene<EntryScene>(L"EntryScene");
+		//SceneManager::CreateScene<Stage1Scene>(L"Stage1Scene");
+		//SceneManager::CreateScene<Boss1Scene>(L"Boss1Scene");
+		//SceneManager::CreateScene<Boss2Scene>(L"Boss2Scene");
 		//SceneManager::CreateScene<PlayScene>(L"PlayScene");
 
 

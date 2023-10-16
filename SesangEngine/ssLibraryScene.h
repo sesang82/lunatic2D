@@ -21,8 +21,7 @@ namespace ss
 
 	private:
 		Camera* mCameraComp;
-
-		Player* mPlayer;
 		GameObject* mCameraObj;
+		Player* mPlayer;
     };
 }

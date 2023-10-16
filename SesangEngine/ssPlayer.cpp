@@ -44,9 +44,6 @@ namespace ss
 		mCol->SetCenter(Vector2(-6.f, 8.f));
 
 
-		AddComponent<AudioListener>();
-		AudioSource* audioSource = AddComponent<AudioSource>();
-
 		//audioSource->GetClip
 
 

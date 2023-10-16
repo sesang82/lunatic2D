@@ -1,4 +1,5 @@
 #include "ssScene.h"
+#include "ssrenderer.h"
 
 namespace ss
 {
@@ -13,7 +14,7 @@ namespace ss
 
 	void Scene::Initialize()
 	{
-		
+
 	}
 
 	void Scene::Update()
@@ -49,6 +50,7 @@ namespace ss
 
 	void Scene::OnEnter()
 	{
+	
 	}
 	void Scene::OnExit()
 	{
@@ -61,5 +63,33 @@ namespace ss
 	void Scene::DeleteGameObject(eLayerType type, GameObject* gameObj)
 	{
 		mLayers[(int)type].DeleteGameObject(gameObj);
+	}
+	GameObject* Scene::FindGameObject(eLayerType _Type, GameObject* _GameObj)
+	{
+		Layer& layer = mLayers[(int)_Type];
+
+		for (GameObject* obj : layer.GetGameObjects())
+		{
+			if (obj == _GameObj)
+			{
+				return obj;
+			}
+		}
+
+		return nullptr;
+	}
+	GameObject* Scene::FindGameObject(eLayerType _Type, std::wstring _Name)
+	{
+		Layer& layer = mLayers[(int)_Type];
+
+		for (GameObject* obj : layer.GetGameObjects())
+		{
+			if (obj->GetName() == _Name)
+			{
+				return obj;
+			}
+		}
+
+		return nullptr;
 	}
 }

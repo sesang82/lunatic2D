@@ -472,6 +472,7 @@ namespace ss
 
 	void Boss1Scene::OnEnter()
 	{
+		Scene::OnEnter();
 		// 메인 카메라로 설정해준다. 
 		renderer::mainCamera = mCamera;
 
@@ -486,5 +487,6 @@ namespace ss
 
 	void Boss1Scene::OnExit()
 	{
+		Scene::OnExit();
 	}
 }

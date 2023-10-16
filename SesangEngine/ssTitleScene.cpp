@@ -13,10 +13,13 @@
 #include "ssBackground.h"
 #include "ssCollisionManager.h"
 #include "ssAudioSource.h"
+#include "ssObject.h"
+#include "ssSoundMgrScript.h"
+#include "ssAudioListener.h"
+#include "ssAudioClip.h"
 
 
 ss::TitleScene::TitleScene()
-	: mMainCam(nullptr)
 {
 }
 
@@ -26,6 +29,8 @@ ss::TitleScene::~TitleScene()
 
 void ss::TitleScene::Initialize()
 {
+	Scene::Initialize();
+
 	CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Ground, true);
 	CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Wall, true);
 	CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Collision, true);
@@ -66,16 +71,25 @@ void ss::TitleScene::Initialize()
 	
 	// 카메라 생성
 	{
-		mMainCam = new GameObject();
-		AddGameObject(eLayerType::Camera, mMainCam);
-		Camera* cameraComp = mMainCam->AddComponent<Camera>();
+		mCam = new GameObject();
+		AddGameObject(eLayerType::Camera, mCam);
+		Camera* cameraComp = mCam->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		cameraComp->SetSize(1.f);
-
-		mMainCam->AddComponent<AudioSource>()->AddClipByKey(L"Title_Bgm");
-		mMainCam->GetComponent<AudioSource>()->Play(L"Title_Bgm", true);
 	}
 
+	// 사운드 매니저
+	{
+		GameObject* pObject = object::Instantiate<GameObject>(eLayerType::Grid, L"SoundMgr");
+		SceneManager::DontDestroyOnLoad(pObject);
+
+		SoundMgrScript* pSoundMgr = pObject->AddComponent<SoundMgrScript>();
+		pSoundMgr->SetListener(pObject->AddComponent<AudioListener>());
+		pSoundMgr->SetBGM(pObject->AddComponent<AudioSource>());
+		pSoundMgr->SetSFX(pObject->AddComponent<AudioSource>());
+
+
+	}
 
 	// 로고
 	//{
@@ -88,11 +102,12 @@ void ss::TitleScene::Initialize()
 	//}
 	
 
-
 }
 
 void ss::TitleScene::Update()
 {
+	Scene::Update();
+
 	if (Input::GetKeyDown(eKeyCode::ENTER))
 	{
 		
@@ -100,25 +115,42 @@ void ss::TitleScene::Update()
 	}
 
 
-	BaseScene::Update();
+
 }
 
 void ss::TitleScene::LateUpdate()
 {
-	BaseScene::LateUpdate();
+	Scene::LateUpdate();
 }
 
 void ss::TitleScene::Render()
 {
-	BaseScene::Render();
+	Scene::Render();
+}
+
+void ss::TitleScene::Destroy()
+{
+	Scene::Destroy();
 }
 
 void ss::TitleScene::OnEnter()
 {
-	
+	Scene::OnEnter();
+
+	AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+	pBGM->SetClip(Resources::Find<AudioClip>(L"Title_Bgm"));
+	pBGM->Play();
+	pBGM->SetLoop(true);
+	pBGM->SetVolume(1.f);
 
 }
 
+
 void ss::TitleScene::OnExit()
 {
+	Scene::OnExit();
+
+	AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+	pBGM->GetClip()->Stop();
+
 }

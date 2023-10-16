@@ -8,7 +8,7 @@ namespace ss
 	{
 	public:
 		AudioListener();
-		~AudioListener();
+		virtual ~AudioListener();
 
 		virtual void Initialize() override;
 		virtual void Update() override;

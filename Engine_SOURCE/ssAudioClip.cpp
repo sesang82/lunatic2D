@@ -10,24 +10,17 @@ namespace ss
 		, mMinDistance(1.0f)
 		, mMaxDistance(1000.0f)
 		, mbLoop(false)
-		, mVolume(0.f)
-		, mPitch(0.f)
 	{
 
 	}
 
 	AudioClip::~AudioClip()
 	{
-		//mSound->release();
-		//mSound = nullptr;
 	}
 
-	HRESULT AudioClip::Load(const std::wstring& path)
+	HRESULT AudioClip::Load(const std::wstring& _Path)
 	{
-		std::filesystem::path parentPath = std::filesystem::current_path().parent_path();
-		std::wstring fullPath = parentPath.wstring() + L"\\Resources\\" + path;
-
-		std::string cPath(fullPath.begin(), fullPath.end());
+		std::string cPath(_Path.begin(), _Path.end());
 		if (!Fmod::CreateSound(cPath, &mSound))
 			return S_FALSE;
 
@@ -51,10 +44,15 @@ namespace ss
 		mChannel->stop();
 	}
 
-	void AudioClip::Set3DAttributes(const Vector3 pos, const Vector3 vel)
+	void AudioClip::SetVolume(float _Volume)
 	{
-		FMOD_VECTOR fmodPos(pos.x, pos.y, pos.z);
-		FMOD_VECTOR fmodVel(vel.x, vel.y, vel.z);
+		mChannel->setVolume(_Volume);
+	}
+
+	void AudioClip::Set3DAttributes(const Vector3 _Pos, const Vector3 _Vel)
+	{
+		FMOD_VECTOR fmodPos(_Pos.x, _Pos.y, _Pos.z);
+		FMOD_VECTOR fmodVel(_Vel.x, _Vel.y, _Vel.z);
 
 		mChannel->set3DAttributes(&fmodPos, &fmodVel);
 	}

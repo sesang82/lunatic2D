@@ -33,6 +33,8 @@ namespace ss
 	void EntranceScene::Initialize()
 	{
 
+		Scene::Initialize();
+
 		// ¹è°æ ¸Ê ¼³Á¤ 
 		{
 			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"EntranceMap");
@@ -399,10 +401,11 @@ namespace ss
 		}
 
 
-		Scene::Initialize();
 	}
 	void EntranceScene::Update()
 	{
+		Scene::Update();
+
 		if (Input::GetKeyDown(eKeyCode::ENTER))
 		{
 
@@ -410,7 +413,7 @@ namespace ss
 		}
 
 
-		Scene::Update();
+	
 	}
 	void EntranceScene::LateUpdate()
 	{
@@ -422,6 +425,7 @@ namespace ss
 	}
 	void EntranceScene::OnEnter()
 	{
+		Scene::OnEnter();
 		renderer::mainCamera = mCamera;
 		mCamera->SetSize(2.3f);
 
@@ -433,5 +437,6 @@ namespace ss
 	}
 	void EntranceScene::OnExit()
 	{
+		Scene::OnExit();
 	}
 }

@@ -24,6 +24,8 @@ namespace ss
 
 		void DeleteGameObject(eLayerType type, GameObject* gameObj);
 
+		GameObject* FindGameObject(eLayerType _Type, GameObject* _GameObj);
+		GameObject* FindGameObject(eLayerType _Type, std::wstring _Name);
 
 		// ==씬에 추가된 오브젝트들 중에서도 특정 오브젝트만 갖고 올 수 있게 해주는 함수
 		// ex) 몬스터만 갖고 오고 싶을 경우, <>에 몬스터 클래스 넣으면 될 것 
@@ -40,7 +42,7 @@ namespace ss
 				auto gameObjs = layer->GetGameObjects();
 
 				// 반복문 돌리는 게임오브젝트 중에서도 해당 타입에 해당하는 오브젝트들을 찾아낸다.
-				for (GameObject* obj: gameObjs)
+				for (GameObject* obj : gameObjs)
 				{
 					T* buff = dynamic_cast<T*>(obj);
 					if (buff != nullptr)
@@ -69,20 +71,6 @@ namespace ss
 					return result;
 			}
 			return nullptr;
-		}
-
-
-
-		GameObject* FindGameObjectByName(const std::wstring& name) 
-		{
-			for (Layer& layer : mLayers) 
-			{
-				GameObject* obj = layer.FindGameObjectByName(name);
-				if (obj) {
-					return obj; // 이름이 일치하는 객체를 찾았다면 반환
-				}
-			}
-			return nullptr; // 이름이 일치하는 객체가 없으면 nullptr 반환
 		}
 
 

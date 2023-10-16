@@ -16,7 +16,7 @@ namespace ss
 	{
 	public:
 		Component(eComponentType type);
-		~Component();
+		virtual ~Component();
 
 		virtual void Initialize();
 		virtual void Update();

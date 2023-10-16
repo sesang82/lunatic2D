@@ -18,53 +18,27 @@ namespace ss
 	{
 	public:
 		AudioClip();
-		~AudioClip();
-
-		virtual HRESULT Load(const std::wstring& path) override;
-
-		void Play();
-		void Stop();
-		void Set3DAttributes(const Vector3 pos, const Vector3 vel);
-		void SetLoop(bool loop) { mbLoop = loop; }
-
-		bool IsPlaying() const
-		{
-			bool playing = false;
-			mChannel->isPlaying(&playing);
-			return playing;
-		}
-
-		void SetVolume(float _Volume)
-		{
-			mVolume = _Volume;
-			mChannel->setVolume(mVolume);
-		}
-		float GetVolume()
-		{
-			mChannel->getVolume(&mVolume);
-			return mVolume;
-		}
-		void SetPitch(float _Pitch)
-		{
-			mPitch = _Pitch;
-			mChannel->setPitch(mPitch);
-		}
-		float GetPitch()
-		{
-			mChannel->getPitch(&mPitch);
-			return mPitch;
-		}
+		virtual ~AudioClip();
 
 	private:
 		FMOD::Sound* mSound;
 		FMOD::Channel* mChannel;
-		float mMinDistance;
-		float mMaxDistance;
-		float mVolume;
-		float mVolumeRatio;
-		float mPitch;
-		float mPitchRatio;
-		bool mbLoop;
+		float				mMinDistance;
+		float				mMaxDistance;
+		bool				mbLoop;
+
+	public:
+		void Play();
+		void Stop();
+		void SetVolume(float _Volume);		// 0 ~ 1
+		void Set3DAttributes(const Vector3 _Pos, const Vector3 _Vel);
+		void SetLoop(bool _Loop)
+		{
+			mbLoop = _Loop;
+		}
+
+	public:
+		virtual HRESULT Load(const std::wstring& _Path) override;
 	};
 }
 

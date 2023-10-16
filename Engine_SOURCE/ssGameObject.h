@@ -30,11 +30,12 @@ namespace ss
 		std::vector<Script*> mScripts;
 
 		ss::enums::eLayerType mLayerType;
+		int                     mLayerIdx;
 
 		// 부모 자식
 		GameObject* mParent;
 		std::vector<GameObject*> mChildren; // 자식들을 모아두는 공간
-
+		bool					mbActive;
 
 	public:
 		virtual void SetState(eState state) { mState = state; }
@@ -45,6 +46,21 @@ namespace ss
 
 
 		ss::enums::eLayerType GetLayerType() { return mLayerType; }
+
+		void SetLayerIndex(int _Layer)
+		{
+			mLayerIdx = _Layer;
+		}
+
+		int GetLayerIndex() const
+		{
+			return mLayerIdx;
+		}
+
+		void SetActive(bool _b)
+		{
+			mbActive = _b;
+		}
 
 
 		// ==== 부모 자식 관련(Transform 클래스에 있는 것과 별개)
@@ -64,9 +80,9 @@ namespace ss
 
 			return nullptr;
 		}
-	
 
-		
+
+
 		void SetParent(GameObject* obj)
 		{
 			mParent = obj;
@@ -158,7 +174,7 @@ namespace ss
 		T* AddComponent()
 		{
 			T* comp = new T();
-			
+
 			// 컴포넌트가 다 돌고나서야, 맨 마지막에 script를 추가해야한다.
 			// Script는 컴포넌트 전에 반복문을 돌거나, 아니면 맨 마지막에 반복문을 돌아야한다.
 			Component* buff
@@ -173,7 +189,7 @@ namespace ss
 				mComponents.push_back(buff);
 			else
 				mScripts.push_back(script);
-			
+
 			comp->SetOwner(this);
 			comp->Initialize();
 
@@ -219,7 +235,7 @@ namespace ss
 				}
 			}
 		}
-	
+
 
 	};
 }
