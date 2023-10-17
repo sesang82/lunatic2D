@@ -59,6 +59,7 @@ namespace ss
 
 		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false);
 
+		mAnimator->StartEvent(L"Energyball_S_Parrying_End") = std::bind(&SmallEnergyball::HitStart, this);
 		mAnimator->EndEvent(L"Energyball_S_Parrying_End") = std::bind(&SmallEnergyball::HitEnd, this);
 
 		AddComponent<SmallEnergyballScript>();
@@ -119,6 +120,13 @@ namespace ss
 	void SmallEnergyball::Render()
 	{
 		Bullet::Render();
+	}
+
+	void SmallEnergyball::HitStart()
+	{
+
+		RemoveComponent<Collider2D>();
+
 	}
 
 	void SmallEnergyball::CreateCircleBalls()

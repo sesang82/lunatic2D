@@ -64,4 +64,10 @@ namespace ss
 		mAudioClip->SetPlaybackSpeed(_speed);
 	}
 
+	bool AudioSource::IsPlaying()
+	{
+
+		 return mAudioClip->IsPlaying();
+	}
+
 }

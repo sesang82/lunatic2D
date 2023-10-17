@@ -81,6 +81,8 @@ namespace ss
         bool mbGetSword;
         bool mbGetGauntlet;
         bool mbGetPistol;
+
+        void test();
   
 
         float mJumpPower;

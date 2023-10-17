@@ -42,6 +42,7 @@ namespace ss
 		if (mPrevAnimation != nullptr
 			&& mPrevAnimation != mActiveAnimation)
 		{
+
 			mPrevAnimation->Reset();
 		}
 
@@ -51,20 +52,41 @@ namespace ss
 				= FindEvents(mActiveAnimation->GetKey());
 
 			if (events)
+			{
 				events->completeEvent();
+
+			
+			}
 
 			mActiveAnimation->Reset();
 		}
 
 		else if (mbLoop == false)
 		{
+
 			mPrevAnimation = mActiveAnimation;
+
+			
+			
 		}
 
+		// 현재 애니메이션의 프레임 인덱스를 가져옵니다.
+		int currentFrameIndex = mActiveAnimation->GetIndex();
 
+		// 해당 프레임에 이벤트가 등록되어 있는지 확인합니다.
+		Events* events = FindEvents(mActiveAnimation->GetKey());
+		if (events &&
+			currentFrameIndex < events->mFrameEvents.size() &&
+			events->mFrameEvents[currentFrameIndex].mEvent)
+{		
+			// 이벤트를 호출합니다.
+			events->mFrameEvents[currentFrameIndex]();
 
-
+		}
 	}
+
+
+	
 	void Animator::LateUpdate()
 	{
 		if (mActiveAnimation != nullptr)
@@ -112,10 +134,22 @@ namespace ss
 		mPrevEventIndex = frameIndex;
 		mEventIndex = frameIndex;
 
-		// 키 값에 해당하는 이벤트가 있다면 찾아와서 
 		Events* events = FindEvents(animationName);
-		
-		return events->mFrameEvents[mEventIndex].mEvent;
+
+		if (frameIndex >= events->mFrameEvents.size()) {
+			// Error handling: the frameIndex is out of range
+			throw std::out_of_range("frameIndex out of range");
+		}
+
+		return events->mFrameEvents[frameIndex].mEvent;
+
+		//mPrevEventIndex = frameIndex;
+		//mEventIndex = frameIndex;
+
+		//// 키 값에 해당하는 이벤트가 있다면 찾아와서 
+		//Events* events = FindEvents(animationName);
+		//
+		//return events->mFrameEvents[mEventIndex].mEvent;
 
 	}
 

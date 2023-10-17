@@ -36,6 +36,9 @@ namespace ss
 		// 
 		if (mSprites[mIndex].duration <= mTime)
 		{
+
+
+
 			mIndex++;
 			mTime = 0.0f;
 
@@ -140,6 +143,8 @@ namespace ss
 		mTime = 0.0f;
 		mbComplete = false;
 		mIndex = 0;
+
+
 
 
 	}

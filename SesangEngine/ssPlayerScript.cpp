@@ -170,14 +170,14 @@ namespace ss
 
 
 		// ====== 음악 관련 
-		mAnimator->StartEvent(L"Player_S_Attack1R") = std::bind(&PlayerScript::SwordAttack_1, this);
-		mAnimator->StartEvent(L"Player_S_Attack1L") = std::bind(&PlayerScript::SwordAttack_1, this);
+		//mAnimator->StartEvent(L"Player_S_Attack1R") = std::bind(&PlayerScript::SwordAttack_1, this);
+		//mAnimator->StartEvent(L"Player_S_Attack1L") = std::bind(&PlayerScript::SwordAttack_1, this);
 
-		mAnimator->StartEvent(L"Player_S_Attack2R") = std::bind(&PlayerScript::SwordAttack_2, this);
-		mAnimator->StartEvent(L"Player_S_Attack2L") = std::bind(&PlayerScript::SwordAttack_2, this);
+		//mAnimator->StartEvent(L"Player_S_Attack2R") = std::bind(&PlayerScript::SwordAttack_2, this);
+		//mAnimator->StartEvent(L"Player_S_Attack2L") = std::bind(&PlayerScript::SwordAttack_2, this);
 
-		mAnimator->StartEvent(L"Player_S_Attack3R") = std::bind(&PlayerScript::SwordAttack_3, this);
-		mAnimator->StartEvent(L"Player_S_Attack3L") = std::bind(&PlayerScript::SwordAttack_3, this);
+		//mAnimator->StartEvent(L"Player_S_Attack3R") = std::bind(&PlayerScript::SwordAttack_3, this);
+		//mAnimator->StartEvent(L"Player_S_Attack3L") = std::bind(&PlayerScript::SwordAttack_3, this);
 
 		
 		mAnimator->StartEvent(L"Player_S_spAttackR") = std::bind(&PlayerScript::SwordSPAttack, this);
@@ -216,6 +216,9 @@ namespace ss
 		mAnimator->StartEvent(L"Player_P_HitL") = std::bind(&PlayerScript::HitStart, this);
 		mAnimator->StartEvent(L"Player_G_HitR") = std::bind(&PlayerScript::HitStart, this);
 		mAnimator->StartEvent(L"Player_G_HitL") = std::bind(&PlayerScript::HitStart, this);
+
+		mAnimator->RegisterFrameEvent(L"Player_S_Attack1R", 2) = std::bind(&PlayerScript::SwordAttack_1, this);
+		
 		
 
 
@@ -605,6 +608,11 @@ namespace ss
 		cb->Bind(eShaderStage::VS);
 		cb->Bind(eShaderStage::PS); // 상수 버퍼는 어느 쉐이더 단계이든 바인딩할 수 있다는게 장점이다. 
 
+	}
+
+	void PlayerScript::test()
+	{
+		int i = 0;
 	}
 
 
@@ -3148,6 +3156,11 @@ namespace ss
 	void PlayerScript::SwordAttack_1()
 	{
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+		if (pSFX->GetClip() == Resources::Find<AudioClip>(L"Sword_Attack1_Bgm"))
+			return;
+
+
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_Attack1_Bgm"));
 		pSFX->Play();
 		pSFX->PlaybackSpeed(1.f);

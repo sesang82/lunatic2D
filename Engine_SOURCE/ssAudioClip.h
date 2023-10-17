@@ -28,6 +28,8 @@ namespace ss
 		bool				mbLoop;
 		FMOD::DSP* mPitchShiftDSP; // 피치를 유지하면서 재생 속도 빠르게 하기 위한 기능 dsp
 
+		bool   mbPlaying;
+
 	public:
 		void Play();
 		void Stop();
@@ -39,6 +41,8 @@ namespace ss
 		}
 
 		void SetPlaybackSpeed(float speed); // 피치는 유지하면서 재생속도만 증가
+
+		bool IsPlaying();
 
 	public:
 		virtual HRESULT Load(const std::wstring& _Path) override;
