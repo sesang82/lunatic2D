@@ -32,6 +32,7 @@ namespace ss
             Event completeEvent;  // 애니메이션 한 사이클 끝날 때 마다
             Event endEvent;      // 애니메이션 교체나 interrupt 걸릴때 호출
             std::vector<Event> mFrameEvents; // 해당 스프라이트(인덱스) 에서 실행될 이벤트  
+            std::vector<bool> mEventCalledFlags; // 해당 프레임의 이벤트가 호출되었는지의 플래그
         };
 
     public:

@@ -4851,6 +4851,7 @@ namespace renderer
 
 		// 2. ÇÇ½ºÅç
 		Resources::Load<AudioClip>(L"Pistol_Attack1_Bgm", L"..\\Resources\\Sound\\SE_Weapon_Pistol_Attack.wav");
+		Resources::Load<AudioClip>(L"Pistol_Attack1_2Bgm", L"..\\Resources\\Sound\\SE_Weapon_Pistol_Attack.wav");
 		Resources::Load<AudioClip>(L"Pistol_Attack2_Bgm", L"..\\Resources\\Sound\\SE_Weapon_Pistol_Attack_3.wav");
 		Resources::Load<AudioClip>(L"Pistol_OverloadAttack_Bgm", L"..\\Resources\\Sound\\SE_Weapon_Pistol_Attack_Overload.wav");
 

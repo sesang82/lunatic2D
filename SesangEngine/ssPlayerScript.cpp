@@ -170,24 +170,22 @@ namespace ss
 
 
 		// ====== 음악 관련 
-		//mAnimator->StartEvent(L"Player_S_Attack1R") = std::bind(&PlayerScript::SwordAttack_1, this);
-		//mAnimator->StartEvent(L"Player_S_Attack1L") = std::bind(&PlayerScript::SwordAttack_1, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_Attack1R", 2) = std::bind(&PlayerScript::SwordAttack_1, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_Attack1L", 2) = std::bind(&PlayerScript::SwordAttack_1, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_Attack2R", 2) = std::bind(&PlayerScript::SwordAttack_2, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_Attack2L", 2) = std::bind(&PlayerScript::SwordAttack_2, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_Attack3R", 2) = std::bind(&PlayerScript::SwordAttack_3, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_Attack3L", 2) = std::bind(&PlayerScript::SwordAttack_3, this);
 
-		//mAnimator->StartEvent(L"Player_S_Attack2R") = std::bind(&PlayerScript::SwordAttack_2, this);
-		//mAnimator->StartEvent(L"Player_S_Attack2L") = std::bind(&PlayerScript::SwordAttack_2, this);
-
-		//mAnimator->StartEvent(L"Player_S_Attack3R") = std::bind(&PlayerScript::SwordAttack_3, this);
-		//mAnimator->StartEvent(L"Player_S_Attack3L") = std::bind(&PlayerScript::SwordAttack_3, this);
-
-		
+	
 		mAnimator->StartEvent(L"Player_S_spAttackR") = std::bind(&PlayerScript::SwordSPAttack, this);
 		mAnimator->StartEvent(L"Player_S_spAttackL") = std::bind(&PlayerScript::SwordSPAttack, this);
 
 		mAnimator->StartEvent(L"Player_S_OverloadingR") = std::bind(&PlayerScript::SwordOverload, this);
 		mAnimator->StartEvent(L"Player_S_OverloadingL") = std::bind(&PlayerScript::SwordOverload, this);
 		
-		mAnimator->StartEvent(L"Player_P_Attack1,2R") = std::bind(&PlayerScript::PistolAttack_1_2, this);
-		mAnimator->StartEvent(L"Player_P_Attack1,2L") = std::bind(&PlayerScript::PistolAttack_1_2, this);
+		//mAnimator->StartEvent(L"Player_P_Attack1,2R") = std::bind(&PlayerScript::PistolAttack_1_2, this);
+		//mAnimator->StartEvent(L"Player_P_Attack1,2L") = std::bind(&PlayerScript::PistolAttack_1_2, this);
 		mAnimator->StartEvent(L"Player_P_Attack3R") = std::bind(&PlayerScript::PistolAttack_3, this);
 		mAnimator->StartEvent(L"Player_P_Attack3L") = std::bind(&PlayerScript::PistolAttack_3, this);
 		mAnimator->StartEvent(L"Player_P_spAttackR") = std::bind(&PlayerScript::PistolSPAttack, this);
@@ -196,15 +194,22 @@ namespace ss
 		mAnimator->StartEvent(L"Player_P_OverLoadingL") = std::bind(&PlayerScript::PistolOverload, this);
 
 
+		mAnimator->RegisterFrameEvent(L"Player_G_Attack1R", 1) = std::bind(&PlayerScript::GuntletAttack_1, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_Attack1L", 1) = std::bind(&PlayerScript::GuntletAttack_1, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_Attack1R", 4) = std::bind(&PlayerScript::GuntletATtack_1_2, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_Attack1L", 4) = std::bind(&PlayerScript::GuntletATtack_1_2, this);
+	 
+		mAnimator->RegisterFrameEvent(L"Player_G_Attack2R", 1) = std::bind(&PlayerScript::GuntletAttack_2, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_Attack2L", 1) = std::bind(&PlayerScript::GuntletAttack_2, this);
 
-		mAnimator->StartEvent(L"Player_G_Attack1R") = std::bind(&PlayerScript::GuntletAttack_1, this);
-		mAnimator->StartEvent(L"Player_G_Attack1L") = std::bind(&PlayerScript::GuntletAttack_1, this);
-		mAnimator->StartEvent(L"Player_G_Attack2R") = std::bind(&PlayerScript::GuntletAttack_2, this);
-		mAnimator->StartEvent(L"Player_G_Attack2L") = std::bind(&PlayerScript::GuntletAttack_2, this);
-		mAnimator->StartEvent(L"Player_G_Attack3R") = std::bind(&PlayerScript::GuntletAttack_3, this);
-		mAnimator->StartEvent(L"Player_G_Attack3L") = std::bind(&PlayerScript::GuntletAttack_3, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_Attack3R", 2) = std::bind(&PlayerScript::GuntletAttack_3, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_Attack3L", 2) = std::bind(&PlayerScript::GuntletAttack_3, this);
+
 		mAnimator->StartEvent(L"Player_G_spAttackR") = std::bind(&PlayerScript::GuntletSPAttackReady, this);
 		mAnimator->StartEvent(L"Player_G_spAttackL") = std::bind(&PlayerScript::GuntletSPAttackReady, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_spAttackR", 4) = std::bind(&PlayerScript::GuntletSPAttack, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_spAttackL", 4) = std::bind(&PlayerScript::GuntletSPAttack, this);
+
 		mAnimator->StartEvent(L"Player_G_overload_Attack1R") = std::bind(&PlayerScript::GuntletOverload_1, this);
 		mAnimator->StartEvent(L"Player_G_overload_Attack1L") = std::bind(&PlayerScript::GuntletOverload_1, this);
 		mAnimator->StartEvent(L"Player_G_overload_Attack2R") = std::bind(&PlayerScript::GuntletOverload_2, this);
@@ -217,10 +222,10 @@ namespace ss
 		mAnimator->StartEvent(L"Player_G_HitR") = std::bind(&PlayerScript::HitStart, this);
 		mAnimator->StartEvent(L"Player_G_HitL") = std::bind(&PlayerScript::HitStart, this);
 
-		mAnimator->RegisterFrameEvent(L"Player_S_Attack1R", 2) = std::bind(&PlayerScript::SwordAttack_1, this);
-		
-		
 
+
+
+		mAnimator->RegisterFrameEvent(L"Player_P_Attack1,2R", 2) = std::bind(&PlayerScript::test, this);
 
 
 	}
@@ -612,7 +617,10 @@ namespace ss
 
 	void PlayerScript::test()
 	{
-		int i = 0;
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Pistol_Attack1_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
 	}
 
 
@@ -1856,19 +1864,6 @@ namespace ss
 						if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 						{
 
-							if (mAttackCount == 1)
-							{
-							}
-
-							else if (mAttackCount == 2)
-							{
-								
-							}
-
-							else if (mAttackCount == 3)
-							{
-							
-							}
 
 							if (mPrevDir.x > 0)
 							{
@@ -3172,6 +3167,10 @@ namespace ss
 	void PlayerScript::SwordAttack_2()
 	{
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+		if (pSFX->GetClip() == Resources::Find<AudioClip>(L"Sword_Attack2_Bgm"))
+			return;
+
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_Attack2_Bgm"));
 		pSFX->Play();
 		pSFX->PlaybackSpeed(1.f);
@@ -3182,6 +3181,10 @@ namespace ss
 	void PlayerScript::SwordAttack_3()
 	{
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+		if (pSFX->GetClip() == Resources::Find<AudioClip>(L"Sword_Attack3_Bgm"))
+			return;
+
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_Attack3_Bgm"));
 		pSFX->Play();
 		pSFX->PlaybackSpeed(1.f);
@@ -3191,7 +3194,11 @@ namespace ss
 
 	void PlayerScript::SwordSPAttack()
 	{
+
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+	
+
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_SPAttack_Bgm"));
 		pSFX->Play();
 		pSFX->PlaybackSpeed(1.f);
@@ -3218,9 +3225,24 @@ namespace ss
 	void PlayerScript::GuntletAttack_1()
 	{
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
-	
+
+		if (pSFX->GetClip() == Resources::Find<AudioClip>(L"Gauntlet_Attack1_Bgm"))
+			return;
 
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_Attack1_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::GuntletATtack_1_2()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+	
+		if (pSFX->GetClip() == Resources::Find<AudioClip>(L"Pistol_Attack1_2Bgm"))
+			return;
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Pistol_Attack1_2Bgm"));
 		pSFX->Play();
 		pSFX->SetVolume(0.3f);
 	}
@@ -3229,6 +3251,8 @@ namespace ss
 	{
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
 
+		if (pSFX->GetClip() == Resources::Find<AudioClip>(L"Gauntlet_Attack2_Bgm"))
+			return;
 
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_Attack2_Bgm"));
 		pSFX->Play();
@@ -3239,6 +3263,8 @@ namespace ss
 	{
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
 
+		if (pSFX->GetClip() == Resources::Find<AudioClip>(L"Gauntlet_Attack3_Bgm"))
+			return;
 
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_Attack3_Bgm"));
 		pSFX->Play();
@@ -3255,10 +3281,12 @@ namespace ss
 		pSFX->SetVolume(0.3f);
 	}
 
-	// 특정 프레임에 바인딩해야될듯 
 	void PlayerScript::GuntletSPAttack()
 	{
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+		if (pSFX->GetClip() == Resources::Find<AudioClip>(L"Gauntlet_SPAttack_Bgm"))
+			return;
 
 
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_SPAttack_Bgm"));

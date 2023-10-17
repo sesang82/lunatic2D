@@ -12,6 +12,7 @@ namespace ss
 
 	private:
 		std::shared_ptr<AudioClip> mAudioClip;
+		bool mbPlay;
 
 	public:
 		void SetClip(std::shared_ptr<AudioClip> _Clip)
@@ -24,6 +25,7 @@ namespace ss
 			return mAudioClip;
 		}
 
+	
 	public:
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -38,5 +40,7 @@ namespace ss
 		void SetVolume(float _Volume);
 		void PlaybackSpeed(float _speed); // 0.5~2까지만. 피치는 유지하면서 재생속도만 증가
 		bool IsPlaying();
+
+		void SetPlay(bool _b) { mbPlay = _b; }
 	};
 }

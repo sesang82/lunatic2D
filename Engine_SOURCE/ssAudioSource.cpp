@@ -10,6 +10,7 @@ namespace ss
 	AudioSource::AudioSource()
 		: Component(eComponentType::AudioSource)
 		, mAudioClip(nullptr)
+		, mbPlay(false)
 	{
 
 	}
@@ -43,7 +44,10 @@ namespace ss
 
 	void AudioSource::Play()
 	{
-		mAudioClip->Play();
+		if (!mbPlay)
+		{
+			mAudioClip->Play();
+		}
 	}
 	void AudioSource::Stop()
 	{

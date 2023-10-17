@@ -46,43 +46,86 @@ namespace ss
 			mPrevAnimation->Reset();
 		}
 
-		if (mActiveAnimation->IsComplete() && mbLoop)
+		//if (mActiveAnimation->IsComplete() && mbLoop)
+		//{
+		//	Events* events
+		//		= FindEvents(mActiveAnimation->GetKey());
+
+		//	if (events)
+		//	{
+		//		events->completeEvent();
+
+		//		// 이벤트 호출 플래그 리셋
+		//		std::fill(events->mEventCalledFlags.begin(), events->mEventCalledFlags.end(), false);
+		//	}
+
+		//	mActiveAnimation->Reset();
+		//}
+
+		//else if (mActiveAnimation->IsComplete() && mbLoop == false)
+		//{
+
+		//	mPrevAnimation = mActiveAnimation;
+
+		//	
+		//	
+		//}
+
+		if (mActiveAnimation->IsComplete())
 		{
-			Events* events
-				= FindEvents(mActiveAnimation->GetKey());
+			Events* events = FindEvents(mActiveAnimation->GetKey());
 
 			if (events)
 			{
+				// 애니메이션 완료 이벤트 호출
 				events->completeEvent();
 
-			
+				// mEventCalledFlags 초기화
+				std::fill(events->mEventCalledFlags.begin(), events->mEventCalledFlags.end(), false);
 			}
 
-			mActiveAnimation->Reset();
+			// 만약 애니메이션이 루프 상태라면 Reset
+			if (mbLoop)
+			{
+				mActiveAnimation->Reset();
+			}
 		}
 
-		else if (mbLoop == false)
-		{
 
-			mPrevAnimation = mActiveAnimation;
-
-			
-			
-		}
 
 		// 현재 애니메이션의 프레임 인덱스를 가져옵니다.
 		int currentFrameIndex = mActiveAnimation->GetIndex();
 
 		// 해당 프레임에 이벤트가 등록되어 있는지 확인합니다.
 		Events* events = FindEvents(mActiveAnimation->GetKey());
+		 
 		if (events &&
 			currentFrameIndex < events->mFrameEvents.size() &&
+			currentFrameIndex < events->mEventCalledFlags.size() &&
+			!events->mEventCalledFlags[currentFrameIndex] &&
 			events->mFrameEvents[currentFrameIndex].mEvent)
-{		
+		{
 			// 이벤트를 호출합니다.
-			events->mFrameEvents[currentFrameIndex]();
+			events->mFrameEvents[currentFrameIndex].mEvent();
 
+			// 이벤트 호출 플래그를 설정합니다.
+			events->mEventCalledFlags[currentFrameIndex] = true;
 		}
+
+
+//		// 현재 애니메이션의 프레임 인덱스를 가져옵니다.
+//		int currentFrameIndex = mActiveAnimation->GetIndex();
+//
+//		// 해당 프레임에 이벤트가 등록되어 있는지 확인합니다.
+//		Events* events = FindEvents(mActiveAnimation->GetKey());
+//		if (events &&
+//			currentFrameIndex < events->mFrameEvents.size() &&
+//			events->mFrameEvents[currentFrameIndex].mEvent)
+//{		
+//			// 이벤트를 호출합니다.
+//			events->mFrameEvents[currentFrameIndex]();
+//
+//		}
 	}
 
 
@@ -276,6 +319,7 @@ namespace ss
 		// 없는 이벤트라면 새로 생성 
 		events = new Events();
 		events->mFrameEvents.resize(columnLength); // 애니메이션마다 갯수가 다를테므로 resize로 해준다. 
+		events->mEventCalledFlags.resize(columnLength, false);  // 추가된 코드
 
 		mEvents.insert(std::make_pair(name, events));
 

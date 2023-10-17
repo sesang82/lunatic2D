@@ -2440,6 +2440,7 @@ namespace ss
 
 		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
 		pBGM->GetClip()->Stop();
+		
 
 	}
 
