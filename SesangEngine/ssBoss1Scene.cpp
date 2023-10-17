@@ -22,6 +22,10 @@
 #include "ssCollisionManager.h"
 #include "ssProgressbar.h"
 #include "ssEffect.h"
+#include "ssAudioClip.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
+#include "ssAudioListener.h"
 
 
 
@@ -36,6 +40,8 @@ namespace ss
 	}
 	void Boss1Scene::Initialize()
 	{
+
+		Scene::Initialize();
 
 		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::Collision, true);
 
@@ -455,7 +461,7 @@ namespace ss
 		}
 
 
-		Scene::Initialize();
+	
 	}
 	void Boss1Scene::Update()
 	{
@@ -479,6 +485,14 @@ namespace ss
 		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 		camerscript->SetTarget(mPlayer);
 
+		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+		pBGM->GetClip()->Stop();
+		pBGM->SetClip(Resources::Find<AudioClip>(L"Boss1_Bgm"));
+		pBGM->SetLoop(true);
+		pBGM->Play();
+		pBGM->SetVolume(0.3f);
+
+
 	}
 
 
@@ -488,5 +502,7 @@ namespace ss
 	void Boss1Scene::OnExit()
 	{
 		Scene::OnExit();
+
+
 	}
 }

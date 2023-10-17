@@ -17,6 +17,10 @@
 #include "ssUIFrameScript.h"
 #include "ssProgressbar.h"
 #include "ssAnimator.h"
+#include "ssAudioClip.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
+#include "ssAudioListener.h"
 
 namespace ss
 {
@@ -444,6 +448,14 @@ namespace ss
 
 		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 		camerscript->SetTarget(mPlayer);
+
+		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+		pBGM->GetClip()->Stop();
+		pBGM->SetClip(Resources::Find<AudioClip>(L"Stage1_Bgm"));
+		pBGM->SetLoop(true);
+		pBGM->Play();
+		pBGM->SetVolume(0.3f);
+
 	
 	}
 	void EntryScene::OnExit()

@@ -182,8 +182,9 @@ namespace ss
 		mAnimator->StartEvent(L"Player_S_spAttackR") = std::bind(&PlayerScript::SwordSPAttack, this);
 		mAnimator->StartEvent(L"Player_S_spAttackL") = std::bind(&PlayerScript::SwordSPAttack, this);
 
-
-
+		mAnimator->StartEvent(L"Player_S_OverloadingR") = std::bind(&PlayerScript::SwordOverload, this);
+		mAnimator->StartEvent(L"Player_S_OverloadingL") = std::bind(&PlayerScript::SwordOverload, this);
+		
 		mAnimator->StartEvent(L"Player_P_Attack1,2R") = std::bind(&PlayerScript::PistolAttack_1_2, this);
 		mAnimator->StartEvent(L"Player_P_Attack1,2L") = std::bind(&PlayerScript::PistolAttack_1_2, this);
 		mAnimator->StartEvent(L"Player_P_Attack3R") = std::bind(&PlayerScript::PistolAttack_3, this);
@@ -596,11 +597,11 @@ namespace ss
 		// 제자리에서 점프  (맨 앞에 둬야됨) 
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
-
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Jump_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.1f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Jump_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
+		
 
 			mRigidbody->SetGravity(Vector2(0.f, 1500.f));
 
@@ -671,11 +672,12 @@ namespace ss
 		// 대쉬
 		else if (Input::GetKeyDown(eKeyCode::X))
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Dash_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.3f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Dash_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
 
+		
 			// 대쉬 시작
 			mbDash = true;
 			DashDuration = 0.5f;  // 대쉬 지속 시간 설정
@@ -712,10 +714,10 @@ namespace ss
 		// Guard
 		else if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_GaurdHit_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.3f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_GaurdHit_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
 
 
 			Vector3 pos = mTransform->GetPosition();
@@ -877,10 +879,10 @@ namespace ss
 		// ========대쉬 
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Dash_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.3f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Dash_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
 
 
 			// 대쉬 시작
@@ -894,10 +896,12 @@ namespace ss
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Jump_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.1f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Jump_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
+
+
 
 			mbJump = false;
 
@@ -933,10 +937,10 @@ namespace ss
 		// Guard
 		else if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_GaurdHit_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.3f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_GaurdHit_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
 
 
 			// move상태여도 guard 즉시 제자리에 있도록 고정시킴 
@@ -1034,10 +1038,10 @@ namespace ss
 		// 과부하 (과부하 게이지가 100% 일 때만 작동하도록 나중에 바꾸기)
 		else if (Input::GetKeyDown(eKeyCode::G))
 		{	
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Overload_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.3f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Overload_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
 
 			float CurOverload = mState->GetCurrentOverload();
 
@@ -1058,21 +1062,22 @@ namespace ss
 		// 무기 교체
 		else if (Input::GetKeyDown(eKeyCode::A) && SceneManager::IsOnSword())
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
-			pBGM->Play();
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
 
-			pBGM->SetVolume(0.1f);
+	
 			mWeaponType = eWeaponType::SWORD;
 			SceneManager::SetWeaponInfo(mWeaponType);
 		}
 
 		else if (Input::GetKeyDown(eKeyCode::S) && SceneManager::IsOnPistol())
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.1f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
 
 			mWeaponType = eWeaponType::PISTOL;
 			SceneManager::SetWeaponInfo(mWeaponType);
@@ -1080,10 +1085,10 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::D) && SceneManager::IsOnGauntlet())
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.1f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
 
 			mWeaponType = eWeaponType::GAUNTLET;
 			SceneManager::SetWeaponInfo(mWeaponType);
@@ -1105,11 +1110,12 @@ namespace ss
 
 		if (Input::GetKeyDown(eKeyCode::C) && mJumpCount == 1)
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Jump_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.1f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Jump_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.3f);
 
+		
 			mVelocity = mRigidbody->GetVelocity();
 
 			// Idle에서의 점프는 앞으로 가는게 필요없으므로 0으로 만들어줌
@@ -1275,10 +1281,11 @@ namespace ss
 
 	void PlayerScript::Hit()
 	{
-		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-		pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Hit_Bgm"));
-		pBGM->Play();
-		pBGM->SetVolume(0.3f);
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Hit_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
 
 		// hit 상태 즉시 제자리에 멈춰있도록 속도 0으로 만듦
 		mRigidbody->SetVelocity(Vector2(0.f, 0.f));
@@ -3150,6 +3157,20 @@ namespace ss
 	{
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_SPAttack_Bgm"));
+		pSFX->Play();
+		pSFX->PlaybackSpeed(1.f);
+
+		pSFX->SetVolume(0.3f);
+
+
+	}
+
+	// 특정 프레임에 바인딩하는거 필요 
+	void PlayerScript::SwordOverload()
+	{
+
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_OverloadAttack1_Bgm"));
 		pSFX->Play();
 		pSFX->PlaybackSpeed(1.f);
 

@@ -21,6 +21,10 @@
 #include "ssItemScript.h"
 #include "ssUIFrameScript.h"
 #include "ssWallScript.h"
+#include "ssAudioClip.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
+#include "ssAudioListener.h"
 
 namespace ss
 {
@@ -438,5 +442,9 @@ namespace ss
 	void EntranceScene::OnExit()
 	{
 		Scene::OnExit();
+
+	
+
+
 	}
 }

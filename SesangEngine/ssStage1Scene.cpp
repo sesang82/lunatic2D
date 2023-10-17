@@ -34,6 +34,10 @@
 #include "ssParalloxScript.h"
 #include "ssWallScript.h"
 #include "ssUIFrameScript.h"
+#include "ssAudioClip.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
+#include "ssAudioListener.h"
 
 namespace ss
 {
@@ -761,6 +765,8 @@ namespace ss
 	}
 	void Stage1Scene::OnEnter()
 	{
+		Scene::OnEnter();
+
 		renderer::mainCamera = mCamera;
 		mCamera->SetSize(2.3f); // 2.3
 
@@ -769,5 +775,9 @@ namespace ss
 	}
 	void Stage1Scene::OnExit()
 	{
+		Scene::OnExit();
+
+
+
 	}
 }
