@@ -82,6 +82,11 @@ namespace ss
         void StunEnd();
 
 
+        // À½¾Ç
+        void Dead_Start();
+        void Hit_Start();
+
+
     public:
         void SetFirstPos(Vector3 pos) { mFirstPos = pos; }
         void SetMoveDir(Vector3 dir) { mDir = dir; }

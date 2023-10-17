@@ -22,6 +22,10 @@
 #include "ssRangeCollider.h"
 #include "ssStoneFarRangeScript.h"
 #include "ssEffect.h"
+#include "ssAudioClip.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
 
 
 
@@ -144,7 +148,11 @@ namespace ss
 
 		mAnimator->CompleteEvent(L"StoneEye_NearAttackL") = std::bind(&StoneEyeScript::NearAttackEnd, this);
 
+		mAnimator->StartEvent(L"StoneEye_DieR") = std::bind(&StoneEyeScript::Dead_Start, this);
+		mAnimator->StartEvent(L"StoneEye_DieL") = std::bind(&StoneEyeScript::Dead_Start, this);
 
+		mAnimator->StartEvent(L"StoneEye_HitR") = std::bind(&StoneEyeScript::Hit_Start, this);
+		mAnimator->StartEvent(L"StoneEye_HitL") = std::bind(&StoneEyeScript::Hit_Start, this);
 
 	}
 
@@ -913,6 +921,23 @@ namespace ss
 	void StoneEyeScript::StunEnd()
 	{
 		mEffectObj->SetState(GameObject::eState::Dead);
+	}
+
+	void StoneEyeScript::Dead_Start()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Enemy_Die_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void StoneEyeScript::Hit_Start()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Enemy_Hit_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
 	}
 
 }

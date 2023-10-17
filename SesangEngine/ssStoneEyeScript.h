@@ -106,7 +106,9 @@ namespace ss
         void FarAttackEnd();
         void StunEnd();
 
-
+        // À½¾Ç °ü·Ã
+        void Dead_Start();
+        void Hit_Start();
 
 
     public:

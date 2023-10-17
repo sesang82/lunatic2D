@@ -210,6 +210,14 @@ namespace ss
 		mAnimator->StartEvent(L"Player_G_overload_Attack2R") = std::bind(&PlayerScript::GuntletOverload_2, this);
 		mAnimator->StartEvent(L"Player_G_overload_Attack2L") = std::bind(&PlayerScript::GuntletOverload_2, this);
 
+		mAnimator->StartEvent(L"Player_S_HitR") = std::bind(&PlayerScript::HitStart, this);
+		mAnimator->StartEvent(L"Player_S_HitL") = std::bind(&PlayerScript::HitStart, this);
+		mAnimator->StartEvent(L"Player_P_HitR") = std::bind(&PlayerScript::HitStart, this);
+		mAnimator->StartEvent(L"Player_P_HitL") = std::bind(&PlayerScript::HitStart, this);
+		mAnimator->StartEvent(L"Player_G_HitR") = std::bind(&PlayerScript::HitStart, this);
+		mAnimator->StartEvent(L"Player_G_HitL") = std::bind(&PlayerScript::HitStart, this);
+		
+
 
 
 	}
@@ -1303,10 +1311,7 @@ namespace ss
 
 	void PlayerScript::Hit()
 	{
-		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
-		pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Hit_Bgm"));
-		pSFX->Play();
-		pSFX->SetVolume(0.1f);
+
 
 
 		// hit 상태 즉시 제자리에 멈춰있도록 속도 0으로 만듦
@@ -3127,7 +3132,8 @@ namespace ss
 
 		mAttackColliderObj->RemoveComponent<Collider2D>();
 
-		if (nullptr != mMonster && mMonster->GetState() != GameObject::eState::Dead)
+		if (nullptr != mMonster && mMonster->GetName() == L"B_WolfObj"
+			|| nullptr != mMonster && mMonster->GetName() == L"B_GodObj")
 		{
 			mMonster->GetComponent<MonsterScript>()->SetHit(false);
 		}
@@ -3310,6 +3316,16 @@ namespace ss
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Pistol_OverloadAttack_Bgm"));
 		pSFX->Play();
 		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::HitStart()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Hit_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+
 	}
 
 

@@ -486,7 +486,7 @@ namespace ss
 		camerscript->SetTarget(mPlayer);
 
 		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-		pBGM->GetClip()->Stop();
+		//pBGM->GetClip()->Stop(); // 이거 모든 씬 다시 살리면 주석 풀기
 
 
 	}

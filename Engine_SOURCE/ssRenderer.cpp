@@ -4902,8 +4902,9 @@ namespace renderer
 		// ==== Boss
 		// 1. Å« ´Á´ë
 		Resources::Load<AudioClip>(L"Boss1_Spawn_Bgm", L"..\\Resources\\Sound\\SE_Boss_Lupus_Spawn.wav");
-		Resources::Load<AudioClip>(L"Boss1_Stomp_Ready_Bgm", L"..\\Resources\\Sound\\SE_Boss_Lupus_Stomp_Ready.wav");
-		Resources::Load<AudioClip>(L"Boss1_Stomp_Bgm", L"..\\Resources\\Sound\\SE_Boss_Lupus_Stomp.wav");
+
+		Resources::Load<AudioClip>(L"Boss1_Stom_Ready_Bgm", L"..\\Resources\\Sound\\SE_Boss_Lupus_Stomp_Ready.wav");
+		Resources::Load<AudioClip>(L"Boss1_Stom_Bgm", L"..\\Resources\\Sound\\SE_Boss_Lupus_Stomp.wav");
 
 		Resources::Load<AudioClip>(L"Boss1_MoveDisappear_Bgm", L"..\\Resources\\Sound\\SE_Boss_Lupus_Move_Disappear.wav");
 		Resources::Load<AudioClip>(L"Boss1_MoveAppear_Bgm", L"..\\Resources\\Sound\\SE_Boss_Lupus_Move_Appear.wav");

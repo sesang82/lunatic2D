@@ -117,6 +117,16 @@ namespace ss
         // À½¾Ç °ü·Ã
         void Spawn_Start();
         void Wolf_Die_end();
+        void Stom_Start_sfx();
+        void Stom_Landing_sfx();
+        void MoveDisappear_sfx();
+        void MoveAppear_sfx();
+
+        void Howling_Start_sfx();
+        void Howling_sfx();
+
+        void Breath_Start_sfx();
+        void Breath_sfx();
         
 
 

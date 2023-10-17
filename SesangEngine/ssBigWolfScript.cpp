@@ -22,6 +22,7 @@
 #include "ssAudioListener.h"
 #include "ssAudioSource.h"
 #include "ssSoundMgrScript.h"
+#include "ssCameraScript.h"
 
 namespace ss
 {
@@ -116,6 +117,8 @@ namespace ss
 		//mAnimator->Create(L"Boss_Wolf_BreathEffectEndR", Image5, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f));
 		//mAnimator->Create(L"Boss_Wolf_BreathEffectEndL", Image5, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);
 
+
+		// 대쉬는 특정 프레임에 재생시키는 로직 필요 
 		mAnimator->Create(L"Boss_Wolf_DashR", Image6, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 25, Vector2(272.f, 271.f));
 		mAnimator->Create(L"Boss_Wolf_DashL", Image6, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 25, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
@@ -156,11 +159,13 @@ namespace ss
 		mAnimator->Create(L"Boss_Wolf_ShadowEffectR", Image16, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f));
 		mAnimator->Create(L"Boss_Wolf_ShadowEffectL", Image16, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 5, Vector2(272.f, 271.f), Vector2(-16.f, 0.f), 0.1f, true);*/
 
-		mAnimator->Create(L"Boss_Wolf_StormStartR", Image16, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 13, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_StormStartL", Image16, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 13, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_StormStartR", Image16, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 13, Vector2(272.f, 271.f), Vector2::Zero, 0.085f);
+		mAnimator->Create(L"Boss_Wolf_StormStartL", Image16, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 13, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.085f, true);
 
-		mAnimator->Create(L"Boss_Wolf_StormLandingR", Image17, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f));
+		mAnimator->Create(L"Boss_Wolf_StormLandingR", Image17, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2::Zero, 0.1f);
 		mAnimator->Create(L"Boss_Wolf_StormLandingL", Image17, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
+
+
 
 
 
@@ -207,7 +212,32 @@ namespace ss
 		mAnimator->StartEvent(L"Boss_Wolf_DieL") = std::bind(&BigWolfScript::Wolf_Die_end, this);
 		
 
+		mAnimator->StartEvent(L"Boss_Wolf_MoveAppearR") = std::bind(&BigWolfScript::MoveAppear_sfx, this);
+		mAnimator->StartEvent(L"Boss_Wolf_MoveAppearL") = std::bind(&BigWolfScript::MoveAppear_sfx, this);
 
+
+		mAnimator->StartEvent(L"Boss_Wolf_MoveDissappearR") = std::bind(&BigWolfScript::MoveDisappear_sfx, this);
+		mAnimator->StartEvent(L"Boss_Wolf_MoveDissappearL") = std::bind(&BigWolfScript::MoveDisappear_sfx, this);
+
+		mAnimator->StartEvent(L"Boss_Wolf_StormStartR") = std::bind(&BigWolfScript::Stom_Start_sfx, this);
+		mAnimator->StartEvent(L"Boss_Wolf_StormStartL") = std::bind(&BigWolfScript::Stom_Start_sfx, this);
+
+		mAnimator->StartEvent(L"Boss_Wolf_HowlingStartR") = std::bind(&BigWolfScript::Howling_Start_sfx, this);
+		mAnimator->StartEvent(L"Boss_Wolf_HowlingStartL") = std::bind(&BigWolfScript::Howling_Start_sfx, this);
+
+		mAnimator->StartEvent(L"Boss_Wolf_HowlingR") = std::bind(&BigWolfScript::Howling_sfx, this);
+		mAnimator->StartEvent(L"Boss_Wolf_HowlingL") = std::bind(&BigWolfScript::Howling_sfx, this);
+
+		// 특정 프레임에 바인딩하는 기능 필요... (애니메이션 인덱스와 안맞음) 
+		mAnimator->StartEvent(L"Boss_Wolf_StormLandingR") = std::bind(&BigWolfScript::Stom_Landing_sfx, this);
+		mAnimator->StartEvent(L"Boss_Wolf_StormLandingL") = std::bind(&BigWolfScript::Stom_Landing_sfx, this);
+
+
+		mAnimator->StartEvent(L"Boss_Wolf_BreathAttackStartR") = std::bind(&BigWolfScript::Breath_Start_sfx, this);
+		mAnimator->StartEvent(L"Boss_Wolf_BreathAttackStartL") = std::bind(&BigWolfScript::Breath_Start_sfx, this);
+
+		mAnimator->StartEvent(L"Boss_Wolf_BreathAttackingR") = std::bind(&BigWolfScript::Breath_sfx, this);
+		mAnimator->StartEvent(L"Boss_Wolf_BreathAttackingL") = std::bind(&BigWolfScript::Breath_sfx, this);
 		
 
 	}
@@ -382,9 +412,11 @@ namespace ss
 		if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f
 			|| mPrevWolfBossState == eWolfBossState::HOWLING_END && m_fTime > 1.f)
 		{
-			
+			renderer::mainCamera->SetTargetSize(2.3f);
+
 			if (randomValue == 0)
 			{
+		
 
 				ChangeState(eWolfBossState::DISAPPEAR);
 				mPrevWolfBossState = eWolfBossState::IDLE;
@@ -454,7 +486,6 @@ namespace ss
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
 
-			renderer::mainCamera->SetTargetSize(1.6f);
 			ChangeState(eWolfBossState::DASH);
 			mPrevWolfBossState = eWolfBossState::APPEAR;
 			mbAppear = false;
@@ -577,7 +608,7 @@ namespace ss
 		m_fTime += Time::DeltaTime();
 
 		// 몇 초 뒤에 끝낸다. 
-		if (mbBreating && m_fTime >= 5.f)
+		if (mbBreating && m_fTime >= 3.5f)
 		{
 			mbBreating = false; 
 			ChangeState(eWolfBossState::BREATH_END);
@@ -597,6 +628,7 @@ namespace ss
 
 	void BigWolfScript::Breath_end()
 	{
+
 
 		if (mDir.x > 0)
 		{
@@ -771,7 +803,7 @@ namespace ss
 		m_fTime += Time::DeltaTime();
 
 		// 몇 초 뒤에 끝낸다. 
-		if (m_fTime >= 5.f && mbHowling)
+		if (m_fTime >= 4.f && mbHowling)
 		{
 
 			ChangeState(eWolfBossState::HOWLING_END);
@@ -785,6 +817,8 @@ namespace ss
 
 	void BigWolfScript::Howling_end()
 	{
+
+
 		if (mDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_HowlingEndR", false);
@@ -878,7 +912,7 @@ namespace ss
 			m_fTime += Time::DeltaTime();
 
 
-			// mHitGround가 null이 아니면, 객체의 위치만 실시간 업데이트
+			// mHitGround가 null이 아니면, 객체의 위치만 실시간 업데이트 // 3
 			if (m_fTime < 3.f)
 			{
 				mHitGround->GetComponent<Transform>()->SetPosition(playerPos);
@@ -906,19 +940,21 @@ namespace ss
 
 			mHitGround->GetComponent<Transform>()->SetPosition(0.f, 0.f, 500.f);
 
-			// 3초가 지나면 상태를 바꾼다. 
+			// 3.5초가 지나면 상태를 바꾼다. 
 			m_fTime += Time::DeltaTime();
 
 		}
 
 		if (m_fTime > 3.5f)
 		{
+			renderer::mainCamera->SetSize(1.6f);
+
 			//mHitGround->SetState(GameObject::eState::Dead);
 			ChangeState(eWolfBossState::STOM_END);
 			mPrevWolfBossState = eWolfBossState::STOMING;
 		
 
-			m_fTime = 0.f; // 3초 되고나서 안에서 초기화버리면 여기 if문에 못 오므로 이렇게 해준다. 
+			m_fTime = 0.f; // 해당 if문 밖에서 초기화버리면 여기 if문에 못 오므로 이렇게 해준다. 
 
 		}
 
@@ -928,7 +964,11 @@ namespace ss
 	}
 	void BigWolfScript::Stom_end()
 	{
-	
+		CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+
+		camera->StartShake(0.4f, 0.4f); // 0.3 0.3정도가 괜찮음 (테스트중) 
+
+
 		if (mDir.x > 0 && !mbStomEnd)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_StormLandingR", false);
@@ -1040,6 +1080,12 @@ namespace ss
 		pBGM->SetLoop(true);
 		pBGM->Play();
 		pBGM->SetVolume(0.3f);
+
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_Spawn_Bgm"));
+		pSFX->Play();
+		pSFX->PlaybackSpeed(0.8f);
+		pSFX->SetVolume(0.3f);
 	}
 
 	void BigWolfScript::Wolf_Die_end()
@@ -1047,7 +1093,84 @@ namespace ss
 		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
 		pBGM->Stop();
 
+		// 
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_DieHowl_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
 
+
+
+	
+
+	void BigWolfScript::Stom_Start_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_Stom_Ready_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void BigWolfScript::Stom_Landing_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_Stom_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void BigWolfScript::MoveDisappear_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_MoveDisappear_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+	}
+
+	void BigWolfScript::MoveAppear_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_MoveAppear_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+	}
+
+	void BigWolfScript::Howling_Start_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_HowlingReady_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+	}
+
+	void BigWolfScript::Howling_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_Howling_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+	}
+
+	void BigWolfScript::Breath_Start_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_BreathReady_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+	}
+
+	void BigWolfScript::Breath_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_Breath"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
 
 	}
 

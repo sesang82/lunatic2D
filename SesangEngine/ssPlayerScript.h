@@ -247,6 +247,8 @@ namespace ss
         void PistolSPAttack();
         void PistolOverload();
 
+        void HitStart();
+
     };
 
 }

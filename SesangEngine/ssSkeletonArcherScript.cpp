@@ -20,6 +20,10 @@
 #include "ssArcherArrowScript.h"
 #include "ssArcherArrow.h"
 #include "ssArcherFarRangeScript.h"
+#include "ssAudioClip.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
 
 namespace ss
 {
@@ -161,8 +165,13 @@ namespace ss
 
 
 		mAnimator->CompleteEvent(L"Archer_NearAttackR") = std::bind(&SkeletonArcherScript::NearAttackEnd, this);
-
 		mAnimator->CompleteEvent(L"Archer_NearAttackL") = std::bind(&SkeletonArcherScript::NearAttackEnd, this);
+
+		mAnimator->StartEvent(L"Archer_DieR") = std::bind(&SkeletonArcherScript::Dead_Start, this);
+		mAnimator->StartEvent(L"Archer_DieL") = std::bind(&SkeletonArcherScript::Dead_Start, this);
+
+		mAnimator->StartEvent(L"Archer_DieR") = std::bind(&SkeletonArcherScript::Hit_Start, this);
+		mAnimator->StartEvent(L"Archer_DieL") = std::bind(&SkeletonArcherScript::Hit_Start, this);
 
 
 	}
@@ -595,5 +604,20 @@ namespace ss
 	}
 	void SkeletonArcherScript::StunEnd()
 	{
+	}
+	void SkeletonArcherScript::Dead_Start()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Enemy_Die_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+	void SkeletonArcherScript::Hit_Start()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Enemy_Hit_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
 	}
 }

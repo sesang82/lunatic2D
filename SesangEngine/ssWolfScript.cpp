@@ -15,6 +15,10 @@
 #include "ssMeshRenderer.h"
 #include "ssHitGroundScript.h"
 #include "ssMonster.h"
+#include "ssAudioClip.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
 
 
 namespace ss
@@ -127,8 +131,11 @@ namespace ss
 		mAnimator->CompleteEvent(L"Wolf_NearAttackR") = std::bind(&WolfScript::NearAttackEnd, this);
 		mAnimator->CompleteEvent(L"Wolf_NearAttackL") = std::bind(&WolfScript::NearAttackEnd, this);
 
+		mAnimator->StartEvent(L"Wolf_DieR") = std::bind(&WolfScript::Dead_Start, this);
+		mAnimator->StartEvent(L"Wolf_DieR") = std::bind(&WolfScript::Dead_Start, this);
 
-
+		mAnimator->StartEvent(L"Wolf_HitR") = std::bind(&WolfScript::Hit_Start, this);
+		mAnimator->StartEvent(L"Wolf_HitL") = std::bind(&WolfScript::Hit_Start, this);
 
 	}
 	void WolfScript::Update()
@@ -250,6 +257,20 @@ namespace ss
 	}
 	void WolfScript::StunEnd()
 	{
+	}
+	void WolfScript::Dead_Start()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Enemy_Die_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+	void WolfScript::Hit_Start()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Enemy_Hit_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
 	}
 	void WolfScript::Idle()
 	{

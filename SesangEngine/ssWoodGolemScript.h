@@ -78,6 +78,10 @@ namespace ss
         void FarAttackEnd();
         void StunEnd();
 
+        // À½¾Ç
+        void Hit_Start();
+        void Dead_Start();
+
 
     public:
         void SetFirstPos(Vector3 pos) { mFirstPos = pos; }

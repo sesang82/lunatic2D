@@ -62,9 +62,6 @@ namespace ss
 		if (monscript)
 		{
 			monscript->BindConstantBuffer();
-
-
-
 		}
 
 	

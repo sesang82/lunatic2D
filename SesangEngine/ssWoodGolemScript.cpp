@@ -15,6 +15,10 @@
 #include "ssMeshRenderer.h"
 #include "ssHitGroundScript.h"
 #include "ssMonster.h"
+#include "ssAudioClip.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
 
 
 namespace ss
@@ -106,6 +110,14 @@ namespace ss
 
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
 
+
+
+		// À½¾Ç
+		mAnimator->StartEvent(L"Wood_DieR") = std::bind(&WoodGolemScript::Dead_Start, this);
+		mAnimator->StartEvent(L"Wood_DieL") = std::bind(&WoodGolemScript::Dead_Start, this);
+
+		mAnimator->StartEvent(L"Wood_HitR") = std::bind(&WoodGolemScript::Hit_Start, this);
+		mAnimator->StartEvent(L"Wood_HitL") = std::bind(&WoodGolemScript::Hit_Start, this);
 
 	}
 	void WoodGolemScript::Update()
@@ -553,5 +565,23 @@ namespace ss
 	}
 	void WoodGolemScript::StunEnd()
 	{
+	}
+	void WoodGolemScript::Hit_Start()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Enemy_Hit_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+
+	}
+	void WoodGolemScript::Dead_Start()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Enemy_Die_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+
 	}
 }
