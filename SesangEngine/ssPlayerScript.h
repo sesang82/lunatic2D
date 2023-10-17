@@ -227,6 +227,26 @@ namespace ss
         void AttackEnd();
        
 
+        // ====== 사운드 관련
+        void SwordAttack_1();
+        void SwordAttack_2();
+        void SwordAttack_3();
+        void SwordSPAttack();
+
+        void GuntletAttack_1();
+        void GuntletAttack_2();
+        void GuntletAttack_3();
+        void GuntletSPAttackReady();
+        void GuntletSPAttack();
+        void GuntletOverload_1();
+        void GuntletOverload_2();
+
+        void PistolAttack_1_2();
+        void PistolAttack_2();
+        void PistolAttack_3();
+        void PistolSPAttack();
+        void PistolOverload();
+
     };
 
 }

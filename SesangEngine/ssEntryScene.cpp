@@ -32,7 +32,7 @@ namespace ss
 	{
 
 
-		
+		Scene::Initialize();
 
 
 		// ====== ¹è°æ
@@ -420,24 +420,26 @@ namespace ss
 			renderer::cameras.push_back(cameraComp0);
 		}
 
-		BaseScene::Initialize();
+
 
 	}
 	void EntryScene::Update()
 	{
 
-		BaseScene::Update();
+		Scene::Update();
 	}
 	void EntryScene::LateUpdate()
 	{
-		BaseScene::LateUpdate();
+		Scene::LateUpdate();
 	}
 	void EntryScene::Render()
 	{
-		BaseScene::Render();
+		Scene::Render();
 	}
 	void EntryScene::OnEnter()
 	{
+		Scene::OnEnter();
+
 		renderer::mainCamera = mCamera;
 
 		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
@@ -446,5 +448,6 @@ namespace ss
 	}
 	void EntryScene::OnExit()
 	{
+		Scene::OnExit();
 	}
 }

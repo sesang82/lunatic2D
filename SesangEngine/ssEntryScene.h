@@ -1,10 +1,10 @@
 #pragma once
-#include "ssBaseScene.h"
+#include "..\\Engine_SOURCE\\ssScene.h"
 
 namespace ss
 {
 	class EntryScene :
-		public BaseScene
+		public Scene
 	{
 	public:
 		EntryScene();
@@ -20,7 +20,8 @@ namespace ss
 		virtual void OnExit() override;
 
 	private:
-		Player* mPlayer;
+		class Player* mPlayer;
+		class Camera* mCamera;
 
 	};
 }

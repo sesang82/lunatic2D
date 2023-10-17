@@ -166,7 +166,49 @@ namespace ss
 		colScript->SetOriginOwner(mTransform->GetOwner());
 			
 		mAttackColTr = mAttackColliderObj->GetComponent<Transform>();
-	
+
+
+		// ====== 음악 관련 
+		mAnimator->StartEvent(L"Player_S_Attack1R") = std::bind(&PlayerScript::SwordAttack_1, this);
+		mAnimator->StartEvent(L"Player_S_Attack1L") = std::bind(&PlayerScript::SwordAttack_1, this);
+
+		mAnimator->StartEvent(L"Player_S_Attack2R") = std::bind(&PlayerScript::SwordAttack_2, this);
+		mAnimator->StartEvent(L"Player_S_Attack2L") = std::bind(&PlayerScript::SwordAttack_2, this);
+
+		mAnimator->StartEvent(L"Player_S_Attack3R") = std::bind(&PlayerScript::SwordAttack_3, this);
+		mAnimator->StartEvent(L"Player_S_Attack3L") = std::bind(&PlayerScript::SwordAttack_3, this);
+
+		
+		mAnimator->StartEvent(L"Player_S_spAttackR") = std::bind(&PlayerScript::SwordSPAttack, this);
+		mAnimator->StartEvent(L"Player_S_spAttackL") = std::bind(&PlayerScript::SwordSPAttack, this);
+
+
+
+		mAnimator->StartEvent(L"Player_P_Attack1,2R") = std::bind(&PlayerScript::PistolAttack_1_2, this);
+		mAnimator->StartEvent(L"Player_P_Attack1,2L") = std::bind(&PlayerScript::PistolAttack_1_2, this);
+		mAnimator->StartEvent(L"Player_P_Attack3R") = std::bind(&PlayerScript::PistolAttack_3, this);
+		mAnimator->StartEvent(L"Player_P_Attack3L") = std::bind(&PlayerScript::PistolAttack_3, this);
+		mAnimator->StartEvent(L"Player_P_spAttackR") = std::bind(&PlayerScript::PistolSPAttack, this);
+		mAnimator->StartEvent(L"Player_P_spAttackL") = std::bind(&PlayerScript::PistolSPAttack, this);
+		mAnimator->StartEvent(L"Player_P_OverLoadingR") = std::bind(&PlayerScript::PistolOverload, this);
+		mAnimator->StartEvent(L"Player_P_OverLoadingL") = std::bind(&PlayerScript::PistolOverload, this);
+
+
+
+		mAnimator->StartEvent(L"Player_G_Attack1R") = std::bind(&PlayerScript::GuntletAttack_1, this);
+		mAnimator->StartEvent(L"Player_G_Attack1L") = std::bind(&PlayerScript::GuntletAttack_1, this);
+		mAnimator->StartEvent(L"Player_G_Attack2R") = std::bind(&PlayerScript::GuntletAttack_2, this);
+		mAnimator->StartEvent(L"Player_G_Attack2L") = std::bind(&PlayerScript::GuntletAttack_2, this);
+		mAnimator->StartEvent(L"Player_G_Attack3R") = std::bind(&PlayerScript::GuntletAttack_3, this);
+		mAnimator->StartEvent(L"Player_G_Attack3L") = std::bind(&PlayerScript::GuntletAttack_3, this);
+		mAnimator->StartEvent(L"Player_G_spAttackR") = std::bind(&PlayerScript::GuntletSPAttackReady, this);
+		mAnimator->StartEvent(L"Player_G_spAttackL") = std::bind(&PlayerScript::GuntletSPAttackReady, this);
+		mAnimator->StartEvent(L"Player_G_overload_Attack1R") = std::bind(&PlayerScript::GuntletOverload_1, this);
+		mAnimator->StartEvent(L"Player_G_overload_Attack1L") = std::bind(&PlayerScript::GuntletOverload_1, this);
+		mAnimator->StartEvent(L"Player_G_overload_Attack2R") = std::bind(&PlayerScript::GuntletOverload_2, this);
+		mAnimator->StartEvent(L"Player_G_overload_Attack2L") = std::bind(&PlayerScript::GuntletOverload_2, this);
+
+
 
 	}
 	void PlayerScript::Update()
@@ -554,6 +596,12 @@ namespace ss
 		// 제자리에서 점프  (맨 앞에 둬야됨) 
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
+
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Jump_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.1f);
+
 			mRigidbody->SetGravity(Vector2(0.f, 1500.f));
 
 			mVelocity = mRigidbody->GetVelocity();
@@ -664,6 +712,12 @@ namespace ss
 		// Guard
 		else if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_GaurdHit_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.3f);
+
+
 			Vector3 pos = mTransform->GetPosition();
 
 			// Guard용 충돌체
@@ -715,12 +769,19 @@ namespace ss
 		// 과부하 (과부하 게이지가 100% 일 때만 작동하도록 나중에 바꾸기)
 		else if (Input::GetKeyDown(eKeyCode::G))
 		{
+			
 			float CurOverload = mState->GetCurrentOverload();
 
 			if (CurOverload == 100.f && !mTurnOverload)
 			{
 				ChangeState(ePlayerState::OVERLOAD_READY);
 		
+				AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+				pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Overload_Bgm"));
+				pBGM->Play();
+				pBGM->SetVolume(0.1f);
+
+
 				mTurnOverload = true;
 
 			}
@@ -731,18 +792,33 @@ namespace ss
 		// 무기 교체
 		else if (Input::GetKeyDown(eKeyCode::A) && SceneManager::IsOnSword())
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.1f);
+
 			mWeaponType = eWeaponType::SWORD;
 			SceneManager::SetWeaponInfo(mWeaponType);
 		}
 
 		else if (Input::GetKeyDown(eKeyCode::S) && SceneManager::IsOnPistol())
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.1f);
+
 			mWeaponType = eWeaponType::PISTOL;
 			SceneManager::SetWeaponInfo(mWeaponType);
 		}
 
 		else if (Input::GetKeyDown(eKeyCode::D) && SceneManager::IsOnGauntlet())
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.1f);
+
 			mWeaponType = eWeaponType::GAUNTLET;
 			SceneManager::SetWeaponInfo(mWeaponType);
 		}
@@ -818,6 +894,11 @@ namespace ss
 		// 점프
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Jump_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.1f);
+
 			mbJump = false;
 
 			mRigidbody->SetGravity(Vector2(0.f, 1500.f));
@@ -852,6 +933,12 @@ namespace ss
 		// Guard
 		else if (Input::GetKeyDown(eKeyCode::LCTRL))
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_GaurdHit_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.3f);
+
+
 			// move상태여도 guard 즉시 제자리에 있도록 고정시킴 
 			mRigidbody->SetVelocity(Vector2(0.f, 0.f));
 
@@ -947,7 +1034,10 @@ namespace ss
 		// 과부하 (과부하 게이지가 100% 일 때만 작동하도록 나중에 바꾸기)
 		else if (Input::GetKeyDown(eKeyCode::G))
 		{	
-
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Overload_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.3f);
 
 			float CurOverload = mState->GetCurrentOverload();
 
@@ -968,18 +1058,33 @@ namespace ss
 		// 무기 교체
 		else if (Input::GetKeyDown(eKeyCode::A) && SceneManager::IsOnSword())
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pBGM->Play();
+
+			pBGM->SetVolume(0.1f);
 			mWeaponType = eWeaponType::SWORD;
 			SceneManager::SetWeaponInfo(mWeaponType);
 		}
 
 		else if (Input::GetKeyDown(eKeyCode::S) && SceneManager::IsOnPistol())
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.1f);
+
 			mWeaponType = eWeaponType::PISTOL;
 			SceneManager::SetWeaponInfo(mWeaponType);
 		}
 
 		else if (Input::GetKeyDown(eKeyCode::D) && SceneManager::IsOnGauntlet())
 		{
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.1f);
+
 			mWeaponType = eWeaponType::GAUNTLET;
 			SceneManager::SetWeaponInfo(mWeaponType);
 		}
@@ -1000,7 +1105,11 @@ namespace ss
 
 		if (Input::GetKeyDown(eKeyCode::C) && mJumpCount == 1)
 		{
-		
+			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Jump_Bgm"));
+			pBGM->Play();
+			pBGM->SetVolume(0.1f);
+
 			mVelocity = mRigidbody->GetVelocity();
 
 			// Idle에서의 점프는 앞으로 가는게 필요없으므로 0으로 만들어줌
@@ -1166,7 +1275,11 @@ namespace ss
 
 	void PlayerScript::Hit()
 	{
-		
+		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+		pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Hit_Bgm"));
+		pBGM->Play();
+		pBGM->SetVolume(0.3f);
+
 		// hit 상태 즉시 제자리에 멈춰있도록 속도 0으로 만듦
 		mRigidbody->SetVelocity(Vector2(0.f, 0.f));
 		mAttackColliderObj->RemoveComponent<Collider2D>();
@@ -1700,6 +1813,21 @@ namespace ss
 					{
 						if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 						{
+
+							if (mAttackCount == 1)
+							{
+							}
+
+							else if (mAttackCount == 2)
+							{
+								
+							}
+
+							else if (mAttackCount == 3)
+							{
+							
+							}
+
 							if (mPrevDir.x > 0)
 							{
 
@@ -1722,6 +1850,8 @@ namespace ss
 			
 						if (mAttackCount == 1)
 						{
+					
+
 							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 
 							camera->StartShake(0.01f, 0.05f);
@@ -1737,6 +1867,8 @@ namespace ss
 
 						else if (mAttackCount == 2)
 						{
+						
+
 							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 
 							camera->StartShake(0.01f, 0.05f);
@@ -1749,6 +1881,7 @@ namespace ss
 
 						else if (mAttackCount == 3)
 						{
+						
 							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 
 							camera->StartShake(0.1f, 0.3f); // 1, 2인덱스보다 쎄게! 
@@ -1820,7 +1953,8 @@ namespace ss
 
 						 if (mAttackCount == 1)
 						{
-					
+							
+
 
 							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 							camera->StartShake(0.01f, 0.05f);
@@ -1831,10 +1965,10 @@ namespace ss
 								mAttackColliderObj->RemoveComponent<Collider2D>();
 							}
 
-							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
-								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
+								
 							{
-							
+								
 								if (mPrevDir.x > 0)
 								{
 
@@ -1853,6 +1987,31 @@ namespace ss
 
 							}
 
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
+							{
+								AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+								pBGM->GetClip()->Stop();
+
+								pBGM->SetClip(Resources::Find<AudioClip>(L"Gauntlet_Attack1_Bgm"));
+								pBGM->Play();
+								pBGM->SetVolume(0.3f);
+
+								if (mPrevDir.x > 0)
+								{
+
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(34.f, 40.f));
+									mAttackCol->SetCenter(Vector2(16.f, 2.f));
+								}
+
+								else if (mPrevDir.x < 0)
+								{
+									mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+									mAttackCol->SetSize(Vector2(34.f, 40.f));
+									mAttackCol->SetCenter(Vector2(-6.f, 2.f));
+								}
+
+							}
 
 							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2
 								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 5)
@@ -1877,6 +2036,7 @@ namespace ss
 
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
 							{
+							
 
 								if (mPrevDir.x > 0)
 								{
@@ -1916,7 +2076,7 @@ namespace ss
 
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2)
 							{
-
+							
 								if (mPrevDir.x > 0)
 								{
 
@@ -2953,6 +3113,165 @@ namespace ss
 
 		//mCollider->SetCenter(Vector2(-3.5f, 2.f));
 		//ChangeState(ePlayerState::IDLE);
+	}
+
+	void PlayerScript::SwordAttack_1()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_Attack1_Bgm"));
+		pSFX->Play();
+		pSFX->PlaybackSpeed(1.f);
+
+		pSFX->SetVolume(0.3f);
+
+	}
+
+	void PlayerScript::SwordAttack_2()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_Attack2_Bgm"));
+		pSFX->Play();
+		pSFX->PlaybackSpeed(1.f);
+
+		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::SwordAttack_3()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_Attack3_Bgm"));
+		pSFX->Play();
+		pSFX->PlaybackSpeed(1.f);
+
+		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::SwordSPAttack()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_SPAttack_Bgm"));
+		pSFX->Play();
+		pSFX->PlaybackSpeed(1.f);
+
+		pSFX->SetVolume(0.3f);
+
+
+	}
+
+	void PlayerScript::GuntletAttack_1()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+	
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_Attack1_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::GuntletAttack_2()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_Attack2_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::GuntletAttack_3()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_Attack3_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::GuntletSPAttackReady()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_SPAttackReady_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	// 특정 프레임에 바인딩해야될듯 
+	void PlayerScript::GuntletSPAttack()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_SPAttack_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::GuntletOverload_1()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_OverloadBuff_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::GuntletOverload_2()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_OverloadBuff_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	
+	}
+
+
+	void PlayerScript::PistolAttack_1_2()
+	{
+
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Pistol_Attack1_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+	}
+
+
+	void PlayerScript::PistolAttack_3()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Pistol_Attack2_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	// 특정 프레임에 사운드 발동 시켜야할듯... 
+	void PlayerScript::PistolSPAttack()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->GetClip()->Stop();
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Pistol_Attack1_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::PistolOverload()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->GetClip()->Stop();
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Pistol_OverloadAttack_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
 	}
 
 

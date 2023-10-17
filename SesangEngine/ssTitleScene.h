@@ -1,10 +1,10 @@
 #pragma once
-#include "ssBaseScene.h"
+#include "..\\Engine_SOURCE\\ssScene.h"
 
 namespace ss
 {
     class TitleScene :
-        public BaseScene
+        public Scene
     {
     public:
         TitleScene();

@@ -26,6 +26,7 @@ namespace ss
 		float				mMinDistance;
 		float				mMaxDistance;
 		bool				mbLoop;
+		FMOD::DSP* mPitchShiftDSP; // 피치를 유지하면서 재생 속도 빠르게 하기 위한 기능 dsp
 
 	public:
 		void Play();
@@ -36,6 +37,8 @@ namespace ss
 		{
 			mbLoop = _Loop;
 		}
+
+		void SetPlaybackSpeed(float speed); // 피치는 유지하면서 재생속도만 증가
 
 	public:
 		virtual HRESULT Load(const std::wstring& _Path) override;

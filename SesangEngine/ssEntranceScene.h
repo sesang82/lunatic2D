@@ -1,10 +1,10 @@
 #pragma once
-#include "ssBaseScene.h"
+#include "..\\Engine_SOURCE\\ssScene.h"
 
 namespace ss
 {
     class EntranceScene :
-        public BaseScene
+        public Scene
     {
 	public:
 		EntranceScene();
@@ -21,7 +21,7 @@ namespace ss
 
 	private:
 		Camera* mCamera;
-		Player* mPlayer;
+		class Player* mPlayer;
 
     };
 }

@@ -496,8 +496,8 @@ namespace ss
 		
 		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
 		pBGM->SetClip(Resources::Find<AudioClip>(L"Library_Bgm"));
-		pBGM->Play();
 		pBGM->SetLoop(true);
+		pBGM->Play();
 		pBGM->SetVolume(0.3f);
 
 

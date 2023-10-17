@@ -161,14 +161,14 @@ namespace ss
 		anim->Create(L"Player_S_RunL", Image7, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 5,Vector2(900.f, 600.f), Vector2(0.f, -8.f), 0.1f, true);
 
 		// 일반 공격
-		anim->Create(L"Player_S_Attack1R", Image17, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(10.f, -2.f), 0.09f);
-		anim->Create(L"Player_S_Attack1L", Image17, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(0.f, -2.f), 0.09f, true);
+		anim->Create(L"Player_S_Attack1R", Image17, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(10.f, -2.f), 0.07f);
+		anim->Create(L"Player_S_Attack1L", Image17, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(0.f, -2.f), 0.07f, true);
 
-		anim->Create(L"Player_S_Attack2R", Image20, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(10.f, -2.f), 0.09f);
-		anim->Create(L"Player_S_Attack2L", Image20, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(0.f, -2.f), 0.09f, true);
+		anim->Create(L"Player_S_Attack2R", Image20, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(10.f, -2.f), 0.07f);
+		anim->Create(L"Player_S_Attack2L", Image20, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(0.f, -2.f), 0.07f, true);
 
-		anim->Create(L"Player_S_Attack3R", Image21, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(10.f, -2.f), 0.09f);
-		anim->Create(L"Player_S_Attack3L", Image21, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(0.f, -2.f), 0.09f, true);
+		anim->Create(L"Player_S_Attack3R", Image21, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(10.f, -2.f), 0.07f);
+		anim->Create(L"Player_S_Attack3L", Image21, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(0.f, -2.f), 0.07f, true);
 
 
 		// 점프
@@ -177,8 +177,8 @@ namespace ss
 
 
 		// 대쉬
-		anim->Create(L"Player_S_DashR", Image12, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 3,Vector2(900.f, 600.f), Vector2(10.f, -6.f));
-		anim->Create(L"Player_S_DashL", Image12, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 3,Vector2(900.f, 600.f), Vector2(0.f, -6.f), 0.1f, true);
+		anim->Create(L"Player_S_DashR", Image12, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 3,Vector2(900.f, 600.f), Vector2(10.f, -6.f), 0.08f);
+		anim->Create(L"Player_S_DashL", Image12, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 3,Vector2(900.f, 600.f), Vector2(0.f, -6.f), 0.08f, true);
 
 		// 떨어짐 (falling)
 		anim->Create(L"Player_S_FallR", Image9, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(900.f, 600.f), Vector2(10.f, -6.f));

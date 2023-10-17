@@ -11,11 +11,22 @@ namespace ss
 		, mMaxDistance(1000.0f)
 		, mbLoop(false)
 	{
-
+		Fmod::mCoreSystem->createDSPByType(FMOD_DSP_TYPE_PITCHSHIFT, &mPitchShiftDSP);
+		mPitchShiftDSP->setBypass(true);  // 처음에는 DSP 효과를 우회합니다.
 	}
 
 	AudioClip::~AudioClip()
 	{
+	}
+
+	void AudioClip::SetPlaybackSpeed(float speed)
+	{
+		if (mChannel)
+		{
+			mPitchShiftDSP->setParameterFloat(FMOD_DSP_PITCHSHIFT_PITCH, speed);
+			mChannel->addDSP(0, mPitchShiftDSP);
+			mPitchShiftDSP->setBypass(false);
+		}
 	}
 
 	HRESULT AudioClip::Load(const std::wstring& _Path)

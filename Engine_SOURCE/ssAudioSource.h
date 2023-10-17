@@ -36,5 +36,6 @@ namespace ss
 		void SetLoop(bool loop);
 		// 0 ~ 1
 		void SetVolume(float _Volume);
+		void PlaybackSpeed(float _speed); // 0.5~2까지만. 피치는 유지하면서 재생속도만 증가
 	};
 }

@@ -29,7 +29,7 @@ namespace ss
 		static void Set3DListenerAttributes(const Vector3* pos, const Vector3* vel, const Vector3* forward, const Vector3* up);
 		static void Release();
 
-	private:
+	public:
 		static FMOD::Studio::System* mSystem;
 		static FMOD::System* mCoreSystem;
 	};

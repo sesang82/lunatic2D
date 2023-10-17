@@ -59,4 +59,9 @@ namespace ss
 		mAudioClip->SetVolume(_Volume);
 	}
 
+	void AudioSource::PlaybackSpeed(float _speed)
+	{
+		mAudioClip->SetPlaybackSpeed(_speed);
+	}
+
 }
