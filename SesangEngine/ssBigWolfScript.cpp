@@ -41,6 +41,7 @@ namespace ss
 		, miAppearCount(0)
 		, mbHowling(false)
 		, mPotal(nullptr)
+		, mCamera(nullptr)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -99,7 +100,7 @@ namespace ss
 		mAnimator->Create(L"Boss_Wolf_IdleL", Image1, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
 		//mAnimator->Create(L"Boss_Wolf_SpawnR", Image2, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_SpawnL", Image2, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_SpawnL", Image2, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 12, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.087f, true);
 
 		mAnimator->Create(L"Boss_Wolf_BreathAttackStartR", Image18, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f));
 		mAnimator->Create(L"Boss_Wolf_BreathAttackStartL", Image18, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 9, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
@@ -412,7 +413,7 @@ namespace ss
 		if (mPrevWolfBossState == eWolfBossState::STOM_END && m_fTime > 1.f
 			|| mPrevWolfBossState == eWolfBossState::HOWLING_END && m_fTime > 1.f)
 		{
-			renderer::mainCamera->SetTargetSize(2.3f);
+
 
 			if (randomValue == 0)
 			{
@@ -485,6 +486,7 @@ namespace ss
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
+	
 
 			ChangeState(eWolfBossState::DASH);
 			mPrevWolfBossState = eWolfBossState::APPEAR;
@@ -657,6 +659,7 @@ namespace ss
 
 	void BigWolfScript::Dash()
 	{
+	
 
 		if (mDir.x > 0 && !mbDash)
 		{
@@ -676,10 +679,22 @@ namespace ss
 
 		Vector3 BossPos = mTransform->GetPosition();
 
+
+		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
+		{
+			CameraScript* camera = mCamera->GetOwner()->GetComponent<CameraScript>();
+
+			camera->SetTarget(this->GetOwner());
+		}
+
 		// ||·Î ¹­¾îµµ Àß È£ÃâµÊ 
-		if (mAnimator->GetCurActiveAnimation()->GetIndex() == 7
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 7
 			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 		{
+			CameraScript* camera = mCamera->GetOwner()->GetComponent<CameraScript>();
+
+			camera->SetTarget(mPlayer);
+
 			float fSpeed = 2800.f; 
 
 			if (mDir.x > 0 && BossPos.x > -310) // ¿À¸¥ÂÊ ³¡¿¡ µµ´ÞÇÏ¸é ¸ØÃã
@@ -947,8 +962,6 @@ namespace ss
 
 		if (m_fTime > 3.5f)
 		{
-			renderer::mainCamera->SetSize(1.6f);
-
 			//mHitGround->SetState(GameObject::eState::Dead);
 			ChangeState(eWolfBossState::STOM_END);
 			mPrevWolfBossState = eWolfBossState::STOMING;
@@ -964,9 +977,9 @@ namespace ss
 	}
 	void BigWolfScript::Stom_end()
 	{
-		CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
+		CameraScript* camera = mCamera->GetOwner()->GetComponent<CameraScript>();
 
-		camera->StartShake(0.4f, 0.4f); // 0.3 0.3Á¤µµ°¡ ±¦ÂúÀ½ (Å×½ºÆ®Áß) 
+		camera->StartShake(0.35f, 0.35f); // 0.3 0.3Á¤µµ°¡ ±¦ÂúÀ½ (Å×½ºÆ®Áß) 
 
 
 		if (mDir.x > 0 && !mbStomEnd)
@@ -1004,6 +1017,10 @@ namespace ss
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
+			Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+
+	
+
 			ChangeState(eWolfBossState::IDLE);
 
 			mPrevWolfBossState = eWolfBossState::STOM_END;
@@ -1084,7 +1101,7 @@ namespace ss
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_Spawn_Bgm"));
 		pSFX->Play();
-		pSFX->PlaybackSpeed(0.8f);
+		pSFX->PlaybackSpeed(0.95f);
 		pSFX->SetVolume(0.3f);
 	}
 

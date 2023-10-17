@@ -76,6 +76,7 @@ namespace ss
 
         class Player*           mPlayer;
         class GameObject*       mPotal;
+        class Camera*           mCamera;
 
 
         // ==== ¿Ã∆Â∆Æ
@@ -151,6 +152,8 @@ namespace ss
 
         void stomCount(int count) { miStomCount = count; }
         int stomCount() { return miStomCount; }
+
+        void SetMainCam(Camera* obj) { mCamera = obj; }
 
     };
 

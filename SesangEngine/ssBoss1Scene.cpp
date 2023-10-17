@@ -444,8 +444,10 @@ namespace ss
 		
 			script->SetCamera(camera); // trigger 스크립트에서 메인 카메라 갖다 쓰기 위해 갖고 옴 
 			
+			mBoss1->GetComponent<BigWolfScript>()->SetMainCam(mCamera);
 
 		}
+
 
 		//UI Camera
 		{
