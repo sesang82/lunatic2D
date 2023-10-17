@@ -657,8 +657,8 @@ namespace ss
 				if (randomValue == 0)
 				{
 
-					mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
 
+					mAnimator->PlayAnimation(L"Boss_Goddness_Stomp", false);
 
 
 					mStompState = GetRandomStompState();
@@ -945,12 +945,13 @@ namespace ss
 		{
 		case eStatueState::MOVING_DOWN:
 			TargetPosY = HitGroundPosY + 136.f;
-			mRigidbody->AddForce(Vector2(0.f, 150.f));
+			mRigidbody->AddForce(Vector2(0.f, 200.f));
+			mMainCamera->GetComponent<CameraScript>()->StartShake(0.2f, 0.2f);
 			break;
 
 		case eStatueState::MOVING_UP:
 			TargetPosY = HitGroundPosY + 250.f;
-			mRigidbody->AddForce(Vector2(0.f, -150.f));
+			mRigidbody->AddForce(Vector2(0.f, -200.f));
 			break;
 		}
 
@@ -978,6 +979,9 @@ namespace ss
 				{
 					mStatueState = eStatueState::MOVING_UP;
 
+					
+
+				
 
 
 					if (miStompCount == 3)
@@ -1408,7 +1412,7 @@ namespace ss
 
 				}
 
-				if (m_fTime > 14.0)
+				if (m_fTime > 8.0)
 				{
 					ChangeState(eBoss2_Phase2::SHIELDBEAM_START);
 
@@ -2328,7 +2332,7 @@ namespace ss
 
 		m_fTime += Time::DeltaTime();
 
-		if (m_fTime > 3.f)
+		if (m_fTime > 2.f)
 		{
 		
 			mAnimator->PlayAnimation(L"Boss2_Goddness_ShiledBeam_Ing", true);
@@ -2395,7 +2399,7 @@ namespace ss
 
 		if (m_fTime > 3.0)
 		{
-			mAnimator->PlayAnimation(L"Boss2_Goddness_IdleR", false);
+			mAnimator->PlayAnimation(L"Boss2_Goddness_IdleL", false);
 
 			Vector3 BossPos = mTransform->GetPosition();
 			Vector3 TargetPos = Vector3(2, -45, 500);
