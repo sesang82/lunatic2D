@@ -31,6 +31,11 @@
 #include "ssBigEnergyball.h"
 #include "ssSmallEnergyball.h"
 #include "ssSwordBulletScript.h"
+#include "ssAudioClip.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
+#include "ssAudioListener.h"
+
 
 
 namespace ss
@@ -82,6 +87,9 @@ namespace ss
 		, mPos(Vector3::Zero)
 		, mbBeam(false)
 		, mbBeamFire(false)
+		, mStart(nullptr)
+		, mbStartObj(false)
+		, mStartMusic(false)
 
 
 
@@ -109,7 +117,7 @@ namespace ss
 		GetOwner()->AddComponent<Rigidbody2D>();
 
 		mCharacterState->SetMaxHP(110.f);
-		mCharacterState->SetCurrentHP(10.f);
+		mCharacterState->SetCurrentHP(110.f);
 
 		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
@@ -237,7 +245,7 @@ namespace ss
 		//mCurBoss2_Phase2_State = eBoss2_Phase2::IDLE;
 
 
-		mCurBoss2_Phase1_State = eBoss2_Phase1::IDLE;
+		mCurBoss2_Phase1_State = eBoss2_Phase1::INTRO;
 		mBossType = eBossType::STATUE;
 
 
@@ -252,6 +260,17 @@ namespace ss
 
 		// trigger 완성하면 이거 씌우기 
 		//mMeshRenderer->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+
+
+
+		// ====== 음악 관련
+		mAnimator->StartEvent(L"Boss2_Goddness_Intro") = std::bind(&GoddnessScript::Goddness_Intro_Start, this);
+
+
+		mAnimator->StartEvent(L"Boss_Goddness_Die") = std::bind(&GoddnessScript::Statue_Dead_End, this);
+		mAnimator->EndEvent(L"Boss2_Goddness_Die") = std::bind(&GoddnessScript::Goddness_Dead_End, this);
+
 
 
 
@@ -445,8 +464,30 @@ namespace ss
 
 	void GoddnessScript::Intro()
 	{
+		if (mBossType == eBossType::STATUE)
+		{
+			if (!mbStartObj)
+			{
+				mbStartObj = true;
+				mStart = object::Instantiate<GameObject>(eLayerType::Collision, L"Boss2Start_Platform");
 
-		if (mBossType == eBossType::GODDNESS)
+				// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+				MeshRenderer* mr = mStart->AddComponent<MeshRenderer>();
+				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+				mr->SetMaterial(Resources::Find<Material>(L"DebugMaterial"));
+
+				mStart->GetComponent<Transform>()->SetPosition(Vector3(-250.f, -200.f, 0.9f));
+				mStart->GetComponent<Transform>()->SetScale(86.f, 73.f, 1.f);
+
+				mStart->AddComponent<Collider2D>()->SetSize(Vector2(0.1f, 0.1f));
+			}
+
+
+
+		}
+
+
+		else if (mBossType == eBossType::GODDNESS)
 		{
 
 			//// == 초기값 위치에서 y값만 어느 정도 위로 올린다. 
@@ -584,6 +625,21 @@ namespace ss
 
 		if (mBossType == eBossType::STATUE)
 		{
+			if (!mStartMusic)
+			{
+				mStartMusic = true;
+
+				AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+				pBGM->SetClip(Resources::Find<AudioClip>(L"Boss2_Statue_Bgm"));
+				pBGM->SetLoop(true);
+				pBGM->Play();
+				pBGM->SetVolume(0.3f);
+
+			}
+		
+		}
+
+
 			// 랜덤으로 상태를 변경한다. 
 			int randomValue = rand() % 2; // 0 또는 1을 생성 (랜덤으로) 
 
@@ -638,7 +694,7 @@ namespace ss
 			// 그 다음에 상태를 전환한다. 
 
 
-		}
+		
 
 		else if (mBossType == eBossType::GODDNESS)
 		{
@@ -2373,6 +2429,30 @@ namespace ss
 	{
 		//mAnimator->PlayAnimation(L"Boss2_Goddness_MoveBackR", true);
 
+	}
+
+	void GoddnessScript::Statue_Dead_End()
+	{
+
+		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+		pBGM->GetClip()->Stop();
+
+	}
+
+	void GoddnessScript::Goddness_Intro_Start()
+	{
+		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+
+		pBGM->SetClip(Resources::Find<AudioClip>(L"Boss2_Goddess_Bgm"));
+		pBGM->SetLoop(true);
+		pBGM->Play();
+		pBGM->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::Goddness_Dead_End()
+	{
+		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+		pBGM->GetClip()->Stop();
 	}
 
 

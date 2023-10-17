@@ -25,12 +25,16 @@
 #include "ssGoddnessScript.h"
 #include "ssWallScript.h"
 #include "ssUIFrameScript.h"
+#include "ssAudioClip.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
+#include "ssAudioListener.h"
 
 namespace ss
 {
 
 	Boss2Scene::Boss2Scene()
-		
+
 	{
 	}
 	Boss2Scene::~Boss2Scene()
@@ -157,13 +161,13 @@ namespace ss
 			bg->GetComponent<Transform>()->SetScale(Vector3(698.f, 394.f, 1.0f));
 
 
-	
+
 
 
 		}
-		
+
 		{
-			Background * bg = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Tile");
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"Boss2_Tile");
 			bg->Initialize();
 
 			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
@@ -174,7 +178,7 @@ namespace ss
 
 		}
 
-		
+
 		// 횃불
 
 
@@ -206,7 +210,7 @@ namespace ss
 
 
 
-			
+
 		// ==== 캐릭터
 			//// 보스
 		mBoss1 = object::Instantiate<Monster>(eLayerType::Boss, L"B_GodObj");
@@ -219,7 +223,7 @@ namespace ss
 		GoddnessScript* wolfScript = mBoss1->AddComponent<GoddnessScript>();
 		wolfScript->SetFirstPos(eyetr->GetPosition());
 
-	
+
 
 
 
@@ -250,7 +254,7 @@ namespace ss
 			tr->SetPosition(Vector3(334.f, -38.f, 500.f));
 			tr->SetScale(Vector3(30.f, 389.f, 1.f));
 
-			WallScript* wallscript  = col_Floor->AddComponent<WallScript>();
+			WallScript* wallscript = col_Floor->AddComponent<WallScript>();
 			wallscript->SetPlayer(mPlayer);
 
 
@@ -395,7 +399,7 @@ namespace ss
 
 			stoneHP->Initialize();
 
-		
+
 
 		}
 
@@ -570,7 +574,7 @@ namespace ss
 			camera->AddComponent<CameraScript>();
 
 			mBoss1->GetComponent<MonsterScript>()->SetMainCamera(camera);
-		
+
 			//script->SetCamera(camera); // trigger 스크립트에서 메인 카메라 갖다 쓰기 위해 갖고 옴 
 
 
@@ -611,17 +615,23 @@ namespace ss
 
 	void Boss2Scene::OnEnter()
 	{
+		Scene::OnEnter();
+
 		// 메인 카메라로 설정해준다. 
 		renderer::mainCamera = mCamera;
 
 		CameraScript* camerscript = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 		camerscript->SetTarget(mPlayer);
+
 	}
+
 
 	void Boss2Scene::OnExit()
 	{
+		Scene::OnExit();
+
 	}
-
-
-
 }
+
+
+

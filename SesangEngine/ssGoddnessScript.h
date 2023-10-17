@@ -93,6 +93,8 @@ namespace ss
         bool mbFiring;
         bool mbBeam;
         bool mbBeamFire;
+        bool mbStartObj;
+        bool mStartMusic;
 
 
         int miRandom;
@@ -151,6 +153,9 @@ namespace ss
 
         class Effect* mBeam;
 
+
+        GameObject* mStart;
+
     public:
         // 함수는 각 하나의 역할만 하게 하기 
         void Intro();
@@ -192,6 +197,12 @@ namespace ss
         void Beam_End();
 
 
+
+        // ============= 음악 관련
+        void Statue_Dead_End();
+
+        void Goddness_Intro_Start();
+        void Goddness_Dead_End();
 
 
 

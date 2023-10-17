@@ -30,11 +30,11 @@ namespace ss
 		SceneManager::CreateScene<EntryScene>(L"EntryScene");
 		SceneManager::CreateScene<Stage1Scene>(L"Stage1Scene");
 		SceneManager::CreateScene<Boss1Scene>(L"Boss1Scene");
-		//SceneManager::CreateScene<Boss2Scene>(L"Boss2Scene");
+		SceneManager::CreateScene<Boss2Scene>(L"Boss2Scene");
 		//SceneManager::CreateScene<PlayScene>(L"PlayScene");
 
 
 		// =======Load할 때는 On Enter와 On Exit만 호출됨.
-		SceneManager::LoadScene(L"TitleScene");
+		SceneManager::LoadScene(L"Boss2Scene");
 	}
 }

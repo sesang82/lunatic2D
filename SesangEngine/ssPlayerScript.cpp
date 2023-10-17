@@ -30,6 +30,7 @@
 #include "ssAudioSource.h"
 #include "ssResources.h"
 #include "ssSoundMgrScript.h"
+#include "ssGoddnessScript.h"
 
 
 namespace ss
@@ -415,7 +416,14 @@ namespace ss
 			SceneManager::LoadScene(L"Stage1Scene");
 		}
 	
+		else if (L"Boss2Start_Platform" == other->GetOwner()->GetName())
+		{
+	
+			mMonster->GetComponent<GoddnessScript>()->ChangeState(eBoss2_Phase1::IDLE);
+			other->GetOwner()->SetState(GameObject::eState::Dead);
 
+
+		}
 
 	}
 
@@ -497,6 +505,19 @@ namespace ss
 			}
 
 		}
+
+
+		else if (L"WolfPotal" == other->GetOwner()->GetName())
+		{
+			if (Input::GetKeyDown(eKeyCode::ENTER))
+			{
+				SceneManager::LoadScene(L"Boss2Scene");
+				other->GetOwner()->SetState(GameObject::eState::Dead);
+			}
+
+		}
+		
+
 
 
 	}
@@ -778,10 +799,10 @@ namespace ss
 			{
 				ChangeState(ePlayerState::OVERLOAD_READY);
 		
-				AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-				pBGM->SetClip(Resources::Find<AudioClip>(L"Player_Overload_Bgm"));
-				pBGM->Play();
-				pBGM->SetVolume(0.1f);
+				AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+				pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Overload_Bgm"));
+				pSFX->Play();
+				pSFX->SetVolume(0.1f);
 
 
 				mTurnOverload = true;
@@ -794,10 +815,10 @@ namespace ss
 		// 무기 교체
 		else if (Input::GetKeyDown(eKeyCode::A) && SceneManager::IsOnSword())
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.1f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.1f);
 
 			mWeaponType = eWeaponType::SWORD;
 			SceneManager::SetWeaponInfo(mWeaponType);
@@ -805,10 +826,10 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::S) && SceneManager::IsOnPistol())
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.1f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.1f);
 
 			mWeaponType = eWeaponType::PISTOL;
 			SceneManager::SetWeaponInfo(mWeaponType);
@@ -816,10 +837,11 @@ namespace ss
 
 		else if (Input::GetKeyDown(eKeyCode::D) && SceneManager::IsOnGauntlet())
 		{
-			AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-			pBGM->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
-			pBGM->Play();
-			pBGM->SetVolume(0.1f);
+			AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+			pSFX->SetClip(Resources::Find<AudioClip>(L"Player_WeaponChange_Bgm"));
+			pSFX->Play();
+			pSFX->SetVolume(0.1f);
+
 
 			mWeaponType = eWeaponType::GAUNTLET;
 			SceneManager::SetWeaponInfo(mWeaponType);
@@ -1284,7 +1306,7 @@ namespace ss
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Player_Hit_Bgm"));
 		pSFX->Play();
-		pSFX->SetVolume(0.3f);
+		pSFX->SetVolume(0.1f);
 
 
 		// hit 상태 즉시 제자리에 멈춰있도록 속도 0으로 만듦
@@ -1996,12 +2018,7 @@ namespace ss
 
 							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 4)
 							{
-								AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-								pBGM->GetClip()->Stop();
-
-								pBGM->SetClip(Resources::Find<AudioClip>(L"Gauntlet_Attack1_Bgm"));
-								pBGM->Play();
-								pBGM->SetVolume(0.3f);
+						
 
 								if (mPrevDir.x > 0)
 								{

@@ -487,10 +487,6 @@ namespace ss
 
 		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
 		pBGM->GetClip()->Stop();
-		pBGM->SetClip(Resources::Find<AudioClip>(L"Boss1_Bgm"));
-		pBGM->SetLoop(true);
-		pBGM->Play();
-		pBGM->SetVolume(0.3f);
 
 
 	}

@@ -13,6 +13,10 @@
 #include "ssWoodGolemScript.h"
 #include "ssWolfScript.h"
 #include "ssGoddnessScript.h"
+#include "ssAudioClip.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
 
 
 
@@ -222,13 +226,20 @@ namespace ss
 
 			else if (B_Statue->GetCurrentHP() <= 0.f)
 			{
-				script->ChangeState(eWolfBossState::DEAD);
+				if (script->GetBossType() == eBossType::STATUE)
+				{
+					script->ChangeState(eBoss2_Phase1::DIE);
+				}
+
+				else
+				{
+					script->ChangeState(eBoss2_Phase2::DIE);
+				}
 			}
 
 
 		}
 		
-
 
 
 
@@ -394,6 +405,7 @@ namespace ss
 
 				else if (B_wolf->GetCurrentHP() <= 0.f)
 				{
+
 					script->ChangeState(eWolfBossState::DEAD);
 				}
 
@@ -401,34 +413,6 @@ namespace ss
 			}
 
 
-			else if (L"B_GodObj" == other->GetOwner()->GetName())
-			{
-
-				CharacterState* B_Statue = other->GetOwner()->GetComponent<CharacterState>();
-				GoddnessScript* script = other->GetOwner()->GetComponent<GoddnessScript>();
-
-				if (B_Statue->GetCurrentHP() > 0.f)
-				{
-
-					B_Statue->SetCurrentHP(B_Statue->GetCurrentHP() - 10);
-					script->SetHit(true);
-					//script->BindConstantBuffer();
-
-				}
-
-				else if (B_Statue->GetCurrentHP() <= 0.f)
-				{
-					if (script->GetBossType() == eBossType::STATUE)
-					{
-						script->ChangeState(eBoss2_Phase1::DIE);
-					}
-
-					else
-					{
-						script->ChangeState(eBoss2_Phase2::DIE);
-					}
-				}
-			}
 
 		}
 

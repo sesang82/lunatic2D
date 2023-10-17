@@ -75,6 +75,8 @@ namespace ss
 
 
         class Player*           mPlayer;
+        class GameObject*       mPotal;
+
 
         // ==== ÀÌÆåÆ®
         class Effect* mHitGround;
@@ -110,6 +112,12 @@ namespace ss
         void Dead();
 
         void Animation();
+
+
+        // À½¾Ç °ü·Ã
+        void Spawn_Start();
+        void Wolf_Die_end();
+        
 
 
 

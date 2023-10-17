@@ -10,6 +10,10 @@
 #include "ssobject.h"
 #include "ssPlayer.h"
 #include "ssBackground.h"
+#include "ssAudioClip.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
 
 namespace ss
 {
@@ -107,6 +111,8 @@ namespace ss
 			{
 				Animator* animator = mMonster->GetComponent<Animator>();
 				animator->PlayAnimation(L"Boss_Wolf_SpawnL", false);
+
+			
 			}
 
 			//else if (GetOwner()->GetName() == L"B_GodObj") // 트리거 충돌체 이름으로 쓰기 (가드니스) 

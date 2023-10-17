@@ -18,6 +18,10 @@
 #include "ssRenderer.h"
 #include "ssGameState.h"
 #include "ssEffectScript.h"
+#include "ssAudioClip.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
 
 namespace ss
 {
@@ -35,6 +39,7 @@ namespace ss
 		, miStomCount(0)
 		, miAppearCount(0)
 		, mbHowling(false)
+		, mPotal(nullptr)
 	{
 		m_tMonsterInfo.m_fSpeed = 200.f;
 		m_tMonsterInfo.m_fAttack = 10.f;
@@ -195,6 +200,15 @@ namespace ss
 
 		mAnimator->CompleteEvent(L"Boss_Wolf_BreathAttackingR") = std::bind(&BigWolfScript::Breathing_Event, this);
 		mAnimator->CompleteEvent(L"Boss_Wolf_BreathAttackingL") = std::bind(&BigWolfScript::Breathing_Event, this);
+
+		
+		mAnimator->StartEvent(L"Boss_Wolf_SpawnL") = std::bind(&BigWolfScript::Spawn_Start, this);
+		mAnimator->StartEvent(L"Boss_Wolf_DieR") = std::bind(&BigWolfScript::Wolf_Die_end, this);
+		mAnimator->StartEvent(L"Boss_Wolf_DieL") = std::bind(&BigWolfScript::Wolf_Die_end, this);
+		
+
+
+		
 
 	}
 	void BigWolfScript::Update()
@@ -971,6 +985,8 @@ namespace ss
 	void BigWolfScript::Dead()
 	{
 
+
+
 		if (mCurDir.x > 0)
 		{
 			mAnimator->PlayAnimation(L"Boss_Wolf_DieR", false);
@@ -992,7 +1008,21 @@ namespace ss
 
 			mBossHPFrame->SetState(GameObject::eState::Dead);
 
+			mPotal = object::Instantiate<GameObject>(eLayerType::Collision, L"WolfPotal");
 
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = mPotal->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"PotalMtrl"));
+
+			mPotal->GetComponent<Transform>()->SetPosition(Vector3(0.28f, -280.f, 0.9f));
+			mPotal->GetComponent<Transform>()->SetScale(86.f, 73.f, 1.f);
+
+			mPotal->AddComponent<Collider2D>()->SetSize(Vector2(0.1f, 0.1f));
+
+
+			
+				
 
 		}
 
@@ -1001,6 +1031,24 @@ namespace ss
 	}
 	void BigWolfScript::Animation()
 	{
+	}
+
+	void BigWolfScript::Spawn_Start()
+	{
+		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+		pBGM->SetClip(Resources::Find<AudioClip>(L"Boss1_Bgm"));
+		pBGM->SetLoop(true);
+		pBGM->Play();
+		pBGM->SetVolume(0.3f);
+	}
+
+	void BigWolfScript::Wolf_Die_end()
+	{
+		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
+		pBGM->Stop();
+
+
+
 	}
 
 }

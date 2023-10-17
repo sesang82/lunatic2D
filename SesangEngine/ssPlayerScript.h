@@ -243,7 +243,6 @@ namespace ss
         void GuntletOverload_2();
 
         void PistolAttack_1_2();
-        void PistolAttack_2();
         void PistolAttack_3();
         void PistolSPAttack();
         void PistolOverload();

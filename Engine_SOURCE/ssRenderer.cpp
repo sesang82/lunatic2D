@@ -3932,19 +3932,19 @@ namespace renderer
 			Resources::Insert(L"EntranceMtrl", spriteMateiral);
 		}
 
-		//// 포탈
-		//{
-		//	std::shared_ptr<Texture> texture
-		//		= Resources::Load<Texture>(L"Potal", L"..\\Resources\\Texture\\Library\\potal.png");
+		// 포탈
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Potal", L"..\\Resources\\Texture\\Library\\potal.png");
 
-		//	// == Material 생성(위에서 만든 shader와 texture를 이용)
-		//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-		//	spriteMateiral->SetShader(spriteShader);
-		//	spriteMateiral->SetTexture(texture);
-		//	spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
+			// == Material 생성(위에서 만든 shader와 texture를 이용)
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetRenderingMode(eRenderingMode::CutOut);
 
-		//	Resources::Insert(L"PotalMtrl", spriteMateiral);
-		//}
+			Resources::Insert(L"PotalMtrl", spriteMateiral);
+		}
 #pragma endregion 
 
 
