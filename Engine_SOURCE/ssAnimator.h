@@ -119,6 +119,7 @@ namespace ss
       //  std::function<void()>& FrameEvent(const std::wstring& _name, UINT _idx);
 
         std::function<void()>& RegisterFrameEvent(const std::wstring& animationName, int frameIndex);
+   
 
 
 

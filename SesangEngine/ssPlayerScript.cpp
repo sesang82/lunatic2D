@@ -184,12 +184,20 @@ namespace ss
 		mAnimator->StartEvent(L"Player_S_OverloadingR") = std::bind(&PlayerScript::SwordOverload, this);
 		mAnimator->StartEvent(L"Player_S_OverloadingL") = std::bind(&PlayerScript::SwordOverload, this);
 		
-		//mAnimator->StartEvent(L"Player_P_Attack1,2R") = std::bind(&PlayerScript::PistolAttack_1_2, this);
-		//mAnimator->StartEvent(L"Player_P_Attack1,2L") = std::bind(&PlayerScript::PistolAttack_1_2, this);
-		mAnimator->StartEvent(L"Player_P_Attack3R") = std::bind(&PlayerScript::PistolAttack_3, this);
-		mAnimator->StartEvent(L"Player_P_Attack3L") = std::bind(&PlayerScript::PistolAttack_3, this);
-		mAnimator->StartEvent(L"Player_P_spAttackR") = std::bind(&PlayerScript::PistolSPAttack, this);
-		mAnimator->StartEvent(L"Player_P_spAttackL") = std::bind(&PlayerScript::PistolSPAttack, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_Attack1,2R", 1) = std::bind(&PlayerScript::PistolAttack_1_2, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_Attack1,2L", 1) = std::bind(&PlayerScript::PistolAttack_1_2, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_Attack3R", 3) = std::bind(&PlayerScript::PistolAttack_3, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_Attack3L", 3) = std::bind(&PlayerScript::PistolAttack_3, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_spAttackR", 2) = std::bind(&PlayerScript::PistolSPAttack, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_spAttackL", 2) = std::bind(&PlayerScript::PistolSPAttack, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_spAttackR", 3) = std::bind(&PlayerScript::PistolSPAttack, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_spAttackL", 3) = std::bind(&PlayerScript::PistolSPAttack, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_spAttackR", 10) = std::bind(&PlayerScript::PistolSPAttack, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_spAttackL", 10) = std::bind(&PlayerScript::PistolSPAttack, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_spAttackR", 11) = std::bind(&PlayerScript::PistolSPAttack, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_spAttackL", 11) = std::bind(&PlayerScript::PistolSPAttack, this);
+
+		// 오버로드는 나중에 수정 
 		mAnimator->StartEvent(L"Player_P_OverLoadingR") = std::bind(&PlayerScript::PistolOverload, this);
 		mAnimator->StartEvent(L"Player_P_OverLoadingL") = std::bind(&PlayerScript::PistolOverload, this);
 
@@ -224,8 +232,6 @@ namespace ss
 
 
 
-
-		mAnimator->RegisterFrameEvent(L"Player_P_Attack1,2R", 2) = std::bind(&PlayerScript::test, this);
 
 
 	}
@@ -3342,7 +3348,6 @@ namespace ss
 	void PlayerScript::PistolSPAttack()
 	{
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
-		pSFX->GetClip()->Stop();
 
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Pistol_Attack1_Bgm"));
 		pSFX->Play();
