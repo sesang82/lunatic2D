@@ -59,7 +59,6 @@ namespace ss
 
 		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false);
 
-		mAnimator->StartEvent(L"Energyball_S_Parrying_End") = std::bind(&SmallEnergyball::HitStart, this);
 		mAnimator->EndEvent(L"Energyball_S_Parrying_End") = std::bind(&SmallEnergyball::HitEnd, this);
 
 		AddComponent<SmallEnergyballScript>();
@@ -97,7 +96,7 @@ namespace ss
 				col->SetSize(Vector2(0.8f, 0.8f));
 			}
 
-			float speed = 150.f;
+			float speed = 170.f;
 
 		
 			Transform* tr = GetComponent<Transform>();

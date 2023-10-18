@@ -134,8 +134,8 @@ namespace ss
 		mAnimator->Create(L"Boss_Wolf_HowlingStartR", Image21, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 6, Vector2(272.f, 271.f));
 		mAnimator->Create(L"Boss_Wolf_HowlingStartL", Image21, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 6, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Boss_Wolf_HowlingR", Image22, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2::Zero, 0.09f);
-		mAnimator->Create(L"Boss_Wolf_HowlingL", Image22, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.09f, true);
+		mAnimator->Create(L"Boss_Wolf_HowlingR", Image22, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2::Zero, 0.095f);
+		mAnimator->Create(L"Boss_Wolf_HowlingL", Image22, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.095f, true);
 
 		mAnimator->Create(L"Boss_Wolf_HowlingEndR", Image23, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 11, Vector2(272.f, 271.f));
 		mAnimator->Create(L"Boss_Wolf_HowlingEndL", Image23, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 11, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
@@ -697,8 +697,8 @@ namespace ss
 		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 7
 			|| mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
 		{
+			
 			CameraScript* camera = mCamera->GetOwner()->GetComponent<CameraScript>();
-
 			camera->SetTarget(mPlayer);
 
 			float fSpeed = 2800.f; 
@@ -718,6 +718,7 @@ namespace ss
 
 		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 9)
 		{
+
 			mRigidbody->SetVelocity(Vector2(0, 0));
 
 			if (mDir.x > 0)
@@ -732,9 +733,16 @@ namespace ss
 
 		}
 
-		mTransform->SetPosition(BossPos);
+		
 
 	
+		else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 16)
+		{
+			CameraScript* camera = mCamera->GetOwner()->GetComponent<CameraScript>();
+			camera->StartShake(0.35f, 0.35f); // 0.3 0.3Á¤µµ°¡ ±¦ÂúÀ½ (Å×½ºÆ®Áß) 
+		}
+
+		mTransform->SetPosition(BossPos);
 
 		if (mAnimator->GetCurActiveAnimation()->IsComplete())
 		{
@@ -985,7 +993,7 @@ namespace ss
 	{
 		CameraScript* camera = mCamera->GetOwner()->GetComponent<CameraScript>();
 
-		camera->StartShake(0.35f, 0.35f); // 0.3 0.3Á¤µµ°¡ ±¦ÂúÀ½ (Å×½ºÆ®Áß) 
+		camera->StartShake(0.35f, 0.35f); 
 
 
 		if (mDir.x > 0 && !mbStomEnd)

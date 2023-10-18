@@ -90,6 +90,11 @@ namespace ss
 		, mStart(nullptr)
 		, mbStartObj(false)
 		, mStartMusic(false)
+		, mbTurnEnergyball(false)
+		, mbStompReady_sfx(false)
+		, mbStomp_sfx(false)
+		, mbEnergyball_sfx(false)
+		, miEnergyballCount(0)
 
 
 
@@ -170,7 +175,7 @@ namespace ss
 		mAnimator->Create(L"Boss_Goddness_Stomp", Image2, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 4, Vector2(269.f, 308.f));
 		mAnimator->Create(L"Boss_Goddness_EnergyballStart", Image3, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 11, Vector2(269.f, 308.f));
 		mAnimator->Create(L"Boss_Goddness_EnergyballEnd", Image4, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 5, Vector2(269.f, 308.f));
-		mAnimator->Create(L"Boss_Goddness_Die", Image5, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 16, Vector2(269.f, 308.f));
+		mAnimator->Create(L"Boss_Goddness_Die", Image5, Vector2(0.f, 0.f), Vector2(269.f, 308.f), 16, Vector2(269.f, 308.f), Vector2::Zero);
 
 
 		// ==== 2페이즈 신
@@ -216,13 +221,43 @@ namespace ss
 		mAnimator->EndEvent(L"Boss2_Goddness_ShiledBeam_End") = std::bind(&GoddnessScript::Beam_End, this);
 
 
+		// ====== 음악 관련
+	
 
+
+		mAnimator->StartEvent(L"Boss_Goddness_Die") = std::bind(&GoddnessScript::Statue_Dead_End, this);
+
+		mAnimator->StartEvent(L"Boss2_Goddness_Intro") = std::bind(&GoddnessScript::Goddness_Intro_Start, this);
+		mAnimator->RegisterFrameEvent(L"Boss2_Goddness_Intro", 9) = std::bind(&GoddnessScript::Goddness_spawnGrab_sfx, this);
+
+		mAnimator->StartEvent(L"Boss2_Goddness_ShiledBeam_Ready") = std::bind(&GoddnessScript::ShiledBeam_Ready_sfx, this);
+		mAnimator->StartEvent(L"Boss2_Goddness_ShiledBeam_Ing") = std::bind(&GoddnessScript::shiledbeam_Loop_sfx, this);
+
+		mAnimator->StartEvent(L"Boss2_Goddness_EnergyballStart") = std::bind(&GoddnessScript::Goddness_Energyball_sfx, this);
+
+		mAnimator->StartEvent(L"Boss2_Goddness_Die") = std::bind(&GoddnessScript::Goddness_Die_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Boss2_Goddness_Die", 1) = std::bind(&GoddnessScript::Goddness_DieFall_sfx, this);
+		mAnimator->EndEvent(L"Boss2_Goddness_Die") = std::bind(&GoddnessScript::Goddness_Dead_End, this);
+	
+		mAnimator->StartEvent(L"Boss2_Goddness_ShiledBeam_End") = std::bind(&GoddnessScript::ShiledBeam_End_sfx, this);
+
+		mAnimator->StartEvent(L"Boss2_Goddness_CounterStart") = std::bind(&GoddnessScript::Goddness_Counter_Start_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Boss2_Goddness_CounterStart", 6) = std::bind(&GoddnessScript::Goddness_Counter_sfx, this);
 
 		
 
 
 
-		mAnimator->PlayAnimation(L"Boss_Goddness_Idle", true); // trigger 완성하면 지우기 
+
+
+
+
+
+
+
+
+
+		mAnimator->PlayAnimation(L"Boss_Goddness_Idle", true);
 		// ======
 	// 애니메이션 방향에 관한 기준	을 잡아준다.
 
@@ -262,14 +297,6 @@ namespace ss
 		//mMeshRenderer->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 
 
-
-
-		// ====== 음악 관련
-		mAnimator->StartEvent(L"Boss2_Goddness_Intro") = std::bind(&GoddnessScript::Goddness_Intro_Start, this);
-
-
-		mAnimator->StartEvent(L"Boss_Goddness_Die") = std::bind(&GoddnessScript::Statue_Dead_End, this);
-		mAnimator->EndEvent(L"Boss2_Goddness_Die") = std::bind(&GoddnessScript::Goddness_Dead_End, this);
 
 
 
@@ -654,6 +681,14 @@ namespace ss
 
 			if (m_fTime > 3.0f)
 			{
+				if (miEnergyballCount == 3)
+				{
+					randomValue = 0; // 아예 0으로 고정해버린다.
+					miEnergyballCount = 0;
+					return;
+				}
+
+
 				if (randomValue == 0)
 				{
 
@@ -675,8 +710,10 @@ namespace ss
 				// 에너지볼 패턴 
 				else if (randomValue == 1)
 				{
-					ChangeState(eBoss2_Phase1::ENERGYBALL_READY);
+				
 
+					ChangeState(eBoss2_Phase1::ENERGYBALL_READY);
+					++miEnergyballCount;
 					m_fTime = 0.0f;
 
 
@@ -855,6 +892,11 @@ namespace ss
 			// hit ground를 띄운다. 
 			// hit ground 쪽으로 이동한다.
 			
+			if (!mbStompReady_sfx)
+			{
+				mbStompReady_sfx = true;
+				Stomp_Ready_sfx();
+			}
 
 			Vector3 PlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 
@@ -901,6 +943,7 @@ namespace ss
 			if (m_fTime > 0.5f) // 1.5보다 줄이면 정확한 위치에 가기 전에 내려앉음 
 			{
 				ChangeState(eBoss2_Phase1::STOMP_ING);
+				mbStompReady_sfx = false;
 				m_fTime = 0.0f;
 				mbStomp = false;
 
@@ -946,7 +989,14 @@ namespace ss
 		case eStatueState::MOVING_DOWN:
 			TargetPosY = HitGroundPosY + 136.f;
 			mRigidbody->AddForce(Vector2(0.f, 200.f));
-			mMainCamera->GetComponent<CameraScript>()->StartShake(0.2f, 0.2f);
+			mMainCamera->GetComponent<CameraScript>()->StartShake(0.2f, 0.2f);		
+
+			if (!mbStomp_sfx)
+			{
+				mbStomp_sfx = true;
+				Stomp_sfx();
+			}
+
 			break;
 
 		case eStatueState::MOVING_UP:
@@ -977,12 +1027,14 @@ namespace ss
 
 				if (mStatueState == eStatueState::MOVING_DOWN)
 				{
+					if (!mbStomp_sfx)
+					{
+						mbStomp_sfx = true;
+						Stomp_sfx();
+					}
+
 					mStatueState = eStatueState::MOVING_UP;
-
-					
-
-				
-
+					mbStomp_sfx = false;
 
 					if (miStompCount == 3)
 						return;
@@ -1000,6 +1052,8 @@ namespace ss
 
 				if (miStompCount == 3)
 				{
+					mbStomp_sfx = false;
+
 					ChangeState(eBoss2_Phase1::STOMP_END);
 
 				}
@@ -1056,6 +1110,7 @@ namespace ss
 
 		m_fTime += Time::DeltaTime();
 
+		mbStomp_sfx = false;
 
 		if (mStompState == eStompState::QUADRUPLE_STOMP)
 		{
@@ -1078,7 +1133,7 @@ namespace ss
 
 			else if (miCompleteStompCount == 3)
 			{
-				if (m_fTime > 2.0f)
+				if (m_fTime > 3.f)
 				{
 
 
@@ -1120,7 +1175,7 @@ namespace ss
 				else if (miCompleteStompCount == 4)
 				{
 
-					if (m_fTime > 2.0f)
+					if (m_fTime > 3.f)
 					{
 
 						ChangeState(eBoss2_Phase1::IDLE);
@@ -1152,6 +1207,12 @@ namespace ss
 		{
 			if (mPrevBoss2_Phase1_State == eBoss2_Phase1::STOMP_END)
 			{
+				if (!mbTurnEnergyball)
+				{
+					mbTurnEnergyball = true;
+					Energyball_sfx();
+				}
+
 				// 석상이 중앙으로 이동한다. 
 				Vector3 StatuePos = mTransform->GetPosition();
 				Vector3 FirstPos = Vector3(0.f, -87.f, 500.f);
@@ -1177,6 +1238,12 @@ namespace ss
 
 			else
 			{
+				if (!mbTurnEnergyball)
+				{
+					mbTurnEnergyball = true;
+					Energyball_sfx();
+				}
+
 				// == 초기값 위치에서 y값만 어느 정도 위로 올린다. 
 				Vector3 StatuePos = mTransform->GetPosition();
 
@@ -1323,6 +1390,8 @@ namespace ss
 
 		if (mBossType == eBossType::STATUE)
 		{
+			mbTurnEnergyball = false;
+
 			Vector3 targetPos = Vector3(0.f, -87.f, 500.f);
 			Vector3 StatuePos = mTransform->GetPosition();
 
@@ -1412,7 +1481,7 @@ namespace ss
 
 				}
 
-				if (m_fTime > 8.0)
+				if (m_fTime > 11.0)
 				{
 					ChangeState(eBoss2_Phase2::SHIELDBEAM_START);
 
@@ -2439,8 +2508,7 @@ namespace ss
 	{
 
 		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
-		pBGM->GetClip()->Stop();
-		
+		pBGM->GetClip()->Stop();		
 
 	}
 
@@ -2452,6 +2520,12 @@ namespace ss
 		pBGM->SetLoop(true);
 		pBGM->Play();
 		pBGM->SetVolume(0.3f);
+
+
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Goddness_Spawn_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
 	}
 
 	void GoddnessScript::Goddness_Dead_End()
@@ -2459,6 +2533,118 @@ namespace ss
 		AudioSource* pBGM = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetBGM();
 		pBGM->GetClip()->Stop();
 	}
+
+	void GoddnessScript::Stomp_Ready_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Statue_StompReady_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::Stomp_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Statue_Stomp_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::Energyball_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Statue_EnergyballReady_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::Statue_Die_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Statue_Die_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::Goddness_spawnGrab_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Goddness_SpawnGrab_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::ShiledBeam_Ready_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Goddness_ShieldBeamReady_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::ShiledBeam_Start_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Goddness_ShiledBeamStart_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::shiledbeam_Loop_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Goddness_ShiledBeamLoop_Bgm"));
+		pSFX->SetLoop(true);
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::ShiledBeam_End_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->GetClip()->Stop();
+	}
+
+	void GoddnessScript::Goddness_Energyball_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Goddness_Energyball_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.8f);
+	}
+
+	void GoddnessScript::Goddness_Die_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Goddness_Die_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::Goddness_DieFall_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Goddness_DieFall_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void GoddnessScript::Goddness_Counter_Start_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Goddness_Counter_Ready_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.8f);
+	}
+
+	void GoddnessScript::Goddness_Counter_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Goddness_Counter_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.8f);
+	}
+
 
 
 

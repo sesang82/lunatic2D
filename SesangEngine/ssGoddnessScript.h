@@ -70,6 +70,7 @@ namespace ss
         Vector3                 mPlayerPos;
         Vector3                 mPos;
 
+        int miEnergyballCount;
         int miStompCount;
         int miCompleteStompCount;
         bool mbStomp;
@@ -95,6 +96,11 @@ namespace ss
         bool mbBeamFire;
         bool mbStartObj;
         bool mStartMusic;
+
+        bool mbTurnEnergyball;
+        bool mbStompReady_sfx;
+        bool mbStomp_sfx;
+        bool mbEnergyball_sfx;
 
 
         int miRandom;
@@ -203,6 +209,23 @@ namespace ss
 
         void Goddness_Intro_Start();
         void Goddness_Dead_End();
+
+        void Stomp_Ready_sfx();
+        void Stomp_sfx();
+        void Energyball_sfx();
+        void Statue_Die_sfx();
+        void Goddness_spawnGrab_sfx();
+        void ShiledBeam_Ready_sfx();
+        void ShiledBeam_Start_sfx();
+        void shiledbeam_Loop_sfx();
+        void ShiledBeam_End_sfx();
+        void Goddness_Energyball_sfx();
+        void Goddness_Die_sfx();
+        void Goddness_DieFall_sfx();
+
+        void Goddness_Counter_Start_sfx();
+        void Goddness_Counter_sfx();
+    
 
 
 

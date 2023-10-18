@@ -4953,6 +4953,9 @@ namespace renderer
 		Resources::Load<AudioClip>(L"Goddness_Die_Bgm", L"..\\Resources\\Sound\\SE_Boss_Goddess_Die.wav");
 		Resources::Load<AudioClip>(L"Goddness_DieFall_Bgm", L"..\\Resources\\Sound\\SE_Boss_Goddess_Die_Fall.wav");
 
+		Resources::Load<AudioClip>(L"Goddness_Counter_Ready_Bgm", L"..\\Resources\\Sound\\SE_Boss_Goddess_Counter_Ready.wav");
+		Resources::Load<AudioClip>(L"Goddness_Counter_Bgm", L"..\\Resources\\Sound\\SE_Boss_Goddess_Counter.wav");
+
 		// 보스2 오브젝트 사운드 
 		Resources::Load<AudioClip>(L"GoddnessObj_BigBall_Spawn_Bgm", L"..\\Resources\\Sound\\SE_Boss_Goddess_Object_BigBall_Spawn.wav");
 		Resources::Load<AudioClip>(L"GoddnessObj_BigBall_Hit_Bgm", L"..\\Resources\\Sound\\SE_Boss_Goddess_Object_BigBall_Hit.wav");

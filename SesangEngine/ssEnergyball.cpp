@@ -74,13 +74,13 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image2 = Resources::Find<ss::graphics::Texture>(L"Boss2_1_Energyball_S_Parrying_AfterSpawn_Effect");
 		std::shared_ptr<ss::graphics::Texture> Image3 = Resources::Find<ss::graphics::Texture>(L"Boss2_1_Energyball_S_Parrying_End_Effect");
 
-		mAnimator->Create(L"Energyball_S_Parrying_Spawn", Image1, Vector2(0.f, 0.f), Vector2(71.f, 64.f), 6, Vector2(71.f, 64.f), Vector2::Zero, 0.08f);
-		mAnimator->Create(L"Energyball_S_Parrying_Energying", Image2, Vector2(0.f, 0.f), Vector2(71.f, 64.f), 6, Vector2(71.f, 64.f), Vector2::Zero, 0.08f);
-		mAnimator->Create(L"Energyball_S_Parrying_End", Image3, Vector2(0.f, 0.f), Vector2(71.f, 64.f), 6, Vector2(71.f, 64.f), Vector2::Zero, 0.08f);
+		mAnimator->Create(L"Energyball_S_Parrying_Spawn", Image1, Vector2(0.f, 0.f), Vector2(71.f, 64.f), 6, Vector2(71.f, 64.f), Vector2::Zero, 0.07f);
+		mAnimator->Create(L"Energyball_S_Parrying_Energying", Image2, Vector2(0.f, 0.f), Vector2(71.f, 64.f), 6, Vector2(71.f, 64.f), Vector2::Zero, 0.07f);
+		mAnimator->Create(L"Energyball_S_Parrying_End", Image3, Vector2(0.f, 0.f), Vector2(71.f, 64.f), 6, Vector2(71.f, 64.f), Vector2::Zero, 0.07f);
 
 
 		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false);
-
+	
 		mAnimator->EndEvent(L"Energyball_S_Parrying_End") = std::bind(&Energyball::HitEnd, this);
 
 		AddComponent<SmallEnergyballScript>();
@@ -131,7 +131,6 @@ namespace ss
 			if (!mStorePlayerPos)
 			{
 				mPlayer = SceneManager::GetPlayer();
-				// 석상이 대각선으로 이동한다.
 				mPlayerPos = mPlayer->GetComponent<Transform>()->GetPosition();
 				mStorePlayerPos = true;
 			
@@ -146,7 +145,7 @@ namespace ss
 			dir.Normalize();  // 방향 벡터를 정규화합니다.
 
 
-			float moveSpeed = 380.0f;  //. 380
+			float moveSpeed = 400.0f;  //. 380
 
 			Vector3 moveAmount = dir * moveSpeed * Time::DeltaTime();  // 프레임당 움직일 양을 계산합니다.
 
@@ -182,6 +181,13 @@ namespace ss
 
 		++miSpawnedBallCount;
 
+
+	}
+
+	void Energyball::HitStart()
+	{
+
+		RemoveComponent<Collider2D>();
 
 	}
 
