@@ -82,7 +82,7 @@ namespace ss
 		std::shared_ptr<ss::graphics::Texture> Image26 = Resources::Find<ss::graphics::Texture>(L"Boss2_beam_End");
 
 		// º¸½º ´Á´ë¿ë
-		anim->Create(L"Boss_Wolf_HowlingEffect", Image1, Vector2(0.f, 0.f), Vector2(583.f, 123.f), 6, Vector2(583.f, 123.f));
+		anim->Create(L"Boss_Wolf_HowlingEffect", Image1, Vector2(0.f, 0.f), Vector2(583.f, 123.f), 6, Vector2(583.f, 123.f), Vector2::Zero, 0.08f);
 
 		anim->Create(L"Boss_Wolf_BreathStartEffectL", Image2, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 4, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);
 		anim->Create(L"Boss_Wolf_BreathEndEffectL", Image3, Vector2(0.f, 0.f), Vector2(663.f, 69.f), 3, Vector2(663.f, 69.f), Vector2::Zero, 0.1f, true);

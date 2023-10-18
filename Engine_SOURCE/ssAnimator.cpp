@@ -75,7 +75,7 @@ namespace ss
 		{
 			Events* events = FindEvents(mActiveAnimation->GetKey());
 
-			if (events)
+			if (events && !mbLoop)
 			{
 				// 애니메이션 완료 이벤트 호출
 				events->completeEvent();
@@ -85,8 +85,11 @@ namespace ss
 			}
 
 			// 만약 애니메이션이 루프 상태라면 Reset
-			if (mbLoop)
+			else if (events && mbLoop)
 			{
+				// mEventCalledFlags 초기화
+				std::fill(events->mEventCalledFlags.begin(), events->mEventCalledFlags.end(), false);
+
 				mActiveAnimation->Reset();
 			}
 		}

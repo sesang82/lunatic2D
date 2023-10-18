@@ -82,6 +82,12 @@ namespace ss
         void Hit_Start();
         void Dead_Start();
 
+        void NearAttack_Ready_sfx();
+        void NearAttack_sfx();
+        void FarAttack_Ready_sfx();
+        void FarAttack_sfx();
+
+
 
     public:
         void SetFirstPos(Vector3 pos) { mFirstPos = pos; }

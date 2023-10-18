@@ -77,6 +77,8 @@ namespace ss
         // ==== 이펙트
         class Effect* mEffectObj;
 
+       
+
 
     public:
         // 함수는 각 하나의 역할만 하게 하기 
@@ -109,6 +111,10 @@ namespace ss
         // 음악 관련
         void Dead_Start();
         void Hit_Start();
+        void Near_Ready_sfx();
+        void Near_sfx();
+        void Far_Ready_sfx();
+        void Far_sfx();
 
 
     public:

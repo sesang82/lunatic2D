@@ -468,6 +468,8 @@ namespace ss
 				mWeaponType = eWeaponType::SWORD;
 				SceneManager::SetWeaponInfo(mWeaponType);
 				mbChange = true;
+
+				other->GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 				
 
 			}
@@ -490,7 +492,7 @@ namespace ss
 				SceneManager::SetWeaponInfo(mWeaponType);
 				mbChange = true; // 이펙트용 생성용으로 쓰기 
 
-
+				other->GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 			}
 
 		}
@@ -509,7 +511,7 @@ namespace ss
 				mWeaponType = eWeaponType::GAUNTLET;
 				SceneManager::SetWeaponInfo(mWeaponType);
 				mbChange = true;
-
+				other->GetOwner()->GetComponent<MeshRenderer>()->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
 
 			}
 

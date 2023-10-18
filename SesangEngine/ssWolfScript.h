@@ -85,6 +85,7 @@ namespace ss
         // À½¾Ç
         void Dead_Start();
         void Hit_Start();
+        void NearAttack_sfx();
 
 
     public:

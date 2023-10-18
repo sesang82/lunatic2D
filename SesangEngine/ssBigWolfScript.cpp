@@ -134,8 +134,8 @@ namespace ss
 		mAnimator->Create(L"Boss_Wolf_HowlingStartR", Image21, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 6, Vector2(272.f, 271.f));
 		mAnimator->Create(L"Boss_Wolf_HowlingStartL", Image21, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 6, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Boss_Wolf_HowlingR", Image22, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f));
-		mAnimator->Create(L"Boss_Wolf_HowlingL", Image22, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Boss_Wolf_HowlingR", Image22, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2::Zero, 0.09f);
+		mAnimator->Create(L"Boss_Wolf_HowlingL", Image22, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 8, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.09f, true);
 
 		mAnimator->Create(L"Boss_Wolf_HowlingEndR", Image23, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 11, Vector2(272.f, 271.f));
 		mAnimator->Create(L"Boss_Wolf_HowlingEndL", Image23, Vector2(0.f, 0.f), Vector2(272.f, 271.f), 11, Vector2(272.f, 271.f), Vector2(6.f, 0.f), 0.1f, true);
@@ -208,7 +208,7 @@ namespace ss
 		mAnimator->CompleteEvent(L"Boss_Wolf_BreathAttackingL") = std::bind(&BigWolfScript::Breathing_Event, this);
 
 		
-		mAnimator->StartEvent(L"Boss_Wolf_SpawnL") = std::bind(&BigWolfScript::Spawn_Start, this);
+		mAnimator->RegisterFrameEvent(L"Boss_Wolf_SpawnL", 1) = std::bind(&BigWolfScript::Spawn_Start, this);
 		mAnimator->StartEvent(L"Boss_Wolf_DieR") = std::bind(&BigWolfScript::Wolf_Die_end, this);
 		mAnimator->StartEvent(L"Boss_Wolf_DieL") = std::bind(&BigWolfScript::Wolf_Die_end, this);
 		
@@ -223,13 +223,12 @@ namespace ss
 		mAnimator->StartEvent(L"Boss_Wolf_StormStartR") = std::bind(&BigWolfScript::Stom_Start_sfx, this);
 		mAnimator->StartEvent(L"Boss_Wolf_StormStartL") = std::bind(&BigWolfScript::Stom_Start_sfx, this);
 
-		mAnimator->StartEvent(L"Boss_Wolf_HowlingStartR") = std::bind(&BigWolfScript::Howling_Start_sfx, this);
-		mAnimator->StartEvent(L"Boss_Wolf_HowlingStartL") = std::bind(&BigWolfScript::Howling_Start_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Boss_Wolf_HowlingStartR", 1) = std::bind(&BigWolfScript::Howling_Start_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Boss_Wolf_HowlingStartL", 1) = std::bind(&BigWolfScript::Howling_Start_sfx, this);
 
 		mAnimator->StartEvent(L"Boss_Wolf_HowlingR") = std::bind(&BigWolfScript::Howling_sfx, this);
 		mAnimator->StartEvent(L"Boss_Wolf_HowlingL") = std::bind(&BigWolfScript::Howling_sfx, this);
 
-		// 특정 프레임에 바인딩하는 기능 필요... (애니메이션 인덱스와 안맞음) 
 		mAnimator->StartEvent(L"Boss_Wolf_StormLandingR") = std::bind(&BigWolfScript::Stom_Landing_sfx, this);
 		mAnimator->StartEvent(L"Boss_Wolf_StormLandingL") = std::bind(&BigWolfScript::Stom_Landing_sfx, this);
 
@@ -239,6 +238,13 @@ namespace ss
 
 		mAnimator->StartEvent(L"Boss_Wolf_BreathAttackingR") = std::bind(&BigWolfScript::Breath_sfx, this);
 		mAnimator->StartEvent(L"Boss_Wolf_BreathAttackingL") = std::bind(&BigWolfScript::Breath_sfx, this);
+
+
+		mAnimator->RegisterFrameEvent(L"Boss_Wolf_DashR", 1) = std::bind(&BigWolfScript::Dash_Ready_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Boss_Wolf_DashL", 1) = std::bind(&BigWolfScript::Dash_Ready_sfx, this);
+
+		mAnimator->RegisterFrameEvent(L"Boss_Wolf_DashR", 8) = std::bind(&BigWolfScript::Dash_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Boss_Wolf_DashL", 8) = std::bind(&BigWolfScript::Dash_sfx, this);
 		
 
 	}
@@ -1188,6 +1194,26 @@ namespace ss
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_Breath"));
 		pSFX->Play();
 		pSFX->SetVolume(0.3f);
+
+	}
+
+	void BigWolfScript::Dash_Ready_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_DashReady_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+
+	}
+
+	void BigWolfScript::Dash_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Boss1_Dash_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
 
 	}
 

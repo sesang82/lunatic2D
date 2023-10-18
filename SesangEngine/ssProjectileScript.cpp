@@ -12,7 +12,7 @@ namespace ss
 {
 	ProjectileScript::ProjectileScript()
 		: mReverse(false)
-		, mSpeed(80.f)
+		, mSpeed(100.f)
 		, mIsGuard(false)
 	{
 	}

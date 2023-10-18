@@ -4894,11 +4894,21 @@ namespace renderer
 
 
 		// 3. Wolf
-		Resources::Load<AudioClip>(L"Wolf_Attack_Bgm", L"..\\Resources\\Sound\\SE_Enemy_Wolf_Attack_0.wav");
+		Resources::Load<AudioClip>(L"Wolf_Attack1_Bgm", L"..\\Resources\\Sound\\SE_Enemy_Wolf_Attack_0.wav");
+
+		Resources::Load<AudioClip>(L"Wolf_Attack2_Ready_Bgm", L"..\\Resources\\Sound\\SE_Enemy_Wolf_Attack_1_Ready.wav");
+		Resources::Load<AudioClip>(L"Wolf_Attack2_Bgm", L"..\\Resources\\Sound\\SE_Enemy_Wolf_Attack_1.wav");
 
 		// 4. ½ºÄÌ·¹Åæ Lizard
 		Resources::Load<AudioClip>(L"Lizard_Attack_Bgm", L"..\\Resources\\Sound\\SE_Enemy_SkeletonLizard_Attack_0.wav");
-		
+
+		// 5. °ñ·½
+		Resources::Load<AudioClip>(L"WoodGolem_Attack1_Ready_Bgm", L"..\\Resources\\Sound\\SE_Enemy_WoodGolem_Attack_0_Ready.wav");
+		Resources::Load<AudioClip>(L"WoodGolem_Attack1_Bgm", L"..\\Resources\\Sound\\SE_Enemy_WoodGolem_Attack_0.wav");
+
+		Resources::Load<AudioClip>(L"WoodGolem_Attack2_Ready_Bgm", L"..\\Resources\\Sound\\SE_Enemy_WoodGolem_Attack_1_Ready.wav");
+		Resources::Load<AudioClip>(L"WoodGolem_Attack2_Bgm", L"..\\Resources\\Sound\\SE_Enemy_WoodGolem_Attack_1.wav");
+
 		
 		// ==== Boss
 		// 1. Å« ´Á´ë

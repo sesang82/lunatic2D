@@ -119,6 +119,17 @@ namespace ss
 		mAnimator->StartEvent(L"Wood_HitR") = std::bind(&WoodGolemScript::Hit_Start, this);
 		mAnimator->StartEvent(L"Wood_HitL") = std::bind(&WoodGolemScript::Hit_Start, this);
 
+		mAnimator->RegisterFrameEvent(L"Wood_NearAttackR", 1) = std::bind(&WoodGolemScript::NearAttack_Ready_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Wood_NearAttackL", 1) = std::bind(&WoodGolemScript::NearAttack_Ready_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Wood_NearAttackR", 8) = std::bind(&WoodGolemScript::NearAttack_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Wood_NearAttackL", 8) = std::bind(&WoodGolemScript::NearAttack_sfx, this);
+
+		mAnimator->RegisterFrameEvent(L"Wood_FarAttackR", 1) = std::bind(&WoodGolemScript::FarAttack_Ready_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Wood_FarAttackL", 1) = std::bind(&WoodGolemScript::FarAttack_Ready_sfx, this);
+
+		mAnimator->RegisterFrameEvent(L"Wood_FarAttackR", 6) = std::bind(&WoodGolemScript::FarAttack_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Wood_FarAttackL", 6) = std::bind(&WoodGolemScript::FarAttack_sfx, this);
+
 	}
 	void WoodGolemScript::Update()
 	{
@@ -583,5 +594,33 @@ namespace ss
 		pSFX->SetVolume(0.3f);
 
 
+	}
+	void WoodGolemScript::NearAttack_Ready_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"WoodGolem_Attack1_Ready_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+	void WoodGolemScript::NearAttack_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"WoodGolem_Attack1_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+	void WoodGolemScript::FarAttack_Ready_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"WoodGolem_Attack2_Ready_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+	void WoodGolemScript::FarAttack_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"WoodGolem_Attack2_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
 	}
 }

@@ -53,23 +53,24 @@ namespace ss
 		// 애니메이션 나중에 플레이어 다 완성되면 
 		//  LT, 1프레임 사를 사이즈, 자를 갯수, 오프셋(y값은 -값이 클수록 올라감), 재생시간, 뒤집기
 
+
 		// === 
 		// 애니메이션 나중에 플레이어 다 완성되면 
 		//  LT, 1프레임 사를 사이즈, 자를 갯수, 백사이즈, 오프셋(y값은 -값이 클수록 올라감)
-		ani->Create(L"StoneEye_IdleR", Image1, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 7, Vector2(240.f, 123.f), Vector2(0.f, -19.f));
-		ani->Create(L"StoneEye_IdleL", Image1, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 7, Vector2(240.f, 123.f), Vector2(70.f, -19.f), 0.1f, true);
+		ani->Create(L"StoneEye_IdleR", Image1, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 7, Vector2(240.f, 123.f), Vector2(0.f, -19.f), 0.09f);
+		ani->Create(L"StoneEye_IdleL", Image1, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 7, Vector2(240.f, 123.f), Vector2(70.f, -19.f), 0.09f, true);
 
-		ani->Create(L"StoneEye_HitR", Image2, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 1, Vector2(240.f, 123.f), Vector2(0.f, -20.f), 0.3f);
-		ani->Create(L"StoneEye_HitL", Image2, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 1, Vector2(240.f, 123.f), Vector2(70.f, -20.f), 0.3f, true);
+		ani->Create(L"StoneEye_HitR", Image2, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 1, Vector2(240.f, 123.f), Vector2(0.f, -20.f), 0.1f);
+		ani->Create(L"StoneEye_HitL", Image2, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 1, Vector2(240.f, 123.f), Vector2(70.f, -20.f), 0.1f, true);
 
-		ani->Create(L"StoneEye_StunR", Image3, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 5, Vector2(240.f, 123.f), Vector2(0.f, -19.f));
-		ani->Create(L"StoneEye_StunL", Image3, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 5, Vector2(240.f, 123.f), Vector2(70.f, -19.f), 0.1f, true);
+		ani->Create(L"StoneEye_StunR", Image3, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 5, Vector2(240.f, 123.f), Vector2(0.f, -19.f), 0.3f);
+		ani->Create(L"StoneEye_StunL", Image3, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 5, Vector2(240.f, 123.f), Vector2(70.f, -19.f), 0.3f, true);
 
-		ani->Create(L"StoneEye_DieR", Image4, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 10, Vector2(240.f, 123.f), Vector2(0.f, -19.f));
-		ani->Create(L"StoneEye_DieL", Image4, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 10, Vector2(240.f, 123.f), Vector2(70.f, -19.f), 0.1f, true);
+		ani->Create(L"StoneEye_DieR", Image4, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 10, Vector2(240.f, 123.f), Vector2(0.f, -19.f), 0.08f);
+		ani->Create(L"StoneEye_DieL", Image4, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 10, Vector2(240.f, 123.f), Vector2(70.f, -19.f), 0.08f, true);
 
-		ani->Create(L"StoneEye_NearAttackR", Image5, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 12, Vector2(240.f, 123.f), Vector2(0.f, -18.f), 0.08f);
-		ani->Create(L"StoneEye_NearAttackL", Image5, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 12, Vector2(240.f, 123.f), Vector2(70.f, -18.f), 0.08f, true);
+		ani->Create(L"StoneEye_NearAttackR", Image5, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 12, Vector2(240.f, 123.f), Vector2(0.f, -18.f), 0.07f);
+		ani->Create(L"StoneEye_NearAttackL", Image5, Vector2(0.f, 0.f), Vector2(114.f, 86.f), 12, Vector2(240.f, 123.f), Vector2(70.f, -18.f), 0.07f, true);
 
 		ani->Create(L"StoneEye_Borrow", Image6, Vector2(0.f, 0.f), Vector2(25.f, 10.f), 1, Vector2(25, 10.f), Vector2(0.f, -2.f));
 

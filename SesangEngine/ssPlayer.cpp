@@ -161,8 +161,8 @@ namespace ss
 		anim->Create(L"Player_S_RunL", Image7, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 5,Vector2(900.f, 600.f), Vector2(0.f, -8.f), 0.1f, true);
 
 		// 일반 공격
-		anim->Create(L"Player_S_Attack1R", Image17, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(10.f, -2.f), 0.07f);
-		anim->Create(L"Player_S_Attack1L", Image17, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(0.f, -2.f), 0.07f, true);
+		anim->Create(L"Player_S_Attack1R", Image17, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(10.f, -2.f), 0.06f);
+		anim->Create(L"Player_S_Attack1L", Image17, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(0.f, -2.f), 0.06f, true);
 
 		anim->Create(L"Player_S_Attack2R", Image20, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(10.f, -2.f), 0.07f);
 		anim->Create(L"Player_S_Attack2L", Image20, Vector2(0.f, 0.f), Vector2(107.f, 46.f), 5, Vector2(900.f, 600.f), Vector2(0.f, -2.f), 0.07f, true);
@@ -297,8 +297,8 @@ namespace ss
 		anim->Create(L"Player_G_Attack1R", Image43, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(900.f, 600.f), Vector2(10.f, -8.f), 0.05f);
 		anim->Create(L"Player_G_Attack1L", Image43, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 8, Vector2(900.f, 600.f), Vector2(0.f, -8.f), 0.05f, true);
 
-		anim->Create(L"Player_G_Attack2R", Image44, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(900.f, 600.f), Vector2(10.f, -8.f), 0.05f);
-		anim->Create(L"Player_G_Attack2L", Image44, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(900.f, 600.f), Vector2(0.f, -8.f), 0.05f, true);
+		anim->Create(L"Player_G_Attack2R", Image44, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(900.f, 600.f), Vector2(10.f, -8.f), 0.03f);
+		anim->Create(L"Player_G_Attack2L", Image44, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 4, Vector2(900.f, 600.f), Vector2(0.f, -8.f), 0.03f, true);
 
 		anim->Create(L"Player_G_Attack3R", Image45, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 7, Vector2(900.f, 600.f), Vector2(10.f, -8.f), 0.05f);
 		anim->Create(L"Player_G_Attack3L", Image45, Vector2(0.f, 0.f), Vector2(105.f, 57.f), 7, Vector2(900.f, 600.f), Vector2(0.f, -8.f), 0.05f, true);

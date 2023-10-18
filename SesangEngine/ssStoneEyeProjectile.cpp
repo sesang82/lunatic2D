@@ -48,17 +48,17 @@ namespace ss
 		mTime += Time::DeltaTime();
 		Transform* tr = GetComponent<Transform>();
 
-		// 몬스터의 첫 위치로부터 거리를 재서 -이하면 삭제
-		float distance = (mFirstPos - tr->GetPosition()).Length();
+		//// 몬스터의 첫 위치로부터 거리를 재서 -이하면 삭제
+		//float distance = (mFirstPos - tr->GetPosition()).Length();
 
-		if (distance <= 15.0f)
-					SetState(eState::Dead);	
+		//if (distance <= 15.0f)
+		//			SetState(eState::Dead);	
 
 
 
-		// 시간이 지나면 삭제 
-		//if(mTime >= 1.6f)
-		//	SetState(eState::Dead);
+		//시간이 지나면 삭제 
+		if(mTime >= 1.5f)
+			SetState(eState::Dead);
 
 
 		Bullet::Update();

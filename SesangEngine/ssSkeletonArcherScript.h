@@ -96,6 +96,10 @@ namespace ss
         // À½¾Ç °ü·Ã
         void Dead_Start();
         void Hit_Start();
+        void Near_sfx();
+        void Far_Ready_sfx();
+        void Far_sfx();
+
 
 
     public:

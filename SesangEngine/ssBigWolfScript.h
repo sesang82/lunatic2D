@@ -128,6 +128,9 @@ namespace ss
 
         void Breath_Start_sfx();
         void Breath_sfx();
+
+        void Dash_Ready_sfx();
+        void Dash_sfx();
         
 
 

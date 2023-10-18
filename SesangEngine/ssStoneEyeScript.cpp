@@ -145,7 +145,6 @@ namespace ss
 
 
 		mAnimator->CompleteEvent(L"StoneEye_NearAttackR") = std::bind(&StoneEyeScript::NearAttackEnd, this);
-
 		mAnimator->CompleteEvent(L"StoneEye_NearAttackL") = std::bind(&StoneEyeScript::NearAttackEnd, this);
 
 		mAnimator->StartEvent(L"StoneEye_DieR") = std::bind(&StoneEyeScript::Dead_Start, this);
@@ -153,6 +152,17 @@ namespace ss
 
 		mAnimator->StartEvent(L"StoneEye_HitR") = std::bind(&StoneEyeScript::Hit_Start, this);
 		mAnimator->StartEvent(L"StoneEye_HitL") = std::bind(&StoneEyeScript::Hit_Start, this);
+
+		mAnimator->RegisterFrameEvent(L"StoneEye_NearAttackR", 1) = std::bind(&StoneEyeScript::Near_Ready_sfx, this);
+		mAnimator->RegisterFrameEvent(L"StoneEye_NearAttackL", 1) = std::bind(&StoneEyeScript::Near_Ready_sfx, this);
+		mAnimator->RegisterFrameEvent(L"StoneEye_NearAttackR", 8) = std::bind(&StoneEyeScript::Near_sfx, this);
+		mAnimator->RegisterFrameEvent(L"StoneEye_NearAttackL", 8) = std::bind(&StoneEyeScript::Near_sfx, this);
+
+
+		mAnimator->RegisterFrameEvent(L"StoneEye_FarAttackR", 2) = std::bind(&StoneEyeScript::Far_Ready_sfx, this);
+		mAnimator->RegisterFrameEvent(L"StoneEye_FarAttackL", 2) = std::bind(&StoneEyeScript::Far_Ready_sfx, this);
+		mAnimator->RegisterFrameEvent(L"StoneEye_FarAttackR", 8) = std::bind(&StoneEyeScript::Far_sfx, this);
+		mAnimator->RegisterFrameEvent(L"StoneEye_FarAttackL", 8) = std::bind(&StoneEyeScript::Far_sfx, this);
 
 	}
 
@@ -938,6 +948,46 @@ namespace ss
 		pSFX->Play();
 		pSFX->SetVolume(0.3f);
 
+	}
+
+	void StoneEyeScript::Near_Ready_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Stoneeye_NearAttackReady_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.2f);
+	}
+
+	void StoneEyeScript::Near_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Stoneeye_NearAttack_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void StoneEyeScript::Far_Ready_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Stoneeye_FarAttackReady_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void StoneEyeScript::Far_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Stoneeye_FarAttack_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
 	}
 
 }

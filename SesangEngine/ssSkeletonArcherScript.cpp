@@ -84,11 +84,11 @@ namespace ss
 		mAnimator->Create(L"Archer_HitR", Image3, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 1, Vector2(73.f, 61.f));
 		mAnimator->Create(L"Archer_HitL", Image3, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 1, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.1f, true);
 
-		mAnimator->Create(L"Archer_NearAttackR", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f));
-		mAnimator->Create(L"Archer_NearAttackL", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Archer_NearAttackR", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2::Zero, 0.06f);
+		mAnimator->Create(L"Archer_NearAttackL", Image4, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.06f, true);
 
-		mAnimator->Create(L"Archer_FarAttackR", Image5, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f));
-		mAnimator->Create(L"Archer_FarAttackL", Image5, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.1f, true);
+		mAnimator->Create(L"Archer_FarAttackR", Image5, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2::Zero, 0.08f);
+		mAnimator->Create(L"Archer_FarAttackL", Image5, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 12, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.08f, true);
 
 		mAnimator->Create(L"Archer_StunR", Image6, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 5, Vector2(73.f, 61.f));
 		mAnimator->Create(L"Archer_StunL", Image6, Vector2(0.f, 0.f), Vector2(73.f, 61.f), 5, Vector2(73.f, 61.f), Vector2(10.f, 0.f), 0.1f, true);
@@ -141,7 +141,7 @@ namespace ss
 		mNearCol = mNearRangeColObj->GetComponent<Collider2D>();
 
 
-		mNearCol->SetSize(Vector2(80.f, 20.f));
+		mNearCol->SetSize(Vector2(85.f, 20.f));
 		mNearCol->SetCenter(Vector2(-1.f, 0.2f));
 
 
@@ -166,12 +166,19 @@ namespace ss
 
 		mAnimator->CompleteEvent(L"Archer_NearAttackR") = std::bind(&SkeletonArcherScript::NearAttackEnd, this);
 		mAnimator->CompleteEvent(L"Archer_NearAttackL") = std::bind(&SkeletonArcherScript::NearAttackEnd, this);
+		mAnimator->RegisterFrameEvent(L"Archer_NearAttackR", 9) = std::bind(&SkeletonArcherScript::Near_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Archer_NearAttackL", 9) = std::bind(&SkeletonArcherScript::Near_sfx, this);
 
 		mAnimator->StartEvent(L"Archer_DieR") = std::bind(&SkeletonArcherScript::Dead_Start, this);
 		mAnimator->StartEvent(L"Archer_DieL") = std::bind(&SkeletonArcherScript::Dead_Start, this);
 
-		mAnimator->StartEvent(L"Archer_DieR") = std::bind(&SkeletonArcherScript::Hit_Start, this);
-		mAnimator->StartEvent(L"Archer_DieL") = std::bind(&SkeletonArcherScript::Hit_Start, this);
+		mAnimator->StartEvent(L"Archer_FarAttackR") = std::bind(&SkeletonArcherScript::Far_Ready_sfx, this);
+		mAnimator->StartEvent(L"Archer_FarAttackL") = std::bind(&SkeletonArcherScript::Far_Ready_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Archer_FarAttackR", 8) = std::bind(&SkeletonArcherScript::Far_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Archer_FarAttackR", 8) = std::bind(&SkeletonArcherScript::Far_sfx, this);
+
+		
+
 
 
 	}
@@ -620,4 +627,34 @@ namespace ss
 		pSFX->SetVolume(0.3f);
 
 	}
+	void SkeletonArcherScript::Near_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Archer_NearAttack_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+
+	}
+	void SkeletonArcherScript::Far_Ready_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Archer_FarAttackReady_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+	}
+	void SkeletonArcherScript::Far_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Archer_FarAttackFire_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+
+	}
+
 }
