@@ -55,76 +55,76 @@ namespace ss
 		//// ====== 배경
 		//// 둥근 달
 
-		//Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Moon");
-		//bg->Initialize();
+		Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Moon");
+		bg->Initialize();
 
-		//MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-		//mr->SetMaterial(Resources::Find<Material>(L"Moon2Mtrl"));
+		MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+		mr->SetMaterial(Resources::Find<Material>(L"Moon2Mtrl"));
 
-		//bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 50.f, 850.f));
-		//bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 900.f, 1.0f));
+		bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, 50.f, 850.f));
+		bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 900.f, 1.0f));
 
-		//ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
-		//parallox->SetPlayer(mPlayer);
-		//parallox->SetSpeed(Vector2(0.18f, 0.18f));
+		ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+		parallox->SetPlayer(mPlayer);
+		parallox->SetSpeed(Vector2(0.18f, 0.18f));
 
-		//parallox->SetMinX(-31.0f);
-		//parallox->SetMaxX(33.0f);
+		parallox->SetMinX(-31.0f);
+		parallox->SetMaxX(33.0f);
 
-		//parallox->SetMinY(-30.0f);
-		//parallox->SetMaxY(170.0f);
-
-
-		//// 나무1
-
-		//{
-		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree1");
-		//	bg->Initialize();
+		parallox->SetMinY(-30.0f);
+		parallox->SetMaxY(170.0f);
 
 
-		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
+		// 나무1
 
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -150.0f, 800.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
-
-		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
-		//	parallox->SetPlayer(mPlayer);
-		//	parallox->SetSpeed(Vector2(0.3f, 0.3f));
-
-		//	parallox->SetMinX(-48.0f);
-		//	parallox->SetMaxX(48.0f);
-
-		//	parallox->SetMinY(-150.0f);
-		//	parallox->SetMaxY(150.0f);
-
-		//}
-
-		//// 나무 2 
-		//{
-		//	Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree2");
-		//	bg->Initialize();
-
-		//	MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
-		//	mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
-
-		//	bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -250.f, 750.f));
-		//	bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree1");
+			bg->Initialize();
 
 
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Tree1Mtrl"));
 
-		//	ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
-		//	parallox->SetPlayer(mPlayer);
-		//	parallox->SetSpeed(Vector2(0.4f, 0.4f));
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -150.0f, 800.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
 
-		//	parallox->SetMinX(-30.0f);
-		//	parallox->SetMaxX(30.0f);
+			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+			parallox->SetPlayer(mPlayer);
+			parallox->SetSpeed(Vector2(0.3f, 0.3f));
 
-		//	parallox->SetMinY(-150.0f);
-		//	parallox->SetMaxY(90.0f);
+			parallox->SetMinX(-48.0f);
+			parallox->SetMaxX(48.0f);
+
+			parallox->SetMinY(-150.0f);
+			parallox->SetMaxY(150.0f);
+
+		}
+
+		// 나무 2 
+		{
+			Background* bg = object::Instantiate<Background>(eLayerType::BG, L"BG_Tree2");
+			bg->Initialize();
+
+			MeshRenderer* mr = bg->GetComponent<MeshRenderer>();
+			mr->SetMaterial(Resources::Find<Material>(L"Tree2Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -250.f, 750.f));
+			bg->GetComponent<Transform>()->SetScale(Vector3(1024.f, 618.f, 1.0f));
 
 
-		//}
+
+			ParalloxScript* parallox = bg->AddComponent<ParalloxScript>();
+			parallox->SetPlayer(mPlayer);
+			parallox->SetSpeed(Vector2(0.4f, 0.4f));
+
+			parallox->SetMinX(-30.0f);
+			parallox->SetMaxX(30.0f);
+
+			parallox->SetMinY(-150.0f);
+			parallox->SetMaxY(90.0f);
+
+
+		}
 
 
 
@@ -209,28 +209,28 @@ namespace ss
 
 
 		{
-			//// 해골 Lizard (근접 공격만 하는 애)
-			//Monster* Liazrd = object::Instantiate<Monster>(eLayerType::Monster, L"Lizard");
-			//Liazrd->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
-			//Transform* eyetr = Liazrd->GetComponent<Transform>();
-			//eyetr->SetPosition(Vector3(-50.f, 185.f, 500.f));
+			// 해골 Lizard (근접 공격만 하는 애)
+			Monster* Liazrd = object::Instantiate<Monster>(eLayerType::Monster, L"Lizard");
+			Liazrd->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+			Transform* eyetr = Liazrd->GetComponent<Transform>();
+			eyetr->SetPosition(Vector3(-50.f, 185.f, 500.f));
 		
 
 
-			//SkeletonLizardScript* ArcherScript = Liazrd->AddComponent<SkeletonLizardScript>();
-			//ArcherScript->SetFirstPos(eyetr->GetPosition());
+			SkeletonLizardScript* ArcherScript = Liazrd->AddComponent<SkeletonLizardScript>();
+			ArcherScript->SetFirstPos(eyetr->GetPosition());
 
 
-			//// ===== hp틀 그냥 넣지 말기 
-			//// 몬스터 HP (UI로 넣지말기. 그럼 UI카메라에 의해 플레이어 따라다니는 것처럼 움직임) 
-			//Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::Etc, L"LizardHP");
-			//stoneHP->SetParent(Liazrd);
+			// ===== hp틀 그냥 넣지 말기 
+			// 몬스터 HP (UI로 넣지말기. 그럼 UI카메라에 의해 플레이어 따라다니는 것처럼 움직임) 
+			Progressbar* stoneHP = object::Instantiate<Progressbar>(eLayerType::Etc, L"LizardHP");
+			stoneHP->SetParent(Liazrd);
 
 
-			//Transform* stonehptr = stoneHP->GetComponent<Transform>();
-			//stonehptr->SetPosition(Vector3(-15.f, 25.f, 500.f));
+			Transform* stonehptr = stoneHP->GetComponent<Transform>();
+			stonehptr->SetPosition(Vector3(-15.f, 25.f, 500.f));
 
-			//stoneHP->Initialize();
+			stoneHP->Initialize();
 
 		}
 

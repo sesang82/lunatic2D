@@ -58,8 +58,8 @@ namespace ss
 
 		
 
-		mCharacterState->SetMaxHP(110.f);
-		mCharacterState->SetCurrentHP(110.f);
+		mCharacterState->SetMaxHP(2010.f);
+		mCharacterState->SetCurrentHP(2010.f);
 
 		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
@@ -1086,7 +1086,7 @@ namespace ss
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"PotalMtrl"));
 
-			mPotal->GetComponent<Transform>()->SetPosition(Vector3(0.28f, -280.f, 0.9f));
+			mPotal->GetComponent<Transform>()->SetPosition(Vector3(0.35f, -280.f, 0.9f));
 			mPotal->GetComponent<Transform>()->SetScale(86.f, 73.f, 1.f);
 
 			mPotal->AddComponent<Collider2D>()->SetSize(Vector2(0.1f, 0.1f));

@@ -1969,9 +1969,13 @@ namespace ss
 
 					else if (mTurnOverload)
 					{
-						mAttackColliderObj->RemoveComponent<Collider2D>();
 
-						if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
+						if (mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
+						{
+							mAttackColliderObj->RemoveComponent<Collider2D>();
+						}
+
+						else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
 							|| mAnimator->GetCurActiveAnimation()->GetIndex() == 3
 							|| mAnimator->GetCurActiveAnimation()->GetIndex() == 5
 							|| mAnimator->GetCurActiveAnimation()->GetIndex() == 7)
@@ -2000,6 +2004,14 @@ namespace ss
 						}
 
 					
+						else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2
+							|| mAnimator->GetCurActiveAnimation()->GetIndex() == 4
+							|| mAnimator->GetCurActiveAnimation()->GetIndex() == 6
+							|| mAnimator->GetCurActiveAnimation()->GetIndex() == 8)
+						{
+							mAttackColliderObj->RemoveComponent<Collider2D>();
+
+						}
 
 
 						if (mPrevDir.x > 0)
@@ -2174,16 +2186,19 @@ namespace ss
 					}
 
 					// 오버로드 상태라면 
-					else
+					else if (mTurnOverload)
 					{
 						if (mAttackCount == 1)
 						{
-							mAttackColliderObj->RemoveComponent<Collider2D>();
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
+							{
+								mAttackColliderObj->RemoveComponent<Collider2D>();
+							}
 
 							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 							camera->StartShake(0.03f, 0.15f);
 
-							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
+							 if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
 								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 3
 								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 5)
 							{
@@ -2204,6 +2219,14 @@ namespace ss
 								}
 							}
 
+							
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 4
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 6)
+							{
+								mAttackColliderObj->RemoveComponent<Collider2D>();
+							}
+
 
 							if (mPrevDir.x > 0)
 								mAnimator->PlayAnimation(L"Player_G_overload_Attack1R", false);
@@ -2213,12 +2236,18 @@ namespace ss
 
 						else if (mAttackCount == 2)
 						{
-							mAttackColliderObj->RemoveComponent<Collider2D>();
-
+					
 							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
 							camera->StartShake(0.03f, 0.3f);
 
-							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
+
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 0)
+							{
+								mAttackColliderObj->RemoveComponent<Collider2D>();
+							}
+
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
 								
 							{
 
@@ -2259,6 +2288,14 @@ namespace ss
 									mAttackCol->SetSize(Vector2(45.f, 40.f));
 									mAttackCol->SetCenter(Vector2(-15.f, 2.f));
 								}
+
+							}
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 2
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 5)
+
+							{
+								mAttackColliderObj->RemoveComponent<Collider2D>();
 
 							}
 
@@ -2516,7 +2553,6 @@ namespace ss
 					}
 
 
-					// 각 몬스터 스크립트에다가 bool값 이용해가지고 true면 잠시 pause상태로 둔다 이런거 만들어두기 
 					else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 3)
 					{
 						if (mPrevDir.x > 0)
@@ -2951,14 +2987,32 @@ namespace ss
 							mAnimator->SetAgainAttack(false);
 
 							mAnimator->PlayAnimation(L"Player_P_OverLoadingR", false);
+							
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 0
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 3
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 6)
 
-							// 공격용 충돌체 
-							Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+							{
 
-							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-							mAttackCol->SetSize(Vector2(100.f, 100.f));
-							mAttackCol->SetCenter(Vector2(8.f, 2.f));
-							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+								// 공격용 충돌체 
+								Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+								mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+								mAttackCol->SetSize(Vector2(100.f, 100.f));
+								mAttackCol->SetCenter(Vector2(8.f, 2.f));
+								mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+
+							}
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 4
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 7)
+
+							{
+
+								mAttackColliderObj->RemoveComponent<Collider2D>();
+
+							}
 
 
 
@@ -2993,12 +3047,12 @@ namespace ss
 
 
 							// 공격용 충돌체 
-							Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+						/*	Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
 
 							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 							mAttackCol->SetSize(Vector2(100.f, 100.f));
 							mAttackCol->SetCenter(Vector2(8.f, 2.f));
-							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));*/
 
 						}
 
@@ -3017,13 +3071,31 @@ namespace ss
 
 							mAnimator->PlayAnimation(L"Player_P_OverLoadingL", false);
 
-							// 공격용 충돌체 
-							Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 0
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 3
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 6)
 
-							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
-							mAttackCol->SetSize(Vector2(100.f, 100.f));
-							mAttackCol->SetCenter(Vector2(8.f, 2.f));
-							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+							{
+
+								// 공격용 충돌체 
+								Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+
+								mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
+								mAttackCol->SetSize(Vector2(100.f, 100.f));
+								mAttackCol->SetCenter(Vector2(8.f, 2.f));
+								mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+
+							}
+
+							else if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 4
+								|| mAnimator->GetCurActiveAnimation()->GetIndex() == 7)
+
+							{
+
+								mAttackColliderObj->RemoveComponent<Collider2D>();
+
+							}
 
 
 							if (Input::GetKeyDown(eKeyCode::Z))
@@ -3059,12 +3131,12 @@ namespace ss
 
 
 							// 공격용 충돌체 
-							Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
+							/*Vector3 CurPos = Vector3(mTransform->GetPosition().x, mTransform->GetPosition().y, mTransform->GetPosition().z);
 
 							mAttackCol = mAttackColliderObj->AddComponent<Collider2D>();
 							mAttackCol->SetSize(Vector2(100.f, 100.f));
 							mAttackCol->SetCenter(Vector2(8.f, 2.f));
-							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));
+							mAttackColliderObj->GetComponent<Transform>()->SetPosition(Vector3(CurPos));*/
 
 
 						}
