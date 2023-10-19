@@ -26,6 +26,8 @@
 #include "ssAudioSource.h"
 #include "ssSoundMgrScript.h"
 #include "ssAudioListener.h"
+#include "ssUIFrameScript.h"
+#include "ssWallScript.h"
 
 
 
@@ -397,6 +399,22 @@ namespace ss
 
 			stoneHP->Initialize();
 			
+		}
+
+		// 벽 
+		{
+			Platform* col_Floor = object::Instantiate<Platform>(eLayerType::Wall, L"Wall_R_Obj");
+			col_Floor->Initialize(); // 초기화 함수를 알아서 못 불러오므로 수동으로 불러와줘야함
+
+
+			Transform* tr = col_Floor->GetComponent<Transform>();
+			tr->SetPosition(Vector3(465.f, -130.f, 500.f));
+			tr->SetScale(Vector3(30.f, 389.f, 1.f));
+
+			WallScript* wallscript = col_Floor->AddComponent<WallScript>();
+			wallscript->SetPlayer(mPlayer);
+
+
 		}
 
 		// 무기 슬롯1
