@@ -7,6 +7,7 @@
 #include "..\\Engine_SOURCE\\ssMaterial.h"
 #include "..\\Engine_SOURCE\\ssRenderer.h"
 #include "..\\Engine_SOURCE\\ssConstantBuffer.h"
+#include "..\\Engine_SOURCE\\ssInput.h"
 
 namespace gui
 {
@@ -14,6 +15,8 @@ namespace gui
 	std::vector<Widget*> Editor::mWidgets = {};
 	std::vector<EditorObject*> Editor::mEditorObjects = {};
 	std::vector<DebugObject*> Editor::mDebugObjects = {};
+
+	bool Editor::m_bDebugRender = true;
 
 	void Editor::Initialize()
 	{
@@ -55,11 +58,21 @@ namespace gui
 	void Editor::Update()
 	{
 
-
 		for (EditorObject* obj : mEditorObjects)
 		{
 			obj->Update();
 		}
+
+		if (ss::Input::GetKeyDown(ss::eKeyCode::P))
+		{
+
+			if (m_bDebugRender)
+				m_bDebugRender = false;
+
+			else
+				m_bDebugRender = true;
+		}
+
 	}
 	void Editor::LateUpdate()
 	{
@@ -107,6 +120,12 @@ namespace gui
 
 	void Editor::DebugRender(const ss::graphics::DebugMesh& mesh)
 	{
+
+		if (!m_bDebugRender)
+			return;
+
+
+
 		DebugObject* debugObj = mDebugObjects[(UINT)mesh.type];
 
 		// 위치 크기 회전 정보를 받아와서

@@ -49,6 +49,9 @@ namespace ss
 
        void HitStart();
        void HitEnd();
+
+       void Spawn_sfx();
+       void Fire_sfx();
     
        
  

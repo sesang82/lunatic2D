@@ -1287,7 +1287,14 @@ namespace ss
 
 			if (!mbEnergySpawn)
 			{
+				if (!mbTurnEnergyball)
+				{
+					mbTurnEnergyball = true;
+					Goddness_Energyball_sfx();
+				}
 				
+
+
 				mbEnergySpawn = true;
 
 				// ==== 작은 에너지볼
@@ -1316,6 +1323,7 @@ namespace ss
 			if (m_fTime > 3.f)
 			{
 				ChangeState(eBoss2_Phase2::ENERGYBALL_ING);
+				mbTurnEnergyball = false;
 
 				m_fTime = 0.0f;
 			}

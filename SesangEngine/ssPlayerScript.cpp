@@ -181,8 +181,14 @@ namespace ss
 		mAnimator->StartEvent(L"Player_S_spAttackR") = std::bind(&PlayerScript::SwordSPAttack, this);
 		mAnimator->StartEvent(L"Player_S_spAttackL") = std::bind(&PlayerScript::SwordSPAttack, this);
 
-		mAnimator->StartEvent(L"Player_S_OverloadingR") = std::bind(&PlayerScript::SwordOverload, this);
-		mAnimator->StartEvent(L"Player_S_OverloadingL") = std::bind(&PlayerScript::SwordOverload, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_OverloadingR", 1) = std::bind(&PlayerScript::SwordOverload_1_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_OverloadingL", 1) = std::bind(&PlayerScript::SwordOverload_1_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_OverloadingR", 3) = std::bind(&PlayerScript::SwordOverload_1_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_OverloadingL", 3) = std::bind(&PlayerScript::SwordOverload_1_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_OverloadingR", 5) = std::bind(&PlayerScript::SwordOverload_2_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_OverloadingL", 5) = std::bind(&PlayerScript::SwordOverload_2_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_OverloadingR", 7) = std::bind(&PlayerScript::SwordOverload_2_sfx, this);
+		mAnimator->RegisterFrameEvent(L"Player_S_OverloadingL", 7) = std::bind(&PlayerScript::SwordOverload_2_sfx, this);
 		
 		mAnimator->RegisterFrameEvent(L"Player_P_Attack1,2R", 1) = std::bind(&PlayerScript::PistolAttack_1_2, this);
 		mAnimator->RegisterFrameEvent(L"Player_P_Attack1,2L", 1) = std::bind(&PlayerScript::PistolAttack_1_2, this);
@@ -198,8 +204,15 @@ namespace ss
 		mAnimator->RegisterFrameEvent(L"Player_P_spAttackL", 11) = std::bind(&PlayerScript::PistolSPAttack, this);
 
 		// 오버로드는 나중에 수정 
-		mAnimator->StartEvent(L"Player_P_OverLoadingR") = std::bind(&PlayerScript::PistolOverload, this);
-		mAnimator->StartEvent(L"Player_P_OverLoadingL") = std::bind(&PlayerScript::PistolOverload, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_OverLoadingR", 0) = std::bind(&PlayerScript::PistolOverload, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_OverLoadingL", 0) = std::bind(&PlayerScript::PistolOverload, this);
+
+		mAnimator->RegisterFrameEvent(L"Player_P_OverLoadingR", 3) = std::bind(&PlayerScript::PistolOverload, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_OverLoadingL", 3) = std::bind(&PlayerScript::PistolOverload, this);
+
+		mAnimator->RegisterFrameEvent(L"Player_P_OverLoadingR", 6) = std::bind(&PlayerScript::PistolOverload, this);
+		mAnimator->RegisterFrameEvent(L"Player_P_OverLoadingL", 6) = std::bind(&PlayerScript::PistolOverload, this);
+
 
 
 		mAnimator->RegisterFrameEvent(L"Player_G_Attack1R", 1) = std::bind(&PlayerScript::GuntletAttack_1, this);
@@ -213,15 +226,23 @@ namespace ss
 		mAnimator->RegisterFrameEvent(L"Player_G_Attack3R", 2) = std::bind(&PlayerScript::GuntletAttack_3, this);
 		mAnimator->RegisterFrameEvent(L"Player_G_Attack3L", 2) = std::bind(&PlayerScript::GuntletAttack_3, this);
 
-		mAnimator->StartEvent(L"Player_G_spAttackR") = std::bind(&PlayerScript::GuntletSPAttackReady, this);
-		mAnimator->StartEvent(L"Player_G_spAttackL") = std::bind(&PlayerScript::GuntletSPAttackReady, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_spAttackR", 1) = std::bind(&PlayerScript::GuntletSPAttackReady, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_spAttackL", 1) = std::bind(&PlayerScript::GuntletSPAttackReady, this);
 		mAnimator->RegisterFrameEvent(L"Player_G_spAttackR", 4) = std::bind(&PlayerScript::GuntletSPAttack, this);
 		mAnimator->RegisterFrameEvent(L"Player_G_spAttackL", 4) = std::bind(&PlayerScript::GuntletSPAttack, this);
 
-		mAnimator->StartEvent(L"Player_G_overload_Attack1R") = std::bind(&PlayerScript::GuntletOverload_1, this);
-		mAnimator->StartEvent(L"Player_G_overload_Attack1L") = std::bind(&PlayerScript::GuntletOverload_1, this);
-		mAnimator->StartEvent(L"Player_G_overload_Attack2R") = std::bind(&PlayerScript::GuntletOverload_2, this);
-		mAnimator->StartEvent(L"Player_G_overload_Attack2L") = std::bind(&PlayerScript::GuntletOverload_2, this);
+
+		mAnimator->RegisterFrameEvent(L"Player_G_overload_Attack1R", 1) = std::bind(&PlayerScript::GuntletOverload_1, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_overload_Attack1L", 1) = std::bind(&PlayerScript::GuntletOverload_1, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_overload_Attack1R", 3) = std::bind(&PlayerScript::GuntletOverload_1, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_overload_Attack1L", 3) = std::bind(&PlayerScript::GuntletOverload_1, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_overload_Attack1R", 5) = std::bind(&PlayerScript::GuntletOverload_1, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_overload_Attack1L", 5) = std::bind(&PlayerScript::GuntletOverload_1, this);
+
+		mAnimator->RegisterFrameEvent(L"Player_G_overload_Attack2R", 1) = std::bind(&PlayerScript::GuntletOverload_2, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_overload_Attack2L", 1) = std::bind(&PlayerScript::GuntletOverload_2, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_overload_Attack2R", 4) = std::bind(&PlayerScript::GuntletOverload_2, this);
+		mAnimator->RegisterFrameEvent(L"Player_G_overload_Attack2L", 4) = std::bind(&PlayerScript::GuntletOverload_2, this);
 
 		mAnimator->StartEvent(L"Player_S_HitR") = std::bind(&PlayerScript::HitStart, this);
 		mAnimator->StartEvent(L"Player_S_HitL") = std::bind(&PlayerScript::HitStart, this);
@@ -303,7 +324,7 @@ namespace ss
 		mPrevDir = mCurDir;
 
 
-	/*	if (mTurnOverload)
+		if (mTurnOverload)
 		{
 			float DecreseSpeed = 15.f;
 
@@ -326,10 +347,16 @@ namespace ss
 				mTopHorizion->SetState(GameObject::eState::Dead);
 
 			}
-		}*/
+		}
 
 		// 이동->상태변환->애니메이션
 
+
+		// 치트키 
+		if (Input::GetKeyDown(eKeyCode::I))
+		{
+			mState->SetCurOverload(100);
+		}
 
 		Script::Update();
 
@@ -2189,7 +2216,7 @@ namespace ss
 							mAttackColliderObj->RemoveComponent<Collider2D>();
 
 							CameraScript* camera = renderer::mainCamera->GetOwner()->GetComponent<CameraScript>();
-							camera->StartShake(0.01f, 0.15f);
+							camera->StartShake(0.03f, 0.3f);
 
 							if (mAnimator->GetCurActiveAnimation()->GetIndex() == 1)
 								
@@ -3216,8 +3243,18 @@ namespace ss
 
 	}
 
+	void PlayerScript::SwordOverload_2_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Sword_OverloadAttack2_Bgm"));
+		pSFX->Play();
+		pSFX->PlaybackSpeed(1.f);
+
+		pSFX->SetVolume(0.3f);
+	}
+
 	// 특정 프레임에 바인딩하는거 필요 
-	void PlayerScript::SwordOverload()
+	void PlayerScript::SwordOverload_1_sfx()
 	{
 
 		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
@@ -3298,6 +3335,16 @@ namespace ss
 
 
 		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_SPAttack_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.3f);
+	}
+
+	void PlayerScript::GuntletSPAttackEnd()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"Gauntlet_SPAttack2_Bgm"));
 		pSFX->Play();
 		pSFX->SetVolume(0.3f);
 	}

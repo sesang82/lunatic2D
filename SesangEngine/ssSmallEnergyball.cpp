@@ -8,6 +8,10 @@
 #include "ssobject.h"
 #include "ssGoddnessScript.h"
 #include "ssPlayer.h"
+#include "ssAudioClip.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
 
 namespace ss
 {
@@ -60,6 +64,8 @@ namespace ss
 		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false);
 
 		mAnimator->EndEvent(L"Energyball_S_Parrying_End") = std::bind(&SmallEnergyball::HitEnd, this);
+	
+
 
 		AddComponent<SmallEnergyballScript>();
 
@@ -126,6 +132,24 @@ namespace ss
 
 		RemoveComponent<Collider2D>();
 
+	}
+
+
+	void SmallEnergyball::Spawn_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"GoddnessObj_Ball_Spawn_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.1f);
+	}
+
+	void SmallEnergyball::Fire_sfx()
+	{
+
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"GoddnessObj_Ball_SpawnFire_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.2f);
 	}
 
 	void SmallEnergyball::CreateCircleBalls()

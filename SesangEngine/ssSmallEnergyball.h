@@ -42,6 +42,8 @@ namespace ss
         static bool  mbSpawn;
 
         void HitStart();
+        void Spawn_sfx();
+        void Fire_sfx();
 
     public:
         void SetOriginOwenr(GameObject* obj) { mOwner = obj; }

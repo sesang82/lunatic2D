@@ -8,6 +8,10 @@
 #include "ssobject.h"
 #include "ssGoddnessScript.h"
 #include "ssPlayer.h"
+#include "ssAudioClip.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
 
 namespace ss
 {
@@ -82,6 +86,9 @@ namespace ss
 		mAnimator->PlayAnimation(L"Energyball_S_Parrying_Spawn", false);
 	
 		mAnimator->EndEvent(L"Energyball_S_Parrying_End") = std::bind(&Energyball::HitEnd, this);
+		mAnimator->StartEvent(L"Energyball_S_Parrying_End") = std::bind(&Energyball::Spawn_sfx, this);
+		mAnimator->StartEvent(L"Energyball_S_Parrying_Energying") = std::bind(&Energyball::Fire_sfx, this);
+
 
 		AddComponent<SmallEnergyballScript>();
 
@@ -195,6 +202,30 @@ namespace ss
 	{
 
 		SetState(GameObject::eState::Dead);
+
+	}
+
+	void Energyball::Spawn_sfx()
+	{
+
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		if (pSFX->GetClip() == Resources::Find<AudioClip>(L"GoddnessObj_Ball_Spawn_Bgm"))
+			return;
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"GoddnessObj_Ball_Spawn_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.1f);
+	}
+
+	void Energyball::Fire_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		if (pSFX->GetClip() == Resources::Find<AudioClip>(L"GoddnessObj_Ball_SpawnFire_Bgm"))
+			return;
+
+		pSFX->SetClip(Resources::Find<AudioClip>(L"GoddnessObj_Ball_SpawnFire_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.2f);
 
 	}
 

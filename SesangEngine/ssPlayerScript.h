@@ -234,7 +234,8 @@ namespace ss
         void SwordAttack_2();
         void SwordAttack_3();
         void SwordSPAttack();
-        void SwordOverload();
+        void SwordOverload_1_sfx();
+        void SwordOverload_2_sfx();
 
         void GuntletAttack_1();
         void GuntletATtack_1_2();
@@ -243,6 +244,7 @@ namespace ss
         void GuntletAttack_3();
         void GuntletSPAttackReady();
         void GuntletSPAttack();
+        void GuntletSPAttackEnd();
         void GuntletOverload_1();
         void GuntletOverload_2();
 

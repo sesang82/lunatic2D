@@ -399,6 +399,70 @@ namespace ss
 			
 		}
 
+		// 무기 슬롯1
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			bg->SetName(L"Weapon_Slot1");
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(-33.f, -197.f, 90.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(24.f, 24.f, 1.f));
+
+
+			UIFrameScript* uiframe = bg->AddComponent<UIFrameScript>();
+			uiframe->SetPlayer(mPlayer);
+
+
+		}
+
+		// 무기 슬롯2
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			bg->SetName(L"Weapon_Slot2");
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -185.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(24.f, 24.f, 1.f));
+
+
+			UIFrameScript* uiframe = bg->AddComponent<UIFrameScript>();
+			uiframe->SetPlayer(mPlayer);
+		}
+
+		// 무기 슬롯3
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			bg->SetName(L"Weapon_Slot3");
+
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"tempMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(33.f, -197.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(1.5f, 0.3f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(24.f, 24.f, 1.f));
+
+
+			UIFrameScript* uiframe = bg->AddComponent<UIFrameScript>();
+			uiframe->SetPlayer(mPlayer);
+		}
+
+
+
 		//플레이어 HP바
 		{
 			GameObject* bg = new GameObject();
@@ -425,6 +489,88 @@ namespace ss
 			bg->GetComponent<Transform>()->SetPosition(Vector3(103.f, -205.f, 100.f));
 			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
 			bg->GetComponent<Transform>()->SetScale(Vector3(99.f, 8.f, 1.f));
+		}
+
+		//플레이어 오버로드 바
+		{
+			Progressbar* overloadBar = object::Instantiate<Progressbar>(eLayerType::UI, L"overloadBar");
+			overloadBar->SetOwner(mPlayer);
+
+			Transform* tr = overloadBar->GetComponent<Transform>();
+			tr->SetPosition(Vector3(0.f, -218.f, 95.f));
+
+			overloadBar->Initialize();
+
+		}
+
+
+		//플레이어 오버로드 빈 bar 
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Overload_BarMtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -218.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(48.f, 4.f, 1.f));
+		}
+
+
+		// 키보드 자판
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_A_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(-33.f, -218.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
+
+
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_S_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -195.f, 80.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
+
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_D_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(33.f, -218.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
+		}
+
+		{
+			GameObject* bg = new GameObject();
+			AddGameObject(eLayerType::UI, bg);
+			// AddComponent함수 자체가 반환형이 T*이라서 아래처럼 해서 mr에 받는게 가능한 것
+			MeshRenderer* mr = bg->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Keyboard_F_Mtrl"));
+
+			bg->GetComponent<Transform>()->SetPosition(Vector3(0.f, -210.f, 100.f));
+			//bg->GetComponent<Transform>()->SetVecrtexScale(0.49f, 0.1f);
+			bg->GetComponent<Transform>()->SetScale(Vector3(12.f, 12.f, 1.f));
 		}
 
 

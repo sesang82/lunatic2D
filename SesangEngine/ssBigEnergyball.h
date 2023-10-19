@@ -61,6 +61,10 @@ namespace ss
 
 
         void HitEnd();
+
+        // À½¾Ç
+        void Spawn_sfx();
+        void Hit_sfx();
         
 
 

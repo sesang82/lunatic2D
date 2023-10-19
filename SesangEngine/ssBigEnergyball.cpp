@@ -9,7 +9,10 @@
 #include "ssGoddnessScript.h"
 #include "ssPlayer.h"
 #include "ssBigEnergyballScript.h"
-
+#include "ssAudioClip.h"
+#include "ssAudioListener.h"
+#include "ssAudioSource.h"
+#include "ssSoundMgrScript.h"
 
 namespace ss
 {
@@ -56,6 +59,9 @@ namespace ss
 		AddComponent<BigEnergyballScript>();
 
 		mAnimator->EndEvent(L"Energyball_B_NoParrying_End") = std::bind(&BigEnergyball::HitEnd, this);
+		mAnimator->StartEvent(L"Energyball_B_NoParrying_Spawn") = std::bind(&BigEnergyball::Spawn_sfx, this);
+		mAnimator->StartEvent(L"Energyball_B_NoParrying_End") = std::bind(&BigEnergyball::Hit_sfx, this);
+
 
 		Bullet::Initialize();
 	}
@@ -154,6 +160,26 @@ namespace ss
 
 		SetState(GameObject::eState::Dead);
 		SetHit(false);
+
+	}
+
+	void BigEnergyball::Spawn_sfx()
+	{
+
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"GoddnessObj_BigBall_Spawn_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.1f);
+
+
+	}
+
+	void BigEnergyball::Hit_sfx()
+	{
+		AudioSource* pSFX = SceneManager::FindSoundMgr()->GetComponent<SoundMgrScript>()->GetSFX();
+		pSFX->SetClip(Resources::Find<AudioClip>(L"GoddnessObj_BigBall_Hit_Bgm"));
+		pSFX->Play();
+		pSFX->SetVolume(0.1f);
 
 	}
 
