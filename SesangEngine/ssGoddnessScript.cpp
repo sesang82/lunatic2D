@@ -121,8 +121,8 @@ namespace ss
 
 		GetOwner()->AddComponent<Rigidbody2D>();
 
-		mCharacterState->SetMaxHP(110.f);
-		mCharacterState->SetCurrentHP(110.f);
+		mCharacterState->SetMaxHP(2010.f);
+		mCharacterState->SetCurrentHP(2010.f);
 
 		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 
@@ -1424,7 +1424,7 @@ namespace ss
 
 			m_fTime += Time::DeltaTime();
 
-			if (m_fTime > 1.5f)
+			if (m_fTime > 1.8f)
 			{
 				ChangeState(eBoss2_Phase1::IDLE);
 				m_fTime = 0.f;
@@ -1583,8 +1583,8 @@ namespace ss
 					mCollider->SetCenter(Vector2(0.f, 0.f));
 
 
-					mCharacterState->SetMaxHP(110.f);
-					mCharacterState->SetCurrentHP(110.f);
+					mCharacterState->SetMaxHP(510.f);
+					mCharacterState->SetCurrentHP(510.f);
 
 
 

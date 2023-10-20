@@ -58,8 +58,8 @@ namespace ss
 
 		
 
-		mCharacterState->SetMaxHP(2010.f);
-		mCharacterState->SetCurrentHP(2010.f);
+		mCharacterState->SetMaxHP(5010.f);
+		mCharacterState->SetCurrentHP(5010.f);
 
 		mMeshRenderer->SetMaterial(Resources::Find<Material>(L"BossAnimMtrl"));
 

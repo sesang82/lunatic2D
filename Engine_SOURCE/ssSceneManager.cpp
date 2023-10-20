@@ -15,7 +15,7 @@ namespace ss
 
 	Player* SceneManager::mPlayer = nullptr;
 
-	eWeaponType SceneManager::WeaponInfo = eWeaponType::NONE;
+	eWeaponType SceneManager::WeaponInfo = eWeaponType::GAUNTLET;
 
 	bool SceneManager::mbOnSword = false;
 	bool SceneManager::mbOnPistol = false;

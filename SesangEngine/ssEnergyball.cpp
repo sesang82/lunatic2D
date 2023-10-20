@@ -214,7 +214,7 @@ namespace ss
 
 		pSFX->SetClip(Resources::Find<AudioClip>(L"GoddnessObj_Ball_Spawn_Bgm"));
 		pSFX->Play();
-		pSFX->SetVolume(0.1f);
+		pSFX->SetVolume(0.2f);
 	}
 
 	void Energyball::Fire_sfx()
@@ -225,7 +225,7 @@ namespace ss
 
 		pSFX->SetClip(Resources::Find<AudioClip>(L"GoddnessObj_Ball_SpawnFire_Bgm"));
 		pSFX->Play();
-		pSFX->SetVolume(0.2f);
+		pSFX->SetVolume(0.1f);
 
 	}
 
