@@ -517,7 +517,7 @@ namespace renderer
 
 		material = std::make_shared<Material>();
 		material->SetShader(debugShader);
-		material->SetRenderingMode(eRenderingMode::CutOut);
+	//	material->SetRenderingMode(eRenderingMode::CutOut);
 		Resources::Insert(L"DebugMaterial", material);
 
 
